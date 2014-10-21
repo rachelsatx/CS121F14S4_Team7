@@ -34,6 +34,36 @@
             </objects>
             <point key="canvasLocation" x="-327" y="-138"/>
         </scene>
+        <!--Post Day View Controller-->
+        <scene sceneID="5A0-6a-78Z">
+            <objects>
+                <viewController id="sJb-yD-Fti" customClass="PostDayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Drz-15-AuQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Dpa-YK-aRW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rK4-on-yZS">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3a-2S-Dvj">
+                                <rect key="frame" x="361" y="497" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="To PreDay">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Cxe-8A-g9U" kind="modal" identifier="PostDayToPreDay" id="xvB-xc-Q4h"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Odj-qU-Vo2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1584" y="-2226"/>
+        </scene>
         <!--Pre Day View Controller-->
         <scene sceneID="M47-iI-rW1">
             <objects>
@@ -107,6 +137,16 @@
                                     <action selector="displayInventory:" destination="Cxe-8A-g9U" eventType="touchUpInside" id="LAU-86-yVZ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Mt-Ch-9kc">
+                                <rect key="frame" x="352" y="843" width="64" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start Day">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Lyg-IG-X28" kind="modal" identifier="PreDayToMidDay" id="rIl-Zc-MEG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -122,7 +162,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RqE-4i-SqG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="590" y="-138"/>
+            <point key="canvasLocation" x="698" y="-812"/>
+        </scene>
+        <!--Mid Day View Controller-->
+        <scene sceneID="xR3-fP-ax6">
+            <objects>
+                <viewController id="Lyg-IG-X28" customClass="MidDayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TyH-GG-HyQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="uUn-ZG-wXc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gX2-D0-Q2g">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xen-Ap-LCw">
+                                <rect key="frame" x="361" y="497" width="107" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Go To Post Day">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="sJb-yD-Fti" kind="modal" identifier="MidDayToPostDay" id="jL4-b5-AwN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8aS-Iz-Q8K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2384" y="-812"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -130,4 +200,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="xvB-xc-Q4h"/>
+    </inferredMetricsTieBreakers>
 </document>

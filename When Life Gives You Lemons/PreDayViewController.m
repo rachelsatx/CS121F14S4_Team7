@@ -8,6 +8,7 @@
 
 #import "PreDayViewController.h"
 #import "PreDayInventoryView.h"
+#import "MidDayViewController.h"
 
 @interface PreDayViewController (){
     DataStore* _dataStore;
@@ -30,6 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Update the Info View
     [self updatePrice];
     [self updateWeather];
@@ -93,15 +95,17 @@
     [self.view bringSubviewToFront:_inventoryView];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"PreDayToMidDay"])
+    {
+        // Get reference to the destination view controller
+        MidDayViewController* midDayViewController = [segue destinationViewController];
+        
+        // Pass any objects to the view controller here, like...
+        [midDayViewController setDataStore:_dataStore];
+    }
 }
-*/
 
 @end
