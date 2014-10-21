@@ -21,6 +21,7 @@
 		DA6C2BD919F19B8D00AE1EB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BBB19F19B8D00AE1EB7 /* UIKit.framework */; };
 		DA6C2BE119F19B8D00AE1EB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BDF19F19B8D00AE1EB7 /* InfoPlist.strings */; };
 		DA6C2BE319F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */; };
+		FEEF1C1319F612080026C5F3 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEF1C1219F612080026C5F3 /* Model.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		DA6C2BDE19F19B8D00AE1EB7 /* When Life Gives You LemonsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "When Life Gives You LemonsTests-Info.plist"; sourceTree = "<group>"; };
 		DA6C2BE019F19B8D00AE1EB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = When_Life_Gives_You_LemonsTests.m; sourceTree = "<group>"; };
+		FEEF1C1119F612080026C5F3 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		FEEF1C1219F612080026C5F3 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 				DA6C2BC919F19B8D00AE1EB7 /* Main.storyboard */,
 				DA6C2BCC19F19B8D00AE1EB7 /* ViewController.h */,
 				DA6C2BCD19F19B8D00AE1EB7 /* ViewController.m */,
+				FEEF1C1119F612080026C5F3 /* Model.h */,
+				FEEF1C1219F612080026C5F3 /* Model.m */,
 				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
 				DA6C2BBE19F19B8D00AE1EB7 /* Supporting Files */,
 			);
@@ -252,6 +257,7 @@
 				DA6C2BCE19F19B8D00AE1EB7 /* ViewController.m in Sources */,
 				DA6C2BC819F19B8D00AE1EB7 /* AppDelegate.m in Sources */,
 				DA6C2BC419F19B8D00AE1EB7 /* main.m in Sources */,
+				FEEF1C1319F612080026C5F3 /* Model.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +464,7 @@
 				DA6C2BE819F19B8D00AE1EB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DA6C2BE919F19B8D00AE1EB7 /* Build configuration list for PBXNativeTarget "When Life Gives You LemonsTests" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +473,7 @@
 				DA6C2BEB19F19B8D00AE1EB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
