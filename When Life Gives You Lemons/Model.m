@@ -7,6 +7,7 @@
 //
 
 #import "Model.h"
+#import "Customer.h"
 
 @implementation Model
 
