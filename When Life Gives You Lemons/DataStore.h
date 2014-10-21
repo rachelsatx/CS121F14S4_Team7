@@ -11,7 +11,10 @@
 @interface DataStore : NSObject
 
 - (CGFloat) getPrice;
-
 - (void) setPrice:(CGFloat) newPrice;
+
+- (NSString*) getWeather;
+- (void) setWeather:(NSString*) newWeather;
+
 
 @end

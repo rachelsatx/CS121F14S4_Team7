@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		ACBEBFA719F619A300B173C7 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFA619F619A300B173C7 /* DataStore.m */; };
 		ACBEBFB519F61FAD00B173C7 /* PreDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */; };
+		DA0FB60219F63EFB0036D500 /* sun.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0FB60119F63EFB0036D500 /* sun.png */; };
+		DA0FB60519F641B00036D500 /* PreDayInventoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FB60419F641B00036D500 /* PreDayInventoryView.m */; };
 		DA6C2BB819F19B8D00AE1EB7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BB719F19B8D00AE1EB7 /* Foundation.framework */; };
 		DA6C2BBA19F19B8D00AE1EB7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BB919F19B8D00AE1EB7 /* CoreGraphics.framework */; };
 		DA6C2BBC19F19B8D00AE1EB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BBB19F19B8D00AE1EB7 /* UIKit.framework */; };
@@ -40,6 +42,9 @@
 		ACBEBFA619F619A300B173C7 /* DataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStore.m; sourceTree = "<group>"; };
 		ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayViewController.h; sourceTree = "<group>"; };
 		ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayViewController.m; sourceTree = "<group>"; };
+		DA0FB60119F63EFB0036D500 /* sun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sun.png; sourceTree = "<group>"; };
+		DA0FB60319F641B00036D500 /* PreDayInventoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayInventoryView.h; sourceTree = "<group>"; };
+		DA0FB60419F641B00036D500 /* PreDayInventoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayInventoryView.m; sourceTree = "<group>"; };
 		DA6C2BB419F19B8D00AE1EB7 /* When Life Gives You Lemons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "When Life Gives You Lemons.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6C2BB719F19B8D00AE1EB7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA6C2BB919F19B8D00AE1EB7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -125,6 +130,9 @@
 				DA6C2BCD19F19B8D00AE1EB7 /* MenuViewController.m */,
 				ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */,
 				ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */,
+				DA0FB60319F641B00036D500 /* PreDayInventoryView.h */,
+				DA0FB60419F641B00036D500 /* PreDayInventoryView.m */,
+				DA0FB60119F63EFB0036D500 /* sun.png */,
 				ACBEBFA519F619A300B173C7 /* DataStore.h */,
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
 				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
@@ -238,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA0FB60219F63EFB0036D500 /* sun.png in Resources */,
 				DA6C2BD019F19B8D00AE1EB7 /* Images.xcassets in Resources */,
 				DA6C2BC219F19B8D00AE1EB7 /* InfoPlist.strings in Resources */,
 				DA6C2BCB19F19B8D00AE1EB7 /* Main.storyboard in Resources */,
@@ -259,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA0FB60519F641B00036D500 /* PreDayInventoryView.m in Sources */,
 				DA6C2BCE19F19B8D00AE1EB7 /* MenuViewController.m in Sources */,
 				ACBEBFA719F619A300B173C7 /* DataStore.m in Sources */,
 				ACBEBFB519F61FAD00B173C7 /* PreDayViewController.m in Sources */,
