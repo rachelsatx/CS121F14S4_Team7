@@ -10,6 +10,6 @@
 
 @interface Model : NSObject
 
-- (NSDictionary*) simulateDayOnDay:(NSString*)dayOfWeek withWeather:(NSString*)weather forRecipe:(NSDictionary*)recipe andPrice:(NSNumber*)price andPopularity:(NSNumber*)popularity;
+- (NSMutableDictionary*) simulateDayOnDay:(NSString*)dayOfWeek withWeather:(NSString*)weather forRecipe:(NSDictionary*)recipe andPrice:(NSNumber*)price andPopularity:(NSNumber*)popularity;
 
 @end
