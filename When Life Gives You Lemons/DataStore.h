@@ -8,13 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, Weather) {
+    Sunny,
+    Cloudy,
+    Raining
+};
+
 @interface DataStore : NSObject
 
 - (CGFloat) getPrice;
 - (void) setPrice:(CGFloat) newPrice;
 
-- (NSString*) getWeather;
-- (void) setWeather:(NSString*) newWeather;
+- (Weather) getWeather;
+- (void) setWeather:(Weather) newWeather;
 
 
 @end

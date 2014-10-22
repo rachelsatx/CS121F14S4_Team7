@@ -10,7 +10,7 @@
 
 @interface DataStore () {
     CGFloat _price;
-    NSString* _weather;
+    Weather _weather;
 }
 @end
 
@@ -20,7 +20,7 @@
 {
     self = [super init];
     _price = 4.20;
-    _weather = @"sunny";
+    _weather = Sunny;
     
     return self;
 }
@@ -37,11 +37,11 @@
 }
 
 // Weather
-- (NSString*) getWeather
+- (Weather) getWeather
 {
     return _weather;
 }
-- (void) setWeather:(NSString*) newWeather
+- (void) setWeather:(Weather) newWeather
 {
     _weather = newWeather;
 }
