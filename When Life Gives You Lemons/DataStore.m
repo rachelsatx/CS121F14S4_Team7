@@ -11,6 +11,10 @@
 @interface DataStore () {
     CGFloat _price;
     Weather _weather;
+    int _cups;
+    CGFloat _ice;
+    CGFloat _sugar;
+    CGFloat _lemons;
 }
 @end
 
@@ -46,5 +50,48 @@
     _weather = newWeather;
 }
 
+// Cups
+-(CGFloat) getCups
+{
+    return _cups;
+}
+
+-(void) setCups: (CGFloat) newCups
+{
+    _cups = newCups;
+}
+
+// Ice
+-(int) getIce
+{
+    return _ice;
+}
+
+-(void) setIce: (int) newIce
+{
+    _ice = newIce;
+}
+
+// Sugar
+-(CGFloat) getSugar
+{
+    return _sugar;
+}
+
+-(void) setSugar:(CGFloat) newSugar
+{
+    _sugar = newSugar;
+}
+
+// Lemons
+-(CGFloat) getLemons
+{
+    return _lemons;
+}
+
+-(void) setLemons:(CGFloat) newLemons
+{
+    _lemons = newLemons;
+}
 
 @end
