@@ -84,8 +84,8 @@
 
 - (void)updateWeather
 {
-    NSString* weather = [_dataStore getWeather];
-    if ([weather isEqualToString:@"sunny"]) {
+    Weather weather = [_dataStore getWeather];
+    if (weather == Sunny) {
         [self.weatherImage setImage:[UIImage imageNamed:@"sun"]];
     }
 }

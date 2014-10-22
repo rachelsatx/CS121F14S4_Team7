@@ -8,9 +8,11 @@
 
 #import "MidDayViewController.h"
 #import "PostDayViewController.h"
+#import "MidDayView.h"
 
 @interface MidDayViewController () {
     DataStore* _dataStore;
+    MidDayView* _midDayView;
 }
 @end
 
@@ -28,12 +30,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // Create the MidDay View
+    CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
+    _midDayView = [[MidDayView alloc] initWithFrame:frame];
+    [self.view addSubview:_midDayView];
 }
 
 - (void)setDataStore:(DataStore*) dataStore
 {
     _dataStore = dataStore;
+}
+
+- (void)runModel
+{
+    // run the model for the day
 }
 
 - (void)didReceiveMemoryWarning

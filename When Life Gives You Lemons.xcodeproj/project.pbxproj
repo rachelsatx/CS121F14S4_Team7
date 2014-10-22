@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		ACBEBFA719F619A300B173C7 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFA619F619A300B173C7 /* DataStore.m */; };
 		ACBEBFB519F61FAD00B173C7 /* PreDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */; };
-		DA0FB60219F63EFB0036D500 /* sun.png in Resources */ = {isa = PBXBuildFile; fileRef = DA0FB60119F63EFB0036D500 /* sun.png */; };
+		AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCB509719F7457900DFADE9 /* MidDayView.m */; };
 		DA0FB60519F641B00036D500 /* PreDayInventoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FB60419F641B00036D500 /* PreDayInventoryView.m */; };
 		DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FB60719F645EF0036D500 /* MidDayViewController.m */; };
 		DA0FB60B19F646030036D500 /* PostDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FB60A19F646030036D500 /* PostDayViewController.m */; };
@@ -45,7 +45,8 @@
 		ACBEBFA619F619A300B173C7 /* DataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStore.m; sourceTree = "<group>"; };
 		ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayViewController.h; sourceTree = "<group>"; };
 		ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayViewController.m; sourceTree = "<group>"; };
-		DA0FB60119F63EFB0036D500 /* sun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sun.png; sourceTree = "<group>"; };
+		AFCB509619F7457900DFADE9 /* MidDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidDayView.h; sourceTree = "<group>"; };
+		AFCB509719F7457900DFADE9 /* MidDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidDayView.m; sourceTree = "<group>"; };
 		DA0FB60319F641B00036D500 /* PreDayInventoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayInventoryView.h; sourceTree = "<group>"; };
 		DA0FB60419F641B00036D500 /* PreDayInventoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayInventoryView.m; sourceTree = "<group>"; };
 		DA0FB60619F645EF0036D500 /* MidDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidDayViewController.h; sourceTree = "<group>"; };
@@ -147,7 +148,8 @@
 				DAB2821319F7946000441EAA /* PreDayRecipeView.m */,
 				DA0FB60319F641B00036D500 /* PreDayInventoryView.h */,
 				DA0FB60419F641B00036D500 /* PreDayInventoryView.m */,
-				DA0FB60119F63EFB0036D500 /* sun.png */,
+				AFCB509619F7457900DFADE9 /* MidDayView.h */,
+				AFCB509719F7457900DFADE9 /* MidDayView.m */,
 				ACBEBFA519F619A300B173C7 /* DataStore.h */,
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
 				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
@@ -261,7 +263,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA0FB60219F63EFB0036D500 /* sun.png in Resources */,
 				DA6C2BD019F19B8D00AE1EB7 /* Images.xcassets in Resources */,
 				DA6C2BC219F19B8D00AE1EB7 /* InfoPlist.strings in Resources */,
 				DA6C2BCB19F19B8D00AE1EB7 /* Main.storyboard in Resources */,
@@ -290,6 +291,7 @@
 				DA6C2BC819F19B8D00AE1EB7 /* AppDelegate.m in Sources */,
 				DA0FB60B19F646030036D500 /* PostDayViewController.m in Sources */,
 				DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */,
+				AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */,
 				DA6C2BC419F19B8D00AE1EB7 /* main.m in Sources */,
 				DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */,
 			);
