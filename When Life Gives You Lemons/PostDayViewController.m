@@ -8,9 +8,11 @@
 
 #import "PostDayViewController.h"
 #import "PreDayViewController.h"
+#import "PostDayView.h"
 
 @interface PostDayViewController () {
-    DataStore* _dataStore;
+    DataStore *_dataStore;
+    PostDayView *_postDayView;
 }
 @end
 
@@ -28,10 +30,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    // Create the PostDay View
+    CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
+    _postDayView = [[PostDayView alloc] initWithFrame:frame];
+    [self.view addSubview:_postDayView];
 }
 
-- (void)setDataStore:(DataStore*) dataStore
+- (void)setDataStore:(DataStore *) dataStore
 {
     _dataStore = dataStore;
 }

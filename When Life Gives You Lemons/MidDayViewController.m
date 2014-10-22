@@ -11,8 +11,8 @@
 #import "MidDayView.h"
 
 @interface MidDayViewController () {
-    DataStore* _dataStore;
-    MidDayView* _midDayView;
+    DataStore *_dataStore;
+    MidDayView *_midDayView;
 }
 @end
 
@@ -37,7 +37,7 @@
     [self.view addSubview:_midDayView];
 }
 
-- (void)setDataStore:(DataStore*) dataStore
+- (void)setDataStore:(DataStore *) dataStore
 {
     _dataStore = dataStore;
 }
@@ -59,7 +59,7 @@
     if ([[segue identifier] isEqualToString:@"MidDayToPostDay"])
     {
         // Get reference to the destination view controller
-        PostDayViewController* postDayViewController = [segue destinationViewController];
+        PostDayViewController *postDayViewController = [segue destinationViewController];
         
         // Pass any objects to the view controller here, like...
         [postDayViewController setDataStore:_dataStore];

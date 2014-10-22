@@ -35,6 +35,15 @@
         UIImageView *lemonadeStand =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 4, frameHeight / 4, 3 * frameWidth / 4, 3 * frameHeight / 4)];
         lemonadeStand.image=[UIImage imageNamed:@"lemonade-stand.png"];
         [self addSubview:lemonadeStand];
+        
+        CGFloat buttonWidth = 200;
+        CGFloat buttonHeight = 50;
+        CGFloat topBorder = 40;
+        CGFloat rightBorder = 20;
+        UIButton *goToPostDayView = [[UIButton alloc] initWithFrame:CGRectMake(frameWidth - buttonWidth - rightBorder, topBorder, buttonWidth, buttonHeight)];
+        [goToPostDayView setTitle:@"Go to Post-Day" forState:UIControlStateNormal];
+        [goToPostDayView setBackgroundColor:[UIColor blackColor]];
+        [self addSubview:goToPostDayView];
     }
     return self;
 }
