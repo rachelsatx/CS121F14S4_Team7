@@ -23,9 +23,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     _dataStore = [[DataStore alloc] init];
-//    [self prepareForSegue:@"MenuToPreDay" sender:self];
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
-    NSLog(@"MEOWSEGUEMOEW");
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

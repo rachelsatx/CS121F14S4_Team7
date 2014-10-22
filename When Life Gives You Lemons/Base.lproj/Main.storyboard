@@ -32,7 +32,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-327" y="-138"/>
+            <point key="canvasLocation" x="-323" y="-812"/>
         </scene>
         <!--Post Day View Controller-->
         <scene sceneID="5A0-6a-78Z">
@@ -119,6 +119,9 @@
                                 <state key="normal" title="Day Info">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="displayDayInfo:" destination="Cxe-8A-g9U" eventType="touchUpInside" id="Zeu-6O-ICP"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nya-ia-8kp">
                                 <rect key="frame" x="702" y="20" width="56" height="30"/>
@@ -126,6 +129,9 @@
                                 <state key="normal" title="Recipes">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="displayRecipe:" destination="Cxe-8A-g9U" eventType="touchUpInside" id="g4Y-44-8QA"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBM-37-gvs">
                                 <rect key="frame" x="361" y="20" width="64" height="30"/>
@@ -201,6 +207,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xvB-xc-Q4h"/>
+        <segue reference="JiG-Et-sbY"/>
     </inferredMetricsTieBreakers>
 </document>
