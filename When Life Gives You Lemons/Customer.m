@@ -136,7 +136,7 @@
     double willingnessToBuy = drand48();
     
     // If the random number is higher than the buy threshold, the customer will buy the lemonade.
-    return (willingnessToBuy > buyThreshold);
+    return (willingnessToBuy < buyThreshold);
 }
 
 /*  We use the customer type to determine whether they like the recipe.  */

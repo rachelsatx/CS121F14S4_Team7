@@ -62,7 +62,7 @@
             }
         }
     }
-    int newPopularity = [popularity integerValue] + customersWhoBought;
+    int newPopularity = [popularity integerValue] + customersWhoLiked;
     float percentWhoBought = ((float) customersWhoBought) / ((float) totalCustomers);
     float percentWhoLiked;
     if (percentWhoBought == 0) {
