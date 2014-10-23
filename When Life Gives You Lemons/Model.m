@@ -11,20 +11,13 @@
 
 @implementation Model
 
-- (NSMutableDictionary*) simulateDayOnDay:(NSString*)dayOfWeek withWeather:(NSString*)weather forRecipe:(NSDictionary*)recipe andPrice:(NSNumber*)price andPopularity:(NSNumber*)popularity {
+- (DataStore*) simulateDayWithDataStore:(DataStore*)dataStore {
     
-    NSAssert([weather isEqual:@"hot"] ||
-             [weather isEqual:@"cloudy"] ||
-             [weather isEqual:@"cold"], @"Invalid weather type");
-    
-    NSAssert([dayOfWeek isEqual:@"monday"] ||
-             [dayOfWeek isEqual:@"tuesday"] ||
-             [dayOfWeek isEqual:@"wednesday"] ||
-             [dayOfWeek isEqual:@"thursday"] ||
-             [dayOfWeek isEqual:@"friday"] ||
-             [dayOfWeek isEqual:@"saturday"] ||
-             [dayOfWeek isEqual:@"sunday"] , @"Invalid day of week");
-    
+    DayOfWeek dayOfWeek = dataStore.getDayOfWeek();
+    Weather weather = dataStore.getWeather();
+    NSMutableDictionary* recipe = dataStore.getRecipe();
+    NSNumber* price = dataStore.getPrice();
+    NSNumber* popularity = dataStore.getPopularity();
     
     NSMutableArray *customers = [self getCustomersOnDay:dayOfWeek withWeather:weather
                                  andPopularity:popularity];
@@ -88,20 +81,20 @@
     NSMutableArray *customers = [[NSMutableArray alloc] initWithCapacity:totalCustomers];
     
     for (int i = 0; i < totalCustomers; ++i) {
-        Customer *nextCustomer = getOneCustomerForWeather:weather;
+        Customer* nextCustomer = getOneCustomerForWeather:weather;
         [customers addObject:nextCustomer];
     }
     
     return customers;
 }
 
-- (int) customersFromWeather:(NSString*)weather {
+- (int) customersFromWeather:(Weather)weather {
     
-    if ([weather isEqual: @"hot"]) {
+    if (weather == Sunny) {
         return [self randomNumberAtLeast:10 andAtMost:20];
-    } else if ([weather isEqual: @"cloudy"]) {
+    } else if (weather == Cloudy) {
         return [self randomNumberAtLeast:5 andAtMost:10];
-    } else if ([weather isEqual: @"cold"]) {
+    } else if (weather == Raining) {
         return 0;
     } else {
         [NSException raise:@"Invalid weather" format:@"Weather %@ is invalid", weather];
@@ -109,15 +102,15 @@
     }
 }
 
-- (int) customersFromWeekday:(NSString*)dayOfWeek {
+- (int) customersFromWeekday:(DayOfWeek)dayOfWeek {
     
-    if ([dayOfWeek isEqual:@"saturday"] || [dayOfWeek isEqual:@"sunday"]) {
+    if (dayOfWeek == Saturday || dayOfWeek == Sunday) {
         return [self randomNumberAtLeast:15 andAtMost:20];
-    } else if ([dayOfWeek isEqual:@"monday"] ||
-               [dayOfWeek isEqual:@"tuesday"] ||
-               [dayOfWeek isEqual:@"wednesday"] ||
-               [dayOfWeek isEqual:@"thursday"] ||
-               [dayOfWeek isEqual:@"friday"]) {
+    } else if (dayOfWeek == Monday ||
+               dayOfWeek == Tuesday ||
+               dayOfWeek == Wednesday ||
+               dayOfWeek == Thursday ||
+               dayOfWeek == Friday) {
         return [self randomNumberAtLeast:0 andAtMost:5];
     } else {
         [NSException raise:@"Invalid day of week" format:@"day of week %@ is invalid", dayOfWeek];

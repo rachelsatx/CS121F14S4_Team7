@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DataStore.h"
 
 @interface Model : NSObject
 
-- (NSMutableDictionary*) simulateDayOnDay:(NSString*)dayOfWeek withWeather:(NSString*)weather forRecipe:(NSDictionary*)recipe andPrice:(NSNumber*)price andPopularity:(NSNumber*)popularity;
+- (DataStore*) simulateDayWithDataStore:(DataStore*)dataStore;
 
 @end
