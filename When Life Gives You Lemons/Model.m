@@ -99,7 +99,7 @@
         feedbackString = [NSString stringWithFormat:
                           @"%@ You also ran out of ingredients!", feedbackString];
     }
-    [dataStore setPopularity:([NSNumber numberWithFloat:newPopularity])];
+    [dataStore setPopularity:([NSNumber numberWithInt:newPopularity])];
     [dataStore setFeedbackString:(feedbackString)];
     // TODO: return total amount of ingredients used.
     
