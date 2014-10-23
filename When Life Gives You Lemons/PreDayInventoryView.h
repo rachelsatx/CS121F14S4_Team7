@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PreDayInventoryView : UIView
+@protocol PreDayInvenentoryViewDelegate <NSObject>
+@required
+- (NSNumber*) getLemons;
+- (void) setLemons:(NSNumber*) newLemons;
+- (NSNumber*) getSugar;
+- (void) setSugar:(NSNumber*) newSugar;
+- (NSNumber*) getIce;
+- (void) setIce:(NSNumber*) newIce;
+- (NSNumber*) getCups;
+- (void) setCups:(NSNumber*) newCups;
 
+@end
+
+@interface PreDayInventoryView : UIView
+{
+    id <PreDayInvenentoryViewDelegate> _delegate;
+}
+@property (nonatomic,strong) id delegate;
 @end

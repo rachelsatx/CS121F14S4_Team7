@@ -43,6 +43,7 @@
     _inventoryView = [[PreDayInventoryView alloc] initWithFrame:allViewsFrame];
     [_inventoryView setHidden:YES];
     [self.view addSubview:_inventoryView];
+    [_inventoryView setDelegate:self];
     
     // Create the Recipe View
     _recipeView = [[PreDayRecipeView alloc] initWithFrame:allViewsFrame];
@@ -139,6 +140,49 @@
         // Pass any objects to the view controller here, like...
         [midDayViewController setDataStore:_dataStore];
     }
+}
+
+- (NSNumber*) getLemons
+{
+    return [[_dataStore getInventory] valueForKey:@"lemons"];
+}
+
+- (void) setLemons:(NSNumber*) newLemons
+{
+    NSMutableDictionary* inventory = [_dataStore getInventory];
+    [inventory setValue:newLemons forKey:@"lemons"];
+    [_dataStore setInventory:inventory];
+}
+
+- (NSNumber*) getSugar
+{
+    return [[_dataStore getInventory] valueForKey:@"sugar"];
+}
+- (void) setSugar:(NSNumber*) newSugar
+{
+    NSMutableDictionary* inventory = [_dataStore getInventory];
+    [inventory setValue:newSugar forKey:@"sugar"];
+    [_dataStore setInventory:inventory];
+}
+- (NSNumber*) getIce
+{
+    return [[_dataStore getInventory] valueForKey:@"ice"];
+}
+- (void) setIce:(NSNumber*) newIce
+{
+    NSMutableDictionary* inventory = [_dataStore getInventory];
+    [inventory setValue:newIce forKey:@"ice"];
+    [_dataStore setInventory:inventory];
+}
+- (NSNumber*) getCups
+{
+    return [[_dataStore getInventory] valueForKey:@"cups"];
+}
+- (void) setCups:(NSNumber*) newCups
+{
+    NSMutableDictionary* inventory = [_dataStore getInventory];
+    [inventory setValue:newCups forKey:@"cups"];
+    [_dataStore setInventory:inventory];
 }
 
 @end

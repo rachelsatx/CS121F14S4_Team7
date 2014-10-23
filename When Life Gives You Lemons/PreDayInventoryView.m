@@ -12,7 +12,7 @@
     UILabel* _lemonAmountLabel;
     UILabel* _sugarAmountLabel;
     UILabel* _iceAmountLabel;
-    UILabel* _cupAmountLabel;
+    UILabel* _cupsAmountLabel;
 }
 @end
 
@@ -50,7 +50,7 @@
         
         CGRect lemonAmountLabelFrame = CGRectMake(3*width/4, 40, width/4, 40);
         _lemonAmountLabel = [[UILabel alloc] initWithFrame:lemonAmountLabelFrame];
-        [_lemonAmountLabel setText:@"10.00"];
+        [_lemonAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getLemons] floatValue]]];
         [_lemonAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_lemonAmountLabel];
         
@@ -84,7 +84,7 @@
         
         CGRect sugarAmountLabelFrame = CGRectMake(3*width/4, 160, width/4, 40);
         _sugarAmountLabel = [[UILabel alloc] initWithFrame:sugarAmountLabelFrame];
-        [_sugarAmountLabel setText:@"10.00"];
+        [_sugarAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getSugar] floatValue]]];
         [_sugarAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_sugarAmountLabel];
         
@@ -118,7 +118,7 @@
         
         CGRect iceAmountLabelFrame = CGRectMake(3*width/4, 280, width/4, 40);
         _iceAmountLabel = [[UILabel alloc] initWithFrame:iceAmountLabelFrame];
-        [_iceAmountLabel setText:@"10.00"];
+        [_iceAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getIce] floatValue]]];
         [_iceAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_iceAmountLabel];
         
@@ -150,11 +150,11 @@
                      forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cupUpButton];
         
-        CGRect cupAmountLabelFrame = CGRectMake(3*width/4, 400, width/4, 40);
-        _cupAmountLabel = [[UILabel alloc] initWithFrame:cupAmountLabelFrame];
-        [_cupAmountLabel setText:@"10"];
-        [_cupAmountLabel setTextAlignment:NSTextAlignmentCenter];
-        [self addSubview:_cupAmountLabel];
+        CGRect cupsAmountLabelFrame = CGRectMake(3*width/4, 400, width/4, 40);
+        _cupsAmountLabel = [[UILabel alloc] initWithFrame:cupsAmountLabelFrame];
+        [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] intValue]]];
+        [_cupsAmountLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_cupsAmountLabel];
         
         CGRect cupDownButtonFrame = CGRectMake(3*width/4, 440, width/4, 40);
         UIButton* cupDownButton = [[UIButton alloc] initWithFrame:cupDownButtonFrame];
@@ -169,50 +169,63 @@
 
 - (void) incrementLemons:(id)sender
 {
-    CGFloat lemons = [_lemonAmountLabel.text floatValue];
-    [_lemonAmountLabel setText:[NSString stringWithFormat:@"%0.2f", lemons+1]];
+    NSNumber* lemons = [self.delegate getLemons];
+    lemons = [NSNumber numberWithFloat:[lemons floatValue] + 1.0];
+    [self.delegate setLemons:lemons];
+    [_lemonAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
 }
 
 - (void) decrementLemons:(id)sender
 {
-    CGFloat lemons = [_lemonAmountLabel.text floatValue];
-    [_lemonAmountLabel setText:[NSString stringWithFormat:@"%0.2f", lemons-1]];
+    NSNumber* lemons = [self.delegate getLemons];
+    lemons = [NSNumber numberWithFloat:[lemons floatValue] - 1.0];
+    [self.delegate setLemons:lemons];
+    [_lemonAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
 }
 
 - (void) incrementSugar:(id)sender
 {
-    CGFloat sugar = [_sugarAmountLabel.text floatValue];
-    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", sugar+1]];
-}
+    NSNumber* sugar = [self.delegate getSugar];
+    sugar = [NSNumber numberWithFloat:[sugar floatValue] + 1.0];
+    [self.delegate setSugar:sugar];
+    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];}
 
 - (void) decrementSugar:(id)sender
 {
-    CGFloat sugar = [_sugarAmountLabel.text floatValue];
-    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", sugar-1]];
+    NSNumber* sugar = [self.delegate getSugar];
+    sugar = [NSNumber numberWithFloat:[sugar floatValue] - 1.0];
+    [self.delegate setSugar:sugar];
+    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
 }
 
 - (void) incrementIce:(id)sender
 {
-    CGFloat ice = [_iceAmountLabel.text floatValue];
-    [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", ice+1]];
+    NSNumber* ice = [self.delegate getIce];
+    ice = [NSNumber numberWithFloat:[ice floatValue] + 1.0];
+    [self.delegate setIce:ice];
+    [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
 }
 
 - (void) decrementIce:(id)sender
 {
-    CGFloat ice = [_iceAmountLabel.text floatValue];
-    [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", ice-1]];
+    NSNumber* ice = [self.delegate getIce];
+    ice = [NSNumber numberWithFloat:[ice floatValue] - 1.0];
+    [self.delegate setIce:ice];
+    [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
 }
 
 - (void) incrementCups:(id)sender
 {
-    int cups = [_cupAmountLabel.text intValue];
-    [_cupAmountLabel setText:[NSString stringWithFormat:@"%d", cups+1]];
+    NSNumber* cups = [self.delegate getCups];
+    cups = [NSNumber numberWithFloat:[cups intValue] + 1];
+    [self.delegate setCups:cups];
+    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
 }
 
 - (void) decrementCups:(id)sender
 {
-    int cups = [_cupAmountLabel.text intValue];
-    [_cupAmountLabel setText:[NSString stringWithFormat:@"%d", cups-1]];
+    int cups = [_cupsAmountLabel.text intValue];
+    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", cups-1]];
 }
 
 /*
