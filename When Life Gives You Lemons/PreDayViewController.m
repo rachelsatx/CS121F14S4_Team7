@@ -9,10 +9,12 @@
 #import "PreDayViewController.h"
 #import "PreDayInventoryView.h"
 #import "MidDayViewController.h"
+#import "PreDayRecipeView.h"
 
 @interface PreDayViewController (){
     DataStore* _dataStore;
     PreDayInventoryView* _inventoryView;
+    PreDayRecipeView* _recipeView;
 }
 
 @end
@@ -41,6 +43,11 @@
     _inventoryView = [[PreDayInventoryView alloc] initWithFrame:allViewsFrame];
     [_inventoryView setHidden:YES];
     [self.view addSubview:_inventoryView];
+    
+    // Create the Recipe View
+    _recipeView = [[PreDayRecipeView alloc] initWithFrame:allViewsFrame];
+    [_recipeView setHidden:YES];
+    [self.view addSubview:_recipeView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -93,6 +100,32 @@
     transition.delegate = self;
     [self.view.layer addAnimation:transition forKey:nil];
     [self.view bringSubviewToFront:_inventoryView];
+}
+
+- (IBAction)displayRecipe:(id)sender
+{
+    [_recipeView setHidden:NO];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.delegate = self;
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self.view bringSubviewToFront:_recipeView];
+}
+
+- (IBAction)displayDayInfo:(id)sender
+{
+    [_recipeView setHidden:YES];
+    [_inventoryView setHidden:YES];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.delegate = self;
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self.view sendSubviewToBack:_recipeView];
+    [self.view sendSubviewToBack:_inventoryView];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

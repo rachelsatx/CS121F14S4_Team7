@@ -11,6 +11,8 @@
 
 @interface MidDayViewController : UIViewController
 
+@property (nonatomic, weak) IBOutlet UIButton *goToPostDayButton;
+
 - (void) setDataStore:(DataStore*) dataStore;
 
 @end
