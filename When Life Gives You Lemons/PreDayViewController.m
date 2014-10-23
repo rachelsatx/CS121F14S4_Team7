@@ -44,6 +44,7 @@
     [_inventoryView setHidden:YES];
     [self.view addSubview:_inventoryView];
     [_inventoryView setDelegate:self];
+    [_inventoryView updateAmountLabels];
     
     // Create the Recipe View
     _recipeView = [[PreDayRecipeView alloc] initWithFrame:allViewsFrame];

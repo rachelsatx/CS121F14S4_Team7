@@ -9,7 +9,7 @@
 #import "PreDayInventoryView.h"
 
 @interface PreDayInventoryView () {
-    UILabel* _lemonAmountLabel;
+    UILabel* _lemonsAmountLabel;
     UILabel* _sugarAmountLabel;
     UILabel* _iceAmountLabel;
     UILabel* _cupsAmountLabel;
@@ -49,10 +49,10 @@
         [self addSubview:lemonUpButton];
         
         CGRect lemonAmountLabelFrame = CGRectMake(3*width/4, 40, width/4, 40);
-        _lemonAmountLabel = [[UILabel alloc] initWithFrame:lemonAmountLabelFrame];
-        [_lemonAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getLemons] floatValue]]];
-        [_lemonAmountLabel setTextAlignment:NSTextAlignmentCenter];
-        [self addSubview:_lemonAmountLabel];
+        _lemonsAmountLabel = [[UILabel alloc] initWithFrame:lemonAmountLabelFrame];
+        [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getLemons] floatValue]]];
+        [_lemonsAmountLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_lemonsAmountLabel];
         
         CGRect lemonDownButtonFrame = CGRectMake(3*width/4, 80, width/4, 40);
         UIButton* lemonDownButton = [[UIButton alloc] initWithFrame:lemonDownButtonFrame];
@@ -163,8 +163,18 @@
                        action:@selector(decrementCups:)
                        forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cupDownButton];
+        
+        [self updateAmountLabels];
     }
     return self;
+}
+
+- (void) updateAmountLabels
+{
+    [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getLemons] floatValue]]];
+    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getSugar] floatValue]]];
+    [_iceAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getIce] floatValue]]];
+    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] intValue]]];
 }
 
 - (void) incrementLemons:(id)sender
@@ -172,7 +182,7 @@
     NSNumber* lemons = [self.delegate getLemons];
     lemons = [NSNumber numberWithFloat:[lemons floatValue] + 1.0];
     [self.delegate setLemons:lemons];
-    [_lemonAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
+    [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
 }
 
 - (void) decrementLemons:(id)sender
@@ -180,7 +190,7 @@
     NSNumber* lemons = [self.delegate getLemons];
     lemons = [NSNumber numberWithFloat:[lemons floatValue] - 1.0];
     [self.delegate setLemons:lemons];
-    [_lemonAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
+    [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
 }
 
 - (void) incrementSugar:(id)sender
