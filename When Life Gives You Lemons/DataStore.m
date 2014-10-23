@@ -11,6 +11,10 @@
 @interface DataStore () {
     CGFloat _price;
     Weather _weather;
+    DayOfWeek _dayOfWeek;
+    NSString *_feedbackString;
+    NSMutableDictionary *_recipe;
+    NSMutableDictionary *_inventory;
 }
 @end
 
@@ -21,6 +25,8 @@
     self = [super init];
     _price = 4.20;
     _weather = Sunny;
+    _dayOfWeek = Saturday;
+    _feedbackString = @"";
     
     return self;
 }
@@ -45,6 +51,50 @@
 {
     _weather = newWeather;
 }
+
+// Day of week
+- (DayOfWeek) getDayOfWeek
+{
+    return _dayOfWeek;
+}
+- (void) setDayOfWeek:(DayOfWeek) newDayOfWeek
+{
+    _dayOfWeek = newDayOfWeek;
+}
+
+// Feedback string
+-(NSString*) getFeedbackString
+{
+    return _feedbackString;
+}
+
+-(void) setFeedbackString:(NSString*) newFeedbackString
+{
+    _feedbackString = newFeedbackString;
+}
+
+// Recipe
+-(NSMutableDictionary*) getRecipe
+{
+    return _recipe;
+}
+
+-(void) setRecipe:(NSMutableDictionary*) newRecipe
+{
+    _recipe = newRecipe;
+}
+
+// Inventory
+-(NSMutableDictionary*) getInventory
+{
+    return _inventory;
+}
+
+-(void) setInventory:(NSMutableDictionary*) newInventory
+{
+    _inventory = newInventory;
+}
+
 
 
 @end

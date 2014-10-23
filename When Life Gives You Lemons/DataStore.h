@@ -14,6 +14,24 @@ typedef NS_ENUM(NSInteger, Weather) {
     Raining
 };
 
+typedef NS_ENUM(NSInteger, DayOfWeek) {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday
+};
+
+typedef NS_ENUM(NSInteger, Ingredient) {
+    Lemons,
+    Sugar,
+    Ice,
+    Cups,
+    Water
+};
+
 @interface DataStore : NSObject
 
 - (CGFloat) getPrice;
