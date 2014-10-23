@@ -50,6 +50,8 @@
     _recipeView = [[PreDayRecipeView alloc] initWithFrame:allViewsFrame];
     [_recipeView setHidden:YES];
     [self.view addSubview:_recipeView];
+    [_recipeView setDelegate:self];
+    [_recipeView updatePercentageLabels];
 }
 
 - (void)didReceiveMemoryWarning
@@ -184,6 +186,47 @@
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newCups forKey:@"cups"];
     [_dataStore setInventory:inventory];
+}
+
+- (NSNumber*) getLemonsPercentage
+{
+    return [[_dataStore getRecipe] valueForKey:@"lemons"];
+}
+- (void) setLemonsPercentage:(NSNumber*) newLemons
+{
+    NSMutableDictionary* recipe = [_dataStore getRecipe];
+    [recipe setValue:newLemons forKey:@"lemons"];
+    [_dataStore setRecipe:recipe];
+}
+- (NSNumber*) getSugarPercentage
+{
+    return [[_dataStore getRecipe] valueForKey:@"sugar"];
+}
+- (void) setSugarPercentage:(NSNumber*) newSugar
+{
+    NSMutableDictionary* recipe = [_dataStore getRecipe];
+    [recipe setValue:newSugar forKey:@"sugar"];
+    [_dataStore setRecipe:recipe];
+}
+- (NSNumber*) getIcePercentage
+{
+    return [[_dataStore getRecipe] valueForKey:@"ice"];
+}
+- (void) setIcePercentage:(NSNumber*) newIce
+{
+    NSMutableDictionary* recipe = [_dataStore getRecipe];
+    [recipe setValue:newIce forKey:@"ice"];
+    [_dataStore setRecipe:recipe];
+}
+- (NSNumber*) getWaterPercentage
+{
+    return [[_dataStore getRecipe] valueForKey:@"water"];
+}
+- (void) setWaterPercentage:(NSNumber*) newWater
+{
+    NSMutableDictionary* recipe = [_dataStore getRecipe];
+    [recipe setValue:newWater forKey:@"water"];
+    [_dataStore setRecipe:recipe];
 }
 
 @end

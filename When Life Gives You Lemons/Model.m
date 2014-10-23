@@ -30,7 +30,7 @@
     // Calculate the maximum number of cups of lemonade that we can make.
     int maxCustomers = [(NSNumber*) [inventory valueForKey:@"cups"] intValue];
     for (NSString* key in [inventory allKeys]) {
-        if (![key isEqual: @"cups"]) {
+        if (![key isEqual: @"cups"] && [[recipe valueForKey:key] floatValue] > 0.0) {
             int maxCupsWithThisIngredient = (int) ([(NSNumber*) [inventory valueForKey:key] floatValue]/
                                                    [(NSNumber*) [recipe valueForKey:key] floatValue]);
             if (maxCupsWithThisIngredient < maxCustomers) {
@@ -38,6 +38,8 @@
             }
         }
     }
+    
+    NSLog(@"%d cups of lemonade", maxCustomers);
     
     bool ranOut = NO;
     
@@ -187,11 +189,11 @@
     
     // Loop through all other ingredients removing the appropriate amount.
     for (NSString* ingredient in [recipe allKeys]) {
-        if (![ingredient isEqual: @"Water"]) {
+        if (![ingredient isEqual: @"water"]) {
             float amountToRemove = [[recipe valueForKey:ingredient] floatValue];
             float oldAmount = [[inventory valueForKey:ingredient] floatValue];
             
-            NSAssert(oldAmount > amountToRemove, @"Tried to remove more ingredients than existed.");
+            NSAssert(oldAmount > amountToRemove, @"Tried to remove more ingredients than existed:");
             
             [inventory setValue:[NSNumber numberWithFloat:oldAmount - amountToRemove] forKey:ingredient];
         }

@@ -24,14 +24,15 @@
 -(id)init
 {
     self = [super init];
-    _price = [NSNumber numberWithFloat:4.20];
+    _price = [NSNumber numberWithFloat:.50];
     _weather = Sunny;
     _dayOfWeek = Saturday;
     _feedbackString = @"";
-    _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@0.0,      @0.0,     @0.0,   @0.0]
+    _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@10.0,      @10.0,     @10.0,   @40.0]
                                               forKeys:        @[@"lemons", @"sugar", @"ice", @"cups"]];
+    _recipe = [[NSMutableDictionary alloc] initWithObjects:   @[@0.30,     @0.30,    @0.30,  @0.10]
+                                                      forKeys:@[@"lemons", @"sugar", @"ice", @"water"]];
     _popularity = 0;
-    
     
     return self;
 }

@@ -35,7 +35,7 @@
     CGFloat width = CGRectGetWidth(self.view.frame);
     CGFloat height = CGRectGetHeight(self.view.frame);
     CGRect frame = CGRectMake(0, 0, width, height);
-    _postDayView = [[PostDayView alloc] initWithFrame:frame];
+    _postDayView = [[PostDayView alloc] initWithFrame:frame andDataStore:_dataStore];
     [self.view addSubview:_postDayView];
     
     [self.view bringSubviewToFront:_goToPreDayButton];

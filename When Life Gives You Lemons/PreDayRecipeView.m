@@ -9,7 +9,7 @@
 #import "PreDayRecipeView.h"
 
 @interface PreDayRecipeView () {
-    UILabel* _lemonAmountLabel;
+    UILabel* _lemonsAmountLabel;
     UILabel* _sugarAmountLabel;
     UILabel* _iceAmountLabel;
     UILabel* _waterAmountLabel;
@@ -49,10 +49,10 @@
         [self addSubview:lemonUpButton];
         
         CGRect lemonAmountLabelFrame = CGRectMake(width + 3*width/4, 40, width/4, 40);
-        _lemonAmountLabel = [[UILabel alloc] initWithFrame:lemonAmountLabelFrame];
-        [_lemonAmountLabel setText:@"30"];
-        [_lemonAmountLabel setTextAlignment:NSTextAlignmentCenter];
-        [self addSubview:_lemonAmountLabel];
+        _lemonsAmountLabel = [[UILabel alloc] initWithFrame:lemonAmountLabelFrame];
+        [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getLemonsPercentage] floatValue]]];
+        [_lemonsAmountLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_lemonsAmountLabel];
         
         CGRect lemonDownButtonFrame = CGRectMake(width + 3*width/4, 80, width/4, 40);
         UIButton* lemonDownButton = [[UIButton alloc] initWithFrame:lemonDownButtonFrame];
@@ -84,7 +84,7 @@
         
         CGRect sugarAmountLabelFrame = CGRectMake(width + 3*width/4, 160, width/4, 40);
         _sugarAmountLabel = [[UILabel alloc] initWithFrame:sugarAmountLabelFrame];
-        [_sugarAmountLabel setText:@"30"];
+        [_sugarAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getSugarPercentage] floatValue]]];
         [_sugarAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_sugarAmountLabel];
         
@@ -118,7 +118,7 @@
         
         CGRect iceAmountLabelFrame = CGRectMake(width + 3*width/4, 280, width/4, 40);
         _iceAmountLabel = [[UILabel alloc] initWithFrame:iceAmountLabelFrame];
-        [_iceAmountLabel setText:@"30"];
+        [_iceAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getIcePercentage] floatValue]]];
         [_iceAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_iceAmountLabel];
         
@@ -144,60 +144,113 @@
         
         CGRect waterAmountLabelFrame = CGRectMake(width + 3*width/4, 440, width/4, 40);
         _waterAmountLabel = [[UILabel alloc] initWithFrame:waterAmountLabelFrame];
-        [_waterAmountLabel setText:@"10"];
+        [_waterAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getWaterPercentage] floatValue]]];
         [_waterAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_waterAmountLabel];
         
+        [self updatePercentageLabels];
     }
     return self;
 }
 
+- (void) updatePercentageLabels
+{
+    [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getLemonsPercentage] floatValue]]];
+    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getSugarPercentage] floatValue]]];
+    [_iceAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getIcePercentage] floatValue]]];
+    [_waterAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getWaterPercentage] floatValue]]];
+
+}
+
 - (void) incrementLemons:(id)sender
 {
-    CGFloat lemons = [_lemonAmountLabel.text floatValue];
-    CGFloat water = [_waterAmountLabel.text floatValue];
-    [_lemonAmountLabel setText:[NSString stringWithFormat:@"%0.0f", lemons+1]];
-    [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", water-1]];
+    NSNumber* water = [self.delegate getWaterPercentage];
+    if ([water floatValue] >= .01) {
+        water = [NSNumber numberWithFloat:[water floatValue] - .01];
+        [self.delegate setWaterPercentage:water];
+        [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
+    
+        NSNumber* lemons = [self.delegate getLemonsPercentage];
+        lemons = [NSNumber numberWithFloat:[lemons floatValue] + .01];
+        [self.delegate setLemonsPercentage:lemons];
+        [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [lemons floatValue] * 100]];
+    }
 }
 
 - (void) decrementLemons:(id)sender
 {
-    CGFloat lemons = [_lemonAmountLabel.text floatValue];
-    CGFloat water = [_waterAmountLabel.text floatValue];
-    [_lemonAmountLabel setText:[NSString stringWithFormat:@"%0.0f", lemons-1]];
-    [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", water+1]];
+    NSNumber* lemons = [self.delegate getLemonsPercentage];
+    if ([lemons floatValue] >= .01) {
+        lemons = [NSNumber numberWithFloat:[lemons floatValue] - .01];
+        [self.delegate setLemonsPercentage:lemons];
+        [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [lemons floatValue] * 100]];
+    
+        NSNumber* water = [self.delegate getWaterPercentage];
+        water = [NSNumber numberWithFloat:[water floatValue] + .01];
+        [self.delegate setWaterPercentage:water];
+        [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
+    }
 }
 
 - (void) incrementSugar:(id)sender
 {
-    CGFloat sugar = [_sugarAmountLabel.text floatValue];
-    CGFloat water = [_waterAmountLabel.text floatValue];
-    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.0f", sugar+1]];
-    [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", water-1]];
+    
+    NSNumber* water = [self.delegate getWaterPercentage];
+    if ([water floatValue] >= .01) {
+        water = [NSNumber numberWithFloat:[water floatValue] - .01];
+        [self.delegate setWaterPercentage:water];
+        [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
+    
+        NSNumber* sugar = [self.delegate getSugarPercentage];
+        sugar = [NSNumber numberWithFloat:[sugar floatValue] + .01];
+        [self.delegate setSugarPercentage:sugar];
+        [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [sugar floatValue] * 100]];
+    }
 }
 
 - (void) decrementSugar:(id)sender
 {
-    CGFloat sugar = [_sugarAmountLabel.text floatValue];
-    CGFloat water = [_waterAmountLabel.text floatValue];
-    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.0f", sugar-1]];
-    [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", water+1]];
+    NSNumber* sugar = [self.delegate getSugarPercentage];
+    if ([sugar floatValue] >= .01) {
+        sugar = [NSNumber numberWithFloat:[sugar floatValue] - .01];
+        [self.delegate setSugarPercentage:sugar];
+        [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [sugar floatValue] * 100]];
+    
+        NSNumber* water = [self.delegate getWaterPercentage];
+        water = [NSNumber numberWithFloat:[water floatValue] + .01];
+        [self.delegate setWaterPercentage:water];
+        [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
+    }
 }
 
 - (void) incrementIce:(id)sender
 {
-    CGFloat ice = [_iceAmountLabel.text floatValue];
-    CGFloat water = [_waterAmountLabel.text floatValue];
-    [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.0f", ice+1]];
-    [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", water-1]];
+    NSNumber* water = [self.delegate getWaterPercentage];
+    if ([water floatValue] >= .01) {
+        water = [NSNumber numberWithFloat:[water floatValue] - .01];
+        [self.delegate setWaterPercentage:water];
+        [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
+    
+        NSNumber* ice = [self.delegate getIcePercentage];
+        ice = [NSNumber numberWithFloat:[ice floatValue] + .01];
+        [self.delegate setIcePercentage:ice];
+        [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [ice floatValue] * 100]];
+    }
 }
 
 - (void) decrementIce:(id)sender
 {
-    CGFloat ice = [_iceAmountLabel.text floatValue];
-    CGFloat water = [_waterAmountLabel.text floatValue];
-    [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.0f", ice-1]];
-    [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", water+1]];
+    NSNumber* ice = [self.delegate getIcePercentage];
+    if ([ice floatValue] >= .01) {
+        ice = [NSNumber numberWithFloat:[ice floatValue] - .01];
+        [self.delegate setIcePercentage:ice];
+        [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [ice floatValue] * 100]];
+    
+        NSNumber* water = [self.delegate getWaterPercentage];
+        water = [NSNumber numberWithFloat:[water floatValue] + .01];
+        [self.delegate setWaterPercentage:water];
+        [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
+    }
 }
 
 /*

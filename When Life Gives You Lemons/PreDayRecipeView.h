@@ -8,6 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PreDayRecipeViewDelegate <NSObject>
+@required
+- (NSNumber*) getLemonsPercentage;
+- (void) setLemonsPercentage:(NSNumber*) newLemons;
+- (NSNumber*) getSugarPercentage;
+- (void) setSugarPercentage:(NSNumber*) newSugar;
+- (NSNumber*) getIcePercentage;
+- (void) setIcePercentage:(NSNumber*) newIce;
+- (NSNumber*) getWaterPercentage;
+- (void) setWaterPercentage:(NSNumber*) newWater;
+
+@end
+
+
 @interface PreDayRecipeView : UIView
+
+{
+    id <PreDayRecipeViewDelegate> _delegate;
+}
+
+- (void) updatePercentageLabels;
+@property (nonatomic,strong) id delegate;
 
 @end
