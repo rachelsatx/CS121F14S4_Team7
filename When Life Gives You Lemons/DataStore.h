@@ -34,11 +34,22 @@ typedef NS_ENUM(NSInteger, Ingredient) {
 
 @interface DataStore : NSObject
 
-- (CGFloat) getPrice;
-- (void) setPrice:(CGFloat) newPrice;
+- (NSNumber*) getPrice;
+- (void) setPrice:(NSNumber*) newPrice;
 
 - (Weather) getWeather;
 - (void) setWeather:(Weather) newWeather;
 
+- (DayOfWeek) getDayOfWeek;
+- (void) setDayOfWeek:(DayOfWeek) newDayOfWeek;
 
+-(NSString*) getFeedbackString;
+-(void) setFeedbackString:(NSString*) newFeedbackString;
+
+
+-(NSMutableDictionary*) getRecipe;
+-(void) setRecipe:(NSMutableDictionary*) newRecipe;
+
+-(NSMutableDictionary*) getInventory;
+-(void) setInventory:(NSMutableDictionary*) newInventory;
 @end

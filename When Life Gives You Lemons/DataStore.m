@@ -9,12 +9,12 @@
 #import "DataStore.h"
 
 @interface DataStore () {
-    CGFloat _price;
+    NSNumber* _price;
     Weather _weather;
     DayOfWeek _dayOfWeek;
-    NSString *_feedbackString;
-    NSMutableDictionary *_recipe;
-    NSMutableDictionary *_inventory;
+    NSString* _feedbackString;
+    NSMutableDictionary* _recipe;
+    NSMutableDictionary* _inventory;
 }
 @end
 
@@ -23,7 +23,7 @@
 -(id)init
 {
     self = [super init];
-    _price = 4.20;
+    _price = [NSNumber numberWithFloat:4.20];
     _weather = Sunny;
     _dayOfWeek = Saturday;
     _feedbackString = @"";
@@ -32,12 +32,12 @@
 }
 
 // Price
--(CGFloat) getPrice
+-(NSNumber*) getPrice
 {
     return _price;
 }
 
--(void) setPrice:(CGFloat) newPrice
+-(void) setPrice:(NSNumber*) newPrice
 {
     _price = newPrice;
 }
