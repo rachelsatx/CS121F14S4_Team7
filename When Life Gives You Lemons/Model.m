@@ -95,11 +95,11 @@
             feedbackString = @"Your lemonade was warm! Add some ice.";
         } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] > .25) {
             feedbackString = @"Your lemonade was freezing! You don't need so much ice.";
-        } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] > .3) {
+        } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] > .25) {
             feedbackString = @"Your lemonade was really sour! Don't use so many lemons.";
         } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] < .1) {
             feedbackString = @"You need to use more lemons if you're going to sell lemonade!";
-        } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] > .3) {
+        } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] > .25) {
             feedbackString = @"Your lemonade was too sweet! You don't need to use so much sugar.";
         } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] < .1) {
             feedbackString = @"Your lemonade needs to be sweeter! Try adding more sugar.";
