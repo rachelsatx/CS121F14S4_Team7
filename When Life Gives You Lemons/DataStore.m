@@ -15,6 +15,7 @@
     NSString* _feedbackString;
     NSMutableDictionary* _recipe;
     NSMutableDictionary* _inventory;
+    NSNumber* _popularity;
 }
 @end
 
@@ -29,6 +30,8 @@
     _feedbackString = @"";
     _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@0.0,      @0.0,     @0.0,   @0.0]
                                               forKeys:        @[@"lemons", @"sugar", @"ice", @"cups"]];
+    _popularity = 0;
+    
     
     return self;
 }
@@ -97,6 +100,15 @@
     _inventory = newInventory;
 }
 
+// Popularity
+-(NSNumber*) getPopularity
+{
+    return _popularity;
+}
 
+-(void) setPopularity:(NSNumber*) newPopularity
+{
+    _popularity = newPopularity;
+}
 
 @end
