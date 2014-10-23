@@ -234,8 +234,10 @@
 
 - (void) decrementCups:(id)sender
 {
-    int cups = [_cupsAmountLabel.text intValue];
-    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", cups-1]];
+    NSNumber* cups = [self.delegate getCups];
+    cups = [NSNumber numberWithFloat:[cups intValue] - 1];
+    [self.delegate setCups:cups];
+    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
 }
 
 /*

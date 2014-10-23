@@ -51,15 +51,13 @@
         NSDictionary *inventory = dataStore.getInventory;
         NSNumber *numLemons = [inventory valueForKey:@"lemons"];
         NSNumber *numSugar = [inventory valueForKey:@"sugar"];
-        NSNumber *numWater = [inventory valueForKey:@"water"];
         NSNumber *numIce = [inventory valueForKey:@"ice"];
-        NSInteger numCups = [inventory valueForKey:@"cups"];
+        NSNumber *numCups = [inventory valueForKey:@"cups"];
         NSString *lemonsRemaining = [NSString stringWithFormat:@"Lemons remaining: %@", numLemons];
         NSString *sugarRemaining = [NSString stringWithFormat:@"Sugar remaining: %@", numSugar];
-        NSString *waterRemaining = [NSString stringWithFormat:@"Water remaining: %@", numWater];
         NSString *iceRemaining = [NSString stringWithFormat:@"Ice remaining: %@", numIce];
-        NSString *cupsRemaining = [NSString stringWithFormat:@"Cups remaining: %d", numCups];
-        summaryView.text = [NSString stringWithFormat:@"Inventory:\n\r%@\n\r%@\n\r%@\n\r%@\n\r%@", lemonsRemaining, sugarRemaining, waterRemaining, iceRemaining, cupsRemaining];
+        NSString *cupsRemaining = [NSString stringWithFormat:@"Cups remaining: %@", numCups];
+        summaryView.text = [NSString stringWithFormat:@"Inventory:\n\r%@\n\r%@\n\r%@\n\r%@", lemonsRemaining, sugarRemaining,  iceRemaining, cupsRemaining];
         [self addSubview:summaryView];
     }
     return self;

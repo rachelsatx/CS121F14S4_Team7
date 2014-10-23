@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, Ingredient) {
 -(NSString*) getFeedbackString;
 -(void) setFeedbackString:(NSString*) newFeedbackString;
 
+
 -(NSMutableDictionary*) getRecipe;
 -(void) setRecipe:(NSMutableDictionary*) newRecipe;
 
