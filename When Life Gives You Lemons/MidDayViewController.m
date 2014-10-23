@@ -24,8 +24,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Run Model immediately
-        _dataStore = [self runModelWith:_dataStore];
+        
     }
     return self;
 }
@@ -33,6 +32,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Run Model immediately
+    NSLog(@"hi");
+    _model = [[Model alloc] init];
+    _dataStore = [self runModelWith:_dataStore];
     
     // Create the MidDay View
     CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));

@@ -39,6 +39,8 @@
         }
     }
     
+    NSLog(@"%d cups of lemonade", maxCustomers);
+    
     bool ranOut = NO;
     
     for (Customer *customer in customers) {
@@ -188,11 +190,11 @@
     
     // Loop through all other ingredients removing the appropriate amount.
     for (NSString* ingredient in [recipe allKeys]) {
-        if (![ingredient isEqual: @"Water"]) {
+        if (![ingredient isEqual: @"water"]) {
             float amountToRemove = [[recipe valueForKey:ingredient] floatValue];
             float oldAmount = [[inventory valueForKey:ingredient] floatValue];
             
-            NSAssert(oldAmount > amountToRemove, @"Tried to remove more ingredients than existed.");
+            NSAssert(oldAmount > amountToRemove, @"Tried to remove more ingredients than existed:");
             
             [inventory setValue:[NSNumber numberWithFloat:oldAmount - amountToRemove] forKey:ingredient];
         }
