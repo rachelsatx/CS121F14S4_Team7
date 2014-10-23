@@ -106,7 +106,6 @@
     [dataStore setPopularity:([NSNumber numberWithInt:newPopularity])];
     [dataStore setFeedbackString:(feedbackString)];
     [dataStore setInventory:inventory];
-    // TODO: return total amount of ingredients used.
     
     
     return dataStore;
