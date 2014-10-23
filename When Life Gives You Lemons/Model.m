@@ -101,7 +101,7 @@
     
     if (ranOut) {
         feedbackString = [NSString stringWithFormat:
-                          @"%@ You also ran out of ingredients!", feedbackString];
+                          @"%@\nYou also ran out of ingredients!", feedbackString];
     }
     [dataStore setPopularity:([NSNumber numberWithInt:newPopularity])];
     [dataStore setFeedbackString:(feedbackString)];
