@@ -63,23 +63,23 @@
 
 - (IBAction)incrementPrice:(id)sender
 {
-    if ([_dataStore getPrice] < 99.89) { // Off by .01 because of floating point errors
-        [_dataStore setPrice:[_dataStore getPrice] + .1];
+    if ([[_dataStore getPrice] floatValue] < 99.89) { // Off by .01 because of floating point errors
+        [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] + .1]];
         [self updatePrice];
     }
 }
 
 - (IBAction)decrementPrice:(id)sender
 {
-    if ([_dataStore getPrice] > 0.01) { // Off by .01 because of floating point errors
-        [_dataStore setPrice:[_dataStore getPrice] - .1];
+    if ([[_dataStore getPrice] floatValue] > 0.01) { // Off by .01 because of floating point errors
+        [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] - .1]];
         [self updatePrice];
     }
 }
 
 - (void)updatePrice
 {
-    self.priceLabel.text = [NSString stringWithFormat:@"Price: %.2f", [_dataStore getPrice]];
+    self.priceLabel.text = [NSString stringWithFormat:@"Price: %.2f", [[_dataStore getPrice] floatValue]];
 }
 
 - (void)updateWeather
