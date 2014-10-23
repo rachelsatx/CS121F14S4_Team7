@@ -12,6 +12,6 @@
 
 - (void) setCustomerType:(NSInteger)type;
 - (BOOL) willBuyAtPrice:(NSNumber*)price;
-- (BOOL) likesRecipe:(NSDictionary*)recipe;
+- (BOOL) likesRecipe:(NSMutableDictionary*)recipe;
 
 @end
