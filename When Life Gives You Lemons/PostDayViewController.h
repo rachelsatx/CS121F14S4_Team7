@@ -11,6 +11,8 @@
 
 @interface PostDayViewController : UIViewController
 
+@property (nonatomic, weak) IBOutlet UIButton *goToPreDayButton;
+
 - (void) setDataStore:(DataStore*) dataStore;
 
 @end

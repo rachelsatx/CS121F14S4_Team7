@@ -35,6 +35,8 @@
     CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     _postDayView = [[PostDayView alloc] initWithFrame:frame];
     [self.view addSubview:_postDayView];
+    
+    [self.view bringSubviewToFront:_goToPreDayButton];
 }
 
 - (void)setDataStore:(DataStore *) dataStore

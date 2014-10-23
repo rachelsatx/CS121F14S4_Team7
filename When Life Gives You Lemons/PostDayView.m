@@ -22,15 +22,6 @@
         UIImageView *mainView =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 8, frameHeight / 8, 6 * frameWidth / 8, 6 * frameHeight / 8)];
         mainView.backgroundColor = [UIColor whiteColor];
         [self addSubview:mainView];
-        
-        CGFloat buttonWidth = 200;
-        CGFloat buttonHeight = 50;
-        CGFloat topBorder = 40;
-        CGFloat rightBorder = 20;
-        UIButton *goToPreDayView = [[UIButton alloc] initWithFrame:CGRectMake(frameWidth - buttonWidth - rightBorder, topBorder, buttonWidth, buttonHeight)];
-        [goToPreDayView setTitle:@"Go to Pre-Day" forState:UIControlStateNormal];
-        [goToPreDayView setBackgroundColor:[UIColor blackColor]];
-        [self addSubview:goToPreDayView];
     }
     return self;
 }
