@@ -133,7 +133,6 @@
     double buyThreshold = 0.5 - 0.5 * atan(([price doubleValue] - expectedPrice)/2*scaleParameter);
     
     // Seed the random generator, then generate a random number to represent desire for lemonade.
-    srand48(time(0));
     double willingnessToBuy = drand48();
     
     // If the random number is higher than the buy threshold, the customer will buy the lemonade.

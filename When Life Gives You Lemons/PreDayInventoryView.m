@@ -188,9 +188,11 @@
 - (void) decrementLemons:(id)sender
 {
     NSNumber* lemons = [self.delegate getLemons];
-    lemons = [NSNumber numberWithFloat:[lemons floatValue] - 1.0];
-    [self.delegate setLemons:lemons];
-    [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
+    if ([lemons floatValue] >= 1.0){
+        lemons = [NSNumber numberWithFloat:[lemons floatValue] - 1.0];
+        [self.delegate setLemons:lemons];
+        [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
+    }
 }
 
 - (void) incrementSugar:(id)sender
@@ -203,9 +205,11 @@
 - (void) decrementSugar:(id)sender
 {
     NSNumber* sugar = [self.delegate getSugar];
-    sugar = [NSNumber numberWithFloat:[sugar floatValue] - 1.0];
-    [self.delegate setSugar:sugar];
-    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
+    if ([sugar floatValue] >= 1.0) {
+        sugar = [NSNumber numberWithFloat:[sugar floatValue] - 1.0];
+        [self.delegate setSugar:sugar];
+        [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
+    }
 }
 
 - (void) incrementIce:(id)sender
@@ -219,9 +223,11 @@
 - (void) decrementIce:(id)sender
 {
     NSNumber* ice = [self.delegate getIce];
-    ice = [NSNumber numberWithFloat:[ice floatValue] - 1.0];
-    [self.delegate setIce:ice];
-    [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
+    if ([ice floatValue] >= 1.0) {
+        ice = [NSNumber numberWithFloat:[ice floatValue] - 1.0];
+        [self.delegate setIce:ice];
+        [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
+    }
 }
 
 - (void) incrementCups:(id)sender
@@ -235,9 +241,11 @@
 - (void) decrementCups:(id)sender
 {
     NSNumber* cups = [self.delegate getCups];
-    cups = [NSNumber numberWithFloat:[cups intValue] - 1];
-    [self.delegate setCups:cups];
-    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
+    if ([cups intValue] >= 1) {
+        cups = [NSNumber numberWithFloat:[cups intValue] - 1];
+        [self.delegate setCups:cups];
+        [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
+    }
 }
 
 /*
