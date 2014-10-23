@@ -9,6 +9,7 @@
 #import "MidDayViewController.h"
 #import "PostDayViewController.h"
 #import "MidDayView.h"
+#import "Model.h"
 
 @interface MidDayViewController () {
     DataStore *_dataStore;
@@ -22,7 +23,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        // Run Model immediately
+        _dataStore = [self runModelWith:_dataStore];
     }
     return self;
 }
@@ -44,9 +46,9 @@
     _dataStore = dataStore;
 }
 
-- (void)runModel
+- (DataStore *)runModelWith:(DataStore *)dataStore
 {
-    // run the model for the day
+    // RUN THE MODEL FOR THE DAY AND RETURN THE MODIFIED DATASTORE
 }
 
 - (void)didReceiveMemoryWarning

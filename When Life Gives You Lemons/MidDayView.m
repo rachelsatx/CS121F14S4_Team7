@@ -7,6 +7,7 @@
 //
 
 #import "MidDayView.h"
+#import "DataStore.h"
 
 @implementation MidDayView
 

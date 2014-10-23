@@ -9,12 +9,12 @@
 #import "DataStore.h"
 
 @interface DataStore () {
-    CGFloat _price;
+    NSNumber* _price;
     Weather _weather;
-    int _cups;
-    CGFloat _ice;
-    CGFloat _sugar;
-    CGFloat _lemons;
+    DayOfWeek _dayOfWeek;
+    NSString* _feedbackString;
+    NSMutableDictionary* _recipe;
+    NSMutableDictionary* _inventory;
 }
 @end
 
@@ -23,19 +23,21 @@
 -(id)init
 {
     self = [super init];
-    _price = 4.20;
+    _price = [NSNumber numberWithFloat:4.20];
     _weather = Sunny;
+    _dayOfWeek = Saturday;
+    _feedbackString = @"";
     
     return self;
 }
 
 // Price
--(CGFloat) getPrice
+-(NSNumber*) getPrice
 {
     return _price;
 }
 
--(void) setPrice:(CGFloat) newPrice
+-(void) setPrice:(NSNumber*) newPrice
 {
     _price = newPrice;
 }
@@ -50,48 +52,49 @@
     _weather = newWeather;
 }
 
-// Cups
--(CGFloat) getCups
+// Day of week
+- (DayOfWeek) getDayOfWeek
 {
-    return _cups;
+    return _dayOfWeek;
+}
+- (void) setDayOfWeek:(DayOfWeek) newDayOfWeek
+{
+    _dayOfWeek = newDayOfWeek;
 }
 
--(void) setCups: (CGFloat) newCups
+// Feedback string
+-(NSString*) getFeedbackString
 {
-    _cups = newCups;
+    return _feedbackString;
 }
 
-// Ice
--(int) getIce
+-(void) setFeedbackString:(NSString*) newFeedbackString
 {
-    return _ice;
+    _feedbackString = newFeedbackString;
 }
 
--(void) setIce: (int) newIce
+// Recipe
+-(NSMutableDictionary*) getRecipe
 {
-    _ice = newIce;
+    return _recipe;
 }
 
-// Sugar
--(CGFloat) getSugar
+-(void) setRecipe:(NSMutableDictionary*) newRecipe
 {
-    return _sugar;
+    _recipe = newRecipe;
 }
 
--(void) setSugar:(CGFloat) newSugar
+// Inventory
+-(NSMutableDictionary*) getInventory
 {
-    _sugar = newSugar;
+    return _inventory;
 }
 
-// Lemons
--(CGFloat) getLemons
+-(void) setInventory:(NSMutableDictionary*) newInventory
 {
-    return _lemons;
+    _inventory = newInventory;
 }
 
--(void) setLemons:(CGFloat) newLemons
-{
-    _lemons = newLemons;
-}
+
 
 @end
