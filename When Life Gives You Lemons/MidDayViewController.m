@@ -14,6 +14,7 @@
 @interface MidDayViewController () {
     DataStore *_dataStore;
     MidDayView *_midDayView;
+    Model *_model;
 }
 @end
 
@@ -48,7 +49,8 @@
 
 - (DataStore *)runModelWith:(DataStore *)dataStore
 {
-    // RUN THE MODEL FOR THE DAY AND RETURN THE MODIFIED DATASTORE
+    // Run the model for the day and return the modified dataStore
+    return [_model simulateDayWithDataStore:_dataStore];
 }
 
 - (void)didReceiveMemoryWarning
