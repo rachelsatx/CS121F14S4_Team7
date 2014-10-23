@@ -46,9 +46,13 @@
             ++customersWhoBought;
             grossEarnings += [price floatValue];
             
+            // Check if they like the recipe.
             if ([customer likesRecipe:recipe]) {
                 ++customersWhoLiked;
             }
+            
+            // Remove ingredients.
+            inventory = [self removeIngredientsOfRecipe:recipe fromInventory:inventory];
             
             if (customersWhoBought == maxCustomers) {
                 ranOut = YES;
@@ -101,6 +105,7 @@
     }
     [dataStore setPopularity:([NSNumber numberWithInt:newPopularity])];
     [dataStore setFeedbackString:(feedbackString)];
+    [dataStore setInventory:inventory];
     // TODO: return total amount of ingredients used.
     
     
@@ -172,6 +177,28 @@
     Customer* customer = [[Customer alloc] init];
     [customer setCustomerType:randomValue];
     return customer;
+}
+
+- (NSMutableDictionary*) removeIngredientsOfRecipe:(NSMutableDictionary*)recipe
+                        fromInventory:(NSMutableDictionary*)inventory {
+    
+    // Handle cups separately because they aren't part of the recipe.
+    [inventory setValue: [NSNumber numberWithInt: [[inventory valueForKey:@"cups"]
+                                                   integerValue] - 1] forKey:@"cups"];
+    
+    // Loop through all other ingredients removing the appropriate amount.
+    for (NSString* ingredient in [recipe allKeys]) {
+        if (![ingredient isEqual: @"Water"]) {
+            float amountToRemove = [[recipe valueForKey:ingredient] floatValue];
+            float oldAmount = [[inventory valueForKey:ingredient] floatValue];
+            
+            NSAssert(oldAmount > amountToRemove, @"Tried to remove more ingredients than existed.");
+            
+            [inventory setValue:[NSNumber numberWithFloat:oldAmount - amountToRemove] forKey:ingredient];
+        }
+    }
+    
+    return inventory;
 }
 
 @end
