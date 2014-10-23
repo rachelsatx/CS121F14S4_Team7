@@ -28,8 +28,7 @@
 		DA6C2BD919F19B8D00AE1EB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BBB19F19B8D00AE1EB7 /* UIKit.framework */; };
 		DA6C2BE119F19B8D00AE1EB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BDF19F19B8D00AE1EB7 /* InfoPlist.strings */; };
 		DA6C2BE319F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */; };
-		FEEF1C1319F612080026C5F3 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEF1C1219F612080026C5F3 /* Model.m */; };
-		FEEF1C1619F714F20026C5F3 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEF1C1519F714F20026C5F3 /* Customer.m */; };
+		DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB2821319F7946000441EAA /* PreDayRecipeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,10 +75,8 @@
 		DA6C2BDE19F19B8D00AE1EB7 /* When Life Gives You LemonsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "When Life Gives You LemonsTests-Info.plist"; sourceTree = "<group>"; };
 		DA6C2BE019F19B8D00AE1EB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = When_Life_Gives_You_LemonsTests.m; sourceTree = "<group>"; };
-		FEEF1C1119F612080026C5F3 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
-		FEEF1C1219F612080026C5F3 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
-		FEEF1C1419F714F20026C5F3 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customer.h; sourceTree = "<group>"; };
-		FEEF1C1519F714F20026C5F3 /* Customer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customer.m; sourceTree = "<group>"; };
+		DAB2821219F7946000441EAA /* PreDayRecipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayRecipeView.h; sourceTree = "<group>"; };
+		DAB2821319F7946000441EAA /* PreDayRecipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayRecipeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,12 +139,24 @@
 				DA6C2BC619F19B8D00AE1EB7 /* AppDelegate.h */,
 				DA6C2BC719F19B8D00AE1EB7 /* AppDelegate.m */,
 				DA6C2BC919F19B8D00AE1EB7 /* Main.storyboard */,
-				DA6C2BCC19F19B8D00AE1EB7 /* ViewController.h */,
-				DA6C2BCD19F19B8D00AE1EB7 /* ViewController.m */,
-				FEEF1C1119F612080026C5F3 /* Model.h */,
-				FEEF1C1219F612080026C5F3 /* Model.m */,
-				FEEF1C1419F714F20026C5F3 /* Customer.h */,
-				FEEF1C1519F714F20026C5F3 /* Customer.m */,
+				DA0FB60619F645EF0036D500 /* MidDayViewController.h */,
+				DA0FB60719F645EF0036D500 /* MidDayViewController.m */,
+				DA0FB60919F646030036D500 /* PostDayViewController.h */,
+				DA0FB60A19F646030036D500 /* PostDayViewController.m */,
+				DA6C2BCC19F19B8D00AE1EB7 /* MenuViewController.h */,
+				DA6C2BCD19F19B8D00AE1EB7 /* MenuViewController.m */,
+				ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */,
+				ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */,
+				DAB2821219F7946000441EAA /* PreDayRecipeView.h */,
+				DAB2821319F7946000441EAA /* PreDayRecipeView.m */,
+				DA0FB60319F641B00036D500 /* PreDayInventoryView.h */,
+				DA0FB60419F641B00036D500 /* PreDayInventoryView.m */,
+				AFCB509619F7457900DFADE9 /* MidDayView.h */,
+				AFCB509719F7457900DFADE9 /* MidDayView.m */,
+				AFE2AC5E19F833D2005EC4D0 /* PostDayView.h */,
+				AFE2AC5F19F833D2005EC4D0 /* PostDayView.m */,
+				ACBEBFA519F619A300B173C7 /* DataStore.h */,
+				ACBEBFA619F619A300B173C7 /* DataStore.m */,
 				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
 				DA6C2BBE19F19B8D00AE1EB7 /* Supporting Files */,
 			);
@@ -290,8 +299,7 @@
 				DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */,
 				AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */,
 				DA6C2BC419F19B8D00AE1EB7 /* main.m in Sources */,
-				FEEF1C1319F612080026C5F3 /* Model.m in Sources */,
-				FEEF1C1619F714F20026C5F3 /* Customer.m in Sources */,
+				DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
