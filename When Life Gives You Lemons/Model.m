@@ -13,11 +13,12 @@
 
 - (DataStore*) simulateDayWithDataStore:(DataStore*)dataStore {
     
-    DayOfWeek dayOfWeek = dataStore.getDayOfWeek();
-    Weather weather = dataStore.getWeather();
-    NSMutableDictionary* recipe = dataStore.getRecipe();
-    NSNumber* price = dataStore.getPrice();
-    NSNumber* popularity = dataStore.getPopularity();
+    DayOfWeek dayOfWeek = [dataStore getDayOfWeek];
+    Weather weather = [dataStore getWeather];
+    NSMutableDictionary* recipe = [dataStore getRecipe];
+    NSNumber* price = [dataStore getPrice];
+    NSNumber* popularity = [dataStore getPopularity];
+    NSMutableDictionary* inventory = [dataStore getInventory];
     
     NSMutableArray *customers = [self getCustomersOnDay:dayOfWeek withWeather:weather
                                  andPopularity:popularity];
@@ -26,6 +27,20 @@
     int customersWhoLiked = 0;
     float grossEarnings = 0;
     
+    // Calculate the maximum number of cups of lemonade that we can make.
+    int maxCustomers = [(NSNumber*) [inventory valueForKey:@"cups"] intValue];
+    for (NSString* key in [inventory allKeys]) {
+        if (![key isEqual: @"cups"]) {
+            int maxCupsWithThisIngredient = (int) ([(NSNumber*) [inventory valueForKey:key] floatValue]/
+                                                   [(NSNumber*) [recipe valueForKey:key] floatValue]);
+            if (maxCupsWithThisIngredient < maxCustomers) {
+                maxCustomers = maxCupsWithThisIngredient;
+            }
+        }
+    }
+    
+    bool ranOut = NO;
+    
     for (Customer *customer in customers) {
         if ([customer willBuyAtPrice:price]) {
             ++customersWhoBought;
@@ -33,6 +48,11 @@
             
             if ([customer likesRecipe:recipe]) {
                 ++customersWhoLiked;
+            }
+            
+            if (customersWhoBought == maxCustomers) {
+                ranOut = YES;
+                break;
             }
         }
     }
@@ -45,18 +65,46 @@
         percentWhoLiked = ((float)customersWhoLiked) / ((float)customersWhoBought);
     }
     
-    NSMutableDictionary *returnDictionary = [[NSMutableDictionary alloc] init];
-    [returnDictionary setObject:[NSNumber numberWithFloat:grossEarnings] forKey:@"earnings"];
-    [returnDictionary setObject:[NSNumber numberWithInt:newPopularity] forKey:@"popularity"];
-    [returnDictionary setObject:[NSNumber numberWithFloat:percentWhoBought] forKey:@"percentBought"];
-    [returnDictionary setObject:[NSNumber numberWithFloat:percentWhoLiked] forKey:@"percentLiked"];
+    // TODO: modify the datastore to account for day's earnings.
+    // This feature will not be in the alpha.
+    
+    // TODO: return percents of customers who bought and liked the lemonade.
+    // This probably also won't be in the alpha.
     
     
-    // TODO: return customer feedback based on which customer types didn't like the lemonade.
+    
+    NSString *feedbackString;
+    
+    if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] > .65) {
+        feedbackString = @"Your lemonade was too watery! Use more other ingredients.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] < .25) {
+        feedbackString = @"Your lemonade was too strong! Water it down a little.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] < .1) {
+        feedbackString = @"Your lemonade was warm! Add some ice.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] > .25) {
+        feedbackString = @"Your lemonade was freezing! You don't need so much ice.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] > .3) {
+        feedbackString = @"Your lemonade was really sour! Don't use so many lemons.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] < .1) {
+        feedbackString = @"You need to use more lemons if you're going to sell lemonade!";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] > .3) {
+        feedbackString = @"Your lemonade was too sweet! You don't need to use so much sugar.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] < .1) {
+        feedbackString = @"Your lemonade needs to be sweeter! Try adding more sugar.";
+    } else {
+        feedbackString = @"Your customers loved your lemonade!";
+    }
+    
+    if (ranOut) {
+        feedbackString = [NSString stringWithFormat:
+                          @"%@ You also ran out of ingredients!", feedbackString];
+    }
+    [dataStore setPopularity:([NSNumber numberWithFloat:newPopularity])];
+    [dataStore setFeedbackString:(feedbackString)];
     // TODO: return total amount of ingredients used.
     
     
-    return returnDictionary;
+    return dataStore;
     
 }
 
@@ -67,12 +115,12 @@
     return lowerBound + (arc4random() % (1 + upperBound - lowerBound));
 }
 
-- (NSMutableArray*) getCustomersOnDay:(NSString*)dayOfWeek withWeather:(NSString*)weather
+- (NSMutableArray*) getCustomersOnDay:(DayOfWeek)dayOfWeek withWeather:(Weather)weather
                     andPopularity:(NSNumber*)popularity {
     
     int baseCustomers = [self randomNumberAtLeast:20 andAtMost:25];
     int customersFromWeather = [self customersFromWeather:weather];
-    int customersFromWeekday = [self customersFromWeather:dayOfWeek];
+    int customersFromWeekday = [self customersFromWeekday:dayOfWeek];
     
     int totalCustomers = baseCustomers + customersFromWeather + customersFromWeekday;
     int popularityMultiplier = ([popularity floatValue] / 100.0) + 1;
@@ -81,7 +129,7 @@
     NSMutableArray *customers = [[NSMutableArray alloc] initWithCapacity:totalCustomers];
     
     for (int i = 0; i < totalCustomers; ++i) {
-        Customer* nextCustomer = getOneCustomerForWeather:weather;
+        Customer* nextCustomer = [self getOneCustomerForWeather:weather];
         [customers addObject:nextCustomer];
     }
     
@@ -97,7 +145,7 @@
     } else if (weather == Raining) {
         return 0;
     } else {
-        [NSException raise:@"Invalid weather" format:@"Weather %@ is invalid", weather];
+        [NSException raise:@"Invalid weather" format:@"Weather %d is invalid", weather];
         return 0;
     }
 }
@@ -113,12 +161,18 @@
                dayOfWeek == Friday) {
         return [self randomNumberAtLeast:0 andAtMost:5];
     } else {
-        [NSException raise:@"Invalid day of week" format:@"day of week %@ is invalid", dayOfWeek];
+        [NSException raise:@"Invalid day of week" format:@"day of week %d is invalid", dayOfWeek];
         return 0;
     }
 }
 
-
+- (Customer*) getOneCustomerForWeather:(Weather)weather {
+    // For now, does not actually base this on the weather.
+    int randomValue = arc4random() % 6;
+    Customer* customer = [[Customer alloc] init];
+    [customer setCustomerType:randomValue];
+    return customer;
+}
 
 @end
 
