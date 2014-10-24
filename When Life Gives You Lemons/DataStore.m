@@ -28,9 +28,9 @@
     _weather = Sunny;
     _dayOfWeek = Saturday;
     _feedbackString = @"";
-    _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@10.0,      @10.0,     @10.0,   @40.0]
+    _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,      @0.00,     @0.00,   @0.00]
                                               forKeys:        @[@"lemons", @"sugar", @"ice", @"cups"]];
-    _recipe = [[NSMutableDictionary alloc] initWithObjects:   @[@0.30,     @0.30,    @0.30,  @0.10]
+    _recipe = [[NSMutableDictionary alloc] initWithObjects:   @[@0.00,     @0.00,    @0.00,  @1.00]
                                                       forKeys:@[@"lemons", @"sugar", @"ice", @"water"]];
     _popularity = 0;
     
