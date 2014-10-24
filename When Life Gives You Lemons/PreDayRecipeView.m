@@ -29,7 +29,7 @@
         CGFloat height = CGRectGetWidth(self.frame);
         CGFloat borderThickness = (height / 8) < (width / 8) ? (height / 8) : (width / 8);
         CGFloat ingredientSize = (height / 4) < (width / 2) ? (height / 4) : (width / 2);
-        CGFloat buttonSize = ingredientSize / 4;
+        CGFloat buttonSize = ingredientSize / 3;
         CGFloat fontSize = 25;
         
         // create title of view

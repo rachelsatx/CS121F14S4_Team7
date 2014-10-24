@@ -30,7 +30,7 @@
         CGFloat height = CGRectGetWidth(self.frame);
         CGFloat borderThickness = (height / 8) < (width / 8) ? (height / 8) : (width / 8);
         CGFloat ingredientSize = (height / 4) < (width / 2) ? (height / 4) : (width / 2);
-        CGFloat buttonSize = ingredientSize / 4;
+        CGFloat buttonSize = ingredientSize / 3;
         CGFloat fontSize = 25;
         
         // create title of view
@@ -62,7 +62,7 @@
                        forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:lemonUpButton];
         
-        CGRect lemonAmountLabelFrame = CGRectMake(3 * width / 4, borderThickness + buttonSize, buttonSize, buttonSize);
+        CGRect lemonAmountLabelFrame = CGRectMake(3 * width / 4 - (buttonSize / 2), borderThickness + buttonSize, 2 * buttonSize, buttonSize);
         _lemonsAmountLabel = [[UILabel alloc] initWithFrame:lemonAmountLabelFrame];
         [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getLemons] floatValue]]];
         [_lemonsAmountLabel setFont:[UIFont systemFontOfSize:fontSize]];
@@ -98,7 +98,7 @@
               forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:sugarUpButton];
         
-        CGRect sugarAmountLabelFrame = CGRectMake(3 * width / 4, borderThickness + ingredientSize + buttonSize, buttonSize, buttonSize);
+        CGRect sugarAmountLabelFrame = CGRectMake(3 * width / 4 - (buttonSize / 2), borderThickness + ingredientSize + buttonSize, 2 * buttonSize, buttonSize);
         _sugarAmountLabel = [[UILabel alloc] initWithFrame:sugarAmountLabelFrame];
         [_sugarAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getSugar] floatValue]]];
         [_sugarAmountLabel setFont:[UIFont systemFontOfSize:fontSize]];
@@ -134,7 +134,7 @@
               forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:iceUpButton];
         
-        CGRect iceAmountLabelFrame = CGRectMake(3 * width / 4, borderThickness + 2 * ingredientSize + buttonSize, buttonSize, buttonSize);
+        CGRect iceAmountLabelFrame = CGRectMake(3 * width / 4 - (buttonSize / 2), borderThickness + 2 * ingredientSize + buttonSize, 2 * buttonSize, buttonSize);
         _iceAmountLabel = [[UILabel alloc] initWithFrame:iceAmountLabelFrame];
         [_iceAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getIce] floatValue]]];
         [_iceAmountLabel setFont:[UIFont systemFontOfSize:fontSize]];
@@ -170,7 +170,7 @@
                      forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cupUpButton];
         
-        CGRect cupsAmountLabelFrame = CGRectMake(3 * width / 4, borderThickness + 3 * ingredientSize + buttonSize, buttonSize, buttonSize);
+        CGRect cupsAmountLabelFrame = CGRectMake(3 * width / 4 - (buttonSize / 2), borderThickness + 3 * ingredientSize + buttonSize, 2 * buttonSize, buttonSize);
         _cupsAmountLabel = [[UILabel alloc] initWithFrame:cupsAmountLabelFrame];
         [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] intValue]]];
         [_cupsAmountLabel setFont:[UIFont systemFontOfSize:fontSize]];
