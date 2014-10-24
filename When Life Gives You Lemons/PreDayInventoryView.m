@@ -22,25 +22,39 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:[UIColor whiteColor]];
+        UIColor* backgroundColor = [UIColor colorWithRed:238.0/255 green:213.0/255 blue:183.0/255 alpha:1.0];
+        [self setBackgroundColor:backgroundColor];
         
         // create column of ingredients
-        CGFloat width = CGRectGetWidth(self.frame)/2;
+        CGFloat width = CGRectGetWidth(self.frame);
         CGFloat height = CGRectGetWidth(self.frame);
+        CGFloat borderThickness = (height / 8) < (width / 8) ? (height / 8) : (width / 8);
+        CGFloat ingredientSize = (height / 4) < (width / 2) ? (height / 4) : (width / 2);
+        CGFloat buttonSize = ingredientSize / 4;
+        CGFloat fontSize = 25;
+        
+        // create title of view
+        CGRect titleFrame = CGRectMake(0, 0, width, borderThickness);
+        UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
+        title.text = @"Inventory:";
+        [title setFont:[UIFont systemFontOfSize:(fontSize + 5)]];
+        [title setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:title];
         
         // create lemon section
-        CGRect lemonImageFrame = CGRectMake(0, 0, width/2, 120);
+        CGRect lemonImageFrame = CGRectMake(borderThickness, borderThickness, ingredientSize, ingredientSize);
         UIImageView* lemonImage = [[UIImageView alloc] initWithFrame:lemonImageFrame];
         [lemonImage setImage:[UIImage imageNamed:@"lemon-slice"]];
         [self addSubview:lemonImage];
         
-        CGRect lemonNameLabelFrame = CGRectMake(width/2, 0, width/4, 120);
+        CGRect lemonNameLabelFrame = CGRectMake(width / 2, borderThickness, width / 4, height / 4);
         UILabel* lemonNameLabel = [[UILabel alloc] initWithFrame:lemonNameLabelFrame];
         [lemonNameLabel setText:@"Lemons"];
+        [lemonNameLabel setFont:[UIFont systemFontOfSize:fontSize]];
         [lemonNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:lemonNameLabel];
         
-        CGRect lemonUpButtonFrame = CGRectMake(3*width/4, 0, width/4, 40);
+        CGRect lemonUpButtonFrame = CGRectMake(3 * width / 4, borderThickness, buttonSize, buttonSize);
         UIButton* lemonUpButton = [[UIButton alloc] initWithFrame:lemonUpButtonFrame];
         [lemonUpButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
         [lemonUpButton addTarget:self
@@ -48,13 +62,14 @@
                        forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:lemonUpButton];
         
-        CGRect lemonAmountLabelFrame = CGRectMake(3*width/4, 40, width/4, 40);
+        CGRect lemonAmountLabelFrame = CGRectMake(3 * width / 4, borderThickness + buttonSize, buttonSize, buttonSize);
         _lemonsAmountLabel = [[UILabel alloc] initWithFrame:lemonAmountLabelFrame];
         [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getLemons] floatValue]]];
+        [_lemonsAmountLabel setFont:[UIFont systemFontOfSize:fontSize]];
         [_lemonsAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_lemonsAmountLabel];
         
-        CGRect lemonDownButtonFrame = CGRectMake(3*width/4, 80, width/4, 40);
+        CGRect lemonDownButtonFrame = CGRectMake(3 * width / 4, borderThickness + 2 * buttonSize, buttonSize, buttonSize);
         UIButton* lemonDownButton = [[UIButton alloc] initWithFrame:lemonDownButtonFrame];
         [lemonDownButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
         [lemonDownButton addTarget:self
@@ -63,18 +78,19 @@
         [self addSubview:lemonDownButton];
         
         // create sugar section
-        CGRect sugarImageFrame = CGRectMake(0, 120, width/2, 120);
+        CGRect sugarImageFrame = CGRectMake(borderThickness, borderThickness + ingredientSize, ingredientSize, ingredientSize);
         UIImageView* sugarImage = [[UIImageView alloc] initWithFrame:sugarImageFrame];
         [sugarImage setImage:[UIImage imageNamed:@"sugar"]];
         [self addSubview:sugarImage];
         
-        CGRect sugarNameLabelFrame = CGRectMake(width/2, 120, width/4, 120);
+        CGRect sugarNameLabelFrame = CGRectMake(width / 2, borderThickness + ingredientSize, width / 4, height / 4);
         UILabel* sugarNameLabel = [[UILabel alloc] initWithFrame:sugarNameLabelFrame];
         [sugarNameLabel setText:@"Sugar"];
+        [sugarNameLabel setFont:[UIFont systemFontOfSize:fontSize]];
         [sugarNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:sugarNameLabel];
         
-        CGRect sugarUpButtonFrame = CGRectMake(3*width/4, 120, width/4, 40);
+        CGRect sugarUpButtonFrame = CGRectMake(3 * width / 4, borderThickness + ingredientSize, buttonSize, buttonSize);
         UIButton* sugarUpButton = [[UIButton alloc] initWithFrame:sugarUpButtonFrame];
         [sugarUpButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
         [sugarUpButton addTarget:self
@@ -82,13 +98,14 @@
               forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:sugarUpButton];
         
-        CGRect sugarAmountLabelFrame = CGRectMake(3*width/4, 160, width/4, 40);
+        CGRect sugarAmountLabelFrame = CGRectMake(3 * width / 4, borderThickness + ingredientSize + buttonSize, buttonSize, buttonSize);
         _sugarAmountLabel = [[UILabel alloc] initWithFrame:sugarAmountLabelFrame];
         [_sugarAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getSugar] floatValue]]];
+        [_sugarAmountLabel setFont:[UIFont systemFontOfSize:fontSize]];
         [_sugarAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_sugarAmountLabel];
         
-        CGRect sugarDownButtonFrame = CGRectMake(3*width/4, 200, width/4, 40);
+        CGRect sugarDownButtonFrame = CGRectMake(3 * width / 4, borderThickness + ingredientSize + 2 * buttonSize, buttonSize, buttonSize);
         UIButton* sugarDownButton = [[UIButton alloc] initWithFrame:sugarDownButtonFrame];
         [sugarDownButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
         [sugarDownButton addTarget:self
@@ -97,18 +114,19 @@
         [self addSubview:sugarDownButton];
         
         // create ice section
-        CGRect iceImageFrame = CGRectMake(0, 240, width/2, 120);
+        CGRect iceImageFrame = CGRectMake(borderThickness, borderThickness + 2 * ingredientSize, ingredientSize, ingredientSize);
         UIImageView* iceImage = [[UIImageView alloc] initWithFrame:iceImageFrame];
         [iceImage setImage:[UIImage imageNamed:@"ice"]];
         [self addSubview:iceImage];
         
-        CGRect iceNameLabelFrame = CGRectMake(width/2, 240, width/4, 120);
+        CGRect iceNameLabelFrame = CGRectMake(width / 2, borderThickness + 2 * ingredientSize, width / 4, height / 4);
         UILabel* iceNameLabel = [[UILabel alloc] initWithFrame:iceNameLabelFrame];
         [iceNameLabel setText:@"Ice"];
+        [iceNameLabel setFont:[UIFont systemFontOfSize:fontSize]];
         [iceNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:iceNameLabel];
         
-        CGRect iceUpButtonFrame = CGRectMake(3*width/4, 240, width/4, 40);
+        CGRect iceUpButtonFrame = CGRectMake(3 * width / 4, borderThickness + 2 * ingredientSize, buttonSize, buttonSize);
         UIButton* iceUpButton = [[UIButton alloc] initWithFrame:iceUpButtonFrame];
         [iceUpButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
         [iceUpButton addTarget:self
@@ -116,13 +134,14 @@
               forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:iceUpButton];
         
-        CGRect iceAmountLabelFrame = CGRectMake(3*width/4, 280, width/4, 40);
+        CGRect iceAmountLabelFrame = CGRectMake(3 * width / 4, borderThickness + 2 * ingredientSize + buttonSize, buttonSize, buttonSize);
         _iceAmountLabel = [[UILabel alloc] initWithFrame:iceAmountLabelFrame];
         [_iceAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getIce] floatValue]]];
+        [_iceAmountLabel setFont:[UIFont systemFontOfSize:fontSize]];
         [_iceAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_iceAmountLabel];
         
-        CGRect iceDownButtonFrame = CGRectMake(3*width/4, 320, width/4, 40);
+        CGRect iceDownButtonFrame = CGRectMake(3 * width / 4, borderThickness + 2 * ingredientSize + 2 * buttonSize, buttonSize, buttonSize);
         UIButton* iceDownButton = [[UIButton alloc] initWithFrame:iceDownButtonFrame];
         [iceDownButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
         [iceDownButton addTarget:self
@@ -131,18 +150,19 @@
         [self addSubview:iceDownButton];
         
         // create cup section
-        CGRect cupImageFrame = CGRectMake(0, 360, width/2, 120);
+        CGRect cupImageFrame = CGRectMake(borderThickness, borderThickness + 3 * ingredientSize, ingredientSize, ingredientSize);
         UIImageView* cupImage = [[UIImageView alloc] initWithFrame:cupImageFrame];
         [cupImage setImage:[UIImage imageNamed:@"cup"]];
         [self addSubview:cupImage];
         
-        CGRect cupNameLabelFrame = CGRectMake(width/2, 360, width/4, 120);
+        CGRect cupNameLabelFrame = CGRectMake(width / 2, borderThickness + 3 * ingredientSize, width / 4, height / 4);
         UILabel* cupNameLabel = [[UILabel alloc] initWithFrame:cupNameLabelFrame];
         [cupNameLabel setText:@"Cups"];
+        [cupNameLabel setFont:[UIFont systemFontOfSize:fontSize]];
         [cupNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:cupNameLabel];
         
-        CGRect cupUpButtonFrame = CGRectMake(3*width/4, 360, width/4, 40);
+        CGRect cupUpButtonFrame = CGRectMake(3 * width / 4, borderThickness + 3 * ingredientSize, buttonSize, buttonSize);
         UIButton* cupUpButton = [[UIButton alloc] initWithFrame:cupUpButtonFrame];
         [cupUpButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
         [cupUpButton addTarget:self
@@ -150,21 +170,20 @@
                      forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cupUpButton];
         
-        CGRect cupsAmountLabelFrame = CGRectMake(3*width/4, 400, width/4, 40);
+        CGRect cupsAmountLabelFrame = CGRectMake(3 * width / 4, borderThickness + 3 * ingredientSize + buttonSize, buttonSize, buttonSize);
         _cupsAmountLabel = [[UILabel alloc] initWithFrame:cupsAmountLabelFrame];
         [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] intValue]]];
+        [_cupsAmountLabel setFont:[UIFont systemFontOfSize:fontSize]];
         [_cupsAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_cupsAmountLabel];
         
-        CGRect cupDownButtonFrame = CGRectMake(3*width/4, 440, width/4, 40);
+        CGRect cupDownButtonFrame = CGRectMake(3 * width / 4, borderThickness + 3 * ingredientSize + 2 * buttonSize, buttonSize, buttonSize);
         UIButton* cupDownButton = [[UIButton alloc] initWithFrame:cupDownButtonFrame];
         [cupDownButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
         [cupDownButton addTarget:self
                        action:@selector(decrementCups:)
                        forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:cupDownButton];
-        
-        [self updateAmountLabels];
+        [self addSubview:cupDownButton];        
     }
     return self;
 }
