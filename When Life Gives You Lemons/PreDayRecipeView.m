@@ -173,10 +173,11 @@
 
 - (void) updatePercentageLabels
 {
-    [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getLemonsPercentage] floatValue]]];
-    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getSugarPercentage] floatValue]]];
-    [_iceAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getIcePercentage] floatValue]]];
-    [_waterAmountLabel setText:[NSString stringWithFormat:@"%.0f", [[self.delegate getWaterPercentage] floatValue]]];
+    [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%.0f", 100 * [[self.delegate getLemonsPercentage] floatValue]]];
+    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%.0f", 100 * [[self.delegate getSugarPercentage] floatValue]]];
+    [_iceAmountLabel setText:[NSString stringWithFormat:@"%.0f", 100 * [[self.delegate getIcePercentage] floatValue]]];
+    [_waterAmountLabel setText:[NSString stringWithFormat:@"%.0f", 100 * [[self.delegate getWaterPercentage] floatValue]]];
+
 }
 
 - (void) incrementLemons:(id)sender
