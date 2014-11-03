@@ -16,6 +16,7 @@
     NSMutableDictionary* _recipe;
     NSMutableDictionary* _inventory;
     NSNumber* _popularity;
+    NSNumber* _money;
 }
 @end
 
@@ -110,6 +111,17 @@
 -(void) setPopularity:(NSNumber*) newPopularity
 {
     _popularity = newPopularity;
+}
+
+// Money
+-(NSNumber*) getMoney
+{
+    return _money;
+}
+
+-(void) setMoney:(NSNumber*) newMoney
+{
+    _money = newMoney;
 }
 
 @end
