@@ -67,7 +67,7 @@
 
 - (IBAction)incrementPrice:(id)sender
 {
-    if ([[_dataStore getPrice] floatValue] < 99.89) { // Off by .01 because of floating point errors
+    if ([[_dataStore getPrice] floatValue] <= 99.9) { // Off by .01 because of floating point errors
         [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] + .1]];
         [self updatePrice];
     }
@@ -75,7 +75,7 @@
 
 - (IBAction)decrementPrice:(id)sender
 {
-    if ([[_dataStore getPrice] floatValue] > 0.01) { // Off by .01 because of floating point errors
+    if ([[_dataStore getPrice] floatValue] >= 0.1) { // Off by .01 because of floating point errors
         [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] - .1]];
         [self updatePrice];
     }
