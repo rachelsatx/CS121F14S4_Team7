@@ -66,7 +66,7 @@
         NSString *lemonsRemaining = [NSString stringWithFormat:@"Lemons remaining: %0.2f", [numLemons floatValue]];
         NSString *sugarRemaining = [NSString stringWithFormat:@"Sugar remaining: %0.2f", [numSugar floatValue]];
         NSString *iceRemaining = [NSString stringWithFormat:@"Ice remaining: %0.2f", [numIce floatValue]];
-        NSString *cupsRemaining = [NSString stringWithFormat:@"Cups remaining: %@", numCups];
+        NSString *cupsRemaining = [NSString stringWithFormat:@"Cups remaining: %d", [numCups integerValue]];
         summaryView.text = [NSString stringWithFormat:@"Inventory:\n\r%@\n\r%@\n\r%@\n\r%@", lemonsRemaining, sugarRemaining,  iceRemaining, cupsRemaining];
         [self addSubview:summaryView];
     }

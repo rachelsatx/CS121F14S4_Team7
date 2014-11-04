@@ -50,9 +50,9 @@
         [self addSubview:lemonadeStand];
         
         UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(4 * frameWidth / 5, 4 * frameHeight / 5, frameWidth / 4, frameHeight / 4)];
-        NSNumber *price = dataStore.getPrice;
-        NSAssert(price >= 0, @"Negative price (%@)", price);
-        priceLabel.text = [NSString stringWithFormat:@"$%@", price];
+        CGFloat price = [dataStore.getPrice floatValue];
+        NSAssert(price >= 0, @"Negative price (%0.2f)", price);
+        priceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
         [priceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [self addSubview:priceLabel];
     }
