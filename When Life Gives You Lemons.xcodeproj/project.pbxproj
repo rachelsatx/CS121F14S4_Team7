@@ -249,6 +249,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Jonathan Finnell, Amit Maor, Joshua Petrack, Megan Shao, Rachel Wilson";
 				TargetAttributes = {
+					DA6C2BB319F19B8D00AE1EB7 = {
+						DevelopmentTeam = AB8W7DKVQM;
+					};
 					DA6C2BD419F19B8D00AE1EB7 = {
 						TestTargetID = DA6C2BB319F19B8D00AE1EB7;
 					};
@@ -438,6 +441,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "When Life Gives You Lemons/When Life Gives You Lemons-Prefix.pch";
 				INFOPLIST_FILE = "When Life Gives You Lemons/When Life Gives You Lemons-Info.plist";
@@ -451,6 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "When Life Gives You Lemons/When Life Gives You Lemons-Prefix.pch";
 				INFOPLIST_FILE = "When Life Gives You Lemons/When Life Gives You Lemons-Info.plist";
