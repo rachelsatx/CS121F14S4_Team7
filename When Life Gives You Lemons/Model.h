@@ -13,4 +13,10 @@
 
 - (DataStore*) simulateDayWithDataStore:(DataStore*)dataStore;
 
+// The following are public for unit testing.
+
+- (int) randomNumberAtLeast:(int)lowerBound andAtMost:(int)upperBound;
+- (NSMutableDictionary*) removeIngredientsOfRecipe:(NSMutableDictionary*)recipe
+                                     fromInventory:(NSMutableDictionary*)inventory;
+
 @end

@@ -55,4 +55,7 @@ typedef NS_ENUM(NSInteger, Ingredient) {
 
 -(NSNumber*) getPopularity;
 -(void) setPopularity:(NSNumber*) newPopularity;
+
+-(NSNumber*) getMoney;
+-(void) setMoney:(NSNumber*) newMoney;
 @end

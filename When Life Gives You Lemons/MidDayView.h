@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DataStore.h"
 
 @interface MidDayView : UIView
+
+- (id)initWithFrame:(CGRect)frame andDataStore:(DataStore *)dataStore;
 
 @end

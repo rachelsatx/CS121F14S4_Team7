@@ -16,6 +16,7 @@
     NSMutableDictionary* _recipe;
     NSMutableDictionary* _inventory;
     NSNumber* _popularity;
+    NSNumber* _money;
 }
 @end
 
@@ -33,6 +34,7 @@
     _recipe = [[NSMutableDictionary alloc] initWithObjects:   @[@0.00,     @0.00,    @0.00,  @1.00]
                                                       forKeys:@[@"lemons", @"sugar", @"ice", @"water"]];
     _popularity = 0;
+    _money = [NSNumber numberWithBool:50];
     
     return self;
 }
@@ -110,6 +112,17 @@
 -(void) setPopularity:(NSNumber*) newPopularity
 {
     _popularity = newPopularity;
+}
+
+// Money
+-(NSNumber*) getMoney
+{
+    return _money;
+}
+
+-(void) setMoney:(NSNumber*) newMoney
+{
+    _money = newMoney;
 }
 
 @end

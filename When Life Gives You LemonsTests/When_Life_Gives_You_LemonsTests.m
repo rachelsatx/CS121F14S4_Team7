@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "Model.h"
 
 @interface When_Life_Gives_You_LemonsTests : XCTestCase
 
@@ -14,10 +15,12 @@
 
 @implementation When_Life_Gives_You_LemonsTests
 
+Model *model;
+
 - (void)setUp
 {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    model = [[Model alloc] init];
 }
 
 - (void)tearDown
@@ -26,9 +29,89 @@
     [super tearDown];
 }
 
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+// Test randomNumberAtLeast:andAtMost:
+
+- (void)testRandomNumberEqualBounds{
+    int number = [model randomNumberAtLeast:5 andAtMost:5];
+    XCTAssertEqual(number, 5, @"Random number between 5 and 5 gave value of %i", number);
+}
+
+- (void)testRandomNumberInvalidBounds{
+    XCTAssertThrows([model randomNumberAtLeast:5 andAtMost:4],
+                    @"Random number with invalid bounds did not throw error");
+}
+
+
+// Test removeIngredientsOfRecipe:fromInventory:
+
+- (void)testRemoveIngredientsAllLemons{
+    NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@5.00,      @5.00,     @5.00,   @5.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    
+    NSMutableDictionary *expectedInventory = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@4.00,      @5.00,     @5.00,   @4.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    
+    NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@1.00,      @0.00,     @0.00,   @0.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"water"]];
+    
+    NSMutableDictionary *newInventory = [model removeIngredientsOfRecipe:recipe fromInventory:inventory];
+    
+    XCTAssertEqualObjects(newInventory, expectedInventory,
+                          @"Removing recipe of all lemons from inventory gave incorrect result");
+}
+
+- (void)testRemoveIngredientsAllWater{
+    NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@5.00,      @5.00,     @5.00,   @5.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    
+    NSMutableDictionary *expectedInventory = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@5.00,      @5.00,     @5.00,   @4.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    
+    NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@0.00,      @0.00,     @0.00,   @1.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"water"]];
+    
+    NSMutableDictionary *newInventory = [model removeIngredientsOfRecipe:recipe fromInventory:inventory];
+    
+    XCTAssertEqualObjects(newInventory, expectedInventory,
+                          @"Removing recipe of all water from inventory gave incorrect result");
+}
+
+- (void)testRemoveIngredientsMixedRecipe{
+
+    // This test is prone to floating point errors, so:
+    float acceptableError = .0001;
+    
+    NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@5.00,      @5.00,     @5.00,   @5.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    
+    NSMutableDictionary *expectedInventory = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@4.85,      @4.90,     @4.80,   @4.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    
+    NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@0.15,      @0.10,     @0.20,   @0.55] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"water"]];
+    
+    NSMutableDictionary *newInventory = [model removeIngredientsOfRecipe:recipe fromInventory:inventory];
+    
+    // Test that each ingredient is within acceptable floating-point deviation from what is expected.
+    
+    for (NSString *ingredient in @[@"lemons", @"sugar", @"ice", @"cups"]) {
+        XCTAssert(
+                  fabsf([[expectedInventory valueForKey:@"lemons"] floatValue] -
+                        [[newInventory valueForKey:@"lemons"] floatValue])
+                  < acceptableError, @"Removing mixed recipe gave incorrect value for %@", ingredient);
+    }
+    
+    
+    
 }
 
 @end

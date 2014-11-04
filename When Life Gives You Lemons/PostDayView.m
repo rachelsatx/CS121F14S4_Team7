@@ -22,13 +22,17 @@
         
         CGFloat borderRatio = 1.0 / 10.0;
         
+        CGFloat fontSize = 20;
+        NSString *fontName = @"Chalkduster";
+        
         // Add label for popularity
         CGRect popularityFrame = CGRectMake(frameWidth * borderRatio, frameHeight * borderRatio, (1.0 / borderRatio - 2) * frameWidth * borderRatio, 2 * frameHeight * borderRatio);
         UITextView *popularityView =[[UITextView alloc] initWithFrame:popularityFrame];
         popularityView.backgroundColor = [UIColor whiteColor];
         popularityView.textAlignment = NSTextAlignmentCenter;
-        [popularityView setFont:[UIFont systemFontOfSize:20]];
+        [popularityView setFont:[UIFont fontWithName:fontName size:fontSize]];
         NSNumber *popularity = dataStore.getPopularity;
+        NSAssert(popularity >= 0, @"Negative popularity (%@)", popularity);
         popularityView.text = [NSString stringWithFormat: @"Popularity:\n\rYour popularity is at %@ percent.", popularity];
         [self addSubview:popularityView];
         
@@ -37,7 +41,7 @@
         UITextView *feedbackView =[[UITextView alloc] initWithFrame:feedbackFrame];
         feedbackView.backgroundColor = [UIColor whiteColor];
         feedbackView.textAlignment = NSTextAlignmentCenter;
-        [feedbackView setFont:[UIFont systemFontOfSize:20]];
+        [feedbackView setFont:[UIFont fontWithName:fontName size:fontSize]];
         NSString *feedback = dataStore.getFeedbackString;
         feedbackView.text = [NSString stringWithFormat: @"Feedback:\n\r%@", feedback];
         [self addSubview:feedbackView];
@@ -47,12 +51,18 @@
         UITextView *summaryView =[[UITextView alloc] initWithFrame:summaryFrame];
         summaryView.backgroundColor = [UIColor whiteColor];
         summaryView.textAlignment = NSTextAlignmentCenter;
-        [summaryView setFont:[UIFont systemFontOfSize:20]];
+        [summaryView setFont:[UIFont fontWithName:fontName size:fontSize]];
         NSDictionary *inventory = dataStore.getInventory;
         NSNumber *numLemons = [inventory valueForKey:@"lemons"];
         NSNumber *numSugar = [inventory valueForKey:@"sugar"];
         NSNumber *numIce = [inventory valueForKey:@"ice"];
         NSNumber *numCups = [inventory valueForKey:@"cups"];
+        
+        NSAssert(numLemons >= 0, @"Negative amount of lemons (%@)", numLemons);
+        NSAssert(numSugar >= 0, @"Negative amount of sugar (%@)", numSugar);
+        NSAssert(numIce >= 0, @"Negative amount of ice (%@)", numIce);
+        NSAssert(numCups >= 0, @"Negative amount of cups (%@)", numCups);
+        
         NSString *lemonsRemaining = [NSString stringWithFormat:@"Lemons remaining: %0.2f", [numLemons floatValue]];
         NSString *sugarRemaining = [NSString stringWithFormat:@"Sugar remaining: %0.2f", [numSugar floatValue]];
         NSString *iceRemaining = [NSString stringWithFormat:@"Ice remaining: %0.2f", [numIce floatValue]];

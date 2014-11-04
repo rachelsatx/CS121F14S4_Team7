@@ -19,7 +19,8 @@
     NSNumber* price = [dataStore getPrice];
     NSNumber* popularity = [dataStore getPopularity];
     NSMutableDictionary* inventory = [dataStore getInventory];
-    NSString *feedbackString = @"";
+    NSString* feedbackString = @"";
+    NSNumber* money = [dataStore getMoney];
     
     NSMutableArray *customers = [self getCustomersOnDay:dayOfWeek withWeather:weather
                                  andPopularity:popularity];
@@ -68,7 +69,10 @@
     } else {
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
     }
+    
     int newPopularity = [popularity integerValue] + customersWhoLiked;
+    NSNumber* newMoney = [NSNumber numberWithFloat: [money floatValue] + grossEarnings];
+    
     float percentWhoBought = ((float) customersWhoBought) / ((float) totalCustomers);
     float percentWhoLiked;
     if (percentWhoBought == 0) {
@@ -119,6 +123,7 @@
     [dataStore setPopularity:([NSNumber numberWithInt:newPopularity])];
     [dataStore setFeedbackString:(feedbackString)];
     [dataStore setInventory:inventory];
+    [dataStore setMoney:newMoney];
     
     
     return dataStore;

@@ -40,7 +40,7 @@
     
     // Create the MidDay View
     CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
-    _midDayView = [[MidDayView alloc] initWithFrame:frame];
+    _midDayView = [[MidDayView alloc] initWithFrame:frame andDataStore:_dataStore];
     [self.view addSubview:_midDayView];
     
     [self.view bringSubviewToFront:_goToPostDayButton];
