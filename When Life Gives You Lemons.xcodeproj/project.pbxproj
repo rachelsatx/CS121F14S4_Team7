@@ -31,6 +31,10 @@
 		DA6C2BE119F19B8D00AE1EB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BDF19F19B8D00AE1EB7 /* InfoPlist.strings */; };
 		DA6C2BE319F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */; };
 		DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB2821319F7946000441EAA /* PreDayRecipeView.m */; };
+		FEBAF03B1A0B122500951C36 /* SunnyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF03A1A0B122500951C36 /* SunnyScene.m */; };
+		FEBAF03E1A0B2E1800951C36 /* CloudyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */; };
+		FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */; };
+		FEBAF0421A0B2FB300951C36 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF0401A0B2FB300951C36 /* spark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +87,12 @@
 		DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = When_Life_Gives_You_LemonsTests.m; sourceTree = "<group>"; };
 		DAB2821219F7946000441EAA /* PreDayRecipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayRecipeView.h; sourceTree = "<group>"; };
 		DAB2821319F7946000441EAA /* PreDayRecipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayRecipeView.m; sourceTree = "<group>"; };
+		FEBAF0391A0B122500951C36 /* SunnyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunnyScene.h; sourceTree = "<group>"; };
+		FEBAF03A1A0B122500951C36 /* SunnyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SunnyScene.m; sourceTree = "<group>"; };
+		FEBAF03C1A0B2E1700951C36 /* CloudyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudyScene.h; sourceTree = "<group>"; };
+		FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudyScene.m; sourceTree = "<group>"; };
+		FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainEmitter.sks; sourceTree = "<group>"; };
+		FEBAF0401A0B2FB300951C36 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +159,12 @@
 				DA0FB60719F645EF0036D500 /* MidDayViewController.m */,
 				AFCB509619F7457900DFADE9 /* MidDayView.h */,
 				AFCB509719F7457900DFADE9 /* MidDayView.m */,
+				FEBAF0391A0B122500951C36 /* SunnyScene.h */,
+				FEBAF03A1A0B122500951C36 /* SunnyScene.m */,
+				FEBAF03C1A0B2E1700951C36 /* CloudyScene.h */,
+				FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */,
+				FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */,
+				FEBAF0401A0B2FB300951C36 /* spark.png */,
 				DA0FB60919F646030036D500 /* PostDayViewController.h */,
 				DA0FB60A19F646030036D500 /* PostDayViewController.m */,
 				AFE2AC5E19F833D2005EC4D0 /* PostDayView.h */,
@@ -281,8 +297,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEBAF0421A0B2FB300951C36 /* spark.png in Resources */,
 				DA6C2BD019F19B8D00AE1EB7 /* Images.xcassets in Resources */,
 				DA6C2BC219F19B8D00AE1EB7 /* InfoPlist.strings in Resources */,
+				FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */,
 				DA6C2BCB19F19B8D00AE1EB7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,8 +328,10 @@
 				DA0FB60B19F646030036D500 /* PostDayViewController.m in Sources */,
 				AFE2AC6019F833D2005EC4D0 /* PostDayView.m in Sources */,
 				DA2726AB19F8F26300287791 /* Customer.m in Sources */,
+				FEBAF03E1A0B2E1800951C36 /* CloudyScene.m in Sources */,
 				DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */,
 				AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */,
+				FEBAF03B1A0B122500951C36 /* SunnyScene.m in Sources */,
 				DA6C2BC419F19B8D00AE1EB7 /* main.m in Sources */,
 				DA2726AC19F8F26300287791 /* Model.m in Sources */,
 				DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */,
