@@ -10,6 +10,7 @@
 #import "DataStore.h"
 #import "SunnyScene.h"
 #import "CloudyScene.h"
+#import "RainyScene.h"
 
 @implementation MidDayView
 
@@ -46,6 +47,10 @@
             [animation presentScene:cloudScene];
         } else if (weather == Raining) {
             backgroundColor = [UIColor colorWithRed:173.0/255 green:216.0/255 blue:230.0/255 alpha:1.0];
+            SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
+            [self addSubview:animation];
+            RainyScene *rainScene = [[RainyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
+            [animation presentScene:rainScene];
         }
         [self setBackgroundColor:backgroundColor];
         

@@ -35,6 +35,7 @@
 		FEBAF03E1A0B2E1800951C36 /* CloudyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */; };
 		FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */; };
 		FEBAF0421A0B2FB300951C36 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF0401A0B2FB300951C36 /* spark.png */; };
+		FEBAF0451A0B3F9600951C36 /* RainyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF0441A0B3F9500951C36 /* RainyScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,8 @@
 		FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudyScene.m; sourceTree = "<group>"; };
 		FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainEmitter.sks; sourceTree = "<group>"; };
 		FEBAF0401A0B2FB300951C36 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		FEBAF0431A0B3F9500951C36 /* RainyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RainyScene.h; sourceTree = "<group>"; };
+		FEBAF0441A0B3F9500951C36 /* RainyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RainyScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +166,8 @@
 				FEBAF03A1A0B122500951C36 /* SunnyScene.m */,
 				FEBAF03C1A0B2E1700951C36 /* CloudyScene.h */,
 				FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */,
+				FEBAF0431A0B3F9500951C36 /* RainyScene.h */,
+				FEBAF0441A0B3F9500951C36 /* RainyScene.m */,
 				FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */,
 				FEBAF0401A0B2FB300951C36 /* spark.png */,
 				DA0FB60919F646030036D500 /* PostDayViewController.h */,
@@ -328,6 +333,7 @@
 				DA0FB60B19F646030036D500 /* PostDayViewController.m in Sources */,
 				AFE2AC6019F833D2005EC4D0 /* PostDayView.m in Sources */,
 				DA2726AB19F8F26300287791 /* Customer.m in Sources */,
+				FEBAF0451A0B3F9600951C36 /* RainyScene.m in Sources */,
 				FEBAF03E1A0B2E1800951C36 /* CloudyScene.m in Sources */,
 				DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */,
 				AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */,

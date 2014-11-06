@@ -32,7 +32,6 @@
     for (int i = 0; i < 5; ++i) {
         SKSpriteNode *cloudSprite = [SKSpriteNode spriteNodeWithImageNamed:@"cloud.png"];
         cloudSprite.position = CGPointMake(frameWidth * (-1 + (2 *i))/8, 7*frameHeight/8);
-        cloudSprite.name = [NSString stringWithFormat: @"cloudSprite%d", i];
         [self addChild:cloudSprite];
         SKAction *move = [SKAction moveByX:(5 - i)*frameWidth / 4 y:0 duration:(self.duration * (5-i)/5)];
         SKAction *done = [SKAction removeFromParent];

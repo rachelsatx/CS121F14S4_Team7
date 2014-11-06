@@ -27,7 +27,7 @@
     self = [super init];
     _price = [NSNumber numberWithFloat:.50];
     //_weather = Sunny;
-    _weather = Cloudy;
+    _weather = Raining;
     _dayOfWeek = Saturday;
     _feedbackString = @"";
     _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,      @0.00,     @0.00,   @0.00]
