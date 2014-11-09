@@ -22,7 +22,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _goToPreDayButton.backgroundColor = [UIColor whiteColor];
+        _goToPreDayButton.layer.cornerRadius = 10;
+        _goToPreDayButton.clipsToBounds = YES;
     }
     return self;
 }
