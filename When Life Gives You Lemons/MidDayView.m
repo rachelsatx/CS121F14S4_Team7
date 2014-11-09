@@ -38,9 +38,9 @@
             [self addSubview:backgroundView];
         }
         
-        UIImageView *grass = [[UIImageView alloc] initWithFrame:CGRectMake(0, 3 * frameHeight / 4, frameWidth, frameHeight / 4)];
-        grass.backgroundColor = [UIColor colorWithRed:124.0/255 green:252.0/255 blue:0.0/255 alpha:1.0];
-        [self addSubview:grass];
+        UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 2 * frameHeight / 3, frameWidth, frameHeight / 3)];
+        [grassBackground setImage:[UIImage imageNamed:@"grass-background"]];
+        [self addSubview:grassBackground];
         
         UIImageView *vendor =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 4, frameHeight / 2, frameWidth / 4, frameHeight / 4)];
         vendor.image=[UIImage imageNamed:@"person.png"];
@@ -50,12 +50,16 @@
         lemonadeStand.image=[UIImage imageNamed:@"lemonade-stand.png"];
         [self addSubview:lemonadeStand];
         
-        UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(2 * frameWidth / 5, 3 * frameHeight / 4, frameWidth / 4, frameHeight / 4)];
+        UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(2 * frameWidth / 5, 7.3 * frameHeight / 10, frameWidth / 4, frameHeight / 4)];
         CGFloat price = [dataStore.getPrice floatValue];
         NSAssert(price >= 0, @"Negative price (%0.2f)", price);
         priceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
         [priceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [self addSubview:priceLabel];
+        
+        UIImageView *grass = [[UIImageView alloc] initWithFrame:CGRectMake(0, 6 * frameHeight / 7, frameWidth, frameHeight / 7)];
+        [grass setImage:[UIImage imageNamed:@"grass-foreground"]];
+        [self addSubview:grass];
     }
     return self;
 }
