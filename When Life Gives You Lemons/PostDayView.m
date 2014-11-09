@@ -31,26 +31,22 @@
         NSString *fontName = @"Chalkduster";
         
         // Add label for popularity
-        CGRect popularityOutline = CGRectMake(frameWidth * borderRatio - outlineWidth, frameHeight * borderRatio - outlineWidth, (1.0 / borderRatio - 2) * frameWidth * borderRatio + 2 * outlineWidth, 3 * frameHeight * borderRatio / 2 + 2 * outlineWidth);
-        UIView *popularityOutlineView = [[UIView alloc] initWithFrame:popularityOutline];
-        popularityOutlineView.backgroundColor = [UIColor blackColor];
-        [self addSubview:popularityOutlineView];
         CGRect popularityFrame = CGRectMake(frameWidth * borderRatio, frameHeight * borderRatio, (1.0 / borderRatio - 2) * frameWidth * borderRatio, 3 * frameHeight * borderRatio / 2);
         UITextView *popularityView =[[UITextView alloc] initWithFrame:popularityFrame];
         popularityView.backgroundColor = [UIColor whiteColor];
+        popularityView.layer.borderWidth = outlineWidth;
+        popularityView.layer.borderColor = [UIColor blackColor].CGColor;
         popularityView.textAlignment = NSTextAlignmentCenter;
         [popularityView setFont:[UIFont fontWithName:fontName size:fontSize]];
         popularityView.text = [NSString stringWithFormat: @"Popularity:\n\rYour popularity is at %@ percent.", popularity];
         [self addSubview:popularityView];
         
         // Add label for customer feedback
-        CGRect feedbackOutline = CGRectMake(frameWidth * borderRatio - outlineWidth, 3 * frameHeight / 10 - outlineWidth, (1.0 / borderRatio - 2) * frameWidth * borderRatio + 2 * outlineWidth, 2 * frameHeight * borderRatio + 2 * outlineWidth);
-        UIView *feedbackOutlineView = [[UIView alloc] initWithFrame:feedbackOutline];
-        feedbackOutlineView.backgroundColor = [UIColor blackColor];
-        [self addSubview:feedbackOutlineView];
         CGRect feedbackFrame = CGRectMake(frameWidth * borderRatio, 3 * frameHeight / 10, (1.0 / borderRatio - 2) * frameWidth * borderRatio, 2 * frameHeight * borderRatio);
         UITextView *feedbackView =[[UITextView alloc] initWithFrame:feedbackFrame];
         feedbackView.backgroundColor = [UIColor whiteColor];
+        feedbackView.layer.borderWidth = outlineWidth;
+        feedbackView.layer.borderColor = [UIColor blackColor].CGColor;
         feedbackView.textAlignment = NSTextAlignmentCenter;
         [feedbackView setFont:[UIFont fontWithName:fontName size:fontSize]];
         NSString *feedback = dataStore.getFeedbackString;
@@ -58,13 +54,11 @@
         [self addSubview:feedbackView];
         
         // Add label for end-of-day summary
-        CGRect summaryOutline = CGRectMake(frameWidth * borderRatio - outlineWidth, 5 * frameHeight / 9 - outlineWidth, (1.0 / borderRatio - 2) * frameWidth * borderRatio + 2 * outlineWidth, 7 * frameHeight * borderRatio / 2 + 2 * outlineWidth);
-        UIView *summaryOutlineView = [[UIView alloc] initWithFrame:summaryOutline];
-        summaryOutlineView.backgroundColor = [UIColor blackColor];
-        [self addSubview:summaryOutlineView];
         CGRect summaryFrame = CGRectMake(frameWidth * borderRatio, 5 * frameHeight / 9, (1.0 / borderRatio - 2) * frameWidth * borderRatio, 7 * frameHeight * borderRatio / 2);
         UITextView *summaryView =[[UITextView alloc] initWithFrame:summaryFrame];
         summaryView.backgroundColor = [UIColor whiteColor];
+        summaryView.layer.borderWidth = outlineWidth;
+        summaryView.layer.borderColor = [UIColor blackColor].CGColor;
         summaryView.textAlignment = NSTextAlignmentCenter;
         [summaryView setFont:[UIFont fontWithName:fontName size:fontSize]];
         NSNumber *money = dataStore.getMoney;
