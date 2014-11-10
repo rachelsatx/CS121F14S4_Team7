@@ -22,6 +22,7 @@
     NSString* feedbackString = @"";
     NSNumber* money = [dataStore getMoney];
     
+    // Get an array of customers.
     NSMutableArray *customers = [self getCustomersOnDay:dayOfWeek withWeather:weather
                                  andPopularity:popularity];
     int totalCustomers = [customers count];
@@ -30,18 +31,7 @@
     float grossEarnings = 0;
     
     // Calculate the maximum number of cups of lemonade that we can make.
-    int maxCustomers = [(NSNumber*) [inventory valueForKey:@"cups"] intValue];
-    for (NSString* key in [inventory allKeys]) {
-        if (![key isEqual: @"cups"] && [[recipe valueForKey:key] floatValue] > 0.0) {
-            int maxCupsWithThisIngredient = (int) ([(NSNumber*) [inventory valueForKey:key] floatValue]/
-                                                   [(NSNumber*) [recipe valueForKey:key] floatValue]);
-            if (maxCupsWithThisIngredient < maxCustomers) {
-                maxCustomers = maxCupsWithThisIngredient;
-            }
-        }
-    }
-    
-    NSLog(@"%d cups of lemonade", maxCustomers);
+    int maxCustomers = [self mostCupsMakableFromInventory:inventory withRecipe:recipe];
     
     bool ranOut = NO;
     
@@ -194,6 +184,22 @@
     Customer* customer = [[Customer alloc] init];
     [customer setCustomerType:randomValue];
     return customer;
+}
+
+- (int) mostCupsMakableFromInventory:(NSMutableDictionary*)inventory
+              withRecipe:(NSMutableDictionary*) recipe {
+    
+    int maxCustomers = [(NSNumber*) [inventory valueForKey:@"cups"] intValue];
+    for (NSString* key in [inventory allKeys]) {
+        if (![key isEqual: @"cups"] && [[recipe valueForKey:key] floatValue] > 0.0) {
+            int maxCupsWithThisIngredient = (int) ([(NSNumber*) [inventory valueForKey:key] floatValue]/
+                                                   [(NSNumber*) [recipe valueForKey:key] floatValue]);
+            if (maxCupsWithThisIngredient < maxCustomers) {
+                maxCustomers = maxCupsWithThisIngredient;
+            }
+        }
+    }
+    return maxCustomers;
 }
 
 - (NSMutableDictionary*) removeIngredientsOfRecipe:(NSMutableDictionary*)recipe
