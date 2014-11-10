@@ -60,24 +60,19 @@
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
     }
     
-    int newPopularity = [popularity integerValue] + customersWhoLiked;
-    NSNumber* newMoney = [NSNumber numberWithFloat: [money floatValue] + grossEarnings];
-    
-    float percentWhoBought = ((float) customersWhoBought) / ((float) totalCustomers);
-    float percentWhoLiked;
-    if (percentWhoBought == 0) {
-        percentWhoLiked = 0;
+    float portionWhoBought = ((float) customersWhoBought) / ((float) totalCustomers);
+    float portionWhoLiked;
+    if (portionWhoBought == 0) {
+        portionWhoLiked = 0;
     } else {
-        percentWhoLiked = ((float)customersWhoLiked) / ((float)customersWhoBought);
+        portionWhoLiked = ((float)customersWhoLiked) / ((float)customersWhoBought);
     }
     
-    // TODO: modify the datastore to account for day's earnings.
-    // This feature will not be in the alpha.
+    // Calculate new value for popularity.
+    int newPopularity = [self calculateNewPopularityWithNumCustomers:totalCustomers
+        portionBought:portionWhoBought portionLiked:portionWhoLiked fromOldPopularity:popularity];
     
-    // TODO: return percents of customers who bought and liked the lemonade.
-    // This probably also won't be in the alpha.
-    
-    
+    NSNumber* newMoney = [NSNumber numberWithFloat: [money floatValue] + grossEarnings];
     
     // If we haven't made the feedback string yet, make it based on what customers thought.
     if ([feedbackString  isEqual: @""]) {
@@ -202,8 +197,28 @@
     return maxCustomers;
 }
 
+- (int) calculateNewPopularityWithNumCustomers:(int)totalCustomers
+        portionBought:(float)portionWhoBought
+        portionLiked:(float)portionWhoLiked
+        fromOldPopularity:(NSNumber*)popularity {
+    
+    int newPopularity = [popularity integerValue];
+    
+    // If enough people were unwilling to buy because of price, lose some popularity proportionally.
+    newPopularity -= (int) ((1 - portionWhoBought) * 10);
+    // If enough people didn't like it, lose some popularity proportionally.
+    newPopularity -= (int) ((1 - portionWhoLiked) * 20);
+    // Add some popularity for those who did like it.
+    newPopularity += (int) (totalCustomers * portionWhoBought * portionWhoLiked);
+    // If the resulting popularity is negative, set it to 0.
+    if (newPopularity < 0) {
+        newPopularity = 0;
+    }
+    return newPopularity;
+}
+
 - (NSMutableDictionary*) removeIngredientsOfRecipe:(NSMutableDictionary*)recipe
-                        fromInventory:(NSMutableDictionary*)inventory {
+                         fromInventory:(NSMutableDictionary*)inventory {
     
     // Handle cups separately because they aren't part of the recipe.
     [inventory setValue: [NSNumber numberWithInt: [[inventory valueForKey:@"cups"]
