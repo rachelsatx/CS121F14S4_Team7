@@ -22,12 +22,15 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIColor* backgroundColor = [UIColor colorWithRed:255.0/255 green:182.0/255 blue:193.0/255 alpha:1.0];
-        [self setBackgroundColor:backgroundColor];
+        UIGraphicsBeginImageContext(self.frame.size);
+        [[UIImage imageNamed:@"spiral-notebook"] drawInRect:self.bounds];
+        UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        self.backgroundColor = [UIColor colorWithPatternImage:image];
         
         CGFloat width = CGRectGetWidth(self.frame);
         CGFloat height = CGRectGetWidth(self.frame);
-        CGFloat borderThickness = (height / 10) < (width / 10) ? (height / 8) : (width / 8);
+        CGFloat borderThickness = (height < width) ? (height / 8) : (width / 8);
         CGFloat ingredientSize = ((height - borderThickness) / 4) < (width / 2) ? ((height - borderThickness) / 4) : (width / 2);
         CGFloat buttonSize = ingredientSize / 3;
         CGFloat fontSize = 30;
