@@ -45,6 +45,8 @@
     [self.view addSubview:_inventoryView];
     [_inventoryView setDelegate:self];
     [_inventoryView updateAmountLabels];
+    [_inventoryView updateMoneyLabel];
+    [_inventoryView updatePriceLabels];
     
     // Create the Recipe View
     _recipeView = [[PreDayRecipeView alloc] initWithFrame:allViewsFrame];
@@ -186,6 +188,18 @@
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newCups forKey:@"cups"];
     [_dataStore setInventory:inventory];
+}
+- (NSNumber*) getMoney
+{
+    return [_dataStore getMoney];
+}
+- (void) setMoney:(NSNumber*) newMoney
+{
+    [_dataStore setMoney:newMoney];
+}
+- (NSNumber*) getLemonPrice
+{
+    return [[_dataStore getIngredientPrices] valueForKey:@"lemons"];
 }
 
 - (NSNumber*) getLemonsPercentage

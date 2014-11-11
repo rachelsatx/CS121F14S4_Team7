@@ -46,12 +46,14 @@ typedef NS_ENUM(NSInteger, Ingredient) {
 -(NSString*) getFeedbackString;
 -(void) setFeedbackString:(NSString*) newFeedbackString;
 
-
 -(NSMutableDictionary*) getRecipe;
 -(void) setRecipe:(NSMutableDictionary*) newRecipe;
 
 -(NSMutableDictionary*) getInventory;
 -(void) setInventory:(NSMutableDictionary*) newInventory;
+
+-(NSMutableDictionary*) getIngredientPrices;
+-(void) setIngredientPrices:(NSMutableDictionary*) newIngredientPrices;
 
 -(NSNumber*) getPopularity;
 -(void) setPopularity:(NSNumber*) newPopularity;

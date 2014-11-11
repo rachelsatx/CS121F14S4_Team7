@@ -15,6 +15,7 @@
     NSString* _feedbackString;
     NSMutableDictionary* _recipe;
     NSMutableDictionary* _inventory;
+    NSMutableDictionary* _ingredientPrices;
     NSNumber* _popularity;
     NSNumber* _money;
 }
@@ -29,10 +30,12 @@
     _weather = Sunny;
     _dayOfWeek = Saturday;
     _feedbackString = @"";
-    _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,      @0.00,     @0.00,   @0.00]
-                                              forKeys:        @[@"lemons", @"sugar", @"ice", @"cups"]];
-    _recipe = [[NSMutableDictionary alloc] initWithObjects:   @[@0.00,     @0.00,    @0.00,  @1.00]
-                                                      forKeys:@[@"lemons", @"sugar", @"ice", @"water"]];
+    _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,     @0.00,    @0.00,  @0.00]
+                                                      forKeys:@[@"lemons", @"sugar", @"ice", @"cups"]];
+    _recipe = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,     @0.00,    @0.00,  @1.00]
+                                                   forKeys:@[@"lemons", @"sugar", @"ice", @"water"]];
+    _ingredientPrices = [[NSMutableDictionary alloc] initWithObjects:@[@1.00,     @1.00,    @1.00,  @1.00]
+                                                             forKeys:@[@"lemons", @"sugar", @"ice", @"cups"]];
     _popularity = 0;
     _money = [NSNumber numberWithFloat:50];
     
@@ -101,6 +104,17 @@
 -(void) setInventory:(NSMutableDictionary*) newInventory
 {
     _inventory = newInventory;
+}
+
+// Ingredient Prices
+-(NSMutableDictionary*) getIngredientPrices
+{
+    return _ingredientPrices;
+}
+
+-(void) setIngredientPrices:(NSMutableDictionary *)newIngredientPrices
+{
+    _ingredientPrices = newIngredientPrices;
 }
 
 // Popularity

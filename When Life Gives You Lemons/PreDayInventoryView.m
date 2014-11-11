@@ -13,6 +13,9 @@
     UILabel* _sugarAmountLabel;
     UILabel* _iceAmountLabel;
     UILabel* _cupsAmountLabel;
+    UILabel* _moneyLabel;
+    
+    UILabel* _lemonsPriceLabel;
 }
 @end
 
@@ -47,12 +50,19 @@
         [lemonImage setImage:[UIImage imageNamed:@"lemon-slice"]];
         [self addSubview:lemonImage];
         
-        CGRect lemonNameLabelFrame = CGRectMake(width / 2, borderThickness, width / 4, height / 4);
+        CGRect lemonNameLabelFrame = CGRectMake(width / 2, borderThickness, width / 4, height / 8);
         UILabel* lemonNameLabel = [[UILabel alloc] initWithFrame:lemonNameLabelFrame];
         [lemonNameLabel setText:@"Lemons"];
         [lemonNameLabel setFont:[UIFont systemFontOfSize:fontSize]];
         [lemonNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:lemonNameLabel];
+        
+        CGRect lemonPriceLabelFrame = CGRectMake(width / 2, borderThickness + height/8, width / 4, height / 8);
+        UILabel* lemonPriceLabel = [[UILabel alloc] initWithFrame:lemonPriceLabelFrame];
+        [lemonPriceLabel setText:[NSString stringWithFormat:@"$%.2f", [[self.delegate getLemonPrice] floatValue]]];
+        [lemonPriceLabel setFont:[UIFont systemFontOfSize:fontSize]];
+        [lemonPriceLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:lemonPriceLabel];
         
         CGRect lemonUpButtonFrame = CGRectMake(3 * width / 4, borderThickness, buttonSize, buttonSize);
         UIButton* lemonUpButton = [[UIButton alloc] initWithFrame:lemonUpButtonFrame];
@@ -183,7 +193,14 @@
         [cupDownButton addTarget:self
                        action:@selector(decrementCups:)
                        forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:cupDownButton];        
+        [self addSubview:cupDownButton];
+        
+        CGRect moneyLabelFrame = CGRectMake(0, borderThickness + 4 * ingredientSize, width, borderThickness);
+        _moneyLabel = [[UILabel alloc] initWithFrame:moneyLabelFrame];
+        [_moneyLabel setText:[NSString stringWithFormat:@"Money: $%.2f", [[self.delegate getMoney] floatValue]]];
+        [_moneyLabel setFont:[UIFont systemFontOfSize:fontSize]];
+        [_moneyLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_moneyLabel];
     }
     return self;
 }
@@ -196,22 +213,42 @@
     [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] intValue]]];
 }
 
+- (void) updatePriceLabels
+{
+    [_lemonsPriceLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getLemons] floatValue]]];
+}
+
+- (void) updateMoneyLabel
+{
+    [_moneyLabel setText:[NSString stringWithFormat:@"Money: $%.2f", [[self.delegate getMoney] floatValue]]];
+}
+
 - (void) incrementLemons:(id)sender
 {
-    NSNumber* lemons = [self.delegate getLemons];
-    lemons = [NSNumber numberWithFloat:[lemons floatValue] + 1.0];
-    [self.delegate setLemons:lemons];
-    [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
+    NSNumber* money = [self.delegate getMoney];
+    if ([money floatValue] >= 1.0){
+        NSNumber* lemons = [self.delegate getLemons];
+        lemons = [NSNumber numberWithFloat:[lemons floatValue] + 1.0];
+        [self.delegate setLemons:lemons];
+        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getLemonPrice] floatValue]]];
+        [self updateMoneyLabel];
+        [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
+    }
+    NSAssert([[self.delegate getMoney] floatValue] >= 0.0, @"Money is negative");
 }
 
 - (void) decrementLemons:(id)sender
 {
     NSNumber* lemons = [self.delegate getLemons];
     if ([lemons floatValue] >= 1.0){
+        NSNumber* money = [self.delegate getMoney];
         lemons = [NSNumber numberWithFloat:[lemons floatValue] - 1.0];
         [self.delegate setLemons:lemons];
+        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getLemonPrice] floatValue]]];
+        [self updateMoneyLabel];
         [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
     }
+    NSAssert([[self.delegate getLemons] floatValue] >= 0.0, @"Lemons are negative");
 }
 
 - (void) incrementSugar:(id)sender
@@ -229,6 +266,7 @@
         [self.delegate setSugar:sugar];
         [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
     }
+    NSAssert([[self.delegate getSugar] floatValue] >= 0.0, @"Sugar is negative");
 }
 
 - (void) incrementIce:(id)sender
@@ -247,6 +285,7 @@
         [self.delegate setIce:ice];
         [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
     }
+    NSAssert([[self.delegate getIce] floatValue] >= 0.0, @"Ice is negative");
 }
 
 - (void) incrementCups:(id)sender
@@ -265,6 +304,7 @@
         [self.delegate setCups:cups];
         [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
     }
+    NSAssert([[self.delegate getCups] intValue] >= 0, @"Cups are negative");
 }
 
 /*
