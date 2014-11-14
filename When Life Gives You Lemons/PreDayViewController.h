@@ -19,7 +19,6 @@
 @property (nonatomic, weak) IBOutlet UIButton* inventoryViewButton;
 @property (nonatomic, weak) IBOutlet UIButton* recipesViewButton;
 
-
 - (void) setDataStore:(DataStore*) dataStore;
 
 @end

@@ -21,7 +21,6 @@
 
 @end
 
-
 @interface PreDayRecipeView : UIView
 
 {

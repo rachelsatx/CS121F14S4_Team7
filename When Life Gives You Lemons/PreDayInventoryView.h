@@ -25,6 +25,8 @@
 {
     id <PreDayInvenentoryViewDelegate> _delegate;
 }
+
 - (void) updateAmountLabels;
 @property (nonatomic,strong) id delegate;
+
 @end
