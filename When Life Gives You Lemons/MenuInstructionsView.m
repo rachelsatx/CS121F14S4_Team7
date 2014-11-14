@@ -1,0 +1,85 @@
+//
+//  MenuInstructionsView.m
+//  When Life Gives You Lemons
+//
+//  Created by Guest User on 11/13/14.
+//  Copyright (c) 2014 Jonathan Finnell, Amit Maor, Joshua Petrack, Megan Shao, Rachel Wilson. All rights reserved.
+//
+
+#import "MenuInstructionsView.h"
+
+@implementation MenuInstructionsView
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self setBackgroundColor:[UIColor grayColor]];
+        
+        CGFloat header = 90;
+        
+        CGFloat width = CGRectGetWidth(self.frame);
+        CGFloat height = CGRectGetHeight(self.frame);
+        CGFloat borderThickness = (height < width) ? (height / 8) : (width / 8);
+        CGFloat fontSize = 30;
+        NSString* fontName = @"Noteworthy-Bold";
+
+        
+        // Create Title
+        CGRect titleFrame = CGRectMake(0, header, width, borderThickness);
+        UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
+        title.text = @"How to Play";
+        [title setFont:[UIFont fontWithName:fontName size:(fontSize + 5)]];
+        [title setTextAlignment:NSTextAlignmentCenter];
+        [title setBackgroundColor:[UIColor greenColor]];
+        [self addSubview:title];
+        
+        // Create back button
+        CGRect backButtonFrame = CGRectMake(3*width/4, header + (borderThickness/4), width/8, borderThickness/2);
+        UIButton* backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+        [backButton setBackgroundColor:[UIColor blueColor]];
+        [backButton addTarget:self
+                          action:@selector(backButtonPressed:)
+                forControlEvents:UIControlEventTouchUpInside];
+        [backButton setTitle:@"Back" forState:UIControlStateNormal];
+        [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self addSubview:backButton];
+
+        NSString* instructionsText = @"You've been give 20 dollars to start up your own business. You've decided to make a lemonade stand! \n \n Use the money you have to buy ingredients and prepare for the next day. Change your recipe to try to make the tastiest lemonade possible. If your customers like your lemonade, your popularity will go up! \n \n The more popular your stand is, the more customers you will have. Good luck, and don't forget the cups!";
+        
+        // Create Text box with instructions
+        CGRect instructionsFrame = CGRectMake(30, 200, width-60, height - borderThickness - header - 30);
+        UITextView* instructions = [[UITextView alloc] initWithFrame:instructionsFrame];
+        [instructions setBackgroundColor:[UIColor yellowColor]];
+        [instructions setFont:[UIFont fontWithName:fontName size:fontSize]];
+        [instructions setText:instructionsText];
+        instructions.editable = NO;
+        [self addSubview:instructions];
+        
+    }
+    return self;
+}
+
+- (void)backButtonPressed:(id)sender
+{
+    [self setHidden:YES];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.delegate = self;
+    [self.layer addAnimation:transition forKey:nil];
+    [self sendSubviewToBack:self];
+}
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
+
+@end
