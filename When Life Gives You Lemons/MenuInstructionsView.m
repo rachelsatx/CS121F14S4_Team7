@@ -35,16 +35,42 @@
         [title setBackgroundColor:[UIColor greenColor]];
         [self addSubview:title];
         
+        // Create back button
+        CGRect backButtonFrame = CGRectMake(3*width/4, header + (borderThickness/4), width/8, borderThickness/2);
+        UIButton* backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+        [backButton setBackgroundColor:[UIColor blueColor]];
+        [backButton addTarget:self
+                          action:@selector(backButtonPressed:)
+                forControlEvents:UIControlEventTouchUpInside];
+        [backButton setTitle:@"Back" forState:UIControlStateNormal];
+        [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self addSubview:backButton];
+
+        NSString* instructionsText = @"You've been give 20 dollars to start up your own business. You've decided to make a lemonade stand! \n \n Use the money you have to buy ingredients and prepare for the next day. Change your recipe to try to make the tastiest lemonade possible. If your customers like your lemonade, your popularity will go up! \n \n The more popular your stand is, the more customers you will have. Good luck, and don't forget the cups!";
+        
         // Create Text box with instructions
         CGRect instructionsFrame = CGRectMake(30, 200, width-60, height - borderThickness - header - 30);
         UITextView* instructions = [[UITextView alloc] initWithFrame:instructionsFrame];
         [instructions setBackgroundColor:[UIColor yellowColor]];
         [instructions setFont:[UIFont fontWithName:fontName size:fontSize]];
-        [instructions setText:@"This is the sample text. Do shit iwth other things also hi jon and blah blah blahabdfkabsdfkajsdfhaksdjhf kasdjh fkajsdh fkajshdf kjasdh f"];
+        [instructions setText:instructionsText];
         instructions.editable = NO;
         [self addSubview:instructions];
+        
     }
     return self;
+}
+
+- (void)backButtonPressed:(id)sender
+{
+    [self setHidden:YES];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.delegate = self;
+    [self.layer addAnimation:transition forKey:nil];
+    [self sendSubviewToBack:self];
 }
 
 /*
