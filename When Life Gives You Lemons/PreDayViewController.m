@@ -38,8 +38,12 @@
     [self updatePrice];
     [self updateWeather];
     
+    // Create frame for additional views
+    CGFloat header = 90;
+    CGFloat footer = 90;
+    CGRect allViewsFrame = CGRectMake(0, header, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - header - footer);
+    
     // Create the Inventory View
-    CGRect allViewsFrame = CGRectMake(0, 55, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     _inventoryView = [[PreDayInventoryView alloc] initWithFrame:allViewsFrame];
     [_inventoryView setHidden:YES];
     [self.view addSubview:_inventoryView];

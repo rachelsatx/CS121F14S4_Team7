@@ -18,43 +18,48 @@
         CGFloat frameWidth = CGRectGetWidth(self.frame);
         CGFloat frameHeight = CGRectGetHeight(self.frame);
         
-        CGFloat fontSize = 20;
+        CGFloat fontSize = 50;
         NSString *fontName = @"Chalkduster";
         
         Weather weather = dataStore.getWeather;
-        UIColor *backgroundColor;
         if (weather == Sunny) {
-            backgroundColor = [UIColor colorWithRed:140.0/255 green:211.0/255 blue:255.0/255 alpha:1.0];
+            UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
+            [self addSubview:backgroundView];
             
             CGFloat sunSize = frameWidth > frameHeight ? frameHeight : frameWidth;
-            UIImageView *sun =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 8, frameHeight / 8, sunSize / 7, sunSize / 7)];
+            UIImageView *sun =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 10, frameHeight / 10, sunSize / 7, sunSize / 7)];
             sun.image=[UIImage imageNamed:@"sun.png"];
             [self addSubview:sun];
         } else if (weather == Cloudy) {
-            backgroundColor = [UIColor colorWithRed:176.0/255 green:196.0/255 blue:222.0/255 alpha:1.0];
+            UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloudy-background"]];
+            [self addSubview:backgroundView];
         } else if (weather == Raining) {
-            backgroundColor = [UIColor colorWithRed:173.0/255 green:216.0/255 blue:230.0/255 alpha:1.0];
+            UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"raining-background"]];
+            [self addSubview:backgroundView];
         }
-        [self setBackgroundColor:backgroundColor];
         
-        UIImageView *grass = [[UIImageView alloc] initWithFrame:CGRectMake(0, 7 * frameHeight / 8, frameWidth, frameHeight / 8)];
-        grass.backgroundColor = [UIColor colorWithRed:124.0/255 green:252.0/255 blue:0.0/255 alpha:1.0];
-        [self addSubview:grass];
+        UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 2 * frameHeight / 3, frameWidth, frameHeight / 3)];
+        [grassBackground setImage:[UIImage imageNamed:@"grass-background"]];
+        [self addSubview:grassBackground];
         
-        UIImageView *vendor =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 2, 4 * frameHeight / 7, frameWidth / 4, frameHeight / 4)];
+        UIImageView *vendor =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 4, frameHeight / 2, frameWidth / 4, frameHeight / 4)];
         vendor.image=[UIImage imageNamed:@"person.png"];
         [self addSubview:vendor];
         
-        UIImageView *lemonadeStand =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 4, frameHeight / 4, 3 * frameWidth / 4, 3 * frameHeight / 4)];
+        UIImageView *lemonadeStand =[[UIImageView alloc] initWithFrame:CGRectMake(0, frameHeight / 5, 3 * frameWidth / 4, 3 * frameHeight / 4)];
         lemonadeStand.image=[UIImage imageNamed:@"lemonade-stand.png"];
         [self addSubview:lemonadeStand];
         
-        UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(4 * frameWidth / 5, 4 * frameHeight / 5, frameWidth / 4, frameHeight / 4)];
+        UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(2 * frameWidth / 5, 7.3 * frameHeight / 10, frameWidth / 4, frameHeight / 4)];
         CGFloat price = [dataStore.getPrice floatValue];
         NSAssert(price >= 0, @"Negative price (%0.2f)", price);
         priceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
         [priceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [self addSubview:priceLabel];
+        
+        UIImageView *grass = [[UIImageView alloc] initWithFrame:CGRectMake(0, 6 * frameHeight / 7, frameWidth, frameHeight / 7)];
+        [grass setImage:[UIImage imageNamed:@"grass-foreground"]];
+        [self addSubview:grass];
     }
     return self;
 }
