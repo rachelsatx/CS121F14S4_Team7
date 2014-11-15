@@ -28,7 +28,7 @@
             
             CGFloat sunSize = frameWidth > frameHeight ? frameHeight : frameWidth;
             UIImageView *sun =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 10, frameHeight / 10, sunSize / 7, sunSize / 7)];
-            sun.image=[UIImage imageNamed:@"sun.png"];
+            sun.image=[UIImage imageNamed:@"sun"];
             [self addSubview:sun];
         } else if (weather == Cloudy) {
             UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloudy-background"]];
@@ -42,12 +42,12 @@
         [grassBackground setImage:[UIImage imageNamed:@"grass-background"]];
         [self addSubview:grassBackground];
         
-        UIImageView *vendor =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 4, frameHeight / 2, frameWidth / 4, frameHeight / 4)];
-        vendor.image=[UIImage imageNamed:@"person.png"];
+        UIImageView *vendor = [[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 4, frameHeight / 2, frameWidth / 4, frameHeight / 4)];
+        vendor.image = [UIImage imageNamed:@"person-pink"];
         [self addSubview:vendor];
         
         UIImageView *lemonadeStand =[[UIImageView alloc] initWithFrame:CGRectMake(0, frameHeight / 5, 3 * frameWidth / 4, 3 * frameHeight / 4)];
-        lemonadeStand.image=[UIImage imageNamed:@"lemonade-stand.png"];
+        lemonadeStand.image = [UIImage imageNamed:@"lemonade-stand"];
         [self addSubview:lemonadeStand];
         
         UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(2 * frameWidth / 5, 7.3 * frameHeight / 10, frameWidth / 4, frameHeight / 4)];
@@ -56,6 +56,18 @@
         priceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
         [priceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [self addSubview:priceLabel];
+        
+        UIImageView *customer1 = [[UIImageView alloc] initWithFrame:CGRectMake(2 * frameWidth / 3, 3 * frameHeight / 5, frameWidth / 4, frameHeight / 4)];
+        customer1.image = [UIImage imageNamed:@"person-navy"];
+        [self addSubview:customer1];
+        
+        UIImageView *customer2 = [[UIImageView alloc] initWithFrame:CGRectMake(3 * frameWidth / 4, 2 * frameHeight / 3, frameWidth / 4, frameHeight / 4)];
+        customer2.image = [UIImage imageNamed:@"person-purple"];
+        [self addSubview:customer2];
+        
+        UIImageView *customer3 = [[UIImageView alloc] initWithFrame:CGRectMake(2 * frameWidth / 3, 3 * frameHeight / 4, frameWidth / 4, frameHeight / 4)];
+        customer3.image = [UIImage imageNamed:@"person-red"];
+        [self addSubview:customer3];
         
         UIImageView *grass = [[UIImageView alloc] initWithFrame:CGRectMake(0, 6 * frameHeight / 7, frameWidth, frameHeight / 7)];
         [grass setImage:[UIImage imageNamed:@"grass-foreground"]];

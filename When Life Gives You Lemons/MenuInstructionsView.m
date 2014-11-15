@@ -44,7 +44,7 @@
         UITextView* instructions = [[UITextView alloc] initWithFrame:instructionsFrame];
         [instructions setFont:[UIFont fontWithName:fontName size:fontSize]];
         [instructions setText:instructionsText];
-        [instructions setBackgroundColor:instructionsBackgroundColor];
+        [instructions setBackgroundColor:[UIColor whiteColor]];
         instructions.editable = NO;
         [self addSubview:instructions];
         
@@ -61,6 +61,12 @@
         [backButton setTitle:@"Back to Menu" forState:UIControlStateNormal];
         [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self addSubview:backButton];
+        
+        // Add lemon image
+        CGRect lemonImageFrame = CGRectMake(width / 8, height - height / 4, width / 4, width / 4);
+        UIImageView* lemonImage = [[UIImageView alloc] initWithFrame:lemonImageFrame];
+        [lemonImage setImage:[UIImage imageNamed:@"lemons"]];
+        [self addSubview:lemonImage];
     }
     return self;
 }
