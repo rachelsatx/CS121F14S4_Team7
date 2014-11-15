@@ -21,6 +21,9 @@
 - (NSNumber*) getMoney;
 - (void) setMoney:(NSNumber*) newMoney;
 - (NSNumber*) getLemonPrice;
+- (NSNumber*) getSugarPrice;
+- (NSNumber*) getIcePrice;
+- (NSNumber*) getCupsPrice;
 @end
 
 @interface PreDayInventoryView : UIView

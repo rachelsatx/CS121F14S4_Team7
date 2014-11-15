@@ -13,9 +13,13 @@
     UILabel* _sugarAmountLabel;
     UILabel* _iceAmountLabel;
     UILabel* _cupsAmountLabel;
+    
     UILabel* _moneyLabel;
     
     UILabel* _lemonsPriceLabel;
+    UILabel* _sugarPriceLabel;
+    UILabel* _icePriceLabel;
+    UILabel* _cupsPriceLabel;
 }
 @end
 
@@ -62,11 +66,11 @@
         [self addSubview:lemonNameLabel];
         
         CGRect lemonPriceLabelFrame = CGRectMake(width / 2, borderThickness + height/8, width / 4, height / 8);
-        UILabel* lemonPriceLabel = [[UILabel alloc] initWithFrame:lemonPriceLabelFrame];
-        [lemonPriceLabel setText:[NSString stringWithFormat:@"$%.2f", [[self.delegate getLemonPrice] floatValue]]];
-        [lemonPriceLabel setFont:[UIFont systemFontOfSize:fontSize]];
-        [lemonPriceLabel setTextAlignment:NSTextAlignmentCenter];
-        [self addSubview:lemonPriceLabel];
+        _lemonsPriceLabel = [[UILabel alloc] initWithFrame:lemonPriceLabelFrame];
+        [_lemonsPriceLabel setText:[NSString stringWithFormat:@"$%.2f", [[self.delegate getLemonPrice] floatValue]]];
+        [_lemonsPriceLabel setFont:[UIFont systemFontOfSize:fontSize]];
+        [_lemonsPriceLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_lemonsPriceLabel];
         
         CGRect lemonUpButtonFrame = CGRectMake(3 * width / 4, borderThickness, buttonSize, buttonSize);
         UIButton* lemonUpButton = [[UIButton alloc] initWithFrame:lemonUpButtonFrame];
@@ -97,12 +101,19 @@
         [sugarImage setImage:[UIImage imageNamed:@"sugar"]];
         [self addSubview:sugarImage];
         
-        CGRect sugarNameLabelFrame = CGRectMake(width / 2, borderThickness + ingredientSize, width / 4, height / 4);
+        CGRect sugarNameLabelFrame = CGRectMake(width / 2, borderThickness + ingredientSize, width / 4, height / 8);
         UILabel* sugarNameLabel = [[UILabel alloc] initWithFrame:sugarNameLabelFrame];
         [sugarNameLabel setText:@"Sugar"];
         [sugarNameLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [sugarNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:sugarNameLabel];
+        
+        CGRect sugarPriceLabelFrame = CGRectMake(width / 2, borderThickness + ingredientSize + height/8, width / 4, height / 8);
+        _sugarPriceLabel = [[UILabel alloc] initWithFrame:sugarPriceLabelFrame];
+        [_sugarPriceLabel setText:[NSString stringWithFormat:@"$%.2f", [[self.delegate getLemonPrice] floatValue]]];
+        [_sugarPriceLabel setFont:[UIFont systemFontOfSize:fontSize]];
+        [_sugarPriceLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_sugarPriceLabel];
         
         CGRect sugarUpButtonFrame = CGRectMake(3 * width / 4, borderThickness + ingredientSize, buttonSize, buttonSize);
         UIButton* sugarUpButton = [[UIButton alloc] initWithFrame:sugarUpButtonFrame];
@@ -133,12 +144,19 @@
         [iceImage setImage:[UIImage imageNamed:@"ice"]];
         [self addSubview:iceImage];
         
-        CGRect iceNameLabelFrame = CGRectMake(width / 2, borderThickness + 2 * ingredientSize, width / 4, height / 4);
+        CGRect iceNameLabelFrame = CGRectMake(width / 2, borderThickness + 2 * ingredientSize, width / 4, height / 8);
         UILabel* iceNameLabel = [[UILabel alloc] initWithFrame:iceNameLabelFrame];
         [iceNameLabel setText:@"Ice"];
         [iceNameLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [iceNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:iceNameLabel];
+        
+        CGRect icePriceLabelFrame = CGRectMake(width / 2, borderThickness + 2 * ingredientSize+ height/8, width / 4, height / 8);
+        _icePriceLabel = [[UILabel alloc] initWithFrame:icePriceLabelFrame];
+        [_icePriceLabel setText:[NSString stringWithFormat:@"$%.2f", [[self.delegate getIcePrice] floatValue]]];
+        [_icePriceLabel setFont:[UIFont systemFontOfSize:fontSize]];
+        [_icePriceLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_icePriceLabel];
         
         CGRect iceUpButtonFrame = CGRectMake(3 * width / 4, borderThickness + 2 * ingredientSize, buttonSize, buttonSize);
         UIButton* iceUpButton = [[UIButton alloc] initWithFrame:iceUpButtonFrame];
@@ -169,12 +187,19 @@
         [cupImage setImage:[UIImage imageNamed:@"cup"]];
         [self addSubview:cupImage];
         
-        CGRect cupNameLabelFrame = CGRectMake(width / 2, borderThickness + 3 * ingredientSize, width / 4, height / 4);
+        CGRect cupNameLabelFrame = CGRectMake(width / 2, borderThickness + 3 * ingredientSize, width / 4, height / 8);
         UILabel* cupNameLabel = [[UILabel alloc] initWithFrame:cupNameLabelFrame];
         [cupNameLabel setText:@"Cups"];
         [cupNameLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [cupNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:cupNameLabel];
+        
+        CGRect cupsPriceLabelFrame = CGRectMake(width / 2, borderThickness + 3 * ingredientSize+ height/8, width / 4, height / 8);
+        _cupsPriceLabel = [[UILabel alloc] initWithFrame:cupsPriceLabelFrame];
+        [_cupsPriceLabel setText:[NSString stringWithFormat:@"$%.2f", [[self.delegate getCupsPrice] floatValue]]];
+        [_cupsPriceLabel setFont:[UIFont systemFontOfSize:fontSize]];
+        [_cupsPriceLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_cupsPriceLabel];
         
         CGRect cupUpButtonFrame = CGRectMake(3 * width / 4, borderThickness + 3 * ingredientSize, buttonSize, buttonSize);
         UIButton* cupUpButton = [[UIButton alloc] initWithFrame:cupUpButtonFrame];
@@ -211,26 +236,29 @@
 
 - (void) updateAmountLabels
 {
-    [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getLemons] floatValue]]];
-    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getSugar] floatValue]]];
-    [_iceAmountLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getIce] floatValue]]];
+    [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [[self.delegate getLemons] floatValue]]];
+    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [[self.delegate getSugar] floatValue]]];
+    [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [[self.delegate getIce] floatValue]]];
     [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] intValue]]];
 }
 
 - (void) updatePriceLabels
 {
-    [_lemonsPriceLabel setText:[NSString stringWithFormat:@"%.2f", [[self.delegate getLemons] floatValue]]];
+    [_lemonsPriceLabel setText:[NSString stringWithFormat:@"$%0.2f", [[self.delegate getLemonPrice] floatValue]]];
+    [_sugarPriceLabel setText:[NSString stringWithFormat:@"$%0.2f", [[self.delegate getSugarPrice] floatValue]]];
+    [_icePriceLabel setText:[NSString stringWithFormat:@"$%0.2f", [[self.delegate getIcePrice] floatValue]]];
+    [_cupsPriceLabel setText:[NSString stringWithFormat:@"$%0.2f", [[self.delegate getCupsPrice] floatValue]]];
 }
 
 - (void) updateMoneyLabel
 {
-    [_moneyLabel setText:[NSString stringWithFormat:@"Money: $%.2f", [[self.delegate getMoney] floatValue]]];
+    [_moneyLabel setText:[NSString stringWithFormat:@"Money: $%0.2f", [[self.delegate getMoney] floatValue]]];
 }
 
 - (void) incrementLemons:(id)sender
 {
     NSNumber* money = [self.delegate getMoney];
-    if ([money floatValue] >= 1.0){
+    if ([money floatValue] >= [[self.delegate getLemonPrice] floatValue]){
         NSNumber* lemons = [self.delegate getLemons];
         lemons = [NSNumber numberWithFloat:[lemons floatValue] + 1.0];
         [self.delegate setLemons:lemons];
@@ -257,17 +285,27 @@
 
 - (void) incrementSugar:(id)sender
 {
-    NSNumber* sugar = [self.delegate getSugar];
-    sugar = [NSNumber numberWithFloat:[sugar floatValue] + 1.0];
-    [self.delegate setSugar:sugar];
-    [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];}
+    NSNumber* money = [self.delegate getMoney];
+    if ([money floatValue] >= [[self.delegate getSugarPrice] floatValue]){
+        NSNumber* sugar = [self.delegate getSugar];
+        sugar = [NSNumber numberWithFloat:[sugar floatValue] + 1.0];
+        [self.delegate setSugar:sugar];
+        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getSugarPrice] floatValue]]];
+        [self updateMoneyLabel];
+        [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
+    }
+    NSAssert([[self.delegate getMoney] floatValue] >= 0.0, @"Money is negative");
+}
 
 - (void) decrementSugar:(id)sender
 {
     NSNumber* sugar = [self.delegate getSugar];
     if ([sugar floatValue] >= 1.0) {
+        NSNumber* money = [self.delegate getMoney];
         sugar = [NSNumber numberWithFloat:[sugar floatValue] - 1.0];
         [self.delegate setSugar:sugar];
+        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getSugarPrice] floatValue]]];
+        [self updateMoneyLabel];
         [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
     }
     NSAssert([[self.delegate getSugar] floatValue] >= 0.0, @"Sugar is negative");
@@ -275,40 +313,58 @@
 
 - (void) incrementIce:(id)sender
 {
-    NSNumber* ice = [self.delegate getIce];
-    ice = [NSNumber numberWithFloat:[ice floatValue] + 1.0];
-    [self.delegate setIce:ice];
-    [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
+    NSNumber* money = [self.delegate getMoney];
+    if ([money floatValue] >= [[self.delegate getIcePrice] floatValue]){
+        NSNumber* ice = [self.delegate getIce];
+        ice = [NSNumber numberWithFloat:[ice floatValue] + 1.0];
+        [self.delegate setIce:ice];
+        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getIcePrice] floatValue]]];
+        [self updateMoneyLabel];
+        [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
+    }
+    NSAssert([[self.delegate getMoney] floatValue] >= 0.0, @"Money is negative");
 }
 
 - (void) decrementIce:(id)sender
 {
     NSNumber* ice = [self.delegate getIce];
     if ([ice floatValue] >= 1.0) {
+        NSNumber* money = [self.delegate getMoney];
         ice = [NSNumber numberWithFloat:[ice floatValue] - 1.0];
         [self.delegate setIce:ice];
+        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getIcePrice] floatValue]]];
+        [self updateMoneyLabel];
         [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
     }
-    NSAssert([[self.delegate getIce] floatValue] >= 0.0, @"Ice is negative");
+    NSAssert([[self.delegate getSugar] floatValue] >= 0.0, @"Ice is negative");
 }
 
 - (void) incrementCups:(id)sender
 {
-    NSNumber* cups = [self.delegate getCups];
-    cups = [NSNumber numberWithFloat:[cups intValue] + 1];
-    [self.delegate setCups:cups];
-    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
+    NSNumber* money = [self.delegate getMoney];
+    if ([money floatValue] >= [[self.delegate getCupsPrice] floatValue]){
+        NSNumber* cups = [self.delegate getCups];
+        cups = [NSNumber numberWithFloat:[cups floatValue] + 1.0];
+        [self.delegate setCups:cups];
+        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getCupsPrice] floatValue]]];
+        [self updateMoneyLabel];
+        [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
+    }
+    NSAssert([[self.delegate getMoney] floatValue] >= 0.0, @"Money is negative");
 }
 
 - (void) decrementCups:(id)sender
 {
     NSNumber* cups = [self.delegate getCups];
-    if ([cups intValue] >= 1) {
-        cups = [NSNumber numberWithFloat:[cups intValue] - 1];
+    if ([cups floatValue] >= 1.0) {
+        NSNumber* money = [self.delegate getMoney];
+        cups = [NSNumber numberWithFloat:[cups floatValue] - 1.0];
         [self.delegate setCups:cups];
-        [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
+        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getCupsPrice] floatValue]]];
+        [self updateMoneyLabel];
+        [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups integerValue]]];
     }
-    NSAssert([[self.delegate getCups] intValue] >= 0, @"Cups are negative");
+    NSAssert([[self.delegate getCups] floatValue] >= 0.0, @"Cups are negative");
 }
 
 /*

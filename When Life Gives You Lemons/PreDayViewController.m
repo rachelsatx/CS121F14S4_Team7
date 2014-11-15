@@ -205,7 +205,18 @@
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"lemons"];
 }
-
+- (NSNumber*) getSugarPrice
+{
+    return [[_dataStore getIngredientPrices] valueForKey:@"sugar"];
+}
+- (NSNumber*) getIcePrice
+{
+    return [[_dataStore getIngredientPrices] valueForKey:@"ice"];
+}
+- (NSNumber*) getCupsPrice
+{
+    return [[_dataStore getIngredientPrices] valueForKey:@"cups"];
+}
 - (NSNumber*) getLemonsPercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"lemons"];
