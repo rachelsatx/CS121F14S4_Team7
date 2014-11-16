@@ -343,6 +343,7 @@
 				DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */,
 				AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */,
 				AC521EE31A1572E8007AD8A1 /* MenuInstructionsView.m in Sources */,
+				FEBAF03B1A0B122500951C36 /* SunnyScene.m in Sources */,
 				DA6C2BC419F19B8D00AE1EB7 /* main.m in Sources */,
 				DA2726AC19F8F26300287791 /* Model.m in Sources */,
 				DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */,
