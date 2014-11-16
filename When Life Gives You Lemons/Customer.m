@@ -11,8 +11,9 @@
 
 @interface Customer (){
     NSInteger _type;
-    NSNumber* _expectedPrice; // The mean for probability model.
-    NSNumber* _scaleParameter;  // Akin to standard deviation for probability model.
+    NSNumber* _maximumPrice; // The maximum price at which the customer could buy lemonade.
+                             // For now, it's a linear model interpolating between the two points
+                             // (0, 1) and (_maximumPrice, 0).
     
     // Recipe restraints for the customer
     double _lemonMax;
@@ -32,8 +33,7 @@
 - (id)init
 {
     // Initialize global variables.  These can be changed if they are unrealistic.
-    _expectedPrice = [NSNumber numberWithDouble:1.50];
-    _scaleParameter = [NSNumber numberWithDouble:0.50];
+    _maximumPrice = [NSNumber numberWithDouble:5.00];
     
     return self;
 }
@@ -126,17 +126,21 @@
 - (BOOL) willBuyAtPrice:(NSNumber*)price
 {
     // Turn necessary global values into doubles for readability.
-    double expectedPrice = [_expectedPrice doubleValue];
-    double scaleParameter = [_scaleParameter doubleValue];
+    double maximumPrice = [_maximumPrice doubleValue];
     
-    // Compute 1 - the CDF, so that the higher the price is, the less willing a customer is to buy.
-    double buyThreshold = 0.5 - 0.5 * atan(([price doubleValue] - expectedPrice)/2*scaleParameter);
+    // If above the maximum price, they won't buy; if below 0, there's something wrong.
+    NSAssert(price > 0, @"Price provided to customer was negative: %@", price);
+    if ([price doubleValue] > maximumPrice) {
+        return NO;
+    }
     
-    // Seed the random generator, then generate a random number to represent desire for lemonade.
+    // Determine how likely they are to buy the lemonade.
+    double probabilityOfBuying = (maximumPrice - [price doubleValue]) / maximumPrice;
+    
+    // Generate a random number to represent desire for lemonade.
     double willingnessToBuy = drand48();
     
-    // If the random number is higher than the buy threshold, the customer will buy the lemonade.
-    return (willingnessToBuy < buyThreshold);
+    return (willingnessToBuy < probabilityOfBuying);
 }
 
 /*  We use the customer type to determine whether they like the recipe.  */
