@@ -20,6 +20,9 @@
     UILabel* _sugarPriceLabel;
     UILabel* _icePriceLabel;
     UILabel* _cupsPriceLabel;
+    
+    int _amountMultiplier;
+    UIButton* _selectedButton;
 }
 @end
 
@@ -53,6 +56,34 @@
         [title setFont:[UIFont fontWithName:fontName size:(fontSize + 5)]];
         [title setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:title];
+        
+        // Create multipliers for buy amount
+        CGRect oneButtonFrame = CGRectMake(0, borderThickness / 2, width / 3, borderThickness / 2);
+        UIButton* oneButton = [[UIButton alloc] initWithFrame:oneButtonFrame];
+        [oneButton setTitle:@"1x" forState:UIControlStateNormal];
+        [[oneButton titleLabel] setFont:[UIFont systemFontOfSize:fontSize]];
+        [oneButton setTag:1];
+        [oneButton addTarget:self action:@selector(setAmountMultiplier:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:oneButton];
+        _selectedButton = oneButton;
+        [oneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _amountMultiplier = 1;
+        
+        CGRect tenButtonFrame = CGRectMake(width / 3, borderThickness / 2, width / 3, borderThickness / 2);
+        UIButton* tenButton = [[UIButton alloc] initWithFrame:tenButtonFrame];
+        [tenButton setTitle:@"10x" forState:UIControlStateNormal];
+        [[tenButton titleLabel] setFont:[UIFont systemFontOfSize:fontSize]];
+        [tenButton setTag:10];
+        [tenButton addTarget:self action:@selector(setAmountMultiplier:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:tenButton];
+        
+        CGRect hundredButtonFrame = CGRectMake(2 * width / 3, borderThickness / 2, width / 3, borderThickness / 2);
+        UIButton* hundredButton = [[UIButton alloc] initWithFrame:hundredButtonFrame];
+        [hundredButton setTitle:@"100x" forState:UIControlStateNormal];
+        [[hundredButton titleLabel] setFont:[UIFont systemFontOfSize:fontSize]];
+        [hundredButton setTag:100];
+        [hundredButton addTarget:self action:@selector(setAmountMultiplier:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:hundredButton];
         
         // Create lemon section
         CGRect lemonImageFrame = CGRectMake(borderThickness, borderThickness, ingredientSize, ingredientSize);
@@ -258,114 +289,139 @@
     [_moneyLabel setText:[NSString stringWithFormat:@"Money: $%0.2f", [[self.delegate getMoney] floatValue]]];
 }
 
+- (void) setAmountMultiplier:(id)sender
+{
+    [_selectedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    UIButton* button = (UIButton*) sender;
+    _selectedButton = button;
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _amountMultiplier = (int) [button tag];
+}
+
 - (void) incrementLemons:(id)sender
 {
-    NSNumber* money = [self.delegate getMoney];
-    if ([money floatValue] >= [[self.delegate getLemonPrice] floatValue]){
-        NSNumber* lemons = [self.delegate getLemons];
-        lemons = [NSNumber numberWithFloat:[lemons floatValue] + 1.0];
-        [self.delegate setLemons:lemons];
-        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getLemonPrice] floatValue]]];
-        [self updateMoneyLabel];
-        [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
+    for (int i = 0; i < _amountMultiplier; ++i) {
+        NSNumber* money = [self.delegate getMoney];
+        if ([money floatValue] >= [[self.delegate getLemonPrice] floatValue]){
+            NSNumber* lemons = [self.delegate getLemons];
+            lemons = [NSNumber numberWithFloat:[lemons floatValue] + 1.0];
+            [self.delegate setLemons:lemons];
+            [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getLemonPrice] floatValue]]];
+            [self updateMoneyLabel];
+            [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
+        }
     }
     NSAssert([[self.delegate getMoney] floatValue] >= 0.0, @"Money is negative");
 }
 
 - (void) decrementLemons:(id)sender
 {
-    NSNumber* lemons = [self.delegate getLemons];
-    if ([lemons floatValue] >= 1.0){
-        NSNumber* money = [self.delegate getMoney];
-        lemons = [NSNumber numberWithFloat:[lemons floatValue] - 1.0];
-        [self.delegate setLemons:lemons];
-        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getLemonPrice] floatValue]]];
-        [self updateMoneyLabel];
-        [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
+    for (int i = 0; i < _amountMultiplier; ++i) {
+        NSNumber* lemons = [self.delegate getLemons];
+        if ([lemons floatValue] >= 1.0){
+            NSNumber* money = [self.delegate getMoney];
+            lemons = [NSNumber numberWithFloat:[lemons floatValue] - 1.0];
+            [self.delegate setLemons:lemons];
+            [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getLemonPrice] floatValue]]];
+            [self updateMoneyLabel];
+            [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
+        }
     }
     NSAssert([[self.delegate getLemons] floatValue] >= 0.0, @"Lemons are negative");
 }
 
 - (void) incrementSugar:(id)sender
 {
-    NSNumber* money = [self.delegate getMoney];
-    if ([money floatValue] >= [[self.delegate getSugarPrice] floatValue]){
-        NSNumber* sugar = [self.delegate getSugar];
-        sugar = [NSNumber numberWithFloat:[sugar floatValue] + 1.0];
-        [self.delegate setSugar:sugar];
-        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getSugarPrice] floatValue]]];
-        [self updateMoneyLabel];
-        [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
+    for (int i = 0; i < _amountMultiplier; ++i) {
+        NSNumber* money = [self.delegate getMoney];
+        if ([money floatValue] >= [[self.delegate getSugarPrice] floatValue]){
+            NSNumber* sugar = [self.delegate getSugar];
+            sugar = [NSNumber numberWithFloat:[sugar floatValue] + 1.0];
+            [self.delegate setSugar:sugar];
+            [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getSugarPrice] floatValue]]];
+            [self updateMoneyLabel];
+            [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
+        }
     }
     NSAssert([[self.delegate getMoney] floatValue] >= 0.0, @"Money is negative");
 }
 
 - (void) decrementSugar:(id)sender
 {
-    NSNumber* sugar = [self.delegate getSugar];
-    if ([sugar floatValue] >= 1.0) {
-        NSNumber* money = [self.delegate getMoney];
-        sugar = [NSNumber numberWithFloat:[sugar floatValue] - 1.0];
-        [self.delegate setSugar:sugar];
-        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getSugarPrice] floatValue]]];
-        [self updateMoneyLabel];
-        [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
+    for (int i = 0; i < _amountMultiplier; ++i) {
+        NSNumber* sugar = [self.delegate getSugar];
+        if ([sugar floatValue] >= 1.0) {
+            NSNumber* money = [self.delegate getMoney];
+            sugar = [NSNumber numberWithFloat:[sugar floatValue] - 1.0];
+            [self.delegate setSugar:sugar];
+            [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getSugarPrice] floatValue]]];
+            [self updateMoneyLabel];
+            [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
+        }
     }
     NSAssert([[self.delegate getSugar] floatValue] >= 0.0, @"Sugar is negative");
 }
 
 - (void) incrementIce:(id)sender
 {
-    NSNumber* money = [self.delegate getMoney];
-    if ([money floatValue] >= [[self.delegate getIcePrice] floatValue]){
-        NSNumber* ice = [self.delegate getIce];
-        ice = [NSNumber numberWithFloat:[ice floatValue] + 1.0];
-        [self.delegate setIce:ice];
-        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getIcePrice] floatValue]]];
-        [self updateMoneyLabel];
-        [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
+    for (int i = 0; i < _amountMultiplier; ++i) {
+        NSNumber* money = [self.delegate getMoney];
+        if ([money floatValue] >= [[self.delegate getIcePrice] floatValue]){
+            NSNumber* ice = [self.delegate getIce];
+            ice = [NSNumber numberWithFloat:[ice floatValue] + 1.0];
+            [self.delegate setIce:ice];
+            [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getIcePrice] floatValue]]];
+            [self updateMoneyLabel];
+            [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
+        }
     }
     NSAssert([[self.delegate getMoney] floatValue] >= 0.0, @"Money is negative");
 }
 
 - (void) decrementIce:(id)sender
 {
-    NSNumber* ice = [self.delegate getIce];
-    if ([ice floatValue] >= 1.0) {
-        NSNumber* money = [self.delegate getMoney];
-        ice = [NSNumber numberWithFloat:[ice floatValue] - 1.0];
-        [self.delegate setIce:ice];
-        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getIcePrice] floatValue]]];
-        [self updateMoneyLabel];
-        [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
+    for (int i = 0; i < _amountMultiplier; ++i) {
+        NSNumber* ice = [self.delegate getIce];
+        if ([ice floatValue] >= 1.0) {
+            NSNumber* money = [self.delegate getMoney];
+            ice = [NSNumber numberWithFloat:[ice floatValue] - 1.0];
+            [self.delegate setIce:ice];
+            [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getIcePrice] floatValue]]];
+            [self updateMoneyLabel];
+            [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
+        }
     }
     NSAssert([[self.delegate getSugar] floatValue] >= 0.0, @"Ice is negative");
 }
 
 - (void) incrementCups:(id)sender
 {
-    NSNumber* money = [self.delegate getMoney];
-    if ([money floatValue] >= [[self.delegate getCupsPrice] floatValue]){
-        NSNumber* cups = [self.delegate getCups];
-        cups = [NSNumber numberWithFloat:[cups floatValue] + 1.0];
-        [self.delegate setCups:cups];
-        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getCupsPrice] floatValue]]];
-        [self updateMoneyLabel];
-        [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
+    for (int i = 0; i < _amountMultiplier; ++i) {
+        NSNumber* money = [self.delegate getMoney];
+        if ([money floatValue] >= [[self.delegate getCupsPrice] floatValue]){
+            NSNumber* cups = [self.delegate getCups];
+            cups = [NSNumber numberWithFloat:[cups floatValue] + 1.0];
+            [self.delegate setCups:cups];
+            [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getCupsPrice] floatValue]]];
+            [self updateMoneyLabel];
+            [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
+        }
     }
     NSAssert([[self.delegate getMoney] floatValue] >= 0.0, @"Money is negative");
 }
 
 - (void) decrementCups:(id)sender
 {
-    NSNumber* cups = [self.delegate getCups];
-    if ([cups floatValue] >= 1.0) {
-        NSNumber* money = [self.delegate getMoney];
-        cups = [NSNumber numberWithFloat:[cups floatValue] - 1.0];
-        [self.delegate setCups:cups];
-        [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getCupsPrice] floatValue]]];
-        [self updateMoneyLabel];
-        [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups integerValue]]];
+    for (int i = 0; i < _amountMultiplier; ++i) {
+        NSNumber* cups = [self.delegate getCups];
+        if ([cups floatValue] >= 1.0) {
+            NSNumber* money = [self.delegate getMoney];
+            cups = [NSNumber numberWithFloat:[cups floatValue] - 1.0];
+            [self.delegate setCups:cups];
+            [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] + [[self.delegate getCupsPrice] floatValue]]];
+            [self updateMoneyLabel];
+            [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups intValue]]];
+        }
     }
     NSAssert([[self.delegate getCups] floatValue] >= 0.0, @"Cups are negative");
 }
