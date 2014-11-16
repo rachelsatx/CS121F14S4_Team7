@@ -44,8 +44,6 @@
     _instructionsView = [[MenuInstructionsView alloc] initWithFrame:viewFrame];
     [_instructionsView setHidden:YES];
     [self.view addSubview:_instructionsView];
-//    [_inventoryView setDelegate:self];
-//    [_inventoryView updateAmountLabels];
     
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
 }

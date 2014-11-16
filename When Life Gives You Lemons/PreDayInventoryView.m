@@ -28,31 +28,33 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+    
     if (self) {
+        CGFloat width = CGRectGetWidth(self.frame);
+        CGFloat height = CGRectGetWidth(self.frame);
+        CGFloat borderThickness = (height < width) ? (height / 5) : (width / 5);
+        CGFloat ingredientSize = ((height - borderThickness) / 4) < (width / 2) ? ((height - borderThickness) / 4) : (width / 2);
+        CGFloat buttonSize = ingredientSize / 3;
+        
+        CGFloat fontSize = 30;
+        NSString* fontName = @"Papyrus";
+        
+        // Set background image to a paper bag
         UIGraphicsBeginImageContext(self.frame.size);
-        [[UIImage imageNamed:@"spiral-notebook"] drawInRect:self.bounds];
+        [[UIImage imageNamed:@"bag"] drawInRect:self.bounds];
         UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         self.backgroundColor = [UIColor colorWithPatternImage:image];
         
-        // create column of ingredients
-        CGFloat width = CGRectGetWidth(self.frame);
-        CGFloat height = CGRectGetWidth(self.frame);
-        CGFloat borderThickness = (height < width) ? (height / 8) : (width / 8);
-        CGFloat ingredientSize = ((height - borderThickness) / 4) < (width / 2) ? ((height - borderThickness) / 4) : (width / 2);
-        CGFloat buttonSize = ingredientSize / 3;
-        CGFloat fontSize = 30;
-        NSString* fontName = @"Papyrus";
-        
-        // create title of view
-        CGRect titleFrame = CGRectMake(0, 0, width, borderThickness);
+        // Create title of view
+        CGRect titleFrame = CGRectMake(0, 0, width, borderThickness / 2);
         UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
         title.text = @"Inventory:";
         [title setFont:[UIFont fontWithName:fontName size:(fontSize + 5)]];
         [title setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:title];
         
-        // create lemon section
+        // Create lemon section
         CGRect lemonImageFrame = CGRectMake(borderThickness, borderThickness, ingredientSize, ingredientSize);
         UIImageView* lemonImage = [[UIImageView alloc] initWithFrame:lemonImageFrame];
         [lemonImage setImage:[UIImage imageNamed:@"lemon-slice"]];
@@ -95,7 +97,7 @@
                          forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:lemonDownButton];
         
-        // create sugar section
+        // Create sugar section
         CGRect sugarImageFrame = CGRectMake(borderThickness, borderThickness + ingredientSize, ingredientSize, ingredientSize);
         UIImageView* sugarImage = [[UIImageView alloc] initWithFrame:sugarImageFrame];
         [sugarImage setImage:[UIImage imageNamed:@"sugar"]];
@@ -138,7 +140,7 @@
                 forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:sugarDownButton];
         
-        // create ice section
+        // Create ice section
         CGRect iceImageFrame = CGRectMake(borderThickness, borderThickness + 2 * ingredientSize, ingredientSize, ingredientSize);
         UIImageView* iceImage = [[UIImageView alloc] initWithFrame:iceImageFrame];
         [iceImage setImage:[UIImage imageNamed:@"ice"]];
@@ -181,7 +183,7 @@
                 forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:iceDownButton];
         
-        // create cup section
+        // Create cup section
         CGRect cupImageFrame = CGRectMake(borderThickness, borderThickness + 3 * ingredientSize, ingredientSize, ingredientSize);
         UIImageView* cupImage = [[UIImageView alloc] initWithFrame:cupImageFrame];
         [cupImage setImage:[UIImage imageNamed:@"cup"]];
@@ -231,6 +233,7 @@
         [_moneyLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_moneyLabel];
     }
+    
     return self;
 }
 
@@ -366,14 +369,5 @@
     }
     NSAssert([[self.delegate getCups] floatValue] >= 0.0, @"Cups are negative");
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
