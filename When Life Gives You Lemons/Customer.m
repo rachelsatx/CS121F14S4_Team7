@@ -48,7 +48,7 @@
         case 0:
             _lemonMax = 0.5;
             _lemonMin = 0.05;
-            _sugarMax = 0.5;
+            _sugarMax = 0.4;
             _sugarMin = 0.05;
             _waterMax = 0.7;
             _waterMin = 0.05;
@@ -60,8 +60,8 @@
         case 1:
             _lemonMax = 0.3;
             _lemonMin = 0.1;
-            _sugarMax = 0.3;
-            _sugarMin = 0.1;
+            _sugarMax = 0.2;
+            _sugarMin = 0.05;
             _waterMax = 0.6;
             _waterMin = 0.3;
             _iceMax = 0.35;
@@ -72,8 +72,8 @@
         case 2:
             _lemonMax = 0.3;
             _lemonMin = 0.1;
-            _sugarMax = 0.3;
-            _sugarMin = 0.1;
+            _sugarMax = 0.2;
+            _sugarMin = 0.05;
             _waterMax = 0.6;
             _waterMin = 0.3;
             _iceMax = 0.15;
@@ -82,10 +82,10 @@
         
         // Sweet customer
         case 3:
-            _lemonMax = 0.3;
-            _lemonMin = 0.1;
-            _sugarMax = 0.4;
-            _sugarMin = 0.2;
+            _lemonMax = 0.25;
+            _lemonMin = 0.05;
+            _sugarMax = 0.35;
+            _sugarMin = 0.15;
             _waterMax = 0.6;
             _waterMin = 0.3;
             _iceMax = 0.2;
@@ -96,8 +96,8 @@
         case 4:
             _lemonMax = 0.4;
             _lemonMin = 0.2;
-            _sugarMax = 0.3;
-            _sugarMin = 0.1;
+            _sugarMax = 0.2;
+            _sugarMin = 0.0;
             _waterMax = 0.6;
             _waterMin = 0.3;
             _iceMax = 0.2;
@@ -108,8 +108,8 @@
         case 5:
             _lemonMax = 0.35;
             _lemonMin = 0.15;
-            _sugarMax = 0.35;
-            _sugarMin = 0.15;
+            _sugarMax = 0.3;
+            _sugarMin = 0.1;
             _waterMax = 0.5;
             _waterMin = 0.2;
             _iceMax = 0.2;
@@ -160,6 +160,12 @@
     double sugar = [sugarValue doubleValue];
     double water = [waterValue doubleValue];
     double ice = [iceValue doubleValue];
+    
+    // Add a small random factor, plus or minus .02.
+    lemon += ((drand48() * .04) - .02);
+    sugar += ((drand48() * .04) - .02);
+    water += ((drand48() * .04) - .02);
+    ice += ((drand48() * .04) - .02);
     
     // Check whether the values fall in the range of preferences.
     if (lemon > _lemonMax || lemon < _lemonMin) {
