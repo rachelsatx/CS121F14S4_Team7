@@ -18,7 +18,6 @@
 - (void) setIce:(NSNumber*) newIce;
 - (NSNumber*) getCups;
 - (void) setCups:(NSNumber*) newCups;
-
 @end
 
 @interface PreDayInventoryView : UIView

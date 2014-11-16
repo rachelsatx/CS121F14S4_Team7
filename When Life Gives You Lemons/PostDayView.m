@@ -14,14 +14,8 @@
 - (id)initWithFrame:(CGRect)frame andDataStore:(DataStore *)dataStore
 {
     self = [self initWithFrame:frame];
+    
     if (self) {
-        // Set background color depending on popularity
-        NSNumber *popularity = dataStore.getPopularity;
-        NSAssert(popularity >= 0, @"Negative popularity (%@)", popularity);
-        CGFloat hue = [popularity floatValue] / 100.0 * 0.4;
-        UIColor *backgroundColor = [UIColor colorWithHue:hue saturation:0.9 brightness:0.9 alpha:1.0];
-        [self setBackgroundColor:backgroundColor];
-        
         CGFloat frameWidth = CGRectGetWidth(self.frame);
         CGFloat frameHeight = CGRectGetHeight(self.frame);
         CGFloat borderThickness = frameWidth / 10.0;
@@ -31,6 +25,13 @@
         CGFloat fontSize = 20;
         NSString *fontName = @"Chalkduster";
         
+        // Set background color depending on money
+        NSNumber *money = dataStore.getMoney;
+        NSAssert(money >= 0, @"Negative amount of money (%@)", money);
+        CGFloat hue = [money floatValue] / 200.0 * 0.4;
+        UIColor *backgroundColor = [UIColor colorWithHue:hue saturation:0.9 brightness:0.9 alpha:1.0];
+        [self setBackgroundColor:backgroundColor];
+        
         // Add text for popularity
         CGRect popularityFrame = CGRectMake(borderThickness, borderThickness, frameWidth - (2 * borderThickness), frameHeight / 4);
         UITextView *popularityView = [[UITextView alloc] initWithFrame:popularityFrame];
@@ -39,6 +40,8 @@
         popularityView.layer.borderColor = [UIColor blackColor].CGColor;
         popularityView.textAlignment = NSTextAlignmentCenter;
         [popularityView setFont:[UIFont fontWithName:fontName size:fontSize]];
+        NSNumber *popularity = dataStore.getPopularity;
+        NSAssert(popularity >= 0, @"Negative popularity (%@)", popularity);
         popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %@ percent.", popularity];
         [self addSubview:popularityView];
         
@@ -62,34 +65,33 @@
         summaryView.layer.borderColor = [UIColor blackColor].CGColor;
         summaryView.textAlignment = NSTextAlignmentCenter;
         [summaryView setFont:[UIFont fontWithName:fontName size:fontSize]];
-        NSNumber *money = dataStore.getMoney;
-        NSAssert(money >= 0, @"Negative amount of money (%@)", money);
         NSString *moneyOnHand = [NSString stringWithFormat:@"Total money on hand: $%0.2f", [money floatValue]];
         summaryView.text = [NSString stringWithFormat:@"\nMoney:\n\r%@", moneyOnHand];
         [self addSubview:summaryView];
         
+        // Add customer images according to popularity
+        NSInteger numCustomers = [popularity integerValue] / 10 < 9 ? [popularity integerValue] / 10 : 9;
+        for (NSInteger i = 0; i < numCustomers; i += 1) {
+            CGRect customerFrame = CGRectMake(i * (imageSize / 2), (3 * borderThickness / 2) + frameHeight / 4 - imageSize, imageSize, imageSize);
+            UIImageView *customerView = [[UIImageView alloc] initWithFrame:customerFrame];
+            customerView.image = [UIImage imageNamed:@"person-navy"];
+            [self addSubview:customerView];
+        }
+        
         // Add lemonade jug image
-        CGRect jugFrame = CGRectMake(frameWidth - (borderThickness / 2) - imageSize, frameHeight / 4, imageSize, imageSize);
+        CGRect jugFrame = CGRectMake(frameWidth - (borderThickness / 2) - imageSize, frameHeight / 2, imageSize, imageSize);
         UIImageView *jugView = [[UIImageView alloc] initWithFrame:jugFrame];
         jugView.image = [UIImage imageNamed:@"jug"];
         [self addSubview:jugView];
         
         // Add coins image
-        CGRect coinsFrame = CGRectMake(borderThickness / 2, borderThickness + (frameHeight / 2), imageSize, imageSize);
+        CGRect coinsFrame = CGRectMake(borderThickness / 2, (borderThickness / 2) + (3 * frameHeight / 4), imageSize, imageSize);
         UIImageView *coinsView = [[UIImageView alloc] initWithFrame:coinsFrame];
         coinsView.image = [UIImage imageNamed:@"coins"];
         [self addSubview:coinsView];
     }
+    
     return self;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

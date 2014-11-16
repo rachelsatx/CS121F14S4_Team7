@@ -18,11 +18,9 @@
 - (void) setIcePercentage:(NSNumber*) newIce;
 - (NSNumber*) getWaterPercentage;
 - (void) setWaterPercentage:(NSNumber*) newWater;
-
 @end
 
 @interface PreDayRecipeView : UIView
-
 {
     id <PreDayRecipeViewDelegate> _delegate;
 }

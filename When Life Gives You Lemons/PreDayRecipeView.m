@@ -21,23 +21,26 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+    
     if (self) {
+        CGFloat width = CGRectGetWidth(self.frame);
+        CGFloat height = CGRectGetWidth(self.frame);
+        CGFloat borderThickness = (height < width) ? (height / 5) : (width / 5);
+        CGFloat ingredientSize = ((height - borderThickness) / 4) < (width / 2) ? ((height - borderThickness) / 4) : (width / 2);
+        CGFloat buttonSize = ingredientSize / 3;
+        
+        CGFloat fontSize = 30;
+        NSString* fontName = @"Noteworthy-Bold";
+        
+        // Set background image to a scroll
         self.backgroundColor = [UIColor whiteColor];
         UIGraphicsBeginImageContext(self.frame.size);
         [[UIImage imageNamed:@"recipe-scroll"] drawInRect:self.bounds];
         UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         self.backgroundColor = [UIColor colorWithPatternImage:image];
-        
-        CGFloat width = CGRectGetWidth(self.frame);
-        CGFloat height = CGRectGetWidth(self.frame);
-        CGFloat borderThickness = (height < width) ? (height / 5) : (width / 5);
-        CGFloat ingredientSize = ((height - borderThickness) / 4) < (width / 2) ? ((height - borderThickness) / 4) : (width / 2);
-        CGFloat buttonSize = ingredientSize / 3;
-        CGFloat fontSize = 30;
-        NSString* fontName = @"Noteworthy-Bold";
-        
-        // create title of view
+
+        // Create title of view
         CGRect titleFrame = CGRectMake(0, 0, width, borderThickness);
         UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
         title.text = @"Recipe:";
@@ -45,7 +48,7 @@
         [title setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:title];
         
-        // create lemon section
+        // Create lemon section
         CGRect lemonImageFrame = CGRectMake(borderThickness, borderThickness, ingredientSize, ingredientSize);
         UIImageView* lemonImage = [[UIImageView alloc] initWithFrame:lemonImageFrame];
         [lemonImage setImage:[UIImage imageNamed:@"lemon-slice"]];
@@ -81,7 +84,7 @@
                   forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:lemonDownButton];
         
-        // create sugar section
+        // Create sugar section
         CGRect sugarImageFrame = CGRectMake(borderThickness, borderThickness + ingredientSize, ingredientSize, ingredientSize);
         UIImageView* sugarImage = [[UIImageView alloc] initWithFrame:sugarImageFrame];
         [sugarImage setImage:[UIImage imageNamed:@"sugar"]];
@@ -117,7 +120,7 @@
                   forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:sugarDownButton];
         
-        // create ice section
+        // Create ice section
         CGRect iceImageFrame = CGRectMake(borderThickness, borderThickness + 2 * ingredientSize, ingredientSize, ingredientSize);
         UIImageView* iceImage = [[UIImageView alloc] initWithFrame:iceImageFrame];
         [iceImage setImage:[UIImage imageNamed:@"ice"]];
@@ -153,7 +156,7 @@
                 forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:iceDownButton];
         
-        // create water section
+        // Create water section
         CGRect waterImageFrame = CGRectMake(borderThickness, borderThickness + 3 * ingredientSize, ingredientSize, ingredientSize);
         UIImageView* waterImage = [[UIImageView alloc] initWithFrame:waterImageFrame];
         [waterImage setImage:[UIImage imageNamed:@"water"]];
@@ -173,6 +176,7 @@
         [_waterAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_waterAmountLabel];
     }
+    
     return self;
 }
 
@@ -293,14 +297,5 @@
         [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
     }
 }
-
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
 
 @end
