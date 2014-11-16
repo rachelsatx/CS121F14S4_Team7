@@ -23,7 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         UIGraphicsBeginImageContext(self.frame.size);
-        [[UIImage imageNamed:@"spiral-notebook"] drawInRect:self.bounds];
+        [[UIImage imageNamed:@"bag"] drawInRect:self.bounds];
         UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         self.backgroundColor = [UIColor colorWithPatternImage:image];
@@ -31,14 +31,14 @@
         // create column of ingredients
         CGFloat width = CGRectGetWidth(self.frame);
         CGFloat height = CGRectGetWidth(self.frame);
-        CGFloat borderThickness = (height < width) ? (height / 8) : (width / 8);
+        CGFloat borderThickness = (height < width) ? (height / 5) : (width / 5);
         CGFloat ingredientSize = ((height - borderThickness) / 4) < (width / 2) ? ((height - borderThickness) / 4) : (width / 2);
         CGFloat buttonSize = ingredientSize / 3;
         CGFloat fontSize = 30;
         NSString* fontName = @"Papyrus";
         
         // create title of view
-        CGRect titleFrame = CGRectMake(0, 0, width, borderThickness);
+        CGRect titleFrame = CGRectMake(0, 0, width, borderThickness / 2);
         UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
         title.text = @"Inventory:";
         [title setFont:[UIFont fontWithName:fontName size:(fontSize + 5)]];
