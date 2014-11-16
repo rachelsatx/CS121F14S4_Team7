@@ -8,6 +8,9 @@
 
 #import "MidDayView.h"
 #import "DataStore.h"
+#import "SunnyScene.h"
+#import "CloudyScene.h"
+#import "RainyScene.h"
 
 @implementation MidDayView
 
@@ -28,6 +31,7 @@
             UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
             [self addSubview:backgroundView];
             
+            /*
             CGFloat sunSize = frameWidth > frameHeight ? frameHeight : frameWidth;
             UIImageView *sun =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 10, frameHeight / 10, sunSize / 7, sunSize / 7)];
             sun.image=[UIImage imageNamed:@"sun"];
