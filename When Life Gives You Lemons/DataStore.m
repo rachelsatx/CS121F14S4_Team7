@@ -37,7 +37,7 @@
     _ingredientPrices = [[NSMutableDictionary alloc] initWithObjects:@[@1.00,     @0.50,    @0.25,  @0.10]
                                                              forKeys:@[@"lemons", @"sugar", @"ice", @"cups"]];
     _popularity = 0;
-    _money = [NSNumber numberWithFloat:50];
+    _money = [NSNumber numberWithFloat:20];
     
     return self;
 }

@@ -226,7 +226,7 @@
                        forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cupDownButton];
         
-        CGRect moneyLabelFrame = CGRectMake(0, borderThickness + 4 * ingredientSize, width, borderThickness);
+        CGRect moneyLabelFrame = CGRectMake(0, borderThickness + 4 * ingredientSize, width, buttonSize);
         _moneyLabel = [[UILabel alloc] initWithFrame:moneyLabelFrame];
         [_moneyLabel setText:[NSString stringWithFormat:@"Money: $%.2f", [[self.delegate getMoney] floatValue]]];
         [_moneyLabel setFont:[UIFont systemFontOfSize:fontSize]];
