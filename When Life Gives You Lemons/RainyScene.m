@@ -12,21 +12,33 @@
 
 - (void)didMoveToView: (SKView *) view
 {
-    self.backgroundColor = [UIColor colorWithRed:173.0/255 green:216.0/255 blue:230.0/255 alpha:1.0];
+    //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"raining-background"]];
+    //[self addSubview:backgroundView];
+    //self.backgroundColor = [UIColor colorWithRed:173.0/255 green:216.0/255 blue:230.0/255 alpha:1.0];
+    self.backgroundColor = [UIColor grayColor];
     [self createAnimation];
 }
 
 - (void)createAnimation
 {
     self.scaleMode = SKSceneScaleModeAspectFit;
+    //self.blendMode = SKBlendModeReplace;
     
     CGFloat frameWidth = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);
     
+    SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"raining-background.png"];
+    backgroundSprite.position = CGPointMake(frameWidth/2,frameHeight/2);
+    [self addChild:backgroundSprite];
+    
     for (int i = 0; i < 4; ++i) {
-        SKSpriteNode *cloudSprite = [SKSpriteNode spriteNodeWithImageNamed:@"cloud.png"];
+        SKSpriteNode *cloudSprite = [SKSpriteNode spriteNodeWithImageNamed:@"raincloud.png"];
         cloudSprite.position = CGPointMake(frameWidth * (1 + (2 *i))/8, 7*frameHeight/8);
-        [cloudSprite addChild:[self rain]]; 
+        SKEmitterNode *rain = [self rain];
+        // Make rain start beneath the clouds.
+        rain.position = CGPointMake(0,-1 * CGRectGetHeight(cloudSprite.frame) / 2);
+        [cloudSprite addChild:rain];
+        //cloudSprite.blendMode = SKBlendModeReplace; // Should override the background.
         [self addChild:cloudSprite];
     }
 }

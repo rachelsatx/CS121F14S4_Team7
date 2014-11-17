@@ -25,30 +25,42 @@
         CGFloat fontSize = 50;
         NSString *fontName = @"Chalkduster";
         
-        // Set background according to weather
+        self.backgroundColor = [UIColor clearColor];
+        
+        // Set animation according to weather
         Weather weather = dataStore.getWeather;
+        SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
+        [self addSubview:animation];
+        SKScene *weatherScene;
+        
         if (weather == Sunny) {
-            UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
-            [self addSubview:backgroundView];
-            SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
-            [self addSubview:animation];
+            //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
+            //[self addSubview:backgroundView];
+            //SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
+            //[self addSubview:animation];
             SunnyScene* sunScene = [[SunnyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
-            [animation presentScene:sunScene];
+            weatherScene = sunScene;
+            //[animation presentScene:sunScene];
         } else if (weather == Cloudy) {
-            UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloudy-background"]];
-            [self addSubview:backgroundView];
-            SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
-            [self addSubview:animation];
+            //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloudy-background"]];
+            //[self addSubview:backgroundView];
+            //SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
+            //[self addSubview:animation];
             CloudyScene *cloudScene = [[CloudyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
-            [animation presentScene:cloudScene];
+            weatherScene = cloudScene;
+            //[animation presentScene:cloudScene];
         } else if (weather == Raining) {
-            UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"raining-background"]];
-            [self addSubview:backgroundView];
-            SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
-            [self addSubview:animation];
+            //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"raining-background"]];
+            //[self addSubview:backgroundView];
+            //SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
+            //[self addSubview:animation];
             RainyScene *rainScene = [[RainyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
-            [animation presentScene:rainScene];
+            weatherScene = rainScene;
+            //[animation presentScene:rainScene];
         }
+        
+        // Display the appropriate weather scene.
+        [animation presentScene:weatherScene];
         
         // Set grass background - behind stand
         UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 2 * frameHeight / 3, frameWidth, frameHeight / 3)];

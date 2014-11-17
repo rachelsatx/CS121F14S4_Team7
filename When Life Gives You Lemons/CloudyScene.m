@@ -19,8 +19,9 @@
 - (void)didMoveToView: (SKView *) view
 {
     self.scaleMode = SKSceneScaleModeAspectFit;
-    self.backgroundColor = [UIColor colorWithRed:176.0/255 green:196.0/255 blue:222.0/255 alpha:1.0];
     self.duration = 7;
+    //self.backgroundColor = [UIColor colorWithRed:176.0/255 green:196.0/255 blue:222.0/255 alpha:1.0];
+    self.backgroundColor = [UIColor whiteColor];
     [self createClouds];
 }
 
@@ -28,6 +29,11 @@
 {
     CGFloat frameWidth = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);
+    
+    // Set background image.
+    SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"cloudy-background.png"];
+    backgroundSprite.position = CGPointMake(frameWidth/2,frameHeight/2);
+    [self addChild:backgroundSprite];
     
     for (int i = 0; i < 5; ++i) {
         SKSpriteNode *cloudSprite = [SKSpriteNode spriteNodeWithImageNamed:@"cloud.png"];
