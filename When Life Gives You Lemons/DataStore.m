@@ -19,7 +19,7 @@
     NSNumber* _popularity;
     NSNumber* _money;
     NSNumber* _profit;
-    NSNumber* _cupsSold;
+    NSInteger _cupsSold;
 }
 @end
 
@@ -30,7 +30,6 @@
     self = [super init];
     _price = [NSNumber numberWithFloat:.50];
     _weather = Sunny;
-    //_weather = Cloudy;
     _dayOfWeek = Saturday;
     _feedbackString = @"";
     _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,     @0.00,    @0.00,  @0.00]
@@ -152,12 +151,12 @@
     _profit = newProfit;
 }
 
--(NSNumber*) getCupsSold
+-(NSInteger) getCupsSold
 {
     return _cupsSold;
 }
 
--(void) setCupsSold:(NSNumber*) newCupsSold
+-(void) setCupsSold:(NSInteger) newCupsSold
 {
     _cupsSold = newCupsSold;
 }

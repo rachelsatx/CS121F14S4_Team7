@@ -56,7 +56,7 @@ typedef NS_ENUM(int, DayOfWeek) {
 -(NSNumber*) getProfit;
 -(void) setProfit:(NSNumber*) newProfit;
 
--(NSNumber*) getCupsSold;
--(void) setCupsSold:(NSNumber*) newCupsSold;
+-(NSInteger) getCupsSold;
+-(void) setCupsSold:(NSInteger) newCupsSold;
 
 @end
