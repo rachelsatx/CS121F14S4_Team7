@@ -104,6 +104,8 @@
     [dataStore setDayOfWeek:[self nextDayOfWeek:dayOfWeek]];
     [dataStore setWeather:[self nextWeather:weather]];
     
+    // Update ingredient prices to reflect changing market conditions.
+    [dataStore setIngredientPrices:[self generateRandomIngredientPrices]];
     return dataStore;
 }
 
@@ -320,6 +322,28 @@
         // Return should never be reached.
         return Sunny;
     }
+}
+
+- (NSMutableDictionary*) generateRandomIngredientPrices {
+    NSMutableDictionary* newPrices = [[NSMutableDictionary alloc] init];
+    
+    NSNumber* newLemonsPrice =
+            [NSNumber numberWithFloat: .5 + .05 * [self randomNumberAtLeast:0 andAtMost:10]];
+    [newPrices setValue:newLemonsPrice forKey:@"lemons"];
+    
+    NSNumber* newSugarPrice =
+            [NSNumber numberWithFloat: .5 + .05 * [self randomNumberAtLeast:0 andAtMost:10]];
+    [newPrices setValue:newSugarPrice forKey:@"sugar"];
+    
+    NSNumber* newIcePrice =
+            [NSNumber numberWithFloat: .25 + .05 * [self randomNumberAtLeast:0 andAtMost:5]];
+    [newPrices setValue:newIcePrice forKey:@"ice"];
+    
+    NSNumber* newCupsPrice =
+            [NSNumber numberWithFloat: .05 + .01 * [self randomNumberAtLeast:0 andAtMost:10]];
+    [newPrices setValue:newCupsPrice forKey:@"cups"];
+    
+    return newPrices;
 }
 
 @end
