@@ -26,7 +26,7 @@
         NSString* fontName = @"Chalkduster";
         
         // Create Title
-        UIColor* titleBackgroundColor = [UIColor colorWithRed:120.0/255 green:255.0/255 blue:0.0/255 alpha:1.0];
+        UIColor* titleBackgroundColor = [UIColor colorWithRed:0.0/255 green:200.0/255 blue:0.0/255 alpha:1.0];
         CGRect titleFrame = CGRectMake(0, header, width, borderThickness);
         UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
         title.text = @"How to Play";
