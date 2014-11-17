@@ -18,5 +18,9 @@
 - (int) randomNumberAtLeast:(int)lowerBound andAtMost:(int)upperBound;
 - (NSMutableDictionary*) removeIngredientsOfRecipe:(NSMutableDictionary*)recipe
                                      fromInventory:(NSMutableDictionary*)inventory;
-
+- (int) calculateNewPopularityWithNumCustomers:(int)totalCustomers
+                                 portionBought:(float)portionWhoBought
+                                  portionLiked:(float)portionWhoLiked
+                             fromOldPopularity:(NSNumber*)popularity;
+- (DayOfWeek) nextDayOfWeek:(DayOfWeek)currentDay;
 @end

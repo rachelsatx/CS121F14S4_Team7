@@ -18,6 +18,7 @@
     NSMutableDictionary* _ingredientPrices;
     NSNumber* _popularity;
     NSNumber* _money;
+    NSNumber* _profit;
 }
 @end
 
@@ -35,8 +36,8 @@
                                                       forKeys:@[@"lemons", @"sugar", @"ice", @"cups"]];
     _recipe = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,     @0.00,    @0.00,  @1.00]
                                                    forKeys:@[@"lemons", @"sugar", @"ice", @"water"]];
-    _ingredientPrices = [[NSMutableDictionary alloc] initWithObjects:@[@1.00,     @0.50,    @0.25,  @0.10]
-                                                             forKeys:@[@"lemons", @"sugar", @"ice", @"cups"]];
+    _ingredientPrices = [[NSMutableDictionary alloc] initWithObjects:@[@0.50,     @0.50,    @0.25,  @0.05]
+                                                    forKeys:@[@"lemons", @"sugar", @"ice", @"cups"]];
     _popularity = 0;
     _money = [NSNumber numberWithFloat:20];
     
@@ -138,6 +139,16 @@
 -(void) setMoney:(NSNumber*) newMoney
 {
     _money = newMoney;
+}
+
+-(NSNumber*) getProfit
+{
+    return _profit;
+}
+
+-(void) setProfit:(NSNumber*) newProfit
+{
+    _profit = newProfit;
 }
 
 @end

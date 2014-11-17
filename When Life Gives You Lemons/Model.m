@@ -99,10 +99,15 @@
     [dataStore setFeedbackString:(feedbackString)];
     [dataStore setInventory:inventory];
     [dataStore setMoney:newMoney];
+    [dataStore setProfit:[NSNumber numberWithFloat:grossEarnings]];
     
+    // A day passed, so change the day of the week and the weather.
+    [dataStore setDayOfWeek:[self nextDayOfWeek:dayOfWeek]];
+    [dataStore setWeather:[self nextWeather:weather]];
     
+    // Update ingredient prices to reflect changing market conditions.
+    [dataStore setIngredientPrices:[self generateRandomIngredientPrices]];
     return dataStore;
-    
 }
 
 
@@ -273,6 +278,73 @@
     }
     
     return feedbackString;
+}
+
+- (DayOfWeek) nextDayOfWeek:(DayOfWeek)currentDay {
+    NSAssert(0 <= currentDay <= 6, @"Invalid day of week: %d", currentDay);
+    if (currentDay < 6) {
+        return currentDay + 1;
+    } else {
+        return 0;
+    }
+}
+
+- (Weather) nextWeather:(Weather)currentWeather {
+    
+    // Get a random number to determne tomorrow's weather.
+    float randomValue = drand48();
+    
+    if (currentWeather == Sunny) {
+        if (randomValue < .5) {
+            return Sunny;
+        } else if (randomValue < .75) {
+            return Cloudy;
+        } else {
+            return Raining;
+        }
+    } else if (currentWeather == Cloudy) {
+        if (randomValue < .6) {
+            return Sunny;
+        } else if (randomValue < .8) {
+            return Cloudy;
+        } else {
+            return Raining;
+        }
+    } else if (currentWeather == Raining) {
+        if (randomValue < .6) {
+            return Sunny;
+        } else if (randomValue < .9) {
+            return Cloudy;
+        } else {
+            return Raining;
+        }
+    } else {
+        [NSException raise:@"Invalid weather value" format:@"Weather %d is invalid", currentWeather];
+        // Return should never be reached.
+        return Sunny;
+    }
+}
+
+- (NSMutableDictionary*) generateRandomIngredientPrices {
+    NSMutableDictionary* newPrices = [[NSMutableDictionary alloc] init];
+    
+    NSNumber* newLemonsPrice =
+            [NSNumber numberWithFloat: .5 + .05 * [self randomNumberAtLeast:0 andAtMost:10]];
+    [newPrices setValue:newLemonsPrice forKey:@"lemons"];
+    
+    NSNumber* newSugarPrice =
+            [NSNumber numberWithFloat: .5 + .05 * [self randomNumberAtLeast:0 andAtMost:10]];
+    [newPrices setValue:newSugarPrice forKey:@"sugar"];
+    
+    NSNumber* newIcePrice =
+            [NSNumber numberWithFloat: .25 + .05 * [self randomNumberAtLeast:0 andAtMost:5]];
+    [newPrices setValue:newIcePrice forKey:@"ice"];
+    
+    NSNumber* newCupsPrice =
+            [NSNumber numberWithFloat: .05 + .01 * [self randomNumberAtLeast:0 andAtMost:10]];
+    [newPrices setValue:newCupsPrice forKey:@"cups"];
+    
+    return newPrices;
 }
 
 @end
