@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, Weather) {
+typedef NS_ENUM(int, Weather) {
     Sunny,
     Cloudy,
     Raining
 };
 
-typedef NS_ENUM(NSInteger, DayOfWeek) {
+typedef NS_ENUM(int, DayOfWeek) {
     Monday,
     Tuesday,
     Wednesday,
@@ -22,14 +22,6 @@ typedef NS_ENUM(NSInteger, DayOfWeek) {
     Friday,
     Saturday,
     Sunday
-};
-
-typedef NS_ENUM(NSInteger, Ingredient) {
-    Lemons,
-    Sugar,
-    Ice,
-    Cups,
-    Water
 };
 
 @interface DataStore : NSObject

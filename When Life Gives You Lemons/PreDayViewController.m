@@ -25,7 +25,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
@@ -149,6 +149,17 @@
         // Pass any objects to the view controller here, like...
         [midDayViewController setDataStore:_dataStore];
     }
+}
+
+- (IBAction)unwindToPreDay:(UIStoryboardSegue*)unwindSegue
+{
+    [_inventoryView setHidden:YES];
+    [_inventoryView updateAmountLabels];
+    [_inventoryView updateMoneyLabel];
+    [_inventoryView updatePriceLabels];
+    
+    [_recipeView setHidden:YES];
+    [_recipeView updatePercentageLabels];
 }
 
 - (NSNumber*) getLemons

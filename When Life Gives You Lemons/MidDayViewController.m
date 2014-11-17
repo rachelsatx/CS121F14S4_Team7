@@ -25,7 +25,6 @@
     [super viewDidLoad];
     
     // Run Model immediately
-    NSLog(@"hi");
     _model = [[Model alloc] init];
     _dataStore = [self runModelWith:_dataStore];
     

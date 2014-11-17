@@ -25,7 +25,7 @@
     // Get an array of customers.
     NSMutableArray *customers = [self getCustomersOnDay:dayOfWeek withWeather:weather
                                  andPopularity:popularity];
-    int totalCustomers = [customers count];
+    int totalCustomers = (int) [customers count];
     int customersWhoBought = 0;
     int customersWhoLiked = 0;
     float grossEarnings = 0;
@@ -191,7 +191,7 @@
         portionBought:(float)portionWhoBought
         portionLiked:(float)portionWhoLiked
         fromOldPopularity:(NSNumber*)popularity {
-    int newPopularity = [popularity integerValue];
+    int newPopularity = [popularity intValue];
     // If enough people were unwilling to buy because of price, lose some popularity proportionally.
     newPopularity -= (int) ((1 - portionWhoBought) * 10);
     // If enough people didn't like it, lose some popularity proportionally.
@@ -210,7 +210,7 @@
     
     // Handle cups separately because they aren't part of the recipe.
     [inventory setValue: [NSNumber numberWithInt: [[inventory valueForKey:@"cups"]
-                                                   integerValue] - 1] forKey:@"cups"];
+                                                   intValue] - 1] forKey:@"cups"];
     
     // Loop through all other ingredients removing the appropriate amount.
     for (NSString* ingredient in [recipe allKeys]) {
@@ -218,7 +218,7 @@
             float amountToRemove = [[recipe valueForKey:ingredient] floatValue];
             float oldAmount = [[inventory valueForKey:ingredient] floatValue];
             
-            NSAssert(oldAmount > amountToRemove,
+            NSAssert(oldAmount >= amountToRemove,
                 @"Tried to remove more ingredients than existed: %f from %f", amountToRemove, oldAmount);
             
             [inventory setValue:[NSNumber numberWithFloat:oldAmount - amountToRemove] forKey:ingredient];

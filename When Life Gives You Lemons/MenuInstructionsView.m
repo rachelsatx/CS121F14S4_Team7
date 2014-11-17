@@ -42,7 +42,7 @@
         UITextView* instructions = [[UITextView alloc] initWithFrame:instructionsFrame];
         [instructions setFont:[UIFont fontWithName:fontName size:fontSize]];
         [instructions setText:instructionsText];
-        [instructions setBackgroundColor:[UIColor whiteColor]];
+        [instructions setBackgroundColor:instructionsBackgroundColor];
         instructions.editable = NO;
         [self addSubview:instructions];
         

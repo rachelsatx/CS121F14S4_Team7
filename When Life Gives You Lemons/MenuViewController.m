@@ -44,8 +44,6 @@
     _instructionsView = [[MenuInstructionsView alloc] initWithFrame:viewFrame];
     [_instructionsView setHidden:YES];
     [self.view addSubview:_instructionsView];
-    
-    [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
 }
 
 - (void)displayInstructions:(id)sender
