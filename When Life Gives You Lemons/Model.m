@@ -87,11 +87,11 @@
                               feedbackString];
         } else if ((float) customersWhoBought / (float) totalCustomers < .1) {
             feedbackString = [NSString stringWithFormat:
-               @"%@\nUnfortunately, your lemonade was really expensive - no one bought it!",
+               @"%@\nUnfortunately, your lemonade was really expensive, so nobody bought it!",
                               feedbackString];
         } else if ((float) customersWhoBought / (float) totalCustomers < .3) {
             feedbackString = [NSString stringWithFormat:
-               @"%@\nAlso, your lemonade was a bit expensive - not many customers bought it!",
+               @"%@\nAlso, your lemonade was a bit expensive, so very few customers bought it!",
                               feedbackString];
         }
     }
