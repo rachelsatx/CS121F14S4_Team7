@@ -12,6 +12,7 @@
 
 - (void)didMoveToView: (SKView *) view
 {
+    self.backgroundColor = [UIColor whiteColor];
     [self createAnimation];
 }
 
@@ -22,13 +23,20 @@
     CGFloat frameWidth = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);
     
+    // Set background image.
+    SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"sunny-background.png"];
+    backgroundSprite.position = CGPointMake(frameWidth/2,frameHeight/2);
+    [self addChild:backgroundSprite];
+    
     SKSpriteNode *sunSprite = [SKSpriteNode spriteNodeWithImageNamed:@"sun.png"];
     sunSprite.position = CGPointMake(frameWidth/8, 7*frameHeight/8);
-    self.backgroundColor = [UIColor colorWithRed:140.0/255 green:211.0/255 blue:255.0/255 alpha:1.0];
     [self addChild:sunSprite];
     
     SKAction *move = [SKAction moveByX:3*frameWidth / 4 y:0 duration:5];
-    [sunSprite runAction:move];
+    SKAction *spin = [SKAction rotateByAngle:M_PI*2 duration:2];
+    SKAction *spinForever = [SKAction repeatActionForever:spin];
+    SKAction *group = [SKAction group:@[move,spinForever]];
+    [sunSprite runAction:group];
 }
 
 @end
