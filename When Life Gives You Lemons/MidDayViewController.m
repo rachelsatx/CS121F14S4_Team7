@@ -24,14 +24,14 @@
 {
     [super viewDidLoad];
     
-    // Run Model immediately
-    _model = [[Model alloc] init];
-    _dataStore = [self runModelWith:_dataStore];
-    
     // Create the MidDay View
     CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     _midDayView = [[MidDayView alloc] initWithFrame:frame andDataStore:_dataStore];
     [self.view addSubview:_midDayView];
+    
+    // Run Model After creating MidDay View, so that it uses the old weather value
+    _model = [[Model alloc] init];
+    _dataStore = [self runModelWith:_dataStore];
     
     [self.view bringSubviewToFront:_goToPostDayButton];
 }

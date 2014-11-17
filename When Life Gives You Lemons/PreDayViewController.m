@@ -37,6 +37,8 @@
     [_infoView setDelegate:self];
     [_infoView updatePriceLabel];
     [_infoView updateWeather];
+    [_infoView updateDayLabel];
+    [_infoView updateMakableCupsLabel];
     
     // Create the Inventory View
     _inventoryView = [[PreDayInventoryView alloc] initWithFrame:allViewsFrame];
@@ -102,6 +104,7 @@
     [self.view.layer addAnimation:transition forKey:nil];
     [self.view sendSubviewToBack:_recipeView];
     [self.view sendSubviewToBack:_inventoryView];
+    [_infoView updateMakableCupsLabel];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -121,6 +124,8 @@
 {
     [_infoView updatePriceLabel];
     [_infoView updateWeather];
+    [_infoView updateDayLabel];
+    [_infoView updateMakableCupsLabel];
     
     [_inventoryView setHidden:YES];
     [_inventoryView updateAmountLabels];
@@ -258,6 +263,30 @@
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newWater forKey:@"water"];
     [_dataStore setRecipe:recipe];
+}
+
+- (NSNumber*) getMakableCups
+{
+    NSDictionary* inventory = [_dataStore getInventory];
+    NSDictionary* recipe = [_dataStore getRecipe];
+    
+    int maxCustomers = [(NSNumber*) [inventory valueForKey:@"cups"] intValue];
+    for (NSString* key in [inventory allKeys]) {
+        if (![key isEqual: @"cups"] && [[recipe valueForKey:key] floatValue] > 0.0) {
+            int maxCupsWithThisIngredient = (int) ([(NSNumber*) [inventory valueForKey:key] floatValue]/
+                                                   [(NSNumber*) [recipe valueForKey:key] floatValue]);
+            if (maxCupsWithThisIngredient < maxCustomers) {
+                maxCustomers = maxCupsWithThisIngredient;
+            }
+        }
+    }
+    return [NSNumber numberWithInt:maxCustomers];
+}
+
+- (DayOfWeek) getDayOfWeek
+{
+    NSLog(@"%d", [_dataStore getDayOfWeek]);
+    return [_dataStore getDayOfWeek];
 }
 
 @end

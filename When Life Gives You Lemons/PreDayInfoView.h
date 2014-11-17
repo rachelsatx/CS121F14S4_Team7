@@ -14,7 +14,9 @@
 - (void) incrementPrice:(id)sender;
 - (void) decrementPrice:(id)sender;
 - (NSNumber*) getPrice;
+- (NSNumber*) getMakableCups;
 - (Weather) getWeather;
+- (DayOfWeek) getDayOfWeek;
 @end
 
 @interface PreDayInfoView : UIView
@@ -25,4 +27,7 @@
 @property (nonatomic,strong) id delegate;
 - (void)updatePriceLabel;
 - (void)updateWeather;
+- (void)updateDayLabel;
+- (void)updateMakableCupsLabel;
+
 @end
