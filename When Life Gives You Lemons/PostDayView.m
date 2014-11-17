@@ -67,7 +67,9 @@
         summaryView.layer.borderColor = [UIColor blackColor].CGColor;
         summaryView.textAlignment = NSTextAlignmentCenter;
         [summaryView setFont:[UIFont fontWithName:fontName size:fontSize]];
-        NSString *profitFromDay = [NSString stringWithFormat:@"Profit from the day: $%0.2f", [profit floatValue]];
+        NSInteger cupsSold = dataStore.getCupsSold;
+        NSAssert(cupsSold >= 0, @"Negative number of cups sold (%d)", cupsSold);
+        NSString *profitFromDay = [NSString stringWithFormat:@"You sold %d cups of lemonade and made $%0.2f.", cupsSold, [profit floatValue]];
         NSNumber *money = dataStore.getMoney;
         NSAssert(money >= 0, @"Negative money (%@)", money);
         NSString *moneyOnHand = [NSString stringWithFormat:@"Total money on hand: $%0.2f", [money floatValue]];

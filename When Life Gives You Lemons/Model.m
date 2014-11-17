@@ -100,7 +100,7 @@
     [dataStore setInventory:inventory];
     [dataStore setMoney:newMoney];
     [dataStore setProfit:[NSNumber numberWithFloat:grossEarnings]];
-    [dataStore setCupsSold:[NSNumber numberWithInt:customersWhoBought]];
+    [dataStore setCupsSold:customersWhoBought];
     
     // A day passed, so change the day of the week and the weather.
     [dataStore setDayOfWeek:[self nextDayOfWeek:dayOfWeek]];
