@@ -15,7 +15,6 @@
     DataStore* _dataStore;
     MenuInstructionsView* _instructionsView;
 }
-
 @end
 
 @implementation MenuViewController
