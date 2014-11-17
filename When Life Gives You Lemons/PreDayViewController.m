@@ -10,11 +10,13 @@
 #import "PreDayInventoryView.h"
 #import "MidDayViewController.h"
 #import "PreDayRecipeView.h"
+#import "PreDayInfoView.h"
 
 @interface PreDayViewController (){
     DataStore* _dataStore;
     PreDayInventoryView* _inventoryView;
     PreDayRecipeView* _recipeView;
+    PreDayInfoView* _infoView;
 }
 @end
 
@@ -24,14 +26,17 @@
 {
     [super viewDidLoad];
     
-    // Update the Info View
-    [self updatePrice];
-    [self updateWeather];
-    
     // Create frame for additional views
     CGFloat header = 90;
     CGFloat footer = 90;
     CGRect allViewsFrame = CGRectMake(0, header, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - header - footer);
+    
+    // Create the Info View
+    _infoView = [[PreDayInfoView alloc] initWithFrame:allViewsFrame];
+    [self.view addSubview:_infoView];
+    [_infoView setDelegate:self];
+    [_infoView updatePriceLabel];
+    [_infoView updateWeather];
     
     // Create the Inventory View
     _inventoryView = [[PreDayInventoryView alloc] initWithFrame:allViewsFrame];
@@ -59,35 +64,6 @@
 - (void) setDataStore:(DataStore*) dataStore
 {
     _dataStore = dataStore;
-}
-
-- (IBAction)incrementPrice:(id)sender
-{
-    if ([[_dataStore getPrice] floatValue] <= 99.9) { // Off by .01 because of floating point errors
-        [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] + .1]];
-        [self updatePrice];
-    }
-}
-
-- (IBAction)decrementPrice:(id)sender
-{
-    if ([[_dataStore getPrice] floatValue] >= 0.1) { // Off by .01 because of floating point errors
-        [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] - .1]];
-        [self updatePrice];
-    }
-}
-
-- (void)updatePrice
-{
-    self.priceLabel.text = [NSString stringWithFormat:@"Price: %.2f", [[_dataStore getPrice] floatValue]];
-}
-
-- (void)updateWeather
-{
-    Weather weather = [_dataStore getWeather];
-    if (weather == Sunny) {
-        [self.weatherImage setImage:[UIImage imageNamed:@"sun"]];
-    }
 }
 
 - (IBAction)displayInventory:(id)sender
@@ -143,6 +119,9 @@
 
 - (IBAction)unwindToPreDay:(UIStoryboardSegue*)unwindSegue
 {
+    [_infoView updatePriceLabel];
+    [_infoView updateWeather];
+    
     [_inventoryView setHidden:YES];
     [_inventoryView updateAmountLabels];
     [_inventoryView updateMoneyLabel];
@@ -150,6 +129,28 @@
     
     [_recipeView setHidden:YES];
     [_recipeView updatePercentageLabels];
+}
+
+- (NSNumber*) getPrice
+{
+    return [_dataStore getPrice];
+}
+
+- (Weather) getWeather
+{
+    return [_dataStore getWeather];
+}
+
+- (void) decrementPrice:(id)sender
+{
+    if ([[_dataStore getPrice] floatValue] >= .10) {
+        [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] - .1]];
+    }
+}
+
+- (void) incrementPrice:(id)sender
+{
+    [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] + .1]];
 }
 
 - (NSNumber*) getLemons
