@@ -11,6 +11,7 @@
 @interface PreDayInfoView () {
     UILabel* _priceLabel;
     UILabel* _weatherLabel;
+    UILabel* _dayLabel;
     UILabel* _makableCupsLabel;
     UIImageView* _weatherImageView;
 }
@@ -65,6 +66,13 @@
         [_makableCupsLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_makableCupsLabel];
         [self updateMakableCupsLabel];
+        
+        // Create Day Label
+        CGRect dayLabelFrame = CGRectMake(0, height/2 + 180, width, 20); // magic numbers
+        _dayLabel = [[UILabel alloc] initWithFrame:dayLabelFrame];
+        [_dayLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_dayLabel];
+        [self updateDayLabel];
 
     }
     return self;
@@ -86,6 +94,35 @@
 - (void)updatePriceLabel
 {
     [_priceLabel setText:[NSString stringWithFormat:@"Price: $%.2f", [[self.delegate getPrice] floatValue]]];
+}
+
+- (void)updateDayLabel
+{
+    DayOfWeek dayOfWeek = [self.delegate getDayOfWeek];
+    NSLog(@"%d", dayOfWeek);
+    if (dayOfWeek == Monday) {
+        [_dayLabel setText:@"Today is Monday."];
+    }
+    else if (dayOfWeek == Tuesday) {
+        [_dayLabel setText:@"Today is Tuesday."];
+    }
+    else if (dayOfWeek == Wednesday) {
+        [_dayLabel setText:@"Today is Wednesday."];
+    }
+    else if (dayOfWeek == Thursday) {
+        [_dayLabel setText:@"Today is Thursday."];
+    }
+    else if (dayOfWeek == Friday) {
+        [_dayLabel setText:@"Today is Friday."];
+    }
+    else if (dayOfWeek == Saturday) {
+        [_dayLabel setText:@"Today is Saturday. Expect a lot of customers!"];
+    }
+    else if (dayOfWeek == Sunday) {
+        [_dayLabel setText:@"Today is Sunday. Expect a lot of customers!"];
+    }
+    
+    
 }
 
 - (void)updateMakableCupsLabel

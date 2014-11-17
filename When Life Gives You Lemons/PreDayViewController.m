@@ -37,6 +37,7 @@
     [_infoView setDelegate:self];
     [_infoView updatePriceLabel];
     [_infoView updateWeather];
+    [_infoView updateDayLabel];
     [_infoView updateMakableCupsLabel];
     
     // Create the Inventory View
@@ -123,6 +124,7 @@
 {
     [_infoView updatePriceLabel];
     [_infoView updateWeather];
+    [_infoView updateDayLabel];
     [_infoView updateMakableCupsLabel];
     
     [_inventoryView setHidden:YES];
@@ -279,6 +281,12 @@
         }
     }
     return [NSNumber numberWithInt:maxCustomers];
+}
+
+- (DayOfWeek) getDayOfWeek
+{
+    NSLog(@"%d", [_dataStore getDayOfWeek]);
+    return [_dataStore getDayOfWeek];
 }
 
 @end
