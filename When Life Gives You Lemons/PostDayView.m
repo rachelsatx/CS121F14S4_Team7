@@ -26,9 +26,11 @@
         NSString *fontName = @"Chalkduster";
         
         // Set background color depending on money
+        CGFloat maxProfitForHue = 30.0;
         NSNumber *profit = dataStore.getProfit;
         NSAssert(profit >= 0, @"Negative amount of profit (%@)", profit);
-        CGFloat hue = [profit floatValue] / 20.0 * 0.4;
+        CGFloat hueFactor = [profit floatValue] < maxProfitForHue ? [profit floatValue] : maxProfitForHue;
+        CGFloat hue = hueFactor / maxProfitForHue * 0.4;
         UIColor *backgroundColor = [UIColor colorWithHue:hue saturation:0.9 brightness:0.9 alpha:1.0];
         [self setBackgroundColor:backgroundColor];
         
