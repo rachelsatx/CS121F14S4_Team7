@@ -30,6 +30,8 @@
         CGFloat buttonHeight = 50;
         CGFloat buttonFontSize = 21;
         UIColor* buttonFontColor = [UIColor colorWithRed:0.0/255 green:122.0/255 blue:255.0/255 alpha:1.0];
+        CGFloat buttonCornerRadius = 10;
+        CGFloat buttonBorderWidth = 2;
         
         // Add background
         UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
@@ -44,8 +46,8 @@
         // Add new game button
         CGRect newGameButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2, (3 * frameHeight / 5) - (3 * buttonHeight / 2), buttonWidth, buttonHeight);
         UIButton* newGameButton = [[UIButton alloc] initWithFrame:newGameButtonFrame];
-        newGameButton.layer.cornerRadius = 10;
-        newGameButton.layer.borderWidth = 2;
+        newGameButton.layer.cornerRadius = buttonCornerRadius;
+        newGameButton.layer.borderWidth = buttonBorderWidth;
         newGameButton.layer.borderColor = [UIColor blackColor].CGColor;
         [newGameButton setTitle:@"New Game" forState:UIControlStateNormal];
         newGameButton.titleLabel.font = [UIFont systemFontOfSize:buttonFontSize];
@@ -57,8 +59,8 @@
         // Add instructions button
         CGRect instructionsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2, 3 * frameHeight / 5, buttonWidth, buttonHeight);
         UIButton* instructionsButton = [[UIButton alloc] initWithFrame:instructionsButtonFrame];
-        instructionsButton.layer.cornerRadius = 10;
-        instructionsButton.layer.borderWidth = 2;
+        instructionsButton.layer.cornerRadius = buttonCornerRadius;
+        instructionsButton.layer.borderWidth = buttonBorderWidth;
         instructionsButton.layer.borderColor = [UIColor blackColor].CGColor;
         [instructionsButton setTitle:@"How to Play" forState:UIControlStateNormal];
         instructionsButton.titleLabel.font = [UIFont systemFontOfSize:buttonFontSize];
