@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "Model.h"
+#import "DataStore.h"
 
 @interface When_Life_Gives_You_LemonsTests : XCTestCase
 
@@ -112,6 +113,37 @@ Model *model;
     
     
     
+}
+
+- (void) testNoPopularityIncrease{
+    int totalCustomers = 40;
+    float portionWhoBought = 0.0;
+    float portionWhoLiked = 0.0;
+    NSNumber* oldPopularity = [NSNumber numberWithInt:0];
+    
+    XCTAssertEqual([model calculateNewPopularityWithNumCustomers:totalCustomers
+                                               portionBought:portionWhoBought
+                                               portionLiked:portionWhoLiked
+                                               fromOldPopularity:oldPopularity], 0,
+    @"Popularity was non-zero after starting at zero and no customers buying or liking lemonade");
+    
+    portionWhoBought = 1.0;
+    
+    XCTAssertEqual([model calculateNewPopularityWithNumCustomers:totalCustomers
+                                               portionBought:portionWhoBought
+                                               portionLiked:portionWhoLiked
+                                               fromOldPopularity:oldPopularity], 0,
+    @"Popularity was non-zero after starting at zero with all customers buying and none liking lemonade");
+}
+
+- (void) testNextDayOfWeek{
+    // Sunday is the last thing in the enum, so test if we handle cycling correctly.
+    
+    DayOfWeek afterWednesday = [model nextDayOfWeek:Wednesday];
+    XCTAssertEqual(Thursday, afterWednesday, @"Day of week after Thursday gave %d", afterWednesday);
+    
+    DayOfWeek afterSunday = [model nextDayOfWeek:Sunday];
+    XCTAssertEqual(Monday, afterSunday, @"Day of week after Sunday gave %d", afterSunday);
 }
 
 @end
