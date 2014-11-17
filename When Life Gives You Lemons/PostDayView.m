@@ -34,7 +34,7 @@
         UIColor *backgroundColor = [UIColor colorWithHue:hue saturation:0.9 brightness:0.9 alpha:1.0];
         [self setBackgroundColor:backgroundColor];
         
-        // Add text for popularity
+        // Create popularity frame and text
         CGRect popularityFrame = CGRectMake(borderThickness, borderThickness, frameWidth - (2 * borderThickness), frameHeight / 4);
         UITextView *popularityView = [[UITextView alloc] initWithFrame:popularityFrame];
         popularityView.backgroundColor = [UIColor whiteColor];
@@ -47,19 +47,26 @@
         popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %@ percent.", popularity];
         [self addSubview:popularityView];
         
-        // Add text for customer feedback
+        // Create feedback frame
         CGRect feedbackFrame = CGRectMake(borderThickness, borderThickness + (frameHeight / 4) + (borderThickness / 2), frameWidth - (2 * borderThickness), frameHeight / 4);
         UITextView *feedbackView = [[UITextView alloc] initWithFrame:feedbackFrame];
         feedbackView.backgroundColor = [UIColor whiteColor];
         feedbackView.layer.borderWidth = outlineWidth;
         feedbackView.layer.borderColor = [UIColor blackColor].CGColor;
-        feedbackView.textAlignment = NSTextAlignmentCenter;
-        [feedbackView setFont:[UIFont fontWithName:fontName size:fontSize]];
-        NSString *feedback = dataStore.getFeedbackString;
-        feedbackView.text = [NSString stringWithFormat: @"\nFeedback:\n\r%@", feedback];
         [self addSubview:feedbackView];
         
-        // Add text for end-of-day summary
+        // Create feedback text - this view is less wide than the feedback frame
+        // and is done so that the jug does not cover any feedback
+        CGRect feedbackTextFrame = CGRectMake(3 * borderThickness / 2 + outlineWidth, borderThickness + (frameHeight / 4) + (borderThickness / 2) + outlineWidth, frameWidth - (3 * borderThickness) - 2 * outlineWidth, frameHeight / 4 - 2 * outlineWidth);
+        UITextView *feedbackTextView = [[UITextView alloc] initWithFrame:feedbackTextFrame];
+        feedbackTextView.backgroundColor = [UIColor whiteColor];
+        feedbackTextView.textAlignment = NSTextAlignmentCenter;
+        [feedbackTextView setFont:[UIFont fontWithName:fontName size:fontSize]];
+        NSString *feedback = dataStore.getFeedbackString;
+        feedbackTextView.text = [NSString stringWithFormat: @"\nFeedback:\n\r%@", feedback];
+        [self addSubview:feedbackTextView];
+        
+        // Create end-of-day summary frame and text
         CGRect summaryFrame = CGRectMake(borderThickness, borderThickness + (frameHeight / 2) + 2 * (borderThickness / 2), frameWidth - (2 * borderThickness), frameHeight / 4);
         UITextView *summaryView = [[UITextView alloc] initWithFrame:summaryFrame];
         summaryView.backgroundColor = [UIColor whiteColor];
