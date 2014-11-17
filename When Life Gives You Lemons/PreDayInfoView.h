@@ -14,6 +14,7 @@
 - (void) incrementPrice:(id)sender;
 - (void) decrementPrice:(id)sender;
 - (NSNumber*) getPrice;
+- (NSNumber*) getMakableCups;
 - (Weather) getWeather;
 @end
 
@@ -25,4 +26,5 @@
 @property (nonatomic,strong) id delegate;
 - (void)updatePriceLabel;
 - (void)updateWeather;
+- (void)updateMakableCupsLabel;
 @end

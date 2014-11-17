@@ -11,6 +11,7 @@
 @interface PreDayInfoView () {
     UILabel* _priceLabel;
     UILabel* _weatherLabel;
+    UILabel* _makableCupsLabel;
     UIImageView* _weatherImageView;
 }
 @end
@@ -57,6 +58,13 @@
         _weatherImageView = [[UIImageView alloc] initWithFrame:weatherImageViewFrame];
         [self addSubview:_weatherImageView];
         [self updateWeather];
+        
+        // Create Makable Cups Label
+        CGRect makableCupsLabelFrame = CGRectMake(0, height/2, width, 20); // magic numbers
+        _makableCupsLabel = [[UILabel alloc] initWithFrame:makableCupsLabelFrame];
+        [_makableCupsLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:_makableCupsLabel];
+        [self updateMakableCupsLabel];
 
     }
     return self;
@@ -78,6 +86,11 @@
 - (void)updatePriceLabel
 {
     [_priceLabel setText:[NSString stringWithFormat:@"Price: $%.2f", [[self.delegate getPrice] floatValue]]];
+}
+
+- (void)updateMakableCupsLabel
+{
+    [_makableCupsLabel setText:[NSString stringWithFormat:@"You can make a total of %d cups of lemonade.", [[self.delegate getMakableCups] intValue]]];
 }
 
 - (void)updateWeather
