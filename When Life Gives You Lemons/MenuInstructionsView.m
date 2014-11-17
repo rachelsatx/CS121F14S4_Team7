@@ -24,7 +24,6 @@
         CGFloat borderThickness = (height < width) ? (height / 8) : (width / 8);
         CGFloat fontSize = 30;
         NSString* fontName = @"Chalkduster";
-
         
         // Create Title
         UIColor* titleBackgroundColor = [UIColor colorWithRed:120.0/255 green:255.0/255 blue:0.0/255 alpha:1.0];
@@ -39,7 +38,6 @@
         NSString* instructionsText = @"You've been give 20 dollars to start up your own business. You've decided to make a lemonade stand! \n \n Use the money you have to buy ingredients and prepare for the next day. Change your recipe to try to make the tastiest lemonade possible. If your customers like your lemonade, your popularity will go up! \n \n The more popular your stand is, the more customers you will have. Good luck, and don't forget the cups!";
         
         // Create Text box with instructions
-        UIColor* instructionsBackgroundColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:100.0/255 alpha:1.0];
         CGRect instructionsFrame = CGRectMake(30, 200, width - 60, height - borderThickness - header - 30);
         UITextView* instructions = [[UITextView alloc] initWithFrame:instructionsFrame];
         [instructions setFont:[UIFont fontWithName:fontName size:fontSize]];

@@ -27,28 +27,23 @@
         
         // Set background according to weather
         Weather weather = dataStore.getWeather;
-        UIColor* backgroundColor;
         if (weather == Sunny) {
-            // The background needs to be set in the scene! This does nothing!
-            backgroundColor = [UIColor colorWithRed:140.0/255 green:211.0/255 blue:255.0/255 alpha:1.0];
+            UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
+            [self addSubview:backgroundView];
             SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
             [self addSubview:animation];
             SunnyScene* sunScene = [[SunnyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
             [animation presentScene:sunScene];
-            
-            /*
-            CGFloat sunSize = frameWidth > frameHeight ? frameHeight : frameWidth;
-            UIImageView *sun =[[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 8, frameHeight / 8, sunSize / 7, sunSize / 7)];
-            sun.image=[UIImage imageNamed:@"sun.png"];
-            [self addSubview:sun];*/
         } else if (weather == Cloudy) {
-            backgroundColor = [UIColor colorWithRed:176.0/255 green:196.0/255 blue:222.0/255 alpha:1.0];
+            UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloudy-background"]];
+            [self addSubview:backgroundView];
             SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
             [self addSubview:animation];
             CloudyScene *cloudScene = [[CloudyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
             [animation presentScene:cloudScene];
         } else if (weather == Raining) {
-            backgroundColor = [UIColor colorWithRed:173.0/255 green:216.0/255 blue:230.0/255 alpha:1.0];
+            UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"raining-background"]];
+            [self addSubview:backgroundView];
             SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
             [self addSubview:animation];
             RainyScene *rainScene = [[RainyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
