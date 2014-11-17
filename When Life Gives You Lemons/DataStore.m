@@ -19,6 +19,7 @@
     NSNumber* _popularity;
     NSNumber* _money;
     NSNumber* _profit;
+    NSNumber* _cupsSold;
 }
 @end
 
@@ -149,6 +150,16 @@
 -(void) setProfit:(NSNumber*) newProfit
 {
     _profit = newProfit;
+}
+
+-(NSNumber*) getCupsSold
+{
+    return _cupsSold;
+}
+
+-(void) setCupsSold:(NSNumber*) newCupsSold
+{
+    _cupsSold = newCupsSold;
 }
 
 @end
