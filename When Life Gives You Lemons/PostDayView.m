@@ -26,9 +26,9 @@
         NSString *fontName = @"Chalkduster";
         
         // Set background color depending on money
-        NSNumber *money = dataStore.getMoney;
-        NSAssert(money >= 0, @"Negative amount of money (%@)", money);
-        CGFloat hue = [money floatValue] / 200.0 * 0.4;
+        NSNumber *profit = dataStore.getProfit;
+        NSAssert(profit >= 0, @"Negative amount of profit (%@)", profit);
+        CGFloat hue = [profit floatValue] / 20.0 * 0.4;
         UIColor *backgroundColor = [UIColor colorWithHue:hue saturation:0.9 brightness:0.9 alpha:1.0];
         [self setBackgroundColor:backgroundColor];
         
@@ -65,8 +65,11 @@
         summaryView.layer.borderColor = [UIColor blackColor].CGColor;
         summaryView.textAlignment = NSTextAlignmentCenter;
         [summaryView setFont:[UIFont fontWithName:fontName size:fontSize]];
+        NSString *profitFromDay = [NSString stringWithFormat:@"Profit from the day: $%0.2f", [profit floatValue]];
+        NSNumber *money = dataStore.getMoney;
+        NSAssert(money >= 0, @"Negative money (%@)", money);
         NSString *moneyOnHand = [NSString stringWithFormat:@"Total money on hand: $%0.2f", [money floatValue]];
-        summaryView.text = [NSString stringWithFormat:@"\nMoney:\n\r%@", moneyOnHand];
+        summaryView.text = [NSString stringWithFormat:@"\nMoney:\n\r%@\n\r%@", profitFromDay, moneyOnHand];
         [self addSubview:summaryView];
         
         // Add customer images according to popularity

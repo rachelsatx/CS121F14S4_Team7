@@ -38,7 +38,7 @@
     [_infoView updatePriceLabel];
     [_infoView updateWeather];
     [_infoView updateDayLabel];
-    [_infoView updateMakableCupsLabel];
+    [_infoView updateMakeableCupsLabel];
     
     // Create the Inventory View
     _inventoryView = [[PreDayInventoryView alloc] initWithFrame:allViewsFrame];
@@ -104,7 +104,7 @@
     [self.view.layer addAnimation:transition forKey:nil];
     [self.view sendSubviewToBack:_recipeView];
     [self.view sendSubviewToBack:_inventoryView];
-    [_infoView updateMakableCupsLabel];
+    [_infoView updateMakeableCupsLabel];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -125,7 +125,7 @@
     [_infoView updatePriceLabel];
     [_infoView updateWeather];
     [_infoView updateDayLabel];
-    [_infoView updateMakableCupsLabel];
+    [_infoView updateMakeableCupsLabel];
     
     [_inventoryView setHidden:YES];
     [_inventoryView updateAmountLabels];

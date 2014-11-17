@@ -28,6 +28,6 @@
 - (void)updatePriceLabel;
 - (void)updateWeather;
 - (void)updateDayLabel;
-- (void)updateMakableCupsLabel;
+- (void)updateMakeableCupsLabel;
 
 @end
