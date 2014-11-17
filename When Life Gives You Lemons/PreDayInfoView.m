@@ -27,33 +27,43 @@
         CGFloat frameWidth = CGRectGetWidth(self.frame);
         CGFloat frameHeight = CGRectGetHeight(self.frame);
         
-        CGFloat labelHeight = frameHeight / 10;
+        CGFloat labelHeight = frameHeight / 9;
         CGFloat imageSize = frameHeight < frameWidth ? frameHeight / 4 : frameWidth / 4;
         CGFloat buttonSize = frameHeight < frameWidth ? frameHeight / 10 : frameWidth / 10;
         
         CGFloat fontSize = 25;
         NSString* fontName = @"Chalkduster";
         
+        // Set background image to a spiral notebook
+        self.backgroundColor = [UIColor whiteColor];
+        UIGraphicsBeginImageContext(self.frame.size);
+        [[UIImage imageNamed:@"spiral-notebook"] drawInRect:self.bounds];
+        UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        self.backgroundColor = [UIColor colorWithPatternImage:image];
+        
         // Create Day Label
         CGRect dayLabelFrame = CGRectMake(0, 0, frameWidth, labelHeight);
         _dayLabel = [[UILabel alloc] initWithFrame:dayLabelFrame];
         [_dayLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [_dayLabel setTextAlignment:NSTextAlignmentCenter];
-        [self addSubview:_dayLabel];
+        _dayLabel.numberOfLines = 0;
         [self updateDayLabel];
+        [self addSubview:_dayLabel];
         
         // Create Weather Label
         CGRect weatherLabelFrame = CGRectMake(0, labelHeight, frameWidth, labelHeight);
         _weatherLabel = [[UILabel alloc] initWithFrame:weatherLabelFrame];
         [_weatherLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [_weatherLabel setTextAlignment:NSTextAlignmentCenter];
+        _weatherLabel.numberOfLines = 0;
         [self addSubview:_weatherLabel];
         
         // Create Weather Image
         CGRect weatherImageViewFrame = CGRectMake((frameWidth - imageSize) / 2, 2 * labelHeight, imageSize, imageSize);
         _weatherImageView = [[UIImageView alloc] initWithFrame:weatherImageViewFrame];
-        [self addSubview:_weatherImageView];
         [self updateWeather];
+        [self addSubview:_weatherImageView];
         
         // Create Makable Cups Label
         CGRect makeableCupsLabelFrame = CGRectMake(0, 2 * labelHeight + imageSize, frameWidth, 2 * labelHeight);
@@ -61,8 +71,8 @@
         [_makeableCupsLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [_makeableCupsLabel setTextAlignment:NSTextAlignmentCenter];
         _makeableCupsLabel.numberOfLines = 0;
-        [self addSubview:_makeableCupsLabel];
         [self updateMakeableCupsLabel];
+        [self addSubview:_makeableCupsLabel];
         
         // Create Increment Price Button
         CGRect incrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2, 4 * labelHeight + imageSize, buttonSize, buttonSize); // magic numbers
@@ -76,8 +86,9 @@
         _priceLabel = [[UILabel alloc] initWithFrame:priceLabelFrame];
         [_priceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [_priceLabel setTextAlignment:NSTextAlignmentCenter];
-        [self addSubview:_priceLabel];
+        _priceLabel.numberOfLines = 0;
         [self updatePriceLabel];
+        [self addSubview:_priceLabel];
         
         // Create Decrement Price Button
         CGRect decrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2, 6 * labelHeight + imageSize, buttonSize, buttonSize);
