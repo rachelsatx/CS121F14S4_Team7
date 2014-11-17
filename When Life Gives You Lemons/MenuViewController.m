@@ -17,7 +17,6 @@
     MenuMainView* _mainView;
     MenuInstructionsView* _instructionsView;
 }
-
 @end
 
 @implementation MenuViewController
