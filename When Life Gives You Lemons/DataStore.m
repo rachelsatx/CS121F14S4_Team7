@@ -18,6 +18,7 @@
     NSMutableDictionary* _ingredientPrices;
     NSNumber* _popularity;
     NSNumber* _money;
+    NSNumber* _profit;
 }
 @end
 
@@ -138,6 +139,16 @@
 -(void) setMoney:(NSNumber*) newMoney
 {
     _money = newMoney;
+}
+
+-(NSNumber*) getProfit
+{
+    return _profit;
+}
+
+-(void) setProfit:(NSNumber*) newProfit
+{
+    _profit = newProfit;
 }
 
 @end

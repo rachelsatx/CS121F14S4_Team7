@@ -99,6 +99,7 @@
     [dataStore setFeedbackString:(feedbackString)];
     [dataStore setInventory:inventory];
     [dataStore setMoney:newMoney];
+    [dataStore setProfit:[NSNumber numberWithFloat:grossEarnings]];
     
     // A day passed, so change the day of the week and the weather.
     [dataStore setDayOfWeek:[self nextDayOfWeek:dayOfWeek]];
