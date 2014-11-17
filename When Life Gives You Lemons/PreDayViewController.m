@@ -153,7 +153,7 @@
 
 - (IBAction)unwindToPreDay:(UIStoryboardSegue*)unwindSegue
 {
-    [_recipeView setHidden:YES];
+    [_inventoryView setHidden:YES];
     [_inventoryView updateAmountLabels];
     [_inventoryView updateMoneyLabel];
     [_inventoryView updatePriceLabels];
