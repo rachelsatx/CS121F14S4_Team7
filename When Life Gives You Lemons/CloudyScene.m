@@ -20,7 +20,6 @@
 {
     self.scaleMode = SKSceneScaleModeAspectFit;
     self.duration = 7;
-    //self.backgroundColor = [UIColor colorWithRed:176.0/255 green:196.0/255 blue:222.0/255 alpha:1.0];
     self.backgroundColor = [UIColor whiteColor];
     [self createClouds];
 }

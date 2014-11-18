@@ -23,9 +23,7 @@
     [super viewDidLoad];
     
     // Create the PostDay View
-    CGFloat width = CGRectGetWidth(self.view.frame);
-    CGFloat height = CGRectGetHeight(self.view.frame);
-    CGRect frame = CGRectMake(0, 0, width, height);
+    CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     _postDayView = [[PostDayView alloc] initWithFrame:frame andDataStore:_dataStore];
     [self.view addSubview:_postDayView];
     

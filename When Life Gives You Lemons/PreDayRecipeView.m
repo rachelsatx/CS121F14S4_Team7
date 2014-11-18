@@ -25,7 +25,10 @@
     if (self) {
         CGFloat frameWidth = CGRectGetWidth(self.frame);
         CGFloat frameHeight = CGRectGetWidth(self.frame);
+        
         CGFloat borderThickness = (frameHeight < frameWidth) ? (frameHeight / 5) : (frameWidth / 5);
+        CGFloat ingredientColumnWidth = frameWidth / 2;
+        CGFloat labelColumnWidth = frameWidth / 4;
         CGFloat ingredientSize = ((frameHeight - borderThickness) / 4) < (frameWidth / 2) ?
                                  ((frameHeight - borderThickness) / 4) : (frameWidth / 2);
         CGFloat buttonSize = ingredientSize / 3;
@@ -45,7 +48,10 @@
         self.backgroundColor = [UIColor colorWithPatternImage:image];
 
         // Create title of view
-        CGRect titleFrame = CGRectMake(0, 0, frameWidth, borderThickness);
+        CGRect titleFrame = CGRectMake(0,
+                                       0,
+                                       frameWidth,
+                                       borderThickness);
         UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
         title.text = @"Recipe:";
         [title setFont:[UIFont fontWithName:fontName size:(fontSize + titleSizeIncrease)]];
@@ -61,7 +67,7 @@
         [lemonImage setImage:[UIImage imageNamed:@"lemon-slice"]];
         [self addSubview:lemonImage];
         
-        CGRect lemonNameLabelFrame = CGRectMake(frameWidth / 2,
+        CGRect lemonNameLabelFrame = CGRectMake(ingredientColumnWidth,
                                                 borderThickness,
                                                 labelWidth,
                                                 labelHeight);
@@ -71,7 +77,7 @@
         [lemonNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:lemonNameLabel];
         
-        CGRect lemonUpButtonFrame = CGRectMake(3 * frameWidth / 4,
+        CGRect lemonUpButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
                                                borderThickness,
                                                buttonSize,
                                                buttonSize);
@@ -82,7 +88,7 @@
                 forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:lemonUpButton];
         
-        CGRect lemonAmountLabelFrame = CGRectMake((3 * frameWidth / 4) - (buttonSize / 2),
+        CGRect lemonAmountLabelFrame = CGRectMake((ingredientColumnWidth + labelColumnWidth) - (buttonSize / 2),
                                                   borderThickness + buttonSize,
                                                   2 * buttonSize,
                                                   buttonSize);
@@ -92,7 +98,7 @@
         [_lemonsAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_lemonsAmountLabel];
         
-        CGRect lemonDownButtonFrame = CGRectMake(3 * frameWidth / 4,
+        CGRect lemonDownButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
                                                  borderThickness + (2 * buttonSize),
                                                  buttonSize,
                                                  buttonSize);
@@ -112,7 +118,7 @@
         [sugarImage setImage:[UIImage imageNamed:@"sugar"]];
         [self addSubview:sugarImage];
         
-        CGRect sugarNameLabelFrame = CGRectMake(frameWidth / 2,
+        CGRect sugarNameLabelFrame = CGRectMake(ingredientColumnWidth,
                                                 borderThickness + ingredientSize,
                                                 labelWidth,
                                                 labelHeight);
@@ -122,7 +128,7 @@
         [sugarNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:sugarNameLabel];
         
-        CGRect sugarUpButtonFrame = CGRectMake(3 * frameWidth / 4,
+        CGRect sugarUpButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
                                                borderThickness + ingredientSize,
                                                buttonSize,
                                                buttonSize);
@@ -133,7 +139,7 @@
                 forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:sugarUpButton];
         
-        CGRect sugarAmountLabelFrame = CGRectMake((3 * frameWidth / 4) - (buttonSize / 2),
+        CGRect sugarAmountLabelFrame = CGRectMake((ingredientColumnWidth + labelColumnWidth) - (buttonSize / 2),
                                                   borderThickness + ingredientSize + buttonSize,
                                                   2 * buttonSize,
                                                   buttonSize);
@@ -143,7 +149,7 @@
         [_sugarAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_sugarAmountLabel];
         
-        CGRect sugarDownButtonFrame = CGRectMake(3 * frameWidth / 4,
+        CGRect sugarDownButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
                                                  borderThickness + ingredientSize + (2 * buttonSize),
                                                  buttonSize,
                                                  buttonSize);
@@ -163,7 +169,7 @@
         [iceImage setImage:[UIImage imageNamed:@"ice"]];
         [self addSubview:iceImage];
         
-        CGRect iceNameLabelFrame = CGRectMake(frameWidth / 2,
+        CGRect iceNameLabelFrame = CGRectMake(ingredientColumnWidth,
                                               borderThickness + (2 * ingredientSize),
                                               labelWidth,
                                               labelHeight);
@@ -173,7 +179,7 @@
         [iceNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:iceNameLabel];
         
-        CGRect iceUpButtonFrame = CGRectMake(3 * frameWidth / 4,
+        CGRect iceUpButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
                                              borderThickness + (2 * ingredientSize),
                                              buttonSize,
                                              buttonSize);
@@ -184,7 +190,7 @@
               forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:iceUpButton];
         
-        CGRect iceAmountLabelFrame = CGRectMake((3 * frameWidth / 4) - (buttonSize / 2),
+        CGRect iceAmountLabelFrame = CGRectMake((ingredientColumnWidth + labelColumnWidth) - (buttonSize / 2),
                                                 borderThickness + (2 * ingredientSize) + buttonSize,
                                                 2 * buttonSize,
                                                 buttonSize);
@@ -194,7 +200,7 @@
         [_iceAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_iceAmountLabel];
         
-        CGRect iceDownButtonFrame = CGRectMake(3 * frameWidth / 4,
+        CGRect iceDownButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
                                                borderThickness + (2 * ingredientSize) + (2 * buttonSize),
                                                buttonSize,
                                                buttonSize);
@@ -214,7 +220,7 @@
         [waterImage setImage:[UIImage imageNamed:@"water"]];
         [self addSubview:waterImage];
         
-        CGRect waterNameLabelFrame = CGRectMake(frameWidth / 2,
+        CGRect waterNameLabelFrame = CGRectMake(ingredientColumnWidth,
                                                 borderThickness + (3 * ingredientSize),
                                                 labelWidth,
                                                 labelHeight);
@@ -224,7 +230,7 @@
         [waterNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:waterNameLabel];
         
-        CGRect waterAmountLabelFrame = CGRectMake((3 * frameWidth / 4) - (buttonSize / 2),
+        CGRect waterAmountLabelFrame = CGRectMake((ingredientColumnWidth + labelColumnWidth) - (buttonSize / 2),
                                                   borderThickness + (3 * ingredientSize) + buttonSize,
                                                   2 * buttonSize,
                                                   buttonSize);

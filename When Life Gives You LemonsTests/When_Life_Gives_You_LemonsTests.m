@@ -110,9 +110,6 @@ Model *model;
                         [[newInventory valueForKey:@"lemons"] floatValue])
                   < acceptableError, @"Removing mixed recipe gave incorrect value for %@", ingredient);
     }
-    
-    
-    
 }
 
 - (void) testNoPopularityIncrease{
