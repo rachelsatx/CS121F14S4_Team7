@@ -45,6 +45,7 @@
         NSNumber *popularity = dataStore.getPopularity;
         NSAssert(popularity >= 0, @"Negative popularity (%@)", popularity);
         popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %@ percent.", popularity];
+        popularityView.editable = NO;
         [self addSubview:popularityView];
         
         // Create feedback frame
@@ -64,6 +65,7 @@
         [feedbackTextView setFont:[UIFont fontWithName:fontName size:fontSize]];
         NSString *feedback = dataStore.getFeedbackString;
         feedbackTextView.text = [NSString stringWithFormat: @"\nFeedback:\n\r%@", feedback];
+        feedbackTextView.editable = NO;
         [self addSubview:feedbackTextView];
         
         // Create end-of-day summary frame and text
@@ -81,6 +83,7 @@
         NSAssert(money >= 0, @"Negative money (%@)", money);
         NSString *moneyOnHand = [NSString stringWithFormat:@"Total money on hand: $%0.2f", [money floatValue]];
         summaryView.text = [NSString stringWithFormat:@"\nMoney:\n\r%@\n\r%@", profitFromDay, moneyOnHand];
+        summaryView.editable = NO;
         [self addSubview:summaryView];
         
         // Add customer images according to popularity
@@ -93,7 +96,7 @@
         }
         
         // Add lemonade jug image
-        CGRect jugFrame = CGRectMake(frameWidth - (borderThickness / 2) - imageSize, frameHeight / 2, imageSize, imageSize);
+        CGRect jugFrame = CGRectMake(frameWidth - (borderThickness / 4) - imageSize, frameHeight / 2, imageSize, imageSize);
         UIImageView *jugView = [[UIImageView alloc] initWithFrame:jugFrame];
         jugView.image = [UIImage imageNamed:@"jug"];
         [self addSubview:jugView];
