@@ -17,6 +17,7 @@
 
 @implementation When_Life_Gives_You_LemonsTests
 
+
 Model *model;
 
 - (void)setUp
@@ -31,6 +32,11 @@ Model *model;
     [super tearDown];
 }
 
+
+
+/*
+ * Test Model
+ */
 
 // Test simulateDayWithDataStore:
 - (void)testSimulateDayWithEmptyInventory{
@@ -299,7 +305,11 @@ Model *model;
 }
 
 
-// Test NumberWithTwoDecimals
+
+/*
+ * Test NumberWithTwoDecimals
+ */
+
 - (void) testIsEqual{
     NumberWithTwoDecimals* x = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
     NumberWithTwoDecimals* y = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
