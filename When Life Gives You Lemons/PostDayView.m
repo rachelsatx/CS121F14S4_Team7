@@ -21,6 +21,9 @@
         CGFloat borderThickness = frameWidth / 10.0;
         CGFloat imageSize = frameHeight < frameWidth ? (frameHeight / 5.0) : (frameWidth / 5.0);
         CGFloat outlineWidth = 5;
+        CGFloat textViewWidth = frameWidth - (2 * borderThickness);
+        CGFloat textViewHeight = frameHeight / 4;
+        CGFloat heightBetweenTextViews = borderThickness / 2;
         
         CGFloat fontSize = 20;
         NSString *fontName = @"Chalkduster";
@@ -37,8 +40,8 @@
         // Create popularity frame and text
         CGRect popularityFrame = CGRectMake(borderThickness,
                                             borderThickness,
-                                            frameWidth - (2 * borderThickness),
-                                            frameHeight / 4);
+                                            textViewWidth,
+                                            textViewHeight);
         UITextView *popularityView = [[UITextView alloc] initWithFrame:popularityFrame];
         popularityView.backgroundColor = [UIColor whiteColor];
         popularityView.layer.borderWidth = outlineWidth;
@@ -53,9 +56,9 @@
         
         // Create feedback frame
         CGRect feedbackFrame = CGRectMake(borderThickness,
-                                          borderThickness + (frameHeight / 4) + (borderThickness / 2),
-                                          frameWidth - (2 * borderThickness),
-                                          frameHeight / 4);
+                                          borderThickness + textViewHeight + heightBetweenTextViews,
+                                          textViewWidth,
+                                          textViewHeight);
         UITextView *feedbackView = [[UITextView alloc] initWithFrame:feedbackFrame];
         feedbackView.backgroundColor = [UIColor whiteColor];
         feedbackView.layer.borderWidth = outlineWidth;
@@ -65,9 +68,9 @@
         // Create feedback text - this view is less wide than the feedback frame
         // and is done so that the jug does not cover any feedback
         CGRect feedbackTextFrame = CGRectMake((3 * borderThickness / 2) + outlineWidth,
-                                              borderThickness + (frameHeight / 4) + (borderThickness / 2) + outlineWidth,
-                                              frameWidth - (3 * borderThickness) - (2 * outlineWidth),
-                                              (frameHeight / 4) - (2 * outlineWidth));
+                                              borderThickness + textViewHeight + heightBetweenTextViews + outlineWidth,
+                                              textViewWidth - borderThickness - (2 * outlineWidth),
+                                              textViewHeight - (2 * outlineWidth));
         UITextView *feedbackTextView = [[UITextView alloc] initWithFrame:feedbackTextFrame];
         feedbackTextView.backgroundColor = [UIColor whiteColor];
         feedbackTextView.textAlignment = NSTextAlignmentCenter;
@@ -79,9 +82,9 @@
         
         // Create end-of-day summary frame and text
         CGRect summaryFrame = CGRectMake(borderThickness,
-                                         borderThickness + (frameHeight / 2) + 2 * (borderThickness / 2),
-                                         frameWidth - (2 * borderThickness),
-                                         frameHeight / 4);
+                                         borderThickness + 2 * textViewHeight + 2 * heightBetweenTextViews,
+                                         textViewWidth,
+                                         textViewHeight);
         UITextView *summaryView = [[UITextView alloc] initWithFrame:summaryFrame];
         summaryView.backgroundColor = [UIColor whiteColor];
         summaryView.layer.borderWidth = outlineWidth;
@@ -102,7 +105,7 @@
         NSInteger numCustomers = [popularity integerValue] / 10 < 9 ? [popularity integerValue] / 10 : 9;
         for (NSInteger i = 0; i < numCustomers; i += 1) {
             CGRect customerFrame = CGRectMake(i * (imageSize / 2),
-                                              (3 * borderThickness / 2) + (frameHeight / 4) - imageSize,
+                                              (3 * borderThickness / 2) + textViewHeight - imageSize,
                                               imageSize,
                                               imageSize);
             UIImageView *customerView = [[UIImageView alloc] initWithFrame:customerFrame];
