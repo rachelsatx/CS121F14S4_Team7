@@ -58,7 +58,7 @@
         
         // Create feedback text - this view is less wide than the feedback frame
         // and is done so that the jug does not cover any feedback
-        CGRect feedbackTextFrame = CGRectMake(3 * borderThickness / 2 + outlineWidth, borderThickness + (frameHeight / 4) + (borderThickness / 2) + outlineWidth, frameWidth - (3 * borderThickness) - 2 * outlineWidth, frameHeight / 4 - 2 * outlineWidth);
+        CGRect feedbackTextFrame = CGRectMake((3 * borderThickness / 2) + outlineWidth, borderThickness + (frameHeight / 4) + (borderThickness / 2) + outlineWidth, frameWidth - (3 * borderThickness) - (2 * outlineWidth), (frameHeight / 4) - (2 * outlineWidth));
         UITextView *feedbackTextView = [[UITextView alloc] initWithFrame:feedbackTextFrame];
         feedbackTextView.backgroundColor = [UIColor whiteColor];
         feedbackTextView.textAlignment = NSTextAlignmentCenter;
@@ -89,7 +89,7 @@
         // Add customer images according to popularity
         NSInteger numCustomers = [popularity integerValue] / 10 < 9 ? [popularity integerValue] / 10 : 9;
         for (NSInteger i = 0; i < numCustomers; i += 1) {
-            CGRect customerFrame = CGRectMake(i * (imageSize / 2), (3 * borderThickness / 2) + frameHeight / 4 - imageSize, imageSize, imageSize);
+            CGRect customerFrame = CGRectMake(i * (imageSize / 2), (3 * borderThickness / 2) + (frameHeight / 4) - imageSize, imageSize, imageSize);
             UIImageView *customerView = [[UIImageView alloc] initWithFrame:customerFrame];
             customerView.image = [UIImage imageNamed:@"person-navy"];
             [self addSubview:customerView];

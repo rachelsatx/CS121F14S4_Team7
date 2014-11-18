@@ -38,8 +38,11 @@
         CGFloat borderThickness = (frameHeight < frameWidth) ? (frameHeight / 5) : (frameWidth / 5);
         CGFloat ingredientSize = ((frameHeight - borderThickness) / 4) < (frameWidth / 2) ? ((frameHeight - borderThickness) / 4) : (frameWidth / 2);
         CGFloat buttonSize = ingredientSize / 3;
+        CGFloat labelWidth = frameWidth / 4;
+        CGFloat labelHeight = frameHeight / 8;
         
         CGFloat fontSize = 30;
+        CGFloat titleSizeIncrease = 5;
         NSString* fontName = @"Papyrus";
         
         // Set background image to a paper bag
@@ -53,11 +56,11 @@
         CGRect titleFrame = CGRectMake(0, 0, frameWidth, borderThickness / 2);
         UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
         title.text = @"Inventory:";
-        [title setFont:[UIFont fontWithName:fontName size:(fontSize + 5)]];
+        [title setFont:[UIFont fontWithName:fontName size:(fontSize + titleSizeIncrease)]];
         [title setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:title];
         
-        // Create multipliers for buy amount
+        // Create multipliers for buy amount (1x, 10x, 100x)
         CGRect oneButtonFrame = CGRectMake(0, borderThickness / 2, frameWidth / 3, borderThickness / 2);
         UIButton* oneButton = [[UIButton alloc] initWithFrame:oneButtonFrame];
         [oneButton setTitle:@"1x" forState:UIControlStateNormal];
@@ -91,14 +94,14 @@
         [lemonImage setImage:[UIImage imageNamed:@"lemon-slice"]];
         [self addSubview:lemonImage];
         
-        CGRect lemonNameLabelFrame = CGRectMake(frameWidth / 2, borderThickness, frameWidth / 4, frameHeight / 8);
+        CGRect lemonNameLabelFrame = CGRectMake(frameWidth / 2, borderThickness, labelWidth, labelHeight);
         UILabel* lemonNameLabel = [[UILabel alloc] initWithFrame:lemonNameLabelFrame];
         [lemonNameLabel setText:@"Lemons"];
         [lemonNameLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [lemonNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:lemonNameLabel];
         
-        CGRect lemonPriceLabelFrame = CGRectMake(frameWidth / 2, borderThickness + (2 * fontSize), frameWidth / 4, frameHeight / 8);
+        CGRect lemonPriceLabelFrame = CGRectMake(frameWidth / 2, borderThickness + (2 * fontSize), labelWidth, labelHeight);
         _lemonsPriceLabel = [[UILabel alloc] initWithFrame:lemonPriceLabelFrame];
         [_lemonsPriceLabel setText:[NSString stringWithFormat:@"$%.2f", [[self.delegate getLemonPrice] floatValue]]];
         [_lemonsPriceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
@@ -134,14 +137,14 @@
         [sugarImage setImage:[UIImage imageNamed:@"sugar"]];
         [self addSubview:sugarImage];
         
-        CGRect sugarNameLabelFrame = CGRectMake(frameWidth / 2, borderThickness + ingredientSize, frameWidth / 4, frameHeight / 8);
+        CGRect sugarNameLabelFrame = CGRectMake(frameWidth / 2, borderThickness + ingredientSize, labelWidth, labelHeight);
         UILabel* sugarNameLabel = [[UILabel alloc] initWithFrame:sugarNameLabelFrame];
         [sugarNameLabel setText:@"Sugar"];
         [sugarNameLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [sugarNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:sugarNameLabel];
         
-        CGRect sugarPriceLabelFrame = CGRectMake(frameWidth / 2, borderThickness + ingredientSize + (2 * fontSize), frameWidth / 4, frameHeight / 8);
+        CGRect sugarPriceLabelFrame = CGRectMake(frameWidth / 2, borderThickness + ingredientSize + (2 * fontSize), labelWidth, labelHeight);
         _sugarPriceLabel = [[UILabel alloc] initWithFrame:sugarPriceLabelFrame];
         [_sugarPriceLabel setText:[NSString stringWithFormat:@"$%.2f", [[self.delegate getLemonPrice] floatValue]]];
         [_sugarPriceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
@@ -177,14 +180,14 @@
         [iceImage setImage:[UIImage imageNamed:@"ice"]];
         [self addSubview:iceImage];
         
-        CGRect iceNameLabelFrame = CGRectMake(frameWidth / 2, borderThickness + (2 * ingredientSize), frameWidth / 4, frameHeight / 8);
+        CGRect iceNameLabelFrame = CGRectMake(frameWidth / 2, borderThickness + (2 * ingredientSize), labelWidth, labelHeight);
         UILabel* iceNameLabel = [[UILabel alloc] initWithFrame:iceNameLabelFrame];
         [iceNameLabel setText:@"Ice"];
         [iceNameLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [iceNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:iceNameLabel];
         
-        CGRect icePriceLabelFrame = CGRectMake(frameWidth / 2, borderThickness + (2 * ingredientSize) + (2 * fontSize), frameWidth / 4, frameHeight / 8);
+        CGRect icePriceLabelFrame = CGRectMake(frameWidth / 2, borderThickness + (2 * ingredientSize) + (2 * fontSize), labelWidth, labelHeight);
         _icePriceLabel = [[UILabel alloc] initWithFrame:icePriceLabelFrame];
         [_icePriceLabel setText:[NSString stringWithFormat:@"$%.2f", [[self.delegate getIcePrice] floatValue]]];
         [_icePriceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
@@ -220,14 +223,14 @@
         [cupImage setImage:[UIImage imageNamed:@"cup"]];
         [self addSubview:cupImage];
         
-        CGRect cupNameLabelFrame = CGRectMake(frameWidth / 2, borderThickness + (3 * ingredientSize), frameWidth / 4, frameHeight / 8);
+        CGRect cupNameLabelFrame = CGRectMake(frameWidth / 2, borderThickness + (3 * ingredientSize), labelWidth, labelHeight);
         UILabel* cupNameLabel = [[UILabel alloc] initWithFrame:cupNameLabelFrame];
         [cupNameLabel setText:@"Cups"];
         [cupNameLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [cupNameLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:cupNameLabel];
         
-        CGRect cupsPriceLabelFrame = CGRectMake(frameWidth / 2, borderThickness + (3 * ingredientSize) + (2 * fontSize), frameWidth / 4, frameHeight / 8);
+        CGRect cupsPriceLabelFrame = CGRectMake(frameWidth / 2, borderThickness + (3 * ingredientSize) + (2 * fontSize), labelWidth, labelHeight);
         _cupsPriceLabel = [[UILabel alloc] initWithFrame:cupsPriceLabelFrame];
         [_cupsPriceLabel setText:[NSString stringWithFormat:@"$%.2f", [[self.delegate getCupsPrice] floatValue]]];
         [_cupsPriceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
@@ -242,7 +245,7 @@
                      forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cupUpButton];
         
-        CGRect cupsAmountLabelFrame = CGRectMake((3 * frameWidth / 4) - (buttonSize), borderThickness + 3 * ingredientSize + buttonSize, 3 * buttonSize, buttonSize);
+        CGRect cupsAmountLabelFrame = CGRectMake((3 * frameWidth / 4) - (buttonSize), borderThickness + (3 * ingredientSize) + buttonSize, 3 * buttonSize, buttonSize);
         _cupsAmountLabel = [[UILabel alloc] initWithFrame:cupsAmountLabelFrame];
         [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] intValue]]];
         [_cupsAmountLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
