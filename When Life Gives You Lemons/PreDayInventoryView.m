@@ -45,6 +45,9 @@
         CGFloat labelWidth = frameWidth / 4;
         CGFloat labelHeight = frameHeight / 8;
         
+        CGFloat multiplierWidth = frameWidth / 3;
+        CGFloat multiplierHeight = borderThickness / 2;
+        
         CGFloat fontSize = 30;
         CGFloat titleSizeIncrease = 5;
         NSString* fontName = @"Papyrus";
@@ -60,7 +63,7 @@
         CGRect titleFrame = CGRectMake(0,
                                        0,
                                        frameWidth,
-                                       borderThickness / 2);
+                                       borderThickness - multiplierHeight);
         UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
         title.text = @"Inventory:";
         [title setFont:[UIFont fontWithName:fontName size:(fontSize + titleSizeIncrease)]];
@@ -69,9 +72,9 @@
         
         // Create multipliers for buy amount (1x, 10x, 100x)
         CGRect oneButtonFrame = CGRectMake(0,
-                                           borderThickness / 2,
-                                           frameWidth / 3,
-                                           borderThickness / 2);
+                                           borderThickness - multiplierHeight,
+                                           multiplierWidth,
+                                           multiplierHeight);
         UIButton* oneButton = [[UIButton alloc] initWithFrame:oneButtonFrame];
         [oneButton setTitle:@"1x" forState:UIControlStateNormal];
         [[oneButton titleLabel] setFont:[UIFont fontWithName:fontName size:fontSize]];
@@ -82,10 +85,10 @@
         [oneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _amountMultiplier = 1;
         
-        CGRect tenButtonFrame = CGRectMake(frameWidth / 3,
-                                           borderThickness / 2,
-                                           frameWidth / 3,
-                                           borderThickness / 2);
+        CGRect tenButtonFrame = CGRectMake(multiplierWidth,
+                                           borderThickness - multiplierHeight,
+                                           multiplierWidth,
+                                           multiplierHeight);
         UIButton* tenButton = [[UIButton alloc] initWithFrame:tenButtonFrame];
         [tenButton setTitle:@"10x" forState:UIControlStateNormal];
         [[tenButton titleLabel] setFont:[UIFont fontWithName:fontName size:fontSize]];
@@ -93,10 +96,10 @@
         [tenButton addTarget:self action:@selector(setAmountMultiplier:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:tenButton];
         
-        CGRect hundredButtonFrame = CGRectMake(2 * frameWidth / 3,
-                                               borderThickness / 2,
-                                               frameWidth / 3,
-                                               borderThickness / 2);
+        CGRect hundredButtonFrame = CGRectMake(2 * multiplierWidth,
+                                               borderThickness - multiplierHeight,
+                                               multiplierWidth,
+                                               multiplierHeight);
         UIButton* hundredButton = [[UIButton alloc] initWithFrame:hundredButtonFrame];
         [hundredButton setTitle:@"100x" forState:UIControlStateNormal];
         [[hundredButton titleLabel] setFont:[UIFont fontWithName:fontName size:fontSize]];
