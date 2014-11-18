@@ -35,6 +35,7 @@
 		DA6C2BE319F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */; };
 		DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB2821319F7946000441EAA /* PreDayRecipeView.m */; };
 		FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */; };
+		FE1471F81A1AD37E00BC7DFF /* LemonRainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */; };
 		FEBAF03B1A0B122500951C36 /* SunnyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF03A1A0B122500951C36 /* SunnyScene.m */; };
 		FEBAF03E1A0B2E1800951C36 /* CloudyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */; };
 		FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */; };
@@ -99,6 +100,8 @@
 		DAB2821219F7946000441EAA /* PreDayRecipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayRecipeView.h; sourceTree = "<group>"; };
 		DAB2821319F7946000441EAA /* PreDayRecipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayRecipeView.m; sourceTree = "<group>"; };
 		FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LemonEmitter.sks; sourceTree = "<group>"; };
+		FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LemonRainScene.h; sourceTree = "<group>"; };
+		FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LemonRainScene.m; sourceTree = "<group>"; };
 		FEBAF0391A0B122500951C36 /* SunnyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunnyScene.h; sourceTree = "<group>"; };
 		FEBAF03A1A0B122500951C36 /* SunnyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SunnyScene.m; sourceTree = "<group>"; };
 		FEBAF03C1A0B2E1700951C36 /* CloudyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudyScene.h; sourceTree = "<group>"; };
@@ -192,6 +195,8 @@
 				AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */,
 				DA064B111A19AA3F007438CF /* MenuMainView.h */,
 				DA064B121A19AA3F007438CF /* MenuMainView.m */,
+				FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */,
+				FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */,
 				ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */,
 				ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */,
 				DA064B141A19B0A6007438CF /* PreDayInfoView.h */,
@@ -354,6 +359,7 @@
 				DA2726AB19F8F26300287791 /* Customer.m in Sources */,
 				FEBAF0451A0B3F9600951C36 /* RainyScene.m in Sources */,
 				FEBAF03E1A0B2E1800951C36 /* CloudyScene.m in Sources */,
+				FE1471F81A1AD37E00BC7DFF /* LemonRainScene.m in Sources */,
 				DA064B131A19AA3F007438CF /* MenuMainView.m in Sources */,
 				DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */,
 				AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */,
