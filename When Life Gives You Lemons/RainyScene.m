@@ -23,10 +23,12 @@
     CGFloat frameWidth = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);
     
+    // Set background image
     SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"raining-background.png"];
     backgroundSprite.position = CGPointMake(frameWidth/2,frameHeight/2);
     [self addChild:backgroundSprite];
     
+    // Create clouds, and add rain emitters.
     for (int i = 0; i < 4; ++i) {
         SKSpriteNode *cloudSprite = [SKSpriteNode spriteNodeWithImageNamed:@"raincloud.png"];
         cloudSprite.position = CGPointMake(frameWidth * (1 + (2 *i))/8, 7*frameHeight/8);

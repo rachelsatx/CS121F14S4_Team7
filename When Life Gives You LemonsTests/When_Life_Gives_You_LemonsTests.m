@@ -221,8 +221,8 @@ Model *model;
     
     for (NSString *ingredient in @[@"lemons", @"sugar", @"ice", @"cups"]) {
         XCTAssert(
-                  fabsf([[expectedInventory valueForKey:@"lemons"] floatValue] -
-                        [[newInventory valueForKey:@"lemons"] floatValue])
+                  fabsf([[expectedInventory valueForKey:ingredient] floatValue] -
+                        [[newInventory valueForKey:ingredient] floatValue])
                   < acceptableError, @"Removing mixed recipe gave incorrect value for %@", ingredient);
     }
 }

@@ -7,6 +7,7 @@
 //
 
 #import "MenuMainView.h"
+#import "LemonRainScene.h"
 
 @implementation MenuMainView
 
@@ -36,9 +37,16 @@
         CGFloat buttonCornerRadius = 10;
         CGFloat buttonBorderWidth = 2;
         
+        // Add animation SKView 
+        SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
+        [self addSubview:animation];
+        LemonRainScene *animationScene = [[LemonRainScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
+        [animation presentScene:animationScene];
+        
+        
         // Add background
-        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
-        [self addSubview:backgroundView];
+        //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
+        //[self addSubview:backgroundView];
         
         // Add title image
         CGRect titleFrame = CGRectMake((frameWidth - titleSize) / 2,
