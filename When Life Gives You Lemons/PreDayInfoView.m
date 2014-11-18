@@ -43,7 +43,10 @@
         self.backgroundColor = [UIColor colorWithPatternImage:image];
         
         // Create Day Label
-        CGRect dayLabelFrame = CGRectMake(0, 0, frameWidth, labelHeight);
+        CGRect dayLabelFrame = CGRectMake(0,
+                                          0,
+                                          frameWidth,
+                                          labelHeight);
         _dayLabel = [[UILabel alloc] initWithFrame:dayLabelFrame];
         [_dayLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [_dayLabel setTextAlignment:NSTextAlignmentCenter];
@@ -52,7 +55,10 @@
         [self addSubview:_dayLabel];
         
         // Create Weather Label
-        CGRect weatherLabelFrame = CGRectMake(0, labelHeight, frameWidth, labelHeight);
+        CGRect weatherLabelFrame = CGRectMake(0,
+                                              labelHeight,
+                                              frameWidth,
+                                              labelHeight);
         _weatherLabel = [[UILabel alloc] initWithFrame:weatherLabelFrame];
         [_weatherLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [_weatherLabel setTextAlignment:NSTextAlignmentCenter];
@@ -60,13 +66,19 @@
         [self addSubview:_weatherLabel];
         
         // Create Weather Image
-        CGRect weatherImageViewFrame = CGRectMake((frameWidth - imageSize) / 2, 2 * labelHeight, imageSize, imageSize);
+        CGRect weatherImageViewFrame = CGRectMake((frameWidth - imageSize) / 2,
+                                                  2 * labelHeight,
+                                                  imageSize,
+                                                  imageSize);
         _weatherImageView = [[UIImageView alloc] initWithFrame:weatherImageViewFrame];
         [self updateWeather];
         [self addSubview:_weatherImageView];
         
         // Create Makable Cups Label
-        CGRect makeableCupsLabelFrame = CGRectMake(0, (2 * labelHeight) + imageSize, frameWidth, 2 * labelHeight);
+        CGRect makeableCupsLabelFrame = CGRectMake(0,
+                                                   (2 * labelHeight) + imageSize,
+                                                   frameWidth,
+                                                   2 * labelHeight);
         _makeableCupsLabel = [[UILabel alloc] initWithFrame:makeableCupsLabelFrame];
         [_makeableCupsLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [_makeableCupsLabel setTextAlignment:NSTextAlignmentCenter];
@@ -75,14 +87,20 @@
         [self addSubview:_makeableCupsLabel];
         
         // Create Increment Price Button
-        CGRect incrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2, (4 * labelHeight) + imageSize, buttonSize, buttonSize); // magic numbers
+        CGRect incrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2,
+                                                      (4 * labelHeight) + imageSize,
+                                                      buttonSize,
+                                                      buttonSize);
         UIButton* incrementPriceButton = [[UIButton alloc] initWithFrame:incrementPriceButtonFrame];
         [incrementPriceButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
         [incrementPriceButton addTarget:self action:@selector(incrementPrice:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:incrementPriceButton];
         
         // Create Price Label
-        CGRect priceLabelFrame = CGRectMake(0, (5 * labelHeight) + imageSize, frameWidth, labelHeight);
+        CGRect priceLabelFrame = CGRectMake(0,
+                                            (5 * labelHeight) + imageSize,
+                                            frameWidth,
+                                            labelHeight);
         _priceLabel = [[UILabel alloc] initWithFrame:priceLabelFrame];
         [_priceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [_priceLabel setTextAlignment:NSTextAlignmentCenter];
@@ -91,7 +109,10 @@
         [self addSubview:_priceLabel];
         
         // Create Decrement Price Button
-        CGRect decrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2, (6 * labelHeight) + imageSize, buttonSize, buttonSize);
+        CGRect decrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2,
+                                                      (6 * labelHeight) + imageSize,
+                                                      buttonSize,
+                                                      buttonSize);
         UIButton* decrementPriceButton = [[UIButton alloc] initWithFrame:decrementPriceButtonFrame];
         [decrementPriceButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
         [decrementPriceButton addTarget:self action:@selector(decrementPrice:) forControlEvents:UIControlEventTouchUpInside];

@@ -27,6 +27,9 @@
         CGFloat frameWidth = CGRectGetWidth(self.frame);
         CGFloat frameHeight = CGRectGetHeight(self.frame);
         
+        CGFloat topBorderThickness = frameHeight / 8;
+        CGFloat titleSize = (frameHeight < frameWidth) ? (frameHeight / 2) : (frameWidth / 2);
+        
         CGFloat buttonWidth = 200;
         CGFloat buttonHeight = 50;
         CGFloat buttonFontSize = 21;
@@ -46,13 +49,19 @@
         //[self addSubview:backgroundView];
         
         // Add title image
-        CGRect titleFrame = CGRectMake(frameWidth / 4, frameHeight / 8, frameWidth / 2, frameWidth / 2);
+        CGRect titleFrame = CGRectMake((frameWidth - titleSize) / 2,
+                                       topBorderThickness,
+                                       titleSize,
+                                       titleSize);
         UIImageView* titleView = [[UIImageView alloc] initWithFrame:titleFrame];
         titleView.image = [UIImage imageNamed:@"title"];
         [self addSubview:titleView];
         
         // Add new game button
-        CGRect newGameButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2, (3 * frameHeight / 5) - (3 * buttonHeight / 2), buttonWidth, buttonHeight);
+        CGRect newGameButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                               (3 * frameHeight / 5) - (3 * buttonHeight / 2),
+                                               buttonWidth,
+                                               buttonHeight);
         UIButton* newGameButton = [[UIButton alloc] initWithFrame:newGameButtonFrame];
         newGameButton.layer.cornerRadius = buttonCornerRadius;
         newGameButton.layer.borderWidth = buttonBorderWidth;
@@ -65,7 +74,10 @@
         [self addSubview:newGameButton];
 
         // Add instructions button
-        CGRect instructionsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2, 3 * frameHeight / 5, buttonWidth, buttonHeight);
+        CGRect instructionsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                                    3 * frameHeight / 5,
+                                                    buttonWidth,
+                                                    buttonHeight);
         UIButton* instructionsButton = [[UIButton alloc] initWithFrame:instructionsButtonFrame];
         instructionsButton.layer.cornerRadius = buttonCornerRadius;
         instructionsButton.layer.borderWidth = buttonBorderWidth;
@@ -80,11 +92,19 @@
         [self addSubview:instructionsButton];
         
         // Add grass background
-        UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 2 * frameHeight / 3, frameWidth, frameHeight / 3)];
+        CGRect grassBackgroundFrame = CGRectMake(0,
+                                                 2 * frameHeight / 3,
+                                                 frameWidth,
+                                                 frameHeight / 3);
+        UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:grassBackgroundFrame];
         [grassBackground setImage:[UIImage imageNamed:@"grass-background"]];
         [self addSubview:grassBackground];
         
-        UIImageView *grass = [[UIImageView alloc] initWithFrame:CGRectMake(0, 6 * frameHeight / 7, frameWidth, frameHeight / 7)];
+        CGRect grassFrame = CGRectMake(0,
+                                       6 * frameHeight / 7,
+                                       frameWidth,
+                                       frameHeight / 7);
+        UIImageView *grass = [[UIImageView alloc] initWithFrame:grassFrame];
         [grass setImage:[UIImage imageNamed:@"grass-foreground"]];
         [self addSubview:grass];
     }

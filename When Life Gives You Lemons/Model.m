@@ -119,7 +119,6 @@
 
 - (int) randomNumberAtLeast:(int)lowerBound andAtMost:(int)upperBound {
     NSAssert(upperBound >= lowerBound, @"Invalid bounds in randomNumberAtLeast:andAtMost:");
-    
     return lowerBound + (arc4random() % (1 + upperBound - lowerBound));
 }
 

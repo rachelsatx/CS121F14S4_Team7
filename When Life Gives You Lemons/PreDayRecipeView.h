@@ -26,6 +26,7 @@
 }
 
 - (void) updatePercentageLabels;
+
 @property (nonatomic,strong) id delegate;
 
 @end
