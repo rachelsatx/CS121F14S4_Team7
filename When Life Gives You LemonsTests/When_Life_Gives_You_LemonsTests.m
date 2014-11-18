@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Model.h"
 #import "DataStore.h"
+#import "NumberWithTwoDecimals.h"
 
 @interface When_Life_Gives_You_LemonsTests : XCTestCase
 
@@ -295,6 +296,89 @@ Model *model;
     
     DayOfWeek afterSunday = [model nextDayOfWeek:Sunday];
     XCTAssertEqual(Monday, afterSunday, @"Day of week after Sunday gave %d", afterSunday);
+}
+
+
+// Test NumberWithTwoDecimals
+- (void) testIsEqual{
+    NumberWithTwoDecimals* x = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
+    NumberWithTwoDecimals* y = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
+    XCTAssert([x isEqual:y] && [y isEqual:x], @"%d.%d is not equal to %d.%d", [x integerPart], [x fractionalPart], [y integerPart], [y fractionalPart]);
+}
+
+- (void) testIsNotEqual{
+    NumberWithTwoDecimals* x = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
+    NumberWithTwoDecimals* y = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:15];
+    NumberWithTwoDecimals* z = [[NumberWithTwoDecimals alloc] initWithIntegerPart:4 andFractionalPart:14];
+    XCTAssert([x isNotEqual:y] && [y isNotEqual:x], @"%d.%d is equal to %d.%d", [x integerPart], [x fractionalPart], [y integerPart], [y fractionalPart]);
+    XCTAssert([y isNotEqual:z] && [z isNotEqual:y], @"%d.%d is equal to %d.%d", [y integerPart], [y fractionalPart], [z integerPart], [z fractionalPart]);
+    XCTAssert([x isNotEqual:z] && [z isNotEqual:x], @"%d.%d is equal to %d.%d", [x integerPart], [x fractionalPart], [z integerPart], [z fractionalPart]);
+}
+
+- (void) testIsGreaterThan{
+    NumberWithTwoDecimals* x = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
+    NumberWithTwoDecimals* y = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:15];
+    NumberWithTwoDecimals* z = [[NumberWithTwoDecimals alloc] initWithIntegerPart:4 andFractionalPart:14];
+    XCTAssert(![x isGreaterThan:y] && [y isGreaterThan:x], @"%d.%d is greater than %d.%d", [x integerPart], [x fractionalPart], [y integerPart], [y fractionalPart]);
+    XCTAssert(![y isGreaterThan:z] && [z isGreaterThan:y], @"%d.%d is greater than %d.%d", [y integerPart], [y fractionalPart], [z integerPart], [z fractionalPart]);
+    XCTAssert(![x isGreaterThan:z] && [z isGreaterThan:x], @"%d.%d is greater than %d.%d", [x integerPart], [x fractionalPart], [z integerPart], [z fractionalPart]);
+}
+
+- (void) testIsGreaterThanOrEqual{
+    NumberWithTwoDecimals* w = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
+    NumberWithTwoDecimals* x = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
+    NumberWithTwoDecimals* y = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:15];
+    NumberWithTwoDecimals* z = [[NumberWithTwoDecimals alloc] initWithIntegerPart:4 andFractionalPart:14];
+    XCTAssert([w isGreaterThanOrEqual:x] && [x isGreaterThanOrEqual:w], @"%d.%d is not greater than or equal to %d.%d", [w integerPart], [w fractionalPart], [x integerPart], [x fractionalPart]);
+    XCTAssert(![x isGreaterThanOrEqual:y] && [y isGreaterThanOrEqual:x], @"%d.%d is greater than or equal to %d.%d", [x integerPart], [x fractionalPart], [y integerPart], [y fractionalPart]);
+    XCTAssert(![y isGreaterThanOrEqual:z] && [z isGreaterThanOrEqual:y], @"%d.%d is greater than or equal to %d.%d", [y integerPart], [y fractionalPart], [z integerPart], [z fractionalPart]);
+    XCTAssert(![x isGreaterThanOrEqual:z] && [z isGreaterThanOrEqual:x], @"%d.%d is greater than or equal to %d.%d", [x integerPart], [x fractionalPart], [z integerPart], [z fractionalPart]);
+}
+
+- (void) testIsLessThan{
+    NumberWithTwoDecimals* x = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
+    NumberWithTwoDecimals* y = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:15];
+    NumberWithTwoDecimals* z = [[NumberWithTwoDecimals alloc] initWithIntegerPart:4 andFractionalPart:14];
+    XCTAssert([x isLessThan:y] && ![y isLessThan:x], @"%d.%d is not less than %d.%d", [x integerPart], [x fractionalPart], [y integerPart], [y fractionalPart]);
+    XCTAssert([y isLessThan:z] && ![z isLessThan:y], @"%d.%d is not less than %d.%d", [y integerPart], [y fractionalPart], [z integerPart], [z fractionalPart]);
+    XCTAssert([x isLessThan:z] && ![z isLessThan:x], @"%d.%d is not less than %d.%d", [x integerPart], [x fractionalPart], [z integerPart], [z fractionalPart]);
+}
+
+- (void) testIsLessThanOrEqual{
+    NumberWithTwoDecimals* w = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
+    NumberWithTwoDecimals* x = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:14];
+    NumberWithTwoDecimals* y = [[NumberWithTwoDecimals alloc] initWithIntegerPart:3 andFractionalPart:15];
+    NumberWithTwoDecimals* z = [[NumberWithTwoDecimals alloc] initWithIntegerPart:4 andFractionalPart:14];
+    XCTAssert([w isLessThanOrEqual:x] && [x isLessThanOrEqual:w], @"%d.%d is not less than or equal to %d.%d", [w integerPart], [w fractionalPart], [x integerPart], [x fractionalPart]);
+    XCTAssert([x isLessThanOrEqual:y] && ![y isLessThanOrEqual:x], @"%d.%d is not less than or equal to %d.%d", [x integerPart], [x fractionalPart], [y integerPart], [y fractionalPart]);
+    XCTAssert([y isLessThanOrEqual:z] && ![z isLessThanOrEqual:y], @"%d.%d is not less than or equal to %d.%d", [y integerPart], [y fractionalPart], [z integerPart], [z fractionalPart]);
+    XCTAssert([x isLessThanOrEqual:z] && ![z isLessThanOrEqual:x], @"%d.%d is not less than or equal to %d.%d", [x integerPart], [x fractionalPart], [z integerPart], [z fractionalPart]);
+}
+
+- (void) testAdd{
+    NumberWithTwoDecimals* one = [[NumberWithTwoDecimals alloc] initWithIntegerPart:5 andFractionalPart:40];
+    NumberWithTwoDecimals* two = [[NumberWithTwoDecimals alloc] initWithIntegerPart:5 andFractionalPart:50];
+    NumberWithTwoDecimals* three = [[NumberWithTwoDecimals alloc] initWithIntegerPart:5 andFractionalPart:60];
+    NumberWithTwoDecimals* onePlusTwo = [[NumberWithTwoDecimals alloc] initWithIntegerPart:10 andFractionalPart:90];
+    NumberWithTwoDecimals* twoPlusThree = [[NumberWithTwoDecimals alloc] initWithIntegerPart:11 andFractionalPart:10];
+    XCTAssert([onePlusTwo isEqual:[one add:two]] && [onePlusTwo isEqual:[two add:one]], @"%d.%d plus %d.%d did not equal %d.%d", [one integerPart], [one fractionalPart], [two integerPart], [two fractionalPart], [onePlusTwo integerPart], [onePlusTwo fractionalPart]);
+    XCTAssert([twoPlusThree isEqual:[two add:three]] && [twoPlusThree isEqual:[three add:two]], @"%d.%d plus %d.%d did not equal %d.%d", [two integerPart], [two fractionalPart], [three integerPart], [three fractionalPart], [twoPlusThree integerPart], [twoPlusThree fractionalPart]);
+}
+
+- (void) testSubtract{
+    NumberWithTwoDecimals* one = [[NumberWithTwoDecimals alloc] initWithIntegerPart:5 andFractionalPart:40];
+    NumberWithTwoDecimals* two = [[NumberWithTwoDecimals alloc] initWithIntegerPart:5 andFractionalPart:50];
+    NumberWithTwoDecimals* three = [[NumberWithTwoDecimals alloc] initWithIntegerPart:5 andFractionalPart:60];
+    NumberWithTwoDecimals* onePlusTwo = [[NumberWithTwoDecimals alloc] initWithIntegerPart:10 andFractionalPart:90];
+    NumberWithTwoDecimals* twoPlusThree = [[NumberWithTwoDecimals alloc] initWithIntegerPart:11 andFractionalPart:10];
+    XCTAssert([two isEqual:[onePlusTwo subtract:one]] && [one isEqual:[onePlusTwo subtract:two]], @"%d.%d minus %d.%d did not equal %d.%d", [onePlusTwo integerPart], [onePlusTwo fractionalPart], [one integerPart], [one fractionalPart], [two integerPart], [two fractionalPart]);
+    XCTAssert([three isEqual:[twoPlusThree subtract:two]] && [two isEqual:[twoPlusThree subtract:three]], @"%d.%d minus %d.%d did not equal %d.%d", [twoPlusThree integerPart], [twoPlusThree fractionalPart], [two integerPart], [two fractionalPart], [three integerPart], [three fractionalPart]);
+}
+
+- (void) testScale{
+    NumberWithTwoDecimals* one = [[NumberWithTwoDecimals alloc] initWithIntegerPart:1 andFractionalPart:20];
+    NumberWithTwoDecimals* two = [[NumberWithTwoDecimals alloc] initWithIntegerPart:2 andFractionalPart:40];
+    XCTAssert([two isEqual:[one scale:2]], @"%d.%d times 2 did not equal %d.%d", [one integerPart], [one fractionalPart], [two integerPart], [two fractionalPart]);
 }
 
 @end

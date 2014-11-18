@@ -102,13 +102,13 @@
     int fractionalPart = _fractionalPart - [other fractionalPart];
     int integerPart = _integerPart - [other integerPart];
     return [[NumberWithTwoDecimals alloc] initWithIntegerPart:integerPart - (fractionalPart < 0)
-                                            andFractionalPart:fractionalPart%100];
+                                            andFractionalPart:(fractionalPart+100)%100];
 }
 
 - (NumberWithTwoDecimals*) scale:(int)other
 {
     int fractionalPart = other * _fractionalPart;
-    int integerPart = other * _fractionalPart;
+    int integerPart = other * _integerPart;
     return [[NumberWithTwoDecimals alloc] initWithIntegerPart:integerPart + (fractionalPart/100)
                                             andFractionalPart:fractionalPart%100];
 }
