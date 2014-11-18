@@ -20,28 +20,18 @@
 
 @implementation MidDayViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Run Model immediately
-    NSLog(@"hi");
-    _model = [[Model alloc] init];
-    _dataStore = [self runModelWith:_dataStore];
     
     // Create the MidDay View
     CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     _midDayView = [[MidDayView alloc] initWithFrame:frame andDataStore:_dataStore];
     [self.view addSubview:_midDayView];
+    
+    // Run Model after creating MidDay View, so that it uses the old weather value
+    _model = [[Model alloc] init];
+    _dataStore = [self runModelWith:_dataStore];
     
     [self.view bringSubviewToFront:_goToPostDayButton];
 }
@@ -57,23 +47,23 @@
     return [_model simulateDayWithDataStore:_dataStore];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Make sure your segue name in storyboard is the same as this line
+    // Make sure segue name in storyboard is the same as this line
     if ([[segue identifier] isEqualToString:@"MidDayToPostDay"])
     {
         // Get reference to the destination view controller
         PostDayViewController *postDayViewController = [segue destinationViewController];
         
-        // Pass any objects to the view controller here, like...
+        // Pass dataStore to the view controller
         [postDayViewController setDataStore:_dataStore];
     }
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end

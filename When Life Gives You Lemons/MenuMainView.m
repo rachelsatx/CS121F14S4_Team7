@@ -1,0 +1,125 @@
+//
+//  MenuMainView.m
+//  When Life Gives You Lemons
+//
+//  Created by jarthurcs on 11/16/14.
+//  Copyright (c) 2014 Jonathan Finnell, Amit Maor, Joshua Petrack, Megan Shao, Rachel Wilson. All rights reserved.
+//
+
+#import "MenuMainView.h"
+#import "LemonRainScene.h"
+
+@implementation MenuMainView
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
+
+- (id) initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    
+    if (self) {
+        CGFloat frameWidth = CGRectGetWidth(self.frame);
+        CGFloat frameHeight = CGRectGetHeight(self.frame);
+        
+        CGFloat topBorderThickness = frameHeight / 8;
+        CGFloat titleSize = (frameHeight < frameWidth) ? (frameHeight / 2) : (frameWidth / 2);
+        
+        CGFloat buttonWidth = 200;
+        CGFloat buttonHeight = 50;
+        CGFloat buttonFontSize = 21;
+        UIColor* buttonFontColor = [UIColor colorWithRed:0.0/255 green:122.0/255 blue:255.0/255 alpha:1.0];
+        CGFloat buttonCornerRadius = 10;
+        CGFloat buttonBorderWidth = 2;
+        
+        // Add animation SKView 
+        SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
+        [self addSubview:animation];
+        LemonRainScene *animationScene = [[LemonRainScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
+        [animation presentScene:animationScene];
+        
+        
+        // Add background
+        //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
+        //[self addSubview:backgroundView];
+        
+        // Add title image
+        CGRect titleFrame = CGRectMake((frameWidth - titleSize) / 2,
+                                       topBorderThickness,
+                                       titleSize,
+                                       titleSize);
+        UIImageView* titleView = [[UIImageView alloc] initWithFrame:titleFrame];
+        titleView.image = [UIImage imageNamed:@"title"];
+        [self addSubview:titleView];
+        
+        // Add new game button
+        CGRect newGameButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                               (3 * frameHeight / 5) - (3 * buttonHeight / 2),
+                                               buttonWidth,
+                                               buttonHeight);
+        UIButton* newGameButton = [[UIButton alloc] initWithFrame:newGameButtonFrame];
+        newGameButton.layer.cornerRadius = buttonCornerRadius;
+        newGameButton.layer.borderWidth = buttonBorderWidth;
+        newGameButton.layer.borderColor = [UIColor blackColor].CGColor;
+        [newGameButton setTitle:@"New Game" forState:UIControlStateNormal];
+        newGameButton.titleLabel.font = [UIFont systemFontOfSize:buttonFontSize];
+        [newGameButton setTitleColor:buttonFontColor forState:UIControlStateNormal];
+        [newGameButton setBackgroundColor:[UIColor whiteColor]];
+        [newGameButton addTarget:self action:@selector(newGame:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:newGameButton];
+
+        // Add instructions button
+        CGRect instructionsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                                    3 * frameHeight / 5,
+                                                    buttonWidth,
+                                                    buttonHeight);
+        UIButton* instructionsButton = [[UIButton alloc] initWithFrame:instructionsButtonFrame];
+        instructionsButton.layer.cornerRadius = buttonCornerRadius;
+        instructionsButton.layer.borderWidth = buttonBorderWidth;
+        instructionsButton.layer.borderColor = [UIColor blackColor].CGColor;
+        [instructionsButton setTitle:@"How to Play" forState:UIControlStateNormal];
+        instructionsButton.titleLabel.font = [UIFont systemFontOfSize:buttonFontSize];
+        [instructionsButton setTitleColor:buttonFontColor forState:UIControlStateNormal];
+        [instructionsButton setBackgroundColor:[UIColor whiteColor]];
+        [instructionsButton addTarget:self
+                               action:@selector(displayInstructions:)
+                     forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:instructionsButton];
+        
+        // Add grass background
+        CGRect grassBackgroundFrame = CGRectMake(0,
+                                                 2 * frameHeight / 3,
+                                                 frameWidth,
+                                                 frameHeight / 3);
+        UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:grassBackgroundFrame];
+        [grassBackground setImage:[UIImage imageNamed:@"grass-background"]];
+        [self addSubview:grassBackground];
+        
+        CGRect grassFrame = CGRectMake(0,
+                                       6 * frameHeight / 7,
+                                       frameWidth,
+                                       frameHeight / 7);
+        UIImageView *grass = [[UIImageView alloc] initWithFrame:grassFrame];
+        [grass setImage:[UIImage imageNamed:@"grass-foreground"]];
+        [self addSubview:grass];
+    }
+    
+    return self;
+}
+
+- (void)displayInstructions:(id)sender
+{
+    [self.delegate displayInstructions:sender];
+}
+
+- (void)newGame:(id)sender
+{
+    [self.delegate newGame:sender];
+}
+
+@end

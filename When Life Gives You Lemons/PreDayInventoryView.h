@@ -18,13 +18,23 @@
 - (void) setIce:(NSNumber*) newIce;
 - (NSNumber*) getCups;
 - (void) setCups:(NSNumber*) newCups;
-
+- (NSNumber*) getMoney;
+- (void) setMoney:(NSNumber*) newMoney;
+- (NSNumber*) getLemonPrice;
+- (NSNumber*) getSugarPrice;
+- (NSNumber*) getIcePrice;
+- (NSNumber*) getCupsPrice;
 @end
 
 @interface PreDayInventoryView : UIView
 {
     id <PreDayInvenentoryViewDelegate> _delegate;
 }
+
 - (void) updateAmountLabels;
+- (void) updateMoneyLabel;
+- (void) updatePriceLabels;
+
 @property (nonatomic,strong) id delegate;
+
 @end

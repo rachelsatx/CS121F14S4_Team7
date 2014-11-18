@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, Weather) {
+typedef NS_ENUM(int, Weather) {
     Sunny,
     Cloudy,
     Raining
 };
 
-typedef NS_ENUM(NSInteger, DayOfWeek) {
+typedef NS_ENUM(int, DayOfWeek) {
     Monday,
     Tuesday,
     Wednesday,
@@ -22,14 +22,6 @@ typedef NS_ENUM(NSInteger, DayOfWeek) {
     Friday,
     Saturday,
     Sunday
-};
-
-typedef NS_ENUM(NSInteger, Ingredient) {
-    Lemons,
-    Sugar,
-    Ice,
-    Cups,
-    Water
 };
 
 @interface DataStore : NSObject
@@ -46,16 +38,25 @@ typedef NS_ENUM(NSInteger, Ingredient) {
 -(NSString*) getFeedbackString;
 -(void) setFeedbackString:(NSString*) newFeedbackString;
 
-
 -(NSMutableDictionary*) getRecipe;
 -(void) setRecipe:(NSMutableDictionary*) newRecipe;
 
 -(NSMutableDictionary*) getInventory;
 -(void) setInventory:(NSMutableDictionary*) newInventory;
 
+-(NSMutableDictionary*) getIngredientPrices;
+-(void) setIngredientPrices:(NSMutableDictionary*) newIngredientPrices;
+
 -(NSNumber*) getPopularity;
 -(void) setPopularity:(NSNumber*) newPopularity;
 
 -(NSNumber*) getMoney;
 -(void) setMoney:(NSNumber*) newMoney;
+
+-(NSNumber*) getProfit;
+-(void) setProfit:(NSNumber*) newProfit;
+
+-(NSInteger) getCupsSold;
+-(void) setCupsSold:(NSInteger) newCupsSold;
+
 @end

@@ -22,33 +22,23 @@
     NSString* feedbackString = @"";
     NSNumber* money = [dataStore getMoney];
     
+    // Get an array of customers.
     NSMutableArray *customers = [self getCustomersOnDay:dayOfWeek withWeather:weather
                                  andPopularity:popularity];
-    int totalCustomers = [customers count];
+    int totalCustomers = (int) [customers count];
     int customersWhoBought = 0;
     int customersWhoLiked = 0;
     float grossEarnings = 0;
     
     // Calculate the maximum number of cups of lemonade that we can make.
-    int maxCustomers = [(NSNumber*) [inventory valueForKey:@"cups"] intValue];
-    for (NSString* key in [inventory allKeys]) {
-        if (![key isEqual: @"cups"] && [[recipe valueForKey:key] floatValue] > 0.0) {
-            int maxCupsWithThisIngredient = (int) ([(NSNumber*) [inventory valueForKey:key] floatValue]/
-                                                   [(NSNumber*) [recipe valueForKey:key] floatValue]);
-            if (maxCupsWithThisIngredient < maxCustomers) {
-                maxCustomers = maxCupsWithThisIngredient;
-            }
-        }
-    }
-    
-    NSLog(@"%d cups of lemonade", maxCustomers);
+    int maxCustomers = [self mostCupsMakableFromInventory:inventory withRecipe:recipe];
     
     bool ranOut = NO;
     
     if (maxCustomers > 0) {
     
         for (Customer *customer in customers) {
-            if ([customer willBuyAtPrice:price]) {
+            if ([customer willBuyAtPrice:price withRecipe:recipe]) {
                 ++customersWhoBought;
                 grossEarnings += [price floatValue];
                 
@@ -70,70 +60,65 @@
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
     }
     
-    int newPopularity = [popularity integerValue] + customersWhoLiked;
-    NSNumber* newMoney = [NSNumber numberWithFloat: [money floatValue] + grossEarnings];
-    
-    float percentWhoBought = ((float) customersWhoBought) / ((float) totalCustomers);
-    float percentWhoLiked;
-    if (percentWhoBought == 0) {
-        percentWhoLiked = 0;
-    } else {
-        percentWhoLiked = ((float)customersWhoLiked) / ((float)customersWhoBought);
+    // If the lemonade has almost no lemons, then tell them it needs to be lemonade.
+    if ([[recipe valueForKey:@"lemons"] floatValue] <= .05) {
+        feedbackString = @"Your lemonade didn't have enough lemons in it to look like lemonade, so no one wanted to buy it!";
     }
     
-    // TODO: modify the datastore to account for day's earnings.
-    // This feature will not be in the alpha.
+    float portionWhoBought = ((float) customersWhoBought) / ((float) totalCustomers);
+    float portionWhoLiked;
+    // This prevents division by zero.
+    if (portionWhoBought == 0) {
+        portionWhoLiked = 0;
+    } else {
+        portionWhoLiked = ((float)customersWhoLiked) / ((float)customersWhoBought);
+    }
     
-    // TODO: return percents of customers who bought and liked the lemonade.
-    // This probably also won't be in the alpha.
+    // Calculate new value for popularity.
+    int newPopularity = [self calculateNewPopularityWithNumCustomers:totalCustomers
+        portionBought:portionWhoBought portionLiked:portionWhoLiked fromOldPopularity:popularity];
     
-    
+    NSNumber* newMoney = [NSNumber numberWithFloat: [money floatValue] + grossEarnings];
     
     // If we haven't made the feedback string yet, make it based on what customers thought.
-    if ([feedbackString  isEqual: @""]) {
-        if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] > .65) {
-            feedbackString = @"Your lemonade was too watery! Use more other ingredients.";
-        } else if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] < .25) {
-            feedbackString = @"Your lemonade was too strong! Water it down a little.";
-        } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] < .1) {
-            feedbackString = @"Your lemonade was warm! Add some ice.";
-        } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] > .25) {
-            feedbackString = @"Your lemonade was freezing! You don't need so much ice.";
-        } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] > .25) {
-            feedbackString = @"Your lemonade was really sour! Don't use so many lemons.";
-        } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] < .1) {
-            feedbackString = @"You need to use more lemons if you're going to sell lemonade!";
-        } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] > .25) {
-            feedbackString = @"Your lemonade was too sweet! You don't need to use so much sugar.";
-        } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] < .1) {
-            feedbackString = @"Your lemonade needs to be sweeter! Try adding more sugar.";
-        } else {
-            feedbackString = @"Your customers loved your lemonade!";
-        }
-    
-    
+    // First, we check if anything is very far off, then we check if anything is slightly off.
+    if ([feedbackString isEqual: @""]) {
+        
+        feedbackString = [self generateFeedbackFromRecipe:recipe];
+        
         if (ranOut) {
             feedbackString = [NSString stringWithFormat:
-               @"%@\nYou also ran out of ingredients!", feedbackString];
+               @"%@\nYou also ran out of ingredients!",
+                              feedbackString];
         } else if ((float) customersWhoBought / (float) totalCustomers < .1) {
             feedbackString = [NSString stringWithFormat:
-               @"%@\nAlso, your lemonade was really expensive - almost no one bought it!", feedbackString];
+               @"%@\nUnfortunately, your lemonade was really expensive, so nobody bought it!",
+                              feedbackString];
+        } else if ((float) customersWhoBought / (float) totalCustomers < .3) {
+            feedbackString = [NSString stringWithFormat:
+               @"%@\nAlso, your lemonade was a bit expensive, so very few customers bought it!",
+                              feedbackString];
         }
     }
     [dataStore setPopularity:([NSNumber numberWithInt:newPopularity])];
     [dataStore setFeedbackString:(feedbackString)];
     [dataStore setInventory:inventory];
     [dataStore setMoney:newMoney];
+    [dataStore setProfit:[NSNumber numberWithFloat:grossEarnings]];
+    [dataStore setCupsSold:customersWhoBought];
     
+    // A day passed, so change the day of the week and the weather.
+    [dataStore setDayOfWeek:[self nextDayOfWeek:dayOfWeek]];
+    [dataStore setWeather:[self nextWeather:weather]];
+    
+    // Update ingredient prices to reflect changing market conditions.
+    [dataStore setIngredientPrices:[self generateRandomIngredientPrices]];
     
     return dataStore;
-    
 }
-
 
 - (int) randomNumberAtLeast:(int)lowerBound andAtMost:(int)upperBound {
     NSAssert(upperBound >= lowerBound, @"Invalid bounds in randomNumberAtLeast:andAtMost:");
-    
     return lowerBound + (arc4random() % (1 + upperBound - lowerBound));
 }
 
@@ -145,8 +130,8 @@
     int customersFromWeekday = [self customersFromWeekday:dayOfWeek];
     
     int totalCustomers = baseCustomers + customersFromWeather + customersFromWeekday;
-    int popularityMultiplier = ([popularity floatValue] / 100.0) + 1;
-    totalCustomers = (int) totalCustomers * popularityMultiplier;
+    float popularityMultiplier = ([popularity floatValue] / 100.0) + 1.0;
+    totalCustomers = (int) (totalCustomers * popularityMultiplier);
     
     NSMutableArray *customers = [[NSMutableArray alloc] initWithCapacity:totalCustomers];
     
@@ -196,12 +181,48 @@
     return customer;
 }
 
+- (int) mostCupsMakableFromInventory:(NSMutableDictionary*)inventory
+              withRecipe:(NSMutableDictionary*) recipe {
+    
+    int maxCustomers = [(NSNumber*) [inventory valueForKey:@"cups"] intValue];
+    for (NSString* key in [inventory allKeys]) {
+        if (![key isEqual: @"cups"] && [[recipe valueForKey:key] floatValue] > 0.0) {
+            int maxCupsWithThisIngredient = (int) ([(NSNumber*) [inventory valueForKey:key] floatValue]/
+                                                   [(NSNumber*) [recipe valueForKey:key] floatValue]);
+            if (maxCupsWithThisIngredient < maxCustomers) {
+                maxCustomers = maxCupsWithThisIngredient;
+            }
+        }
+    }
+    NSAssert(maxCustomers >= 0, @"Maximum number of customers is negative (%d)", maxCustomers);
+    return maxCustomers;
+}
+
+- (int) calculateNewPopularityWithNumCustomers:(int)totalCustomers
+        portionBought:(float)portionWhoBought
+        portionLiked:(float)portionWhoLiked
+        fromOldPopularity:(NSNumber*)popularity {
+    int newPopularity = [popularity intValue];
+    // If enough people were unwilling to buy because of price, lose some popularity proportionally.
+    newPopularity -= (int) ((1 - portionWhoBought) * 10);
+    // If enough people didn't like it, lose some popularity proportionally.
+    newPopularity -= (int) ((1 - portionWhoLiked) * 5);
+    // Add some popularity for those who did like it.
+    newPopularity += (int) (totalCustomers * portionWhoBought * portionWhoLiked);
+    // If the resulting popularity is negative, set it to 0.
+    if (newPopularity < 0) {
+        newPopularity = 0;
+    }
+    NSAssert(newPopularity >= 0, @"Popularity is negative (%d)", newPopularity);
+    return newPopularity;
+}
+
 - (NSMutableDictionary*) removeIngredientsOfRecipe:(NSMutableDictionary*)recipe
-                        fromInventory:(NSMutableDictionary*)inventory {
+                         fromInventory:(NSMutableDictionary*)inventory {
     
     // Handle cups separately because they aren't part of the recipe.
     [inventory setValue: [NSNumber numberWithInt: [[inventory valueForKey:@"cups"]
-                                                   integerValue] - 1] forKey:@"cups"];
+                                                   intValue] - 1] forKey:@"cups"];
     
     // Loop through all other ingredients removing the appropriate amount.
     for (NSString* ingredient in [recipe allKeys]) {
@@ -209,14 +230,128 @@
             float amountToRemove = [[recipe valueForKey:ingredient] floatValue];
             float oldAmount = [[inventory valueForKey:ingredient] floatValue];
             
-            NSAssert(oldAmount > amountToRemove,
+            NSAssert(oldAmount >= amountToRemove,
                 @"Tried to remove more ingredients than existed: %f from %f", amountToRemove, oldAmount);
+            NSAssert(amountToRemove >= 0, @"Tried to remove a negative amount ingredients (%0.2f)", amountToRemove);
             
             [inventory setValue:[NSNumber numberWithFloat:oldAmount - amountToRemove] forKey:ingredient];
         }
     }
-    
     return inventory;
+}
+
+- (NSString*) generateFeedbackFromRecipe:(NSMutableDictionary*)recipe {
+    
+    NSString* feedbackString = @"";
+    
+    if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] > .75) {
+        feedbackString = @"Your lemonade was way too watery! Use more other ingredients.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] > .35) {
+        feedbackString = @"Your lemonade was freezing! You should use less ice.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] < .15) {
+        feedbackString = @"Your lemonade was way too strong! Use some water in it.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] < .05) {
+        feedbackString = @"Your lemonade was way too warm! You need to use more ice.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] > .45) {
+        feedbackString = @"Your lemonade was way too sour! Don't use too many lemons.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] < .1) {
+        feedbackString = @"You need to use more lemons if you're going to sell lemonade!";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] > .35) {
+        feedbackString = @"Your lemonade was way too sweet! You don't need to use so much sugar.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] < .05) {
+        feedbackString = @"Your lemonade needs a lot more sugar!";
+    }
+    // At this point, we've checked for egregious errors.
+    // Now we check for smaller mistakes.
+    
+    else if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] > .65) {
+        feedbackString = @"Your lemonade was too watery! Use more other ingredients.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] > .2) {
+        feedbackString = @"Your lemonade was a bit cold. You don't need so much ice.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] < .3) {
+        feedbackString = @"Your lemonade was a little too strong. Water it down a little.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] < .1) {
+        feedbackString = @"Your lemonade was a bit warm. Add some ice.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] > .25) {
+        feedbackString = @"Your lemonade was too sour for some of your customers. Use fewer lemons.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] < .16) {
+        feedbackString = @"Your lemonade isn't quite sour enough. Try using more lemons!";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] > .21) {
+        feedbackString = @"Your lemonade was just a little too sweet. Try using less sugar!";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"sugar"] floatValue] < .12) {
+        feedbackString = @"Your lemonade should be sweeter. Try adding some more sugar.";
+    } else {
+        feedbackString = @"Your lemonade was delicious!";
+    }
+    
+    return feedbackString;
+}
+
+- (DayOfWeek) nextDayOfWeek:(DayOfWeek)currentDay {
+    NSAssert(0 <= currentDay <= 6, @"Invalid day of week: %d", currentDay);
+    if (currentDay < 6) {
+        return currentDay + 1;
+    } else {
+        return 0;
+    }
+}
+
+- (Weather) nextWeather:(Weather)currentWeather {
+    
+    // Get a random number to determne tomorrow's weather.
+    float randomValue = drand48();
+    
+    if (currentWeather == Sunny) {
+        if (randomValue < .5) {
+            return Sunny;
+        } else if (randomValue < .75) {
+            return Cloudy;
+        } else {
+            return Raining;
+        }
+    } else if (currentWeather == Cloudy) {
+        if (randomValue < .6) {
+            return Sunny;
+        } else if (randomValue < .8) {
+            return Cloudy;
+        } else {
+            return Raining;
+        }
+    } else if (currentWeather == Raining) {
+        if (randomValue < .6) {
+            return Sunny;
+        } else if (randomValue < .9) {
+            return Cloudy;
+        } else {
+            return Raining;
+        }
+    } else {
+        [NSException raise:@"Invalid weather value" format:@"Weather %d is invalid", currentWeather];
+        // Return should never be reached.
+        return Sunny;
+    }
+}
+
+- (NSMutableDictionary*) generateRandomIngredientPrices {
+    NSMutableDictionary* newPrices = [[NSMutableDictionary alloc] init];
+    
+    NSNumber* newLemonsPrice =
+            [NSNumber numberWithFloat: .5 + .05 * [self randomNumberAtLeast:0 andAtMost:10]];
+    [newPrices setValue:newLemonsPrice forKey:@"lemons"];
+    
+    NSNumber* newSugarPrice =
+            [NSNumber numberWithFloat: .5 + .05 * [self randomNumberAtLeast:0 andAtMost:10]];
+    [newPrices setValue:newSugarPrice forKey:@"sugar"];
+    
+    NSNumber* newIcePrice =
+            [NSNumber numberWithFloat: .25 + .05 * [self randomNumberAtLeast:0 andAtMost:5]];
+    [newPrices setValue:newIcePrice forKey:@"ice"];
+    
+    NSNumber* newCupsPrice =
+            [NSNumber numberWithFloat: .05 + .01 * [self randomNumberAtLeast:0 andAtMost:10]];
+    [newPrices setValue:newCupsPrice forKey:@"cups"];
+    
+    return newPrices;
 }
 
 @end

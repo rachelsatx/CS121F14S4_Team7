@@ -15,8 +15,11 @@
     NSString* _feedbackString;
     NSMutableDictionary* _recipe;
     NSMutableDictionary* _inventory;
+    NSMutableDictionary* _ingredientPrices;
     NSNumber* _popularity;
     NSNumber* _money;
+    NSNumber* _profit;
+    NSInteger _cupsSold;
 }
 @end
 
@@ -29,12 +32,14 @@
     _weather = Sunny;
     _dayOfWeek = Saturday;
     _feedbackString = @"";
-    _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,      @0.00,     @0.00,   @0.00]
-                                              forKeys:        @[@"lemons", @"sugar", @"ice", @"cups"]];
-    _recipe = [[NSMutableDictionary alloc] initWithObjects:   @[@0.00,     @0.00,    @0.00,  @1.00]
-                                                      forKeys:@[@"lemons", @"sugar", @"ice", @"water"]];
+    _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,     @0.00,    @0.00,  @0.00]
+                                                      forKeys:@[@"lemons", @"sugar", @"ice", @"cups"]];
+    _recipe = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,     @0.00,    @0.00,  @1.00]
+                                                   forKeys:@[@"lemons", @"sugar", @"ice", @"water"]];
+    _ingredientPrices = [[NSMutableDictionary alloc] initWithObjects:@[@0.50,     @0.50,    @0.25,  @0.05]
+                                                    forKeys:@[@"lemons", @"sugar", @"ice", @"cups"]];
     _popularity = 0;
-    _money = [NSNumber numberWithFloat:50];
+    _money = [NSNumber numberWithFloat:20];
     
     return self;
 }
@@ -103,6 +108,17 @@
     _inventory = newInventory;
 }
 
+// Ingredient Prices
+-(NSMutableDictionary*) getIngredientPrices
+{
+    return _ingredientPrices;
+}
+
+-(void) setIngredientPrices:(NSMutableDictionary *)newIngredientPrices
+{
+    _ingredientPrices = newIngredientPrices;
+}
+
 // Popularity
 -(NSNumber*) getPopularity
 {
@@ -123,6 +139,26 @@
 -(void) setMoney:(NSNumber*) newMoney
 {
     _money = newMoney;
+}
+
+-(NSNumber*) getProfit
+{
+    return _profit;
+}
+
+-(void) setProfit:(NSNumber*) newProfit
+{
+    _profit = newProfit;
+}
+
+-(NSInteger) getCupsSold
+{
+    return _cupsSold;
+}
+
+-(void) setCupsSold:(NSInteger) newCupsSold
+{
+    _cupsSold = newCupsSold;
 }
 
 @end
