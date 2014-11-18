@@ -34,6 +34,7 @@
 - (void) updateAmountLabels;
 - (void) updateMoneyLabel;
 - (void) updatePriceLabels;
+
 @property (nonatomic,strong) id delegate;
 
 @end

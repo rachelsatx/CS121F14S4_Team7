@@ -35,7 +35,10 @@
         [self setBackgroundColor:backgroundColor];
         
         // Create popularity frame and text
-        CGRect popularityFrame = CGRectMake(borderThickness, borderThickness, frameWidth - (2 * borderThickness), frameHeight / 4);
+        CGRect popularityFrame = CGRectMake(borderThickness,
+                                            borderThickness,
+                                            frameWidth - (2 * borderThickness),
+                                            frameHeight / 4);
         UITextView *popularityView = [[UITextView alloc] initWithFrame:popularityFrame];
         popularityView.backgroundColor = [UIColor whiteColor];
         popularityView.layer.borderWidth = outlineWidth;
@@ -49,7 +52,10 @@
         [self addSubview:popularityView];
         
         // Create feedback frame
-        CGRect feedbackFrame = CGRectMake(borderThickness, borderThickness + (frameHeight / 4) + (borderThickness / 2), frameWidth - (2 * borderThickness), frameHeight / 4);
+        CGRect feedbackFrame = CGRectMake(borderThickness,
+                                          borderThickness + (frameHeight / 4) + (borderThickness / 2),
+                                          frameWidth - (2 * borderThickness),
+                                          frameHeight / 4);
         UITextView *feedbackView = [[UITextView alloc] initWithFrame:feedbackFrame];
         feedbackView.backgroundColor = [UIColor whiteColor];
         feedbackView.layer.borderWidth = outlineWidth;
@@ -58,7 +64,10 @@
         
         // Create feedback text - this view is less wide than the feedback frame
         // and is done so that the jug does not cover any feedback
-        CGRect feedbackTextFrame = CGRectMake((3 * borderThickness / 2) + outlineWidth, borderThickness + (frameHeight / 4) + (borderThickness / 2) + outlineWidth, frameWidth - (3 * borderThickness) - (2 * outlineWidth), (frameHeight / 4) - (2 * outlineWidth));
+        CGRect feedbackTextFrame = CGRectMake((3 * borderThickness / 2) + outlineWidth,
+                                              borderThickness + (frameHeight / 4) + (borderThickness / 2) + outlineWidth,
+                                              frameWidth - (3 * borderThickness) - (2 * outlineWidth),
+                                              (frameHeight / 4) - (2 * outlineWidth));
         UITextView *feedbackTextView = [[UITextView alloc] initWithFrame:feedbackTextFrame];
         feedbackTextView.backgroundColor = [UIColor whiteColor];
         feedbackTextView.textAlignment = NSTextAlignmentCenter;
@@ -69,7 +78,10 @@
         [self addSubview:feedbackTextView];
         
         // Create end-of-day summary frame and text
-        CGRect summaryFrame = CGRectMake(borderThickness, borderThickness + (frameHeight / 2) + 2 * (borderThickness / 2), frameWidth - (2 * borderThickness), frameHeight / 4);
+        CGRect summaryFrame = CGRectMake(borderThickness,
+                                         borderThickness + (frameHeight / 2) + 2 * (borderThickness / 2),
+                                         frameWidth - (2 * borderThickness),
+                                         frameHeight / 4);
         UITextView *summaryView = [[UITextView alloc] initWithFrame:summaryFrame];
         summaryView.backgroundColor = [UIColor whiteColor];
         summaryView.layer.borderWidth = outlineWidth;
@@ -89,20 +101,29 @@
         // Add customer images according to popularity
         NSInteger numCustomers = [popularity integerValue] / 10 < 9 ? [popularity integerValue] / 10 : 9;
         for (NSInteger i = 0; i < numCustomers; i += 1) {
-            CGRect customerFrame = CGRectMake(i * (imageSize / 2), (3 * borderThickness / 2) + (frameHeight / 4) - imageSize, imageSize, imageSize);
+            CGRect customerFrame = CGRectMake(i * (imageSize / 2),
+                                              (3 * borderThickness / 2) + (frameHeight / 4) - imageSize,
+                                              imageSize,
+                                              imageSize);
             UIImageView *customerView = [[UIImageView alloc] initWithFrame:customerFrame];
             customerView.image = [UIImage imageNamed:@"person-navy"];
             [self addSubview:customerView];
         }
         
         // Add lemonade jug image
-        CGRect jugFrame = CGRectMake(frameWidth - (borderThickness / 4) - imageSize, frameHeight / 2, imageSize, imageSize);
+        CGRect jugFrame = CGRectMake(frameWidth - (borderThickness / 4) - imageSize,
+                                     frameHeight / 2,
+                                     imageSize,
+                                     imageSize);
         UIImageView *jugView = [[UIImageView alloc] initWithFrame:jugFrame];
         jugView.image = [UIImage imageNamed:@"jug"];
         [self addSubview:jugView];
         
         // Add coins image
-        CGRect coinsFrame = CGRectMake(borderThickness / 2, (borderThickness / 2) + (3 * frameHeight / 4), imageSize, imageSize);
+        CGRect coinsFrame = CGRectMake(borderThickness / 2,
+                                       (borderThickness / 2) + (3 * frameHeight / 4),
+                                       imageSize,
+                                       imageSize);
         UIImageView *coinsView = [[UIImageView alloc] initWithFrame:coinsFrame];
         coinsView.image = [UIImage imageNamed:@"coins"];
         [self addSubview:coinsView];

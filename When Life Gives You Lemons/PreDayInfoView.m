@@ -75,7 +75,7 @@
         [self addSubview:_makeableCupsLabel];
         
         // Create Increment Price Button
-        CGRect incrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2, (4 * labelHeight) + imageSize, buttonSize, buttonSize); // magic numbers
+        CGRect incrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2, (4 * labelHeight) + imageSize, buttonSize, buttonSize);
         UIButton* incrementPriceButton = [[UIButton alloc] initWithFrame:incrementPriceButtonFrame];
         [incrementPriceButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
         [incrementPriceButton addTarget:self action:@selector(incrementPrice:) forControlEvents:UIControlEventTouchUpInside];
