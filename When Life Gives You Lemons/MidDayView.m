@@ -34,29 +34,14 @@
         SKScene *weatherScene;
         
         if (weather == Sunny) {
-            //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
-            //[self addSubview:backgroundView];
-            //SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
-            //[self addSubview:animation];
             SunnyScene* sunScene = [[SunnyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
             weatherScene = sunScene;
-            //[animation presentScene:sunScene];
         } else if (weather == Cloudy) {
-            //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloudy-background"]];
-            //[self addSubview:backgroundView];
-            //SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
-            //[self addSubview:animation];
             CloudyScene *cloudScene = [[CloudyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
             weatherScene = cloudScene;
-            //[animation presentScene:cloudScene];
         } else if (weather == Raining) {
-            //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"raining-background"]];
-            //[self addSubview:backgroundView];
-            //SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
-            //[self addSubview:animation];
             RainyScene *rainScene = [[RainyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
             weatherScene = rainScene;
-            //[animation presentScene:rainScene];
         }
         
         // Display the appropriate weather scene.
