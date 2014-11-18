@@ -16,6 +16,8 @@
 // The following are public for unit testing.
 
 - (int) randomNumberAtLeast:(int)lowerBound andAtMost:(int)upperBound;
+- (int) customersFromWeather:(Weather)weather;
+- (int) customersFromWeekday:(DayOfWeek)dayOfWeek;
 - (NSMutableDictionary*) removeIngredientsOfRecipe:(NSMutableDictionary*)recipe
                                      fromInventory:(NSMutableDictionary*)inventory;
 - (int) calculateNewPopularityWithNumCustomers:(int)totalCustomers

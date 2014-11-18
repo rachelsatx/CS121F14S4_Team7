@@ -113,9 +113,9 @@
     
     // Update ingredient prices to reflect changing market conditions.
     [dataStore setIngredientPrices:[self generateRandomIngredientPrices]];
+    
     return dataStore;
 }
-
 
 - (int) randomNumberAtLeast:(int)lowerBound andAtMost:(int)upperBound {
     NSAssert(upperBound >= lowerBound, @"Invalid bounds in randomNumberAtLeast:andAtMost:");
@@ -194,6 +194,7 @@
             }
         }
     }
+    NSAssert(maxCustomers >= 0, @"Maximum number of customers is negative (%d)", maxCustomers);
     return maxCustomers;
 }
 
@@ -212,6 +213,7 @@
     if (newPopularity < 0) {
         newPopularity = 0;
     }
+    NSAssert(newPopularity >= 0, @"Popularity is negative (%d)", newPopularity);
     return newPopularity;
 }
 
@@ -230,11 +232,11 @@
             
             NSAssert(oldAmount >= amountToRemove,
                 @"Tried to remove more ingredients than existed: %f from %f", amountToRemove, oldAmount);
+            NSAssert(amountToRemove >= 0, @"Tried to remove a negative amount ingredients (%0.2f)", amountToRemove);
             
             [inventory setValue:[NSNumber numberWithFloat:oldAmount - amountToRemove] forKey:ingredient];
         }
     }
-    
     return inventory;
 }
 

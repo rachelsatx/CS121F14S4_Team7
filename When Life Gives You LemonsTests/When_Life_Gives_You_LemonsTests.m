@@ -34,11 +34,76 @@ Model *model;
 // Test simulateDayWithDataStore:
 - (void)testSimulateDayWithEmptyInventory{
     DataStore* dataStore = [[DataStore alloc] init];
+    DayOfWeek beforeDay = dataStore.getDayOfWeek;
+    NSDictionary* beforeInventory = dataStore.getInventory;
+    NSNumber* beforeMoney = dataStore.getMoney;
+    
     DataStore* newDataStore = [model simulateDayWithDataStore:dataStore];
+    DayOfWeek afterDay = newDataStore.getDayOfWeek;
+    NSDictionary* afterInventory = newDataStore.getInventory;
+    NSNumber* afterMoney = newDataStore.getMoney;
+    
+    XCTAssertEqual(afterDay, beforeDay + 1, @"We went from %d to %d", beforeDay, afterDay);
+    XCTAssertEqual(afterInventory, beforeInventory, @"Inventory changed when there were initially no ingredients");
+
     
     XCTAssertEqual(newDataStore.getCupsSold, 0, @"Sold %d cups of lemonade without having any ingredients", newDataStore.getCupsSold);
-    XCTAssertEqual([newDataStore.getPopularity integerValue], 0, @"Popularity increased from 0 to %@ without selling any lemonade", newDataStore.getPopularity);
-    XCTAssertEqual([newDataStore.getProfit integerValue], 0, @"Earned $%@ without selling any lemonade", newDataStore.getProfit);
+    XCTAssertEqual([afterMoney floatValue], [beforeMoney floatValue], @"Money increased from %0.2f to %0.2f without selling any lemonade", [beforeMoney floatValue], [afterMoney floatValue]);
+    XCTAssertEqual([newDataStore.getPopularity floatValue], 0, @"Popularity increased from 0 to %@ without selling any lemonade", newDataStore.getPopularity);
+    XCTAssertEqual([newDataStore.getProfit floatValue], 0, @"Earned $%0.2f without selling any lemonade", [newDataStore.getProfit floatValue]);
+}
+
+- (void)testSimulateDayWithOverMaxPrice{
+    DataStore* dataStore = [[DataStore alloc] init];
+    [dataStore setPrice:[NSNumber numberWithInt:6]];
+    DayOfWeek beforeDay = dataStore.getDayOfWeek;
+    NSDictionary* beforeInventory = dataStore.getInventory;
+    NSNumber* beforeMoney = dataStore.getMoney;
+    
+    DataStore* newDataStore = [model simulateDayWithDataStore:dataStore];
+    DayOfWeek afterDay = newDataStore.getDayOfWeek;
+    NSDictionary* afterInventory = newDataStore.getInventory;
+    NSNumber* afterMoney = newDataStore.getMoney;
+    
+    XCTAssertEqual(afterDay, beforeDay + 1, @"We went from %d to %d", beforeDay, afterDay);
+    XCTAssertEqual(afterInventory, beforeInventory, @"Inventory changed when there were initially no ingredients");
+    
+    XCTAssertEqual(newDataStore.getCupsSold, 0, @"Sold %d cups of lemonade when the price was set above the maximum customers would pay", newDataStore.getCupsSold);
+    XCTAssertEqual([afterMoney floatValue], [beforeMoney floatValue], @"Money increased from %0.2f to %0.2f without selling any lemonade", [beforeMoney floatValue], [afterMoney floatValue]);
+    XCTAssertEqual([newDataStore.getPopularity floatValue], 0, @"Popularity increased from 0 to %@ without selling any lemonade", newDataStore.getPopularity);
+    XCTAssertEqual([newDataStore.getProfit floatValue], 0, @"Earned $%@ without selling any lemonade", newDataStore.getProfit);
+}
+
+- (void)testSimulateDayWithReasonableInputs{
+    DataStore* dataStore = [[DataStore alloc] init];
+    NSNumber* numIngredients = @20.00;
+    NSMutableDictionary* beforeInventory      = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[numIngredients,      numIngredients,     numIngredients,   numIngredients] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    [dataStore setInventory:beforeInventory];
+    NSMutableDictionary* recipe               = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@0.20,      @0.15,     @0.15,   @0.50] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"water"]];
+    [dataStore setRecipe:recipe];
+    DayOfWeek beforeDay = dataStore.getDayOfWeek;
+    NSNumber* beforeMoney = dataStore.getMoney;
+    
+    DataStore* newDataStore = [model simulateDayWithDataStore:dataStore];
+    DayOfWeek afterDay = newDataStore.getDayOfWeek;
+    NSDictionary* afterInventory = newDataStore.getInventory;
+    NSNumber* afterMoney = newDataStore.getMoney;
+    
+    XCTAssertEqual(afterDay, beforeDay + 1, @"We went from %d to %d", beforeDay, afterDay);
+    for (NSString* ingredient in [beforeInventory allKeys]) {
+        if (![ingredient isEqual:@"cups"]) {
+            XCTAssertTrue([[afterInventory valueForKey:ingredient] floatValue] < [numIngredients floatValue], @"Ingredient %@ did not decrease in inventory even though lemonade was sold", ingredient);
+        }
+    }
+    
+    XCTAssertTrue(newDataStore.getCupsSold > 0, @"No lemonade sold with good recipe and stocked inventory");
+    XCTAssertTrue([afterMoney floatValue] > [beforeMoney floatValue], @"Lemonade was sold but money did not increase");
+    XCTAssertTrue([newDataStore.getPopularity floatValue] > 0, @"Popularity did not increase after selling good lemonade");
+    XCTAssertTrue([newDataStore.getProfit floatValue] > 0, @"Lemonade sold but profit is 0");
 }
 
 
@@ -51,6 +116,23 @@ Model *model;
 - (void)testRandomNumberInvalidBounds{
     XCTAssertThrows([model randomNumberAtLeast:5 andAtMost:4],
                     @"Random number with invalid bounds did not throw error");
+}
+
+
+// Test customersFromWeather:
+- (void)testCustomersFromWeatherInvalidWeather{
+    // We currently only have 3 types of weather
+    Weather weather = 3;
+    XCTAssertThrows([model customersFromWeather:weather],
+                    @"Invalid weather did not throw error");
+}
+
+
+// Test customersFromWeekday:
+- (void)testCustomersFromWeekdayInvalidDay{
+    DayOfWeek day = 7;
+    XCTAssertThrows([model customersFromWeekday:day],
+                    @"Invalid day of week did not throw error");
 }
 
 
