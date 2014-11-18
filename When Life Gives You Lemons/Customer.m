@@ -123,8 +123,13 @@
 }
 
 /*  We use a logistic distribution to determine whether a customer will buy at a particular price because it has a simple cumulative distribution function.  */
-- (BOOL) willBuyAtPrice:(NSNumber*)price
+- (BOOL) willBuyAtPrice:(NSNumber*)price withRecipe:(NSMutableDictionary*)recipe
 {
+    // If it doesn't even look like lemonade, no one will buy it.
+    if ([((NSNumber*) [recipe valueForKey:@"lemons"]) floatValue] <= .05) {
+        return NO;
+    }
+    
     // Turn necessary global values into doubles for readability.
     double maximumPrice = [_maximumPrice doubleValue];
     

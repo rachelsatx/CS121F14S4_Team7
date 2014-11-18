@@ -11,7 +11,7 @@
 @interface Customer : NSObject
 
 - (void) setCustomerType:(NSInteger)type;
-- (BOOL) willBuyAtPrice:(NSNumber*)price;
+- (BOOL) willBuyAtPrice:(NSNumber*)price withRecipe:(NSMutableDictionary*)recipe;
 - (BOOL) likesRecipe:(NSMutableDictionary*)recipe;
 
 @end
