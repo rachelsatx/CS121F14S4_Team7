@@ -16,18 +16,20 @@
     if (self) {
         // Initialization code
         [self setBackgroundColor:[UIColor grayColor]];
-        
-        CGFloat header = 90;
-        
+                
         CGFloat width = CGRectGetWidth(self.frame);
         CGFloat height = CGRectGetHeight(self.frame);
-        CGFloat borderThickness = (height < width) ? (height / 8) : (width / 8);
+        
+        CGFloat topBorderThickness = 90;
+        CGFloat headerThickness = (height < width) ? (height / 8) : (width / 8);
+        CGFloat instructionsBorderThickness = 30;
+        
         CGFloat fontSize = 30;
         NSString* fontName = @"Chalkduster";
         
         // Create Title
         UIColor* titleBackgroundColor = [UIColor colorWithRed:0.0/255 green:200.0/255 blue:0.0/255 alpha:1.0];
-        CGRect titleFrame = CGRectMake(0, header, width, borderThickness);
+        CGRect titleFrame = CGRectMake(0, topBorderThickness, width, headerThickness);
         UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
         title.text = @"How to Play";
         [title setFont:[UIFont fontWithName:fontName size:(fontSize + 5)]];
@@ -35,10 +37,10 @@
         [title setBackgroundColor:titleBackgroundColor];
         [self addSubview:title];
 
-        NSString* instructionsText = @"You've been give 20 dollars to start up your own business. You've decided to make a lemonade stand! \n \n Use the money you have to buy ingredients and prepare for the next day. Change your recipe to try to make the tastiest lemonade possible. If your customers like your lemonade, your popularity will go up! \n \n The more popular your stand is, the more customers you will have. Good luck, and don't forget the cups!";
+        NSString* instructionsText = @" You've been give 20 dollars to start up your own business. You've decided to make a lemonade stand! \n \n Use the money you have to buy ingredients and prepare for the next day. Change your recipe to try to make the tastiest lemonade possible. If your customers like your lemonade, your popularity will go up! \n \n The more popular your stand is, the more customers you will have. Good luck, and don't forget the cups!";
         
         // Create Text box with instructions
-        CGRect instructionsFrame = CGRectMake(30, 200, width - 60, height - borderThickness - header - 30);
+        CGRect instructionsFrame = CGRectMake(instructionsBorderThickness, topBorderThickness + headerThickness + instructionsBorderThickness, width - 2 * instructionsBorderThickness, height - topBorderThickness - headerThickness - 2 * instructionsBorderThickness);
         UITextView* instructions = [[UITextView alloc] initWithFrame:instructionsFrame];
         [instructions setFont:[UIFont fontWithName:fontName size:fontSize]];
         [instructions setText:instructionsText];
@@ -46,7 +48,7 @@
         [self addSubview:instructions];
         
         // Create back button
-        CGRect backButtonFrame = CGRectMake(2 * width / 3, height - borderThickness, width / 4, borderThickness / 2);
+        CGRect backButtonFrame = CGRectMake(2 * width / 3, height - headerThickness, width / 4, headerThickness / 2);
         UIButton* backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
         [backButton setBackgroundColor:[UIColor whiteColor]];
         backButton.layer.cornerRadius = 10;
@@ -79,14 +81,5 @@
     [self.layer addAnimation:transition forKey:nil];
     [self sendSubviewToBack:self];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

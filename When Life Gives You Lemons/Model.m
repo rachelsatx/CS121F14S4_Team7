@@ -38,7 +38,7 @@
     if (maxCustomers > 0) {
     
         for (Customer *customer in customers) {
-            if ([customer willBuyAtPrice:price]) {
+            if ([customer willBuyAtPrice:price withRecipe:recipe]) {
                 ++customersWhoBought;
                 grossEarnings += [price floatValue];
                 
@@ -58,6 +58,11 @@
         }
     } else {
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
+    }
+    
+    // If the lemonade has almost no lemons, then tell them it needs to be lemonade.
+    if ([[recipe valueForKey:@"lemons"] floatValue] <= .05) {
+        feedbackString = @"Your lemonade didn't have enough lemons in it to look like lemonade, so no one wanted to buy it!";
     }
     
     float portionWhoBought = ((float) customersWhoBought) / ((float) totalCustomers);
@@ -87,11 +92,11 @@
                               feedbackString];
         } else if ((float) customersWhoBought / (float) totalCustomers < .1) {
             feedbackString = [NSString stringWithFormat:
-               @"%@\nUnfortunately, your lemonade was really expensive - no one bought it!",
+               @"%@\nUnfortunately, your lemonade was really expensive, so nobody bought it!",
                               feedbackString];
         } else if ((float) customersWhoBought / (float) totalCustomers < .3) {
             feedbackString = [NSString stringWithFormat:
-               @"%@\nAlso, your lemonade was a bit expensive - not many customers bought it!",
+               @"%@\nAlso, your lemonade was a bit expensive, so very few customers bought it!",
                               feedbackString];
         }
     }
@@ -100,6 +105,7 @@
     [dataStore setInventory:inventory];
     [dataStore setMoney:newMoney];
     [dataStore setProfit:[NSNumber numberWithFloat:grossEarnings]];
+    [dataStore setCupsSold:customersWhoBought];
     
     // A day passed, so change the day of the week and the weather.
     [dataStore setDayOfWeek:[self nextDayOfWeek:dayOfWeek]];

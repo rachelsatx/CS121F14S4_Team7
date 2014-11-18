@@ -59,13 +59,13 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Make sure your segue name in storyboard is the same as this line
+    // Make sure segue name in storyboard is the same as this line
     if ([[segue identifier] isEqualToString:@"MenuToPreDay"])
     {
         // Get reference to the destination view controller
         PreDayViewController* preDayViewController = [segue destinationViewController];
         
-        // Pass any objects to the view controller here, like...
+        // Pass dataStore to the view controller
         [preDayViewController setDataStore:_dataStore];
     }
 }

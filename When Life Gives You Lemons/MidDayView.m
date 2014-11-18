@@ -43,7 +43,6 @@
             RainyScene *rainScene = [[RainyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
             weatherScene = rainScene;
         }
-        
         // Display the appropriate weather scene.
         [animation presentScene:weatherScene];
         

@@ -38,7 +38,7 @@
     [_infoView updatePriceLabel];
     [_infoView updateWeather];
     [_infoView updateDayLabel];
-    [_infoView updateMakableCupsLabel];
+    [_infoView updateMakeableCupsLabel];
     
     // Create the Inventory View
     _inventoryView = [[PreDayInventoryView alloc] initWithFrame:allViewsFrame];
@@ -55,12 +55,6 @@
     [self.view addSubview:_recipeView];
     [_recipeView setDelegate:self];
     [_recipeView updatePercentageLabels];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) setDataStore:(DataStore*) dataStore
@@ -104,20 +98,7 @@
     [self.view.layer addAnimation:transition forKey:nil];
     [self.view sendSubviewToBack:_recipeView];
     [self.view sendSubviewToBack:_inventoryView];
-    [_infoView updateMakableCupsLabel];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Make sure your segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"PreDayToMidDay"])
-    {
-        // Get reference to the destination view controller
-        MidDayViewController* midDayViewController = [segue destinationViewController];
-        
-        // Pass any objects to the view controller here, like...
-        [midDayViewController setDataStore:_dataStore];
-    }
+    [_infoView updateMakeableCupsLabel];
 }
 
 - (IBAction)unwindToPreDay:(UIStoryboardSegue*)unwindSegue
@@ -125,7 +106,7 @@
     [_infoView updatePriceLabel];
     [_infoView updateWeather];
     [_infoView updateDayLabel];
-    [_infoView updateMakableCupsLabel];
+    [_infoView updateMakeableCupsLabel];
     
     [_inventoryView setHidden:YES];
     [_inventoryView updateAmountLabels];
@@ -174,90 +155,109 @@
 {
     return [[_dataStore getInventory] valueForKey:@"sugar"];
 }
+
 - (void) setSugar:(NSNumber*) newSugar
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newSugar forKey:@"sugar"];
     [_dataStore setInventory:inventory];
 }
+
 - (NSNumber*) getIce
 {
     return [[_dataStore getInventory] valueForKey:@"ice"];
 }
+
 - (void) setIce:(NSNumber*) newIce
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newIce forKey:@"ice"];
     [_dataStore setInventory:inventory];
 }
+
 - (NSNumber*) getCups
 {
     return [[_dataStore getInventory] valueForKey:@"cups"];
 }
+
 - (void) setCups:(NSNumber*) newCups
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newCups forKey:@"cups"];
     [_dataStore setInventory:inventory];
 }
+
 - (NSNumber*) getMoney
 {
     return [_dataStore getMoney];
 }
+
 - (void) setMoney:(NSNumber*) newMoney
 {
     [_dataStore setMoney:newMoney];
 }
+
 - (NSNumber*) getLemonPrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"lemons"];
 }
+
 - (NSNumber*) getSugarPrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"sugar"];
 }
+
 - (NSNumber*) getIcePrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"ice"];
 }
+
 - (NSNumber*) getCupsPrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"cups"];
 }
+
 - (NSNumber*) getLemonsPercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"lemons"];
 }
+
 - (void) setLemonsPercentage:(NSNumber*) newLemons
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newLemons forKey:@"lemons"];
     [_dataStore setRecipe:recipe];
 }
+
 - (NSNumber*) getSugarPercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"sugar"];
 }
+
 - (void) setSugarPercentage:(NSNumber*) newSugar
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newSugar forKey:@"sugar"];
     [_dataStore setRecipe:recipe];
 }
+
 - (NSNumber*) getIcePercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"ice"];
 }
+
 - (void) setIcePercentage:(NSNumber*) newIce
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newIce forKey:@"ice"];
     [_dataStore setRecipe:recipe];
 }
+
 - (NSNumber*) getWaterPercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"water"];
 }
+
 - (void) setWaterPercentage:(NSNumber*) newWater
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
@@ -287,6 +287,25 @@
 {
     NSLog(@"%d", [_dataStore getDayOfWeek]);
     return [_dataStore getDayOfWeek];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"PreDayToMidDay"])
+    {
+        // Get reference to the destination view controller
+        MidDayViewController* midDayViewController = [segue destinationViewController];
+        
+        // Pass dataStore to the view controller
+        [midDayViewController setDataStore:_dataStore];
+    }
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end
