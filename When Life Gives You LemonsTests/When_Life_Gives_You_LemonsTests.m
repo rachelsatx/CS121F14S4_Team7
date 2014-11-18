@@ -54,6 +54,68 @@ Model *model;
 }
 
 
+// Test mostCupsMakeableFromInventory:
+- (void)testCorrectCupsFromInventory0{
+    NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@5.00,      @5.00,     @5.00,   @5.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    
+    NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@1.00,      @0.00,     @0.00,   @0.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"water"]];
+    
+    int correctCups = 5;
+    int calculatedCups = [model mostCupsMakableFromInventory:inventory withRecipe:recipe];
+    XCTAssertEqual(correctCups, calculatedCups, @"Model thinks it can make %i cups", calculatedCups);
+}
+
+- (void)testCorrectCupsFromInventory1{
+    NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@5.00,      @5.00,     @5.00,   @25.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    
+    NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@0.20,      @0.20,     @0.20,   @0.40] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"water"]];
+    
+    int correctCups = 25;
+    int calculatedCups = [model mostCupsMakableFromInventory:inventory withRecipe:recipe];
+    XCTAssertEqual(correctCups, calculatedCups, @"Model thinks it can make %i cups", calculatedCups);
+}
+
+- (void)testCorrectCupsFromInventory2{
+    NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@5.00,      @5.00,     @5.00,   @500.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    
+    NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@0.00,      @0.00,     @0.00,   @1.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"water"]];
+    
+    int correctCups = 500;
+    int calculatedCups = [model mostCupsMakableFromInventory:inventory withRecipe:recipe];
+    XCTAssertEqual(correctCups, calculatedCups, @"Model thinks it can make %i cups", calculatedCups);
+}
+
+- (void)testCorrectCupsFromInventory3{
+    NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@0.00,      @5.00,     @5.00,   @5.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"cups"]];
+    
+    NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
+                                              @[@1.00,      @0.00,     @0.00,   @0.00] forKeys:
+                                              @[@"lemons", @"sugar", @"ice", @"water"]];
+    
+    int correctCups = 0;
+    int calculatedCups = [model mostCupsMakableFromInventory:inventory withRecipe:recipe];
+    XCTAssertEqual(correctCups, calculatedCups, @"Model thinks it can make %i cups", calculatedCups);
+}
+
+// Test
+- (void)testInvalidWeekday{
+    XCTAssertThrows([model customersFromWeekday:9], @"Invalid weekday did not throw exception.");
+}
+
 // Test calculateNewPopularityWithNumCustomers:
 - (void)testNoPopularityIncrease{
     int totalCustomers = 40;
@@ -139,8 +201,8 @@ Model *model;
     
     for (NSString *ingredient in @[@"lemons", @"sugar", @"ice", @"cups"]) {
         XCTAssert(
-                  fabsf([[expectedInventory valueForKey:@"lemons"] floatValue] -
-                        [[newInventory valueForKey:@"lemons"] floatValue])
+                  fabsf([[expectedInventory valueForKey:ingredient] floatValue] -
+                        [[newInventory valueForKey:ingredient] floatValue])
                   < acceptableError, @"Removing mixed recipe gave incorrect value for %@", ingredient);
     }
 }

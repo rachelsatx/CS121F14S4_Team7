@@ -23,4 +23,9 @@
                                   portionLiked:(float)portionWhoLiked
                              fromOldPopularity:(NSNumber*)popularity;
 - (DayOfWeek) nextDayOfWeek:(DayOfWeek)currentDay;
+- (int) mostCupsMakableFromInventory:(NSMutableDictionary*)inventory
+                          withRecipe:(NSMutableDictionary*) recipe;
+- (int) customersFromWeather:(Weather)weather;
+- (int) customersFromWeekday:(DayOfWeek)dayOfWeek;
+
 @end

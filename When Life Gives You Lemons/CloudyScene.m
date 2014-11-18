@@ -19,7 +19,7 @@
 - (void)didMoveToView: (SKView *) view
 {
     self.scaleMode = SKSceneScaleModeAspectFit;
-    self.duration = 7; //
+    self.duration = 7;
     self.backgroundColor = [UIColor whiteColor];
     [self createClouds];
 }
