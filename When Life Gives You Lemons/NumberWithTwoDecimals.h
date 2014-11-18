@@ -10,7 +10,7 @@
 
 @interface NumberWithTwoDecimals : NSObject
 
-- (id) initWithIntegerPart:(int)integerPart andFractionalPart:(char)fractionalPart;
+- (id) initWithIntegerPart:(int)integerPart andFractionalPart:(int)fractionalPart;
 - (id) initWithFloat:(float)number;
 
 - (int) integerPart;
@@ -25,6 +25,6 @@
 
 - (NumberWithTwoDecimals*) add:(NumberWithTwoDecimals*)other;
 - (NumberWithTwoDecimals*) subtract:(NumberWithTwoDecimals*)other;
-- (NumberWithTwoDecimals*) scale:(NumberWithTwoDecimals*)other;
+- (NumberWithTwoDecimals*) scale:(int)other;
 
 @end

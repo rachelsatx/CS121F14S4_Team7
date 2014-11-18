@@ -107,7 +107,7 @@
 
 - (NumberWithTwoDecimals*) scale:(int)other
 {
-    char fractionalPart = other * _fractionalPart;
+    int fractionalPart = other * _fractionalPart;
     int integerPart = other * _fractionalPart;
     return [[NumberWithTwoDecimals alloc] initWithIntegerPart:integerPart + (fractionalPart/100)
                                             andFractionalPart:fractionalPart%100];
