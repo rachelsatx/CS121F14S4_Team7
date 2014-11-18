@@ -44,7 +44,10 @@
         [self addSubview:titleView];
         
         // Add new game button
-        CGRect newGameButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2, (3 * frameHeight / 5) - (3 * buttonHeight / 2), buttonWidth, buttonHeight);
+        CGRect newGameButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                               (3 * frameHeight / 5) - (3 * buttonHeight / 2),
+                                               buttonWidth,
+                                               buttonHeight);
         UIButton* newGameButton = [[UIButton alloc] initWithFrame:newGameButtonFrame];
         newGameButton.layer.cornerRadius = buttonCornerRadius;
         newGameButton.layer.borderWidth = buttonBorderWidth;
@@ -57,7 +60,10 @@
         [self addSubview:newGameButton];
 
         // Add instructions button
-        CGRect instructionsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2, 3 * frameHeight / 5, buttonWidth, buttonHeight);
+        CGRect instructionsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                                    3 * frameHeight / 5,
+                                                    buttonWidth,
+                                                    buttonHeight);
         UIButton* instructionsButton = [[UIButton alloc] initWithFrame:instructionsButtonFrame];
         instructionsButton.layer.cornerRadius = buttonCornerRadius;
         instructionsButton.layer.borderWidth = buttonBorderWidth;
@@ -72,11 +78,13 @@
         [self addSubview:instructionsButton];
         
         // Add grass background
-        UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 2 * frameHeight / 3, frameWidth, frameHeight / 3)];
+        CGRect grassBackgroundFrame = CGRectMake(0, 2 * frameHeight / 3, frameWidth, frameHeight / 3);
+        UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:grassBackgroundFrame];
         [grassBackground setImage:[UIImage imageNamed:@"grass-background"]];
         [self addSubview:grassBackground];
         
-        UIImageView *grass = [[UIImageView alloc] initWithFrame:CGRectMake(0, 6 * frameHeight / 7, frameWidth, frameHeight / 7)];
+        CGRect grassFrame = CGRectMake(0, 6 * frameHeight / 7, frameWidth, frameHeight / 7);
+        UIImageView *grass = [[UIImageView alloc] initWithFrame:grassFrame];
         [grass setImage:[UIImage imageNamed:@"grass-foreground"]];
         [self addSubview:grass];
     }

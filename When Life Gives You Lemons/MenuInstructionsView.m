@@ -40,7 +40,10 @@
         NSString* instructionsText = @" You've been give 20 dollars to start up your own business. You've decided to make a lemonade stand! \n \n Use the money you have to buy ingredients and prepare for the next day. Change your recipe to try to make the tastiest lemonade possible. If your customers like your lemonade, your popularity will go up! \n \n The more popular your stand is, the more customers you will have. Good luck, and don't forget the cups!";
         
         // Create Text box with instructions
-        CGRect instructionsFrame = CGRectMake(instructionsBorderThickness, topBorderThickness + headerThickness + instructionsBorderThickness, width - 2 * instructionsBorderThickness, height - topBorderThickness - headerThickness - 2 * instructionsBorderThickness);
+        CGRect instructionsFrame = CGRectMake(instructionsBorderThickness,
+                                              topBorderThickness + headerThickness + instructionsBorderThickness,
+                                              width - 2 * instructionsBorderThickness,
+                                              height - topBorderThickness - headerThickness - 2 * instructionsBorderThickness);
         UITextView* instructions = [[UITextView alloc] initWithFrame:instructionsFrame];
         [instructions setFont:[UIFont fontWithName:fontName size:fontSize]];
         [instructions setText:instructionsText];
@@ -48,7 +51,10 @@
         [self addSubview:instructions];
         
         // Create back button
-        CGRect backButtonFrame = CGRectMake(2 * width / 3, height - headerThickness, width / 4, headerThickness / 2);
+        CGRect backButtonFrame = CGRectMake(2 * width / 3,
+                                            height - headerThickness,
+                                            width / 4,
+                                            headerThickness / 2);
         UIButton* backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
         [backButton setBackgroundColor:[UIColor whiteColor]];
         backButton.layer.cornerRadius = 10;
@@ -62,7 +68,10 @@
         [self addSubview:backButton];
         
         // Add lemon image
-        CGRect lemonImageFrame = CGRectMake(width / 8, height - height / 4, width / 4, width / 4);
+        CGRect lemonImageFrame = CGRectMake(width / 8,
+                                            height - height / 4,
+                                            width / 4,
+                                            width / 4);
         UIImageView* lemonImage = [[UIImageView alloc] initWithFrame:lemonImageFrame];
         [lemonImage setImage:[UIImage imageNamed:@"lemons"]];
         [self addSubview:lemonImage];
@@ -81,14 +90,5 @@
     [self.layer addAnimation:transition forKey:nil];
     [self sendSubviewToBack:self];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

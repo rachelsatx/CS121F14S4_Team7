@@ -38,7 +38,7 @@
     if (maxCustomers > 0) {
     
         for (Customer *customer in customers) {
-            if ([customer willBuyAtPrice:price]) {
+            if ([customer willBuyAtPrice:price withRecipe:recipe]) {
                 ++customersWhoBought;
                 grossEarnings += [price floatValue];
                 
@@ -58,6 +58,11 @@
         }
     } else {
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
+    }
+    
+    // If the lemonade has almost no lemons, then tell them it needs to be lemonade.
+    if ([[recipe valueForKey:@"lemons"] floatValue] <= .05) {
+        feedbackString = @"Your lemonade didn't have enough lemons in it to look like lemonade, so no one wanted to buy it!";
     }
     
     float portionWhoBought = ((float) customersWhoBought) / ((float) totalCustomers);

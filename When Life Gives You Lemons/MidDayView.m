@@ -34,51 +34,39 @@
         SKScene *weatherScene;
         
         if (weather == Sunny) {
-            //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
-            //[self addSubview:backgroundView];
-            //SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
-            //[self addSubview:animation];
             SunnyScene* sunScene = [[SunnyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
             weatherScene = sunScene;
-            //[animation presentScene:sunScene];
         } else if (weather == Cloudy) {
-            //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloudy-background"]];
-            //[self addSubview:backgroundView];
-            //SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
-            //[self addSubview:animation];
             CloudyScene *cloudScene = [[CloudyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
             weatherScene = cloudScene;
-            //[animation presentScene:cloudScene];
         } else if (weather == Raining) {
-            //UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"raining-background"]];
-            //[self addSubview:backgroundView];
-            //SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
-            //[self addSubview:animation];
             RainyScene *rainScene = [[RainyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
             weatherScene = rainScene;
-            //[animation presentScene:rainScene];
         }
-        
         // Display the appropriate weather scene.
         [animation presentScene:weatherScene];
         
         // Set grass background - behind stand
-        UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0, 2 * frameHeight / 3, frameWidth, frameHeight / 3)];
+        CGRect grassBackgroundFrame = CGRectMake(0, 2 * frameHeight / 3, frameWidth, frameHeight / 3);
+        UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:grassBackgroundFrame];
         [grassBackground setImage:[UIImage imageNamed:@"grass-background"]];
         [self addSubview:grassBackground];
         
         // Add vendor image behind lemonade stand
-        UIImageView *vendor = [[UIImageView alloc] initWithFrame:CGRectMake(frameWidth / 4, frameHeight / 2, frameWidth / 4, frameHeight / 4)];
+        CGRect vendorFrame = CGRectMake(frameWidth / 4, frameHeight / 2, frameWidth / 4, frameHeight / 4);
+        UIImageView *vendor = [[UIImageView alloc] initWithFrame:vendorFrame];
         vendor.image = [UIImage imageNamed:@"person-pink"];
         [self addSubview:vendor];
         
         // Add lemonade stand image in bottom left
-        UIImageView *lemonadeStand =[[UIImageView alloc] initWithFrame:CGRectMake(0, frameHeight / 5, 3 * frameWidth / 4, 3 * frameHeight / 4)];
+        CGRect lemonadeStandFrame = CGRectMake(0, frameHeight / 5, 3 * frameWidth / 4, 3 * frameHeight / 4);
+        UIImageView *lemonadeStand =[[UIImageView alloc] initWithFrame:lemonadeStandFrame];
         lemonadeStand.image = [UIImage imageNamed:@"lemonade-stand"];
         [self addSubview:lemonadeStand];
         
         // Add price on the lemonade stand to reflect what the user chose
-        UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(2 * frameWidth / 5, 7.3 * frameHeight / 10, frameWidth / 4, frameHeight / 4)];
+        CGRect priceLabelFrame = CGRectMake(2 * frameWidth / 5, 7.3 * frameHeight / 10, frameWidth / 4, frameHeight / 4);
+        UILabel *priceLabel = [[UILabel alloc] initWithFrame:priceLabelFrame];
         CGFloat price = [dataStore.getPrice floatValue];
         NSAssert(price >= 0, @"Negative price (%0.2f)", price);
         priceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
@@ -86,20 +74,24 @@
         [self addSubview:priceLabel];
         
         // Add customers next to the lemonade stand
-        UIImageView *customer1 = [[UIImageView alloc] initWithFrame:CGRectMake(2 * frameWidth / 3, 3 * frameHeight / 5, frameWidth / 4, frameHeight / 4)];
+        CGRect customer1Frame = CGRectMake(2 * frameWidth / 3, 3 * frameHeight / 5, frameWidth / 4, frameHeight / 4);
+        UIImageView *customer1 = [[UIImageView alloc] initWithFrame:customer1Frame];
         customer1.image = [UIImage imageNamed:@"person-navy"];
         [self addSubview:customer1];
         
-        UIImageView *customer2 = [[UIImageView alloc] initWithFrame:CGRectMake(3 * frameWidth / 4, 2 * frameHeight / 3, frameWidth / 4, frameHeight / 4)];
+        CGRect customer2Frame = CGRectMake(3 * frameWidth / 4, 2 * frameHeight / 3, frameWidth / 4, frameHeight / 4);
+        UIImageView *customer2 = [[UIImageView alloc] initWithFrame:customer2Frame];
         customer2.image = [UIImage imageNamed:@"person-purple"];
         [self addSubview:customer2];
         
-        UIImageView *customer3 = [[UIImageView alloc] initWithFrame:CGRectMake(2 * frameWidth / 3, 3 * frameHeight / 4, frameWidth / 4, frameHeight / 4)];
+        CGRect customer3Frame = CGRectMake(2 * frameWidth / 3, 3 * frameHeight / 4, frameWidth / 4, frameHeight / 4);
+        UIImageView *customer3 = [[UIImageView alloc] initWithFrame:customer3Frame];
         customer3.image = [UIImage imageNamed:@"person-red"];
         [self addSubview:customer3];
         
         // Set grass foreground - in front of stand
-        UIImageView *grass = [[UIImageView alloc] initWithFrame:CGRectMake(0, 6 * frameHeight / 7, frameWidth, frameHeight / 7)];
+        CGRect grassFrame = CGRectMake(0, 6 * frameHeight / 7, frameWidth, frameHeight / 7);
+        UIImageView *grass = [[UIImageView alloc] initWithFrame:grassFrame];
         [grass setImage:[UIImage imageNamed:@"grass-foreground"]];
         [self addSubview:grass];
     }
