@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NumberWithTwoDecimals.h"
 
 typedef NS_ENUM(int, Weather) {
     Sunny,
@@ -26,8 +27,8 @@ typedef NS_ENUM(int, DayOfWeek) {
 
 @interface DataStore : NSObject
 
-- (NSNumber*) getPrice;
-- (void) setPrice:(NSNumber*) newPrice;
+- (NumberWithTwoDecimals*) getPrice;
+- (void) setPrice:(NumberWithTwoDecimals*) newPrice;
 
 - (Weather) getWeather;
 - (void) setWeather:(Weather) newWeather;
@@ -47,14 +48,14 @@ typedef NS_ENUM(int, DayOfWeek) {
 -(NSMutableDictionary*) getIngredientPrices;
 -(void) setIngredientPrices:(NSMutableDictionary*) newIngredientPrices;
 
--(NSNumber*) getPopularity;
--(void) setPopularity:(NSNumber*) newPopularity;
+-(NSInteger) getPopularity;
+-(void) setPopularity:(NSInteger) newPopularity;
 
--(NSNumber*) getMoney;
--(void) setMoney:(NSNumber*) newMoney;
+-(NumberWithTwoDecimals*) getMoney;
+-(void) setMoney:(NumberWithTwoDecimals*) newMoney;
 
--(NSNumber*) getProfit;
--(void) setProfit:(NSNumber*) newProfit;
+-(NumberWithTwoDecimals*) getProfit;
+-(void) setProfit:(NumberWithTwoDecimals*) newProfit;
 
 -(NSInteger) getCupsSold;
 -(void) setCupsSold:(NSInteger) newCupsSold;

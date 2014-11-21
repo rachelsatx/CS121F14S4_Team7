@@ -31,9 +31,9 @@
         
         // Set background color depending on money
         CGFloat maxProfitForHue = 30.0;
-        NSNumber *profit = dataStore.getProfit;
-        NSAssert(profit >= 0, @"Negative amount of profit (%@)", profit);
-        CGFloat hueFactor = [profit floatValue] < maxProfitForHue ? [profit floatValue] : maxProfitForHue;
+        NumberWithTwoDecimals *profit = [dataStore getProfit];
+        NSAssert([profit isGreaterThanOrEqual:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]], @"Negative amount of profit (%f)", [profit floatValue]);
+        CGFloat hueFactor = [profit isLessThan:[[NumberWithTwoDecimals alloc] initWithFloat:maxProfitForHue]] ? [profit floatValue] : maxProfitForHue;
         CGFloat hue = hueFactor / maxProfitForHue * 0.4;
         UIColor *backgroundColor = [UIColor colorWithHue:hue saturation:0.9 brightness:0.9 alpha:1.0];
         [self setBackgroundColor:backgroundColor];
@@ -49,9 +49,9 @@
         popularityView.layer.borderColor = [UIColor blackColor].CGColor;
         popularityView.textAlignment = NSTextAlignmentCenter;
         [popularityView setFont:[UIFont fontWithName:fontName size:fontSize]];
-        NSNumber *popularity = dataStore.getPopularity;
-        NSAssert(popularity >= 0, @"Negative popularity (%@)", popularity);
-        popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %@ percent.", popularity];
+        NSInteger popularity = [dataStore getPopularity];
+        NSAssert(popularity >= 0, @"Negative popularity (%d)", popularity);
+        popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %d percent.", popularity];
         popularityView.editable = NO;
         [self addSubview:popularityView];
         
@@ -95,16 +95,16 @@
         NSInteger cupsSold = dataStore.getCupsSold;
         NSAssert(cupsSold >= 0, @"Negative number of cups sold (%d)", (int) cupsSold);
         NSString *profitFromDay = [NSString stringWithFormat:@"You sold %d cups of lemonade and made $%0.2f.", (int) cupsSold, [profit floatValue]];
-        NSNumber *money = dataStore.getMoney;
-        NSAssert(money >= 0, @"Negative money (%@)", money);
+        NumberWithTwoDecimals* money = [dataStore getMoney];
+        NSAssert([money isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0]], @"Negative money (%f)", [money floatValue]);
         NSString *moneyOnHand = [NSString stringWithFormat:@"Total money on hand: $%0.2f", [money floatValue]];
         summaryView.text = [NSString stringWithFormat:@"\nMoney:\n\r%@\n\r%@", profitFromDay, moneyOnHand];
         summaryView.editable = NO;
         [self addSubview:summaryView];
         
         // Add customer images according to popularity - the max that will fit is 9
-        NSInteger numCustomers = [popularity integerValue] / 10 < 9 ? [popularity integerValue] / 10 : 9;
-        for (NSInteger i = 0; i < numCustomers; i += 1) {
+        NSInteger numCustomers = popularity / 10 < 9 ? popularity / 10 : 9;
+        for (int i = 0; i < numCustomers; i += 1) {
             CGRect customerFrame = CGRectMake(i * (imageSize / 2),
                                               (3 * borderThickness / 2) + textViewHeight - imageSize,
                                               imageSize,

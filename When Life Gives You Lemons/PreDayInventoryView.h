@@ -10,20 +10,20 @@
 
 @protocol PreDayInvenentoryViewDelegate <NSObject>
 @required
-- (NSNumber*) getLemons;
-- (void) setLemons:(NSNumber*) newLemons;
-- (NSNumber*) getSugar;
-- (void) setSugar:(NSNumber*) newSugar;
-- (NSNumber*) getIce;
-- (void) setIce:(NSNumber*) newIce;
-- (NSNumber*) getCups;
-- (void) setCups:(NSNumber*) newCups;
-- (NSNumber*) getMoney;
-- (void) setMoney:(NSNumber*) newMoney;
-- (NSNumber*) getLemonPrice;
-- (NSNumber*) getSugarPrice;
-- (NSNumber*) getIcePrice;
-- (NSNumber*) getCupsPrice;
+- (NumberWithTwoDecimals*) getLemons;
+- (void) setLemons:(NumberWithTwoDecimals*) newLemons;
+- (NumberWithTwoDecimals*) getSugar;
+- (void) setSugar:(NumberWithTwoDecimals*) newSugar;
+- (NumberWithTwoDecimals*) getIce;
+- (void) setIce:(NumberWithTwoDecimals*) newIce;
+- (NSInteger) getCups;
+- (void) setCups:(NSInteger) newCups;
+- (NumberWithTwoDecimals*) getMoney;
+- (void) setMoney:(NumberWithTwoDecimals*) newMoney;
+- (NumberWithTwoDecimals*) getLemonPrice;
+- (NumberWithTwoDecimals*) getSugarPrice;
+- (NumberWithTwoDecimals*) getIcePrice;
+- (NumberWithTwoDecimals*) getCupsPrice;
 @end
 
 @interface PreDayInventoryView : UIView

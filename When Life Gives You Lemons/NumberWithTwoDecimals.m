@@ -53,6 +53,11 @@
     return _fractionalPart;
 }
 
+- (float) floatValue
+{
+    return _integerPart + _fractionalPart / 100.0;
+}
+
 - (BOOL) isEqual:(NumberWithTwoDecimals *)other
 {
     return ((_integerPart == [other integerPart]) && (_fractionalPart == [other fractionalPart]));

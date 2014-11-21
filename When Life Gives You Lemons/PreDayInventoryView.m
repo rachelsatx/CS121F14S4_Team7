@@ -335,7 +335,7 @@
                                                  3 * buttonSize,
                                                  buttonSize);
         _cupsAmountLabel = [[UILabel alloc] initWithFrame:cupsAmountLabelFrame];
-        [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] intValue]]];
+        [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [self.delegate getCups]]];
         [_cupsAmountLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         [_cupsAmountLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:_cupsAmountLabel];
@@ -371,7 +371,7 @@
     [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [[self.delegate getLemons] floatValue]]];
     [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [[self.delegate getSugar] floatValue]]];
     [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [[self.delegate getIce] floatValue]]];
-    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] intValue]]];
+    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [self.delegate getCups]]];
 }
 
 - (void) updatePriceLabels
