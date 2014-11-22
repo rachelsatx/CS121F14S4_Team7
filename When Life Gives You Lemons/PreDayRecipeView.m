@@ -33,7 +33,7 @@
                                  ((frameHeight - borderThickness) / 4) : (frameWidth / 2);
         CGFloat buttonSize = ingredientSize / 3;
         CGFloat labelWidth = frameWidth / 4;
-        CGFloat labelHeight = frameHeight / 4;
+        CGFloat labelHeight = buttonSize;
         
         CGFloat fontSize = 30;
         CGFloat titleSizeIncrease = 5;
@@ -68,7 +68,7 @@
         [self addSubview:lemonImage];
         
         CGRect lemonNameLabelFrame = CGRectMake(ingredientColumnWidth,
-                                                borderThickness,
+                                                borderThickness + buttonSize,
                                                 labelWidth,
                                                 labelHeight);
         UILabel* lemonNameLabel = [[UILabel alloc] initWithFrame:lemonNameLabelFrame];
@@ -119,7 +119,7 @@
         [self addSubview:sugarImage];
         
         CGRect sugarNameLabelFrame = CGRectMake(ingredientColumnWidth,
-                                                borderThickness + ingredientSize,
+                                                borderThickness + buttonSize + ingredientSize,
                                                 labelWidth,
                                                 labelHeight);
         UILabel* sugarNameLabel = [[UILabel alloc] initWithFrame:sugarNameLabelFrame];
@@ -170,7 +170,7 @@
         [self addSubview:iceImage];
         
         CGRect iceNameLabelFrame = CGRectMake(ingredientColumnWidth,
-                                              borderThickness + (2 * ingredientSize),
+                                              borderThickness + buttonSize + (2 * ingredientSize),
                                               labelWidth,
                                               labelHeight);
         UILabel* iceNameLabel = [[UILabel alloc] initWithFrame:iceNameLabelFrame];
@@ -221,7 +221,7 @@
         [self addSubview:waterImage];
         
         CGRect waterNameLabelFrame = CGRectMake(ingredientColumnWidth,
-                                                borderThickness + (3 * ingredientSize),
+                                                borderThickness + buttonSize + (3 * ingredientSize),
                                                 labelWidth,
                                                 labelHeight);
         UILabel* waterNameLabel = [[UILabel alloc] initWithFrame:waterNameLabelFrame];

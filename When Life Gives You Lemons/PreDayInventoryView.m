@@ -45,7 +45,7 @@
         CGFloat labelWidth = frameWidth / 4;
         CGFloat labelHeight = frameHeight / 8;
         
-        CGFloat multiplierWidth = frameWidth / 3;
+        CGFloat multiplierWidth = frameWidth / 4;
         CGFloat multiplierHeight = borderThickness / 2;
         
         CGFloat fontSize = 30;
@@ -71,7 +71,17 @@
         [self addSubview:title];
         
         // Create multipliers for buy amount (1x, 10x, 100x)
-        CGRect oneButtonFrame = CGRectMake(0,
+        CGRect multiplierLabelFrame = CGRectMake(0,
+                                            borderThickness - multiplierHeight,
+                                            multiplierWidth,
+                                            multiplierHeight);
+        UILabel* multiplierLabel = [[UILabel alloc] initWithFrame:multiplierLabelFrame];
+        [multiplierLabel setText:@"Multipliers: "];
+        [multiplierLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
+        [multiplierLabel setTextAlignment:NSTextAlignmentCenter];
+        [self addSubview:multiplierLabel];
+        
+        CGRect oneButtonFrame = CGRectMake(multiplierWidth,
                                            borderThickness - multiplierHeight,
                                            multiplierWidth,
                                            multiplierHeight);
@@ -85,7 +95,7 @@
         [oneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _amountMultiplier = 1;
         
-        CGRect tenButtonFrame = CGRectMake(multiplierWidth,
+        CGRect tenButtonFrame = CGRectMake(2 * multiplierWidth,
                                            borderThickness - multiplierHeight,
                                            multiplierWidth,
                                            multiplierHeight);
@@ -96,7 +106,7 @@
         [tenButton addTarget:self action:@selector(setAmountMultiplier:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:tenButton];
         
-        CGRect hundredButtonFrame = CGRectMake(2 * multiplierWidth,
+        CGRect hundredButtonFrame = CGRectMake(3 * multiplierWidth,
                                                borderThickness - multiplierHeight,
                                                multiplierWidth,
                                                multiplierHeight);
