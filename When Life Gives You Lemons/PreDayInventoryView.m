@@ -23,6 +23,24 @@
     
     int _amountMultiplier;
     UIButton* _selectedButton;
+    
+    CGFloat frameWidth;
+    CGFloat frameHeight;
+    
+    CGFloat borderThickness;
+    CGFloat ingredientColumnWidth;
+    CGFloat labelColumnWidth;
+    CGFloat ingredientSize;
+    CGFloat buttonSize;
+    CGFloat labelWidth;
+    CGFloat labelHeight;
+    
+    CGFloat multiplierWidth;
+    CGFloat multiplierHeight;
+    
+    CGFloat fontSize;
+    CGFloat titleSizeIncrease;
+    NSString* fontName;
 }
 @end
 
@@ -33,42 +51,10 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        CGFloat frameWidth = CGRectGetWidth(self.frame);
-        CGFloat frameHeight = CGRectGetWidth(self.frame);
+        [self setConstants];
         
-        CGFloat borderThickness = (frameHeight < frameWidth) ? (frameHeight / 5) : (frameWidth / 5);
-        CGFloat ingredientColumnWidth = frameWidth / 2;
-        CGFloat labelColumnWidth = frameWidth / 4;
-        CGFloat ingredientSize = ((frameHeight - borderThickness) / 4) < (frameWidth / 2) ?
-                                 ((frameHeight - borderThickness) / 4) : (frameWidth / 2);
-        CGFloat buttonSize = ingredientSize / 3;
-        CGFloat labelWidth = frameWidth / 4;
-        CGFloat labelHeight = frameHeight / 8;
-        
-        CGFloat multiplierWidth = frameWidth / 4;
-        CGFloat multiplierHeight = borderThickness / 2;
-        
-        CGFloat fontSize = 30;
-        CGFloat titleSizeIncrease = 5;
-        NSString* fontName = @"Papyrus";
-        
-        // Set background image to a paper bag
-        UIGraphicsBeginImageContext(self.frame.size);
-        [[UIImage imageNamed:@"bag"] drawInRect:self.bounds];
-        UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        self.backgroundColor = [UIColor colorWithPatternImage:image];
-        
-        // Create title of view
-        CGRect titleFrame = CGRectMake(0,
-                                       0,
-                                       frameWidth,
-                                       borderThickness - multiplierHeight);
-        UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
-        title.text = @"Inventory:";
-        [title setFont:[UIFont fontWithName:fontName size:(fontSize + titleSizeIncrease)]];
-        [title setTextAlignment:NSTextAlignmentCenter];
-        [self addSubview:title];
+        [self setBackground];
+        [self setTitle];
         
         // Create multipliers for buy amount (1x, 10x, 100x)
         CGRect multiplierLabelFrame = CGRectMake(0,
@@ -374,6 +360,51 @@
     }
     
     return self;
+}
+
+- (void)setConstants
+{
+    frameWidth = CGRectGetWidth(self.frame);
+    frameHeight = CGRectGetWidth(self.frame);
+    
+    borderThickness = (frameHeight < frameWidth) ? (frameHeight / 5) : (frameWidth / 5);
+    ingredientColumnWidth = frameWidth / 2;
+    labelColumnWidth = frameWidth / 4;
+    ingredientSize = ((frameHeight - borderThickness) / 4) < (frameWidth / 2) ?
+                     ((frameHeight - borderThickness) / 4) : (frameWidth / 2);
+    buttonSize = ingredientSize / 3;
+    labelWidth = frameWidth / 4;
+    labelHeight = frameHeight / 8;
+    
+    multiplierWidth = frameWidth / 4;
+    multiplierHeight = borderThickness / 2;
+    
+    fontSize = 30;
+    titleSizeIncrease = 5;
+    fontName = @"Papyrus";
+}
+
+- (void)setBackground
+{
+    // Set background image to a paper bag
+    UIGraphicsBeginImageContext(self.frame.size);
+    [[UIImage imageNamed:@"bag"] drawInRect:self.bounds];
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    self.backgroundColor = [UIColor colorWithPatternImage:image];
+}
+
+- (void)setTitle
+{
+    CGRect titleFrame = CGRectMake(0,
+                                   0,
+                                   frameWidth,
+                                   borderThickness - multiplierHeight);
+    UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
+    title.text = @"Inventory:";
+    [title setFont:[UIFont fontWithName:fontName size:(fontSize + titleSizeIncrease)]];
+    [title setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:title];
 }
 
 - (void) updateAmountLabels
