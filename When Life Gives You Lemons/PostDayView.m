@@ -88,7 +88,7 @@
                                         textViewWidth,
                                         textViewHeight);
     UITextView *popularityView = [[UITextView alloc] initWithFrame:popularityFrame];
-    [self customizeTextView:popularityView];
+    [self formatTextView:popularityView];
     popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %@ percent.", popularity];
     popularityView.editable = NO;
     [self addSubview:popularityView];
@@ -102,7 +102,7 @@
                                       textViewWidth,
                                       textViewHeight);
     UITextView *feedbackView = [[UITextView alloc] initWithFrame:feedbackFrame];
-    [self customizeTextView:feedbackView];
+    [self formatTextView:feedbackView];
     [self addSubview:feedbackView];
     
     // Create feedback text - this view is less wide than the feedback frame
@@ -132,7 +132,7 @@
                                      textViewWidth,
                                      textViewHeight);
     UITextView *summaryView = [[UITextView alloc] initWithFrame:summaryFrame];
-    [self customizeTextView:summaryView];
+    [self formatTextView:summaryView];
     NSString *profitFromDay = [NSString stringWithFormat:@"You sold %d cups of lemonade and made $%0.2f.", cupsSold, [profit floatValue]];
     NSString *moneyOnHand = [NSString stringWithFormat:@"Total money on hand: $%0.2f", [money floatValue]];
     summaryView.text = [NSString stringWithFormat:@"\nMoney:\n\r%@\n\r%@", profitFromDay, moneyOnHand];
@@ -140,7 +140,7 @@
     [self addSubview:summaryView];
 }
 
-- (void)customizeTextView:(UITextView *)view
+- (void)formatTextView:(UITextView *)view
 {
     view.backgroundColor = [UIColor whiteColor];
     view.layer.borderWidth = outlineWidth;
