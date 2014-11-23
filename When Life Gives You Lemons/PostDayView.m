@@ -9,6 +9,24 @@
 #import "PostDayView.h"
 #import "DataStore.h"
 
+@interface PostDayView() {
+    CGFloat frameWidth;
+    CGFloat frameHeight;
+    
+    CGFloat borderThickness;
+    CGFloat imageSize;
+    CGFloat outlineWidth;
+    CGFloat textViewWidth;
+    CGFloat textViewHeight;
+    CGFloat heightBetweenTextViews;
+    
+    CGFloat fontSize;
+    NSString *fontName;
+    
+    CGFloat maxProfitForHue;
+}
+@end
+
 @implementation PostDayView
 
 - (id)initWithFrame:(CGRect)frame andDataStore:(DataStore *)dataStore
@@ -16,124 +34,157 @@
     self = [self initWithFrame:frame];
     
     if (self) {
-        CGFloat frameWidth = CGRectGetWidth(self.frame);
-        CGFloat frameHeight = CGRectGetHeight(self.frame);
+        [self setConstants];
         
-        CGFloat borderThickness = frameWidth / 10.0;
-        CGFloat imageSize = frameHeight < frameWidth ? (frameHeight / 5.0) : (frameWidth / 5.0);
-        CGFloat outlineWidth = 5;
-        CGFloat textViewWidth = frameWidth - (2 * borderThickness);
-        CGFloat textViewHeight = frameHeight / 4;
-        CGFloat heightBetweenTextViews = borderThickness / 2;
+        [self setBackgroundByProfit:dataStore.getProfit];
         
-        CGFloat fontSize = 20;
-        NSString *fontName = @"Chalkduster";
+        [self createPopularityView:dataStore.getPopularity];
+        [self createFeedbackView:dataStore.getFeedbackString];
+        [self createSummaryViewWithCupsSold:dataStore.getCupsSold profit:dataStore.getProfit money:dataStore.getMoney];
         
-        // Set background color depending on money
-        CGFloat maxProfitForHue = 30.0;
-        NSNumber *profit = dataStore.getProfit;
-        NSAssert(profit >= 0, @"Negative amount of profit (%@)", profit);
-        CGFloat hueFactor = [profit floatValue] < maxProfitForHue ? [profit floatValue] : maxProfitForHue;
-        CGFloat hue = hueFactor / maxProfitForHue * 0.4;
-        UIColor *backgroundColor = [UIColor colorWithHue:hue saturation:0.9 brightness:0.9 alpha:1.0];
-        [self setBackgroundColor:backgroundColor];
-        
-        // Create popularity frame and text
-        CGRect popularityFrame = CGRectMake(borderThickness,
-                                            borderThickness,
-                                            textViewWidth,
-                                            textViewHeight);
-        UITextView *popularityView = [[UITextView alloc] initWithFrame:popularityFrame];
-        popularityView.backgroundColor = [UIColor whiteColor];
-        popularityView.layer.borderWidth = outlineWidth;
-        popularityView.layer.borderColor = [UIColor blackColor].CGColor;
-        popularityView.textAlignment = NSTextAlignmentCenter;
-        [popularityView setFont:[UIFont fontWithName:fontName size:fontSize]];
-        NSNumber *popularity = dataStore.getPopularity;
-        NSAssert(popularity >= 0, @"Negative popularity (%@)", popularity);
-        popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %@ percent.", popularity];
-        popularityView.editable = NO;
-        [self addSubview:popularityView];
-        
-        // Create feedback frame
-        CGRect feedbackFrame = CGRectMake(borderThickness,
-                                          borderThickness + textViewHeight + heightBetweenTextViews,
-                                          textViewWidth,
-                                          textViewHeight);
-        UITextView *feedbackView = [[UITextView alloc] initWithFrame:feedbackFrame];
-        feedbackView.backgroundColor = [UIColor whiteColor];
-        feedbackView.layer.borderWidth = outlineWidth;
-        feedbackView.layer.borderColor = [UIColor blackColor].CGColor;
-        [self addSubview:feedbackView];
-        
-        // Create feedback text - this view is less wide than the feedback frame
-        // and is done so that the jug does not cover any feedback
-        CGRect feedbackTextFrame = CGRectMake((3 * borderThickness / 2) + outlineWidth,
-                                              borderThickness + textViewHeight + heightBetweenTextViews + outlineWidth,
-                                              textViewWidth - borderThickness - (2 * outlineWidth),
-                                              textViewHeight - (2 * outlineWidth));
-        UITextView *feedbackTextView = [[UITextView alloc] initWithFrame:feedbackTextFrame];
-        feedbackTextView.backgroundColor = [UIColor whiteColor];
-        feedbackTextView.textAlignment = NSTextAlignmentCenter;
-        [feedbackTextView setFont:[UIFont fontWithName:fontName size:fontSize]];
-        NSString *feedback = dataStore.getFeedbackString;
-        feedbackTextView.text = [NSString stringWithFormat: @"\nFeedback:\n\r%@", feedback];
-        feedbackTextView.editable = NO;
-        [self addSubview:feedbackTextView];
-        
-        // Create end-of-day summary frame and text
-        CGRect summaryFrame = CGRectMake(borderThickness,
-                                         borderThickness + 2 * textViewHeight + 2 * heightBetweenTextViews,
-                                         textViewWidth,
-                                         textViewHeight);
-        UITextView *summaryView = [[UITextView alloc] initWithFrame:summaryFrame];
-        summaryView.backgroundColor = [UIColor whiteColor];
-        summaryView.layer.borderWidth = outlineWidth;
-        summaryView.layer.borderColor = [UIColor blackColor].CGColor;
-        summaryView.textAlignment = NSTextAlignmentCenter;
-        [summaryView setFont:[UIFont fontWithName:fontName size:fontSize]];
-        NSInteger cupsSold = dataStore.getCupsSold;
-        NSAssert(cupsSold >= 0, @"Negative number of cups sold (%d)", cupsSold);
-        NSString *profitFromDay = [NSString stringWithFormat:@"You sold %d cups of lemonade and made $%0.2f.", cupsSold, [profit floatValue]];
-        NSNumber *money = dataStore.getMoney;
-        NSAssert(money >= 0, @"Negative money (%@)", money);
-        NSString *moneyOnHand = [NSString stringWithFormat:@"Total money on hand: $%0.2f", [money floatValue]];
-        summaryView.text = [NSString stringWithFormat:@"\nMoney:\n\r%@\n\r%@", profitFromDay, moneyOnHand];
-        summaryView.editable = NO;
-        [self addSubview:summaryView];
-        
-        // Add customer images according to popularity - the max that will fit is 9
-        NSInteger numCustomers = [popularity integerValue] / 10 < 9 ? [popularity integerValue] / 10 : 9;
-        for (NSInteger i = 0; i < numCustomers; i += 1) {
-            CGRect customerFrame = CGRectMake(i * (imageSize / 2),
-                                              (3 * borderThickness / 2) + textViewHeight - imageSize,
-                                              imageSize,
-                                              imageSize);
-            UIImageView *customerView = [[UIImageView alloc] initWithFrame:customerFrame];
-            customerView.image = [UIImage imageNamed:@"person-navy"];
-            [self addSubview:customerView];
-        }
-        
-        // Add lemonade jug image
-        CGRect jugFrame = CGRectMake(frameWidth - (borderThickness / 4) - imageSize,
-                                     2 * textViewHeight,
-                                     imageSize,
-                                     imageSize);
-        UIImageView *jugView = [[UIImageView alloc] initWithFrame:jugFrame];
-        jugView.image = [UIImage imageNamed:@"jug"];
-        [self addSubview:jugView];
-        
-        // Add coins image
-        CGRect coinsFrame = CGRectMake(borderThickness / 2,
-                                       (borderThickness / 2) + (3 * textViewHeight),
-                                       imageSize,
-                                       imageSize);
-        UIImageView *coinsView = [[UIImageView alloc] initWithFrame:coinsFrame];
-        coinsView.image = [UIImage imageNamed:@"coins"];
-        [self addSubview:coinsView];
+        [self addCustomersByPopularity:dataStore.getPopularity];
+        [self addImages];
     }
     
     return self;
+}
+
+- (void)setConstants
+{
+    frameWidth = CGRectGetWidth(self.frame);
+    frameHeight = CGRectGetHeight(self.frame);
+    
+    borderThickness = frameWidth / 10.0;
+    imageSize = frameHeight < frameWidth ? (frameHeight / 5.0) : (frameWidth / 5.0);
+    outlineWidth = 5;
+    textViewWidth = frameWidth - (2 * borderThickness);
+    textViewHeight = frameHeight / 4;
+    heightBetweenTextViews = borderThickness / 2;
+    
+    fontSize = 20;
+    fontName = @"Chalkduster";
+    
+    maxProfitForHue = 40.0;
+}
+
+- (void)setBackgroundByProfit:(NSNumber *)profit
+{
+    NSAssert(profit >= 0, @"Negative amount of profit (%@)", profit);
+
+    // Set background color depending on profit
+    CGFloat hueFactor = [profit floatValue] < maxProfitForHue ? [profit floatValue] : maxProfitForHue;
+    CGFloat hue = hueFactor / maxProfitForHue * 0.4;
+    UIColor *backgroundColor = [UIColor colorWithHue:hue saturation:0.9 brightness:0.9 alpha:1.0];
+    [self setBackgroundColor:backgroundColor];
+}
+
+- (void)createPopularityView:(NSNumber *)popularity
+{
+    NSAssert(popularity >= 0, @"Negative popularity (%@)", popularity);
+
+    // Create popularity frame and text
+    CGRect popularityFrame = CGRectMake(borderThickness,
+                                        borderThickness,
+                                        textViewWidth,
+                                        textViewHeight);
+    UITextView *popularityView = [[UITextView alloc] initWithFrame:popularityFrame];
+    [self customizeTextView:popularityView];
+    popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %@ percent.", popularity];
+    popularityView.editable = NO;
+    [self addSubview:popularityView];
+}
+
+- (void)createFeedbackView:(NSString *)feedback
+{
+    // Create feedback frame
+    CGRect feedbackFrame = CGRectMake(borderThickness,
+                                      borderThickness + textViewHeight + heightBetweenTextViews,
+                                      textViewWidth,
+                                      textViewHeight);
+    UITextView *feedbackView = [[UITextView alloc] initWithFrame:feedbackFrame];
+    [self customizeTextView:feedbackView];
+    [self addSubview:feedbackView];
+    
+    // Create feedback text - this view is less wide than the feedback frame
+    // and is done so that the jug does not cover any feedback
+    CGRect feedbackTextFrame = CGRectMake((3 * borderThickness / 2) + outlineWidth,
+                                          borderThickness + textViewHeight + heightBetweenTextViews + outlineWidth,
+                                          textViewWidth - borderThickness - (2 * outlineWidth),
+                                          textViewHeight - (2 * outlineWidth));
+    UITextView *feedbackTextView = [[UITextView alloc] initWithFrame:feedbackTextFrame];
+    feedbackTextView.backgroundColor = [UIColor whiteColor];
+    feedbackTextView.textAlignment = NSTextAlignmentCenter;
+    [feedbackTextView setFont:[UIFont fontWithName:fontName size:fontSize]];
+    feedbackTextView.text = [NSString stringWithFormat: @"\nFeedback:\n\r%@", feedback];
+    feedbackTextView.editable = NO;
+    [self addSubview:feedbackTextView];
+}
+
+- (void)createSummaryViewWithCupsSold:(NSInteger)cupsSold profit:(NSNumber *)profit money:(NSNumber *)money
+{
+    NSAssert(cupsSold >= 0, @"Negative number of cups sold (%d)", cupsSold);
+    NSAssert(profit >= 0, @"Negative amount of profit (%@)", profit);
+    NSAssert(money >= 0, @"Negative money (%@)", money);
+    
+    // Create end-of-day summary frame and text
+    CGRect summaryFrame = CGRectMake(borderThickness,
+                                     borderThickness + 2 * textViewHeight + 2 * heightBetweenTextViews,
+                                     textViewWidth,
+                                     textViewHeight);
+    UITextView *summaryView = [[UITextView alloc] initWithFrame:summaryFrame];
+    [self customizeTextView:summaryView];
+    NSString *profitFromDay = [NSString stringWithFormat:@"You sold %d cups of lemonade and made $%0.2f.", cupsSold, [profit floatValue]];
+    NSString *moneyOnHand = [NSString stringWithFormat:@"Total money on hand: $%0.2f", [money floatValue]];
+    summaryView.text = [NSString stringWithFormat:@"\nMoney:\n\r%@\n\r%@", profitFromDay, moneyOnHand];
+    summaryView.editable = NO;
+    [self addSubview:summaryView];
+}
+
+- (void)customizeTextView:(UITextView *)view
+{
+    view.backgroundColor = [UIColor whiteColor];
+    view.layer.borderWidth = outlineWidth;
+    view.layer.borderColor = [UIColor blackColor].CGColor;
+    view.textAlignment = NSTextAlignmentCenter;
+    [view setFont:[UIFont fontWithName:fontName size:fontSize]];
+}
+
+- (void)addCustomersByPopularity:(NSNumber *)popularity
+{
+    NSAssert(popularity >= 0, @"Negative popularity (%@)", popularity);
+
+    // Add customer images according to popularity - the max that will fit is 9
+    NSInteger numCustomers = [popularity integerValue] / 10 < 9 ? [popularity integerValue] / 10 : 9;
+    for (NSInteger i = 0; i < numCustomers; i += 1) {
+        CGRect customerFrame = CGRectMake(i * (imageSize / 2),
+                                          (3 * borderThickness / 2) + textViewHeight - imageSize,
+                                          imageSize,
+                                          imageSize);
+        UIImageView *customerView = [[UIImageView alloc] initWithFrame:customerFrame];
+        customerView.image = [UIImage imageNamed:@"person-navy"];
+        [self addSubview:customerView];
+    }
+}
+
+- (void)addImages
+{
+    // Add lemonade jug image
+    CGRect jugFrame = CGRectMake(frameWidth - (borderThickness / 4) - imageSize,
+                                 2 * textViewHeight,
+                                 imageSize,
+                                 imageSize);
+    UIImageView *jugView = [[UIImageView alloc] initWithFrame:jugFrame];
+    jugView.image = [UIImage imageNamed:@"jug"];
+    [self addSubview:jugView];
+    
+    // Add coins image
+    CGRect coinsFrame = CGRectMake(borderThickness / 2,
+                                   (borderThickness / 2) + (3 * textViewHeight),
+                                   imageSize,
+                                   imageSize);
+    UIImageView *coinsView = [[UIImageView alloc] initWithFrame:coinsFrame];
+    coinsView.image = [UIImage imageNamed:@"coins"];
+    [self addSubview:coinsView];
 }
 
 @end
