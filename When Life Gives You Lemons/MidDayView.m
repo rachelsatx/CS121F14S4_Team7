@@ -13,6 +13,7 @@
 #import "RainyScene.h"
 
 @interface MidDayView() {
+    // Constants
     CGFloat frameWidth;
     CGFloat frameHeight;
     

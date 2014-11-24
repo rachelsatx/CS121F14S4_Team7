@@ -9,6 +9,7 @@
 #import "MenuInstructionsView.h"
 
 @interface MenuInstructionsView() {
+    // Constants
     UIColor* backgroundColor;
     
     CGFloat frameWidth;

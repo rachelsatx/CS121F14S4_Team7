@@ -10,6 +10,7 @@
 #import "LemonRainScene.h"
 
 @interface MenuMainView() {
+    // Constants
     CGFloat frameWidth;
     CGFloat frameHeight;
     

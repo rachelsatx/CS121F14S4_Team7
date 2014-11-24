@@ -8,13 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(int, Ingredient) {
-    Lemons,
-    Sugar,
-    Ice,
-    Water
-};
-
 @protocol PreDayRecipeViewDelegate <NSObject>
 @required
 - (NSNumber*) getLemonsPercentage;

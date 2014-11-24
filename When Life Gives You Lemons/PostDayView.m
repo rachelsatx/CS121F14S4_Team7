@@ -10,6 +10,7 @@
 #import "DataStore.h"
 
 @interface PostDayView() {
+    // Constants
     CGFloat frameWidth;
     CGFloat frameHeight;
     

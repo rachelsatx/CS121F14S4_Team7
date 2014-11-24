@@ -15,6 +15,7 @@
     UILabel* _makeableCupsLabel;
     UIImageView* _weatherImageView;
     
+    // Constants
     CGFloat frameWidth;
     CGFloat frameHeight;
     

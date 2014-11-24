@@ -8,12 +8,20 @@
 
 #import "PreDayRecipeView.h"
 
+typedef NS_ENUM(int, RecipeIngredient) {
+    Lemons,
+    Sugar,
+    Ice,
+    Water
+};
+
 @interface PreDayRecipeView () {
     UILabel* _lemonsAmountLabel;
     UILabel* _sugarAmountLabel;
     UILabel* _iceAmountLabel;
     UILabel* _waterAmountLabel;
     
+    // Constants
     CGFloat frameWidth;
     CGFloat frameHeight;
     
@@ -99,16 +107,7 @@
 {
     [self addImageAndLabelWithTextFor:Lemons];
     
-    CGRect lemonUpButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
-                                           borderThickness,
-                                           buttonSize,
-                                           buttonSize);
-    UIButton* lemonUpButton = [[UIButton alloc] initWithFrame:lemonUpButtonFrame];
-    [lemonUpButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
-    [lemonUpButton addTarget:self
-                      action:@selector(incrementLemons:)
-            forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:lemonUpButton];
+    [self addIncrementAndDecrementButtonsFor:Lemons];
     
     CGRect lemonAmountLabelFrame = CGRectMake((ingredientColumnWidth + labelColumnWidth) - (buttonSize / 2),
                                               borderThickness + buttonSize,
@@ -119,33 +118,13 @@
     [_lemonsAmountLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
     [_lemonsAmountLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:_lemonsAmountLabel];
-    
-    CGRect lemonDownButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
-                                             borderThickness + (2 * buttonSize),
-                                             buttonSize,
-                                             buttonSize);
-    UIButton* lemonDownButton = [[UIButton alloc] initWithFrame:lemonDownButtonFrame];
-    [lemonDownButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
-    [lemonDownButton addTarget:self
-                        action:@selector(decrementLemons:)
-              forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:lemonDownButton];
 }
 
 - (void)createSugarSection
 {
     [self addImageAndLabelWithTextFor:Sugar];
     
-    CGRect sugarUpButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
-                                           borderThickness + ingredientSize,
-                                           buttonSize,
-                                           buttonSize);
-    UIButton* sugarUpButton = [[UIButton alloc] initWithFrame:sugarUpButtonFrame];
-    [sugarUpButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
-    [sugarUpButton addTarget:self
-                      action:@selector(incrementSugar:)
-            forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:sugarUpButton];
+    [self addIncrementAndDecrementButtonsFor:Sugar];
     
     CGRect sugarAmountLabelFrame = CGRectMake((ingredientColumnWidth + labelColumnWidth) - (buttonSize / 2),
                                               borderThickness + ingredientSize + buttonSize,
@@ -156,33 +135,13 @@
     [_sugarAmountLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
     [_sugarAmountLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:_sugarAmountLabel];
-    
-    CGRect sugarDownButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
-                                             borderThickness + ingredientSize + (2 * buttonSize),
-                                             buttonSize,
-                                             buttonSize);
-    UIButton* sugarDownButton = [[UIButton alloc] initWithFrame:sugarDownButtonFrame];
-    [sugarDownButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
-    [sugarDownButton addTarget:self
-                        action:@selector(decrementSugar:)
-              forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:sugarDownButton];
 }
 
 - (void)createIceSection
 {
     [self addImageAndLabelWithTextFor:Ice];
     
-    CGRect iceUpButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
-                                         borderThickness + (2 * ingredientSize),
-                                         buttonSize,
-                                         buttonSize);
-    UIButton* iceUpButton = [[UIButton alloc] initWithFrame:iceUpButtonFrame];
-    [iceUpButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
-    [iceUpButton addTarget:self
-                    action:@selector(incrementIce:)
-          forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:iceUpButton];
+    [self addIncrementAndDecrementButtonsFor:Ice];
     
     CGRect iceAmountLabelFrame = CGRectMake((ingredientColumnWidth + labelColumnWidth) - (buttonSize / 2),
                                             borderThickness + (2 * ingredientSize) + buttonSize,
@@ -193,17 +152,6 @@
     [_iceAmountLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
     [_iceAmountLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:_iceAmountLabel];
-    
-    CGRect iceDownButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
-                                           borderThickness + (2 * ingredientSize) + (2 * buttonSize),
-                                           buttonSize,
-                                           buttonSize);
-    UIButton* iceDownButton = [[UIButton alloc] initWithFrame:iceDownButtonFrame];
-    [iceDownButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
-    [iceDownButton addTarget:self
-                      action:@selector(decrementIce:)
-            forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:iceDownButton];
 }
 
 - (void)createWaterSection
@@ -224,7 +172,7 @@
 /*
  * Adds the ingredient image and appropriate label for each ingredient.
  */
-- (void)addImageAndLabelWithTextFor:(Ingredient)ingredient
+- (void)addImageAndLabelWithTextFor:(RecipeIngredient)ingredient
 {
     UIImage* ingredientImage;
     NSString* ingredientLabelText;
@@ -261,6 +209,56 @@
     [nameLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
     [nameLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:nameLabel];
+}
+
+/*
+ * Adds the increment and decrement buttons.
+ */
+- (void)addIncrementAndDecrementButtonsFor:(RecipeIngredient)ingredient
+{
+    CGRect upButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
+                                      borderThickness + (ingredient * ingredientSize),
+                                      buttonSize,
+                                      buttonSize);
+    UIButton* upButton = [[UIButton alloc] initWithFrame:upButtonFrame];
+    [upButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
+    
+    CGRect downButtonFrame = CGRectMake(ingredientColumnWidth + labelColumnWidth,
+                                        borderThickness + (2 * buttonSize) + (ingredient * ingredientSize),
+                                        buttonSize,
+                                        buttonSize);
+    UIButton* downButton = [[UIButton alloc] initWithFrame:downButtonFrame];
+    [downButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
+    
+    if (ingredient == Lemons) {
+        [upButton addTarget:self
+                     action:@selector(incrementLemons:)
+           forControlEvents:UIControlEventTouchUpInside];
+        [downButton addTarget:self
+                       action:@selector(decrementLemons:)
+             forControlEvents:UIControlEventTouchUpInside];
+    } else if (ingredient == Sugar) {
+        [upButton addTarget:self
+                     action:@selector(incrementSugar:)
+           forControlEvents:UIControlEventTouchUpInside];
+        [downButton addTarget:self
+                       action:@selector(decrementSugar:)
+             forControlEvents:UIControlEventTouchUpInside];
+    } else if (ingredient == Ice) {
+        [upButton addTarget:self
+                     action:@selector(incrementIce:)
+           forControlEvents:UIControlEventTouchUpInside];
+        [downButton addTarget:self
+                       action:@selector(decrementIce:)
+             forControlEvents:UIControlEventTouchUpInside];
+    } else if (ingredient == Water) {
+        [NSException raise:@"Invalid ingredient for increment/decrement" format:@"User should not be able to increment or decrement the amount of water"];
+    } else {
+        [NSException raise:@"Invalid ingredient value" format:@"Ingredient %d is invalid", ingredient];
+    }
+    
+    [self addSubview:upButton];
+    [self addSubview:downButton];
 }
 
 - (void) updatePercentageLabels
