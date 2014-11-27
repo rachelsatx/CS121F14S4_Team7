@@ -11,12 +11,14 @@
 #import "MidDayViewController.h"
 #import "PreDayRecipeView.h"
 #import "PreDayInfoView.h"
+#import "PreDayAchievementsView.h"
 
 @interface PreDayViewController (){
     DataStore* _dataStore;
     PreDayInventoryView* _inventoryView;
     PreDayRecipeView* _recipeView;
     PreDayInfoView* _infoView;
+    PreDayAchievementsView* _achievementsView;
 }
 @end
 
@@ -55,6 +57,11 @@
     [self.view addSubview:_recipeView];
     [_recipeView setDelegate:self];
     [_recipeView updatePercentageLabels];
+    
+    // Create the Achievements View
+    _achievementsView = [[PreDayAchievementsView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
+    [_achievementsView setHidden:YES];
+    [self.view addSubview:_achievementsView];
 }
 
 - (void) setDataStore:(DataStore*) dataStore
@@ -99,6 +106,18 @@
     [self.view sendSubviewToBack:_recipeView];
     [self.view sendSubviewToBack:_inventoryView];
     [_infoView updateMakeableCupsLabel];
+}
+
+- (IBAction)displayAchievements:(id)sender
+{
+    [_achievementsView setHidden:NO];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.delegate = self;
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self.view bringSubviewToFront:_achievementsView];
 }
 
 - (IBAction)unwindToPreDay:(UIStoryboardSegue*)unwindSegue
