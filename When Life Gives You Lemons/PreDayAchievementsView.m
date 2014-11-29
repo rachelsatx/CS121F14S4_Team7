@@ -20,9 +20,9 @@
     
     NSInteger numRows;
     NSInteger numColumns;
-    CGFloat imageSize;
-    CGFloat imageCornerRadius;
-    CGFloat imageBorderWidth;
+    CGFloat badgeSize;
+    CGFloat badgeCornerRadius;
+    CGFloat badgeBorderWidth;
     
     CGFloat buttonBorderThickness;
     CGFloat buttonWidth;
@@ -32,7 +32,8 @@
     CGFloat buttonCornerRadius;
     CGFloat buttonBorderWidth;
     
-    CGFloat fontSize;
+    CGFloat headerFontSize;
+    CGFloat badgeFontSize;
     NSString* fontName;
 }
 @end
@@ -67,10 +68,10 @@
     
     numRows = 4;
     numColumns = 4;
-    imageSize = ((frameHeight / (numRows + 1)) < (frameWidth / (numColumns + 1))) ?
+    badgeSize = ((frameHeight / (numRows + 1)) < (frameWidth / (numColumns + 1))) ?
                 (frameHeight / (numRows + 1)) : (frameWidth / (numColumns + 1));
-    imageCornerRadius = 20;
-    imageBorderWidth = 2;
+    badgeCornerRadius = 20;
+    badgeBorderWidth = 2;
     
     buttonBorderThickness = 20;
     buttonWidth = 200;
@@ -80,21 +81,22 @@
     buttonCornerRadius = 10;
     buttonBorderWidth = 2;
     
-    fontSize = 30;
+    headerFontSize = 30;
+    badgeFontSize = 25;
     fontName = @"Chalkduster";
 }
 
 - (void)addAchievementDescription
 {
-    NSString* descriptionText = @"ACHIEVEMENTS: \n Click on each image to see how to earn the achievement";
+    NSString* descriptionText = @"BADGES: \n Click on each image to see how to earn the badge";
     
     CGRect descriptionFrame = CGRectMake(borderThickness,
-                                    borderThickness,
-                                    frameWidth - 2 * borderThickness,
-                                    headerThickness);
+                                         borderThickness,
+                                         frameWidth - 2 * borderThickness,
+                                         headerThickness);
     UITextView* description = [[UITextView alloc] initWithFrame:descriptionFrame];
     description.backgroundColor = [UIColor blackColor];
-    [description setFont:[UIFont fontWithName:fontName size:fontSize]];
+    [description setFont:[UIFont fontWithName:fontName size:headerFontSize]];
     description.textAlignment = NSTextAlignmentCenter;
     description.textColor = [UIColor whiteColor];
     description.text = descriptionText;
@@ -103,81 +105,99 @@
 
 - (void)addAchievements
 {
-    CGFloat spaceBetweenRows = (frameHeight - headerThickness - buttonHeight - 4 * borderThickness - numRows * imageSize) / (numRows - 1);
-    CGFloat spaceBetweenColumns = (frameWidth - 2 * borderThickness - numColumns * imageSize) / (numColumns - 1);
+    CGFloat spaceBetweenRows = (frameHeight - headerThickness - buttonHeight - 4 * borderThickness - numRows * badgeSize) / (numRows - 1);
+    CGFloat spaceBetweenColumns = (frameWidth - 2 * borderThickness - numColumns * badgeSize) / (numColumns - 1);
 
     for (int row = 0; row < numRows; row++) {
         for (int col = 0; col < numColumns; col++) {
-            CGRect achievementFrame = CGRectMake(borderThickness + col * (imageSize + spaceBetweenColumns), 2 * borderThickness + headerThickness + row * (imageSize + spaceBetweenRows), imageSize, imageSize);
+            CGRect achievementFrame = CGRectMake(borderThickness + col * (badgeSize + spaceBetweenColumns), 2 * borderThickness + headerThickness + row * (badgeSize + spaceBetweenRows), badgeSize, badgeSize);
             UIButton* achievement = [[UIButton alloc] initWithFrame:achievementFrame];
             achievement.backgroundColor = [UIColor whiteColor];
+            achievement.titleLabel.font = [UIFont fontWithName:fontName size:badgeFontSize];
             achievement.titleLabel.textAlignment = NSTextAlignmentCenter;
             achievement.titleLabel.numberOfLines = 0;
+//            achievement.titleLabel.adjustsFontSizeToFitWidth = TRUE;
+//            achievement.titleLabel.lineBreakMode = NSLineBreakByClipping;
             [achievement setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [achievement setTitle:@"Get every possible feedback" forState:UIControlStateHighlighted];
             [achievement setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-            achievement.layer.cornerRadius = imageCornerRadius;
-            achievement.layer.borderWidth = imageBorderWidth;
+            achievement.layer.cornerRadius = badgeCornerRadius;
+            achievement.layer.borderWidth = badgeBorderWidth;
             
+            // These badges start out gray and turn green when earned
             if (row == 0 && col == 0) {
-                [achievement setTitle:@"Con Artist" forState:UIControlStateNormal];
+                [achievement setTitle:@"Con\nArtist" forState:UIControlStateNormal];
                 [achievement setTitle:@"Try to sell 100% water" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor grayColor]];
             } else if (row == 0 && col == 1) {
-                [achievement setTitle:@"Lemonhead" forState:UIControlStateNormal];
+                [achievement setTitle:@"Lemon\nHead" forState:UIControlStateNormal];
                 [achievement setTitle:@"Try to sell 100% lemons" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor grayColor]];
             } else if (row == 0 && col == 2) {
-                [achievement setTitle:@"Sweet Tooth" forState:UIControlStateNormal];
+                [achievement setTitle:@"Sweet\nTooth" forState:UIControlStateNormal];
                 [achievement setTitle:@"Try to sell 100% sugar" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor grayColor]];
             } else if (row == 0 && col == 3) {
-                [achievement setTitle:@"Do you want to sell some ice?" forState:UIControlStateNormal];
+                [achievement setTitle:@"Frozen" forState:UIControlStateNormal];
                 [achievement setTitle:@"Try to sell 100% ice" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor grayColor]];
             }
             
             else if (row == 1 && col == 0) {
-                [achievement setTitle:@"Salesman" forState:UIControlStateNormal];
-                [achievement setTitle:@"Sell 100 cups of lemonade in a day" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"Under-estimate" forState:UIControlStateNormal];
+                [achievement setTitle:@"Have your lemonade sell out" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor grayColor]];
             } else if (row == 1 && col == 1) {
-                [achievement setTitle:@"Lemon Corp TM" forState:UIControlStateNormal];
-                [achievement setTitle:@"Sell 1000 cups of lemonade total" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"The\nPerfect\nCup" forState:UIControlStateNormal];
+                [achievement setTitle:@"Make delicious lemonade" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor grayColor]];
             } else if (row == 1 && col == 2) {
-                [achievement setTitle:@"Great Day" forState:UIControlStateNormal];
-                [achievement setTitle:@"Earn $100 in a single day" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"The\nPerfect\nWeek" forState:UIControlStateNormal];
+                [achievement setTitle:@"Make delicious lemonade for a week" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor grayColor]];
             } else if (row == 1 && col == 3) {
-                [achievement setTitle:@"Bill Gates" forState:UIControlStateNormal];
-                [achievement setTitle:@"Earn $1000 total" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"Scientist" forState:UIControlStateNormal];
+                [achievement setTitle:@"Get every possible feedback" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor grayColor]];
             }
             
+            // These badges start out white and progress through bronze, silver, and gold
+            // Bronze: 150, 90, 56
+            // Silver: 204, 194, 194
+            // Gold: 255, 215, 0
             else if (row == 2 && col == 0) {
-                [achievement setTitle:@"The Perfect Cup" forState:UIControlStateNormal];
-                [achievement setTitle:@"Make delicious lemonade" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"Salesman" forState:UIControlStateNormal];
+                [achievement setTitle:@"Sell 100 cups in a day" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 2 && col == 1) {
-                [achievement setTitle:@"The Perfect Week" forState:UIControlStateNormal];
-                [achievement setTitle:@"Make delicious lemonade for a consecutive week" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"Lemon\nCorp TM" forState:UIControlStateNormal];
+                [achievement setTitle:@"Sell 1000 cups total" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 2 && col == 2) {
-                [achievement setTitle:@"TBD" forState:UIControlStateNormal];
-                [achievement setTitle:@"TBD" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"Great\nDay" forState:UIControlStateNormal];
+                [achievement setTitle:@"Earn $100 in a day" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 2 && col == 3) {
-                [achievement setTitle:@"TBD" forState:UIControlStateNormal];
-                [achievement setTitle:@"TBD" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"Bill\nGates" forState:UIControlStateNormal];
+                [achievement setTitle:@"Earn $1000 total" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor whiteColor]];
             }
             
             else if (row == 3 && col == 0) {
-                [achievement setTitle:@"More Famous than World Famous" forState:UIControlStateNormal];
-                [achievement setTitle:@"Get your popularity over 100%" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"Rising\nStar" forState:UIControlStateNormal];
+                [achievement setTitle:@"Gain 10% popularity in a day" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 3 && col == 1) {
-                [achievement setTitle:@"Underestimation" forState:UIControlStateNormal];
-                [achievement setTitle:@"Have your lemonade sell out" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"World\nFamous" forState:UIControlStateNormal];
+                [achievement setTitle:@"Get over 100% popularity" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 3 && col == 2) {
-                [achievement setTitle:@"Experimentalist" forState:UIControlStateNormal];
-                [achievement setTitle:@"Get every possible feedback" forState:UIControlStateHighlighted];
-            } else if (row == 3 && col == 3) {
-                [achievement setTitle:@"Perfectionist" forState:UIControlStateNormal];
-                [achievement setTitle:@"Earn all achievements" forState:UIControlStateHighlighted];
-            }
-            
-            else {
                 [achievement setTitle:@"TBD" forState:UIControlStateNormal];
-                [achievement setTitle:@"TBD" forState:UIControlStateHighlighted];
+                [achievement setTitle:@"" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor whiteColor]];
+            } else if (row == 3 && col == 3) {
+                [achievement setTitle:@"Perfection" forState:UIControlStateNormal];
+                [achievement setTitle:@"Earn all other badges" forState:UIControlStateHighlighted];
+                [achievement setBackgroundColor:[UIColor whiteColor]];
             }
 
             [self addSubview:achievement];

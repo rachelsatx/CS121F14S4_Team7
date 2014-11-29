@@ -142,6 +142,80 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AFC87A731A294D0500CFB61D /* PreDay */ = {
+			isa = PBXGroup;
+			children = (
+				ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */,
+				ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */,
+				DA064B141A19B0A6007438CF /* PreDayInfoView.h */,
+				DA064B151A19B0A6007438CF /* PreDayInfoView.m */,
+				DAB2821219F7946000441EAA /* PreDayRecipeView.h */,
+				DAB2821319F7946000441EAA /* PreDayRecipeView.m */,
+				DA0FB60319F641B00036D500 /* PreDayInventoryView.h */,
+				DA0FB60419F641B00036D500 /* PreDayInventoryView.m */,
+				AF7D06A01A26DADA0089CE7A /* PreDayAchievementsView.h */,
+				AF7D06A11A26DADA0089CE7A /* PreDayAchievementsView.m */,
+			);
+			name = PreDay;
+			sourceTree = "<group>";
+		};
+		AFC87A741A294D2500CFB61D /* MidDay */ = {
+			isa = PBXGroup;
+			children = (
+				DA0FB60619F645EF0036D500 /* MidDayViewController.h */,
+				DA0FB60719F645EF0036D500 /* MidDayViewController.m */,
+				AFCB509619F7457900DFADE9 /* MidDayView.h */,
+				AFCB509719F7457900DFADE9 /* MidDayView.m */,
+				FEBAF0391A0B122500951C36 /* SunnyScene.h */,
+				FEBAF03A1A0B122500951C36 /* SunnyScene.m */,
+				FEBAF03C1A0B2E1700951C36 /* CloudyScene.h */,
+				FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */,
+				FEBAF0431A0B3F9500951C36 /* RainyScene.h */,
+				FEBAF0441A0B3F9500951C36 /* RainyScene.m */,
+				FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */,
+				FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */,
+				FEBAF0401A0B2FB300951C36 /* spark.png */,
+			);
+			name = MidDay;
+			sourceTree = "<group>";
+		};
+		AFC87A751A294D4400CFB61D /* PostDay */ = {
+			isa = PBXGroup;
+			children = (
+				DA0FB60919F646030036D500 /* PostDayViewController.h */,
+				DA0FB60A19F646030036D500 /* PostDayViewController.m */,
+				AFE2AC5E19F833D2005EC4D0 /* PostDayView.h */,
+				AFE2AC5F19F833D2005EC4D0 /* PostDayView.m */,
+			);
+			name = PostDay;
+			sourceTree = "<group>";
+		};
+		AFC87A761A294D5800CFB61D /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				DA6C2BCC19F19B8D00AE1EB7 /* MenuViewController.h */,
+				DA6C2BCD19F19B8D00AE1EB7 /* MenuViewController.m */,
+				AC521EE11A1572E8007AD8A1 /* MenuInstructionsView.h */,
+				AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */,
+				DA064B111A19AA3F007438CF /* MenuMainView.h */,
+				DA064B121A19AA3F007438CF /* MenuMainView.m */,
+				FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */,
+				FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		AFC87A771A294DA600CFB61D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DA2726A819F8F26300287791 /* Customer.h */,
+				DA2726A719F8F26300287791 /* Customer.m */,
+				DA2726AA19F8F26300287791 /* Model.h */,
+				DA2726A919F8F26300287791 /* Model.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		DA6C2BAB19F19B8C00AE1EB7 = {
 			isa = PBXGroup;
 			children = (
@@ -178,51 +252,17 @@
 				DA6C2BC619F19B8D00AE1EB7 /* AppDelegate.h */,
 				DA6C2BC719F19B8D00AE1EB7 /* AppDelegate.m */,
 				DA6C2BC919F19B8D00AE1EB7 /* Main.storyboard */,
-				DA0FB60619F645EF0036D500 /* MidDayViewController.h */,
-				DA0FB60719F645EF0036D500 /* MidDayViewController.m */,
-				AFCB509619F7457900DFADE9 /* MidDayView.h */,
-				AFCB509719F7457900DFADE9 /* MidDayView.m */,
-				FEBAF0391A0B122500951C36 /* SunnyScene.h */,
-				FEBAF03A1A0B122500951C36 /* SunnyScene.m */,
-				FEBAF03C1A0B2E1700951C36 /* CloudyScene.h */,
-				FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */,
-				FEBAF0431A0B3F9500951C36 /* RainyScene.h */,
-				FEBAF0441A0B3F9500951C36 /* RainyScene.m */,
-				FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */,
-				FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */,
-				FEBAF0401A0B2FB300951C36 /* spark.png */,
-				DA0FB60919F646030036D500 /* PostDayViewController.h */,
-				DA0FB60A19F646030036D500 /* PostDayViewController.m */,
-				AFE2AC5E19F833D2005EC4D0 /* PostDayView.h */,
-				AFE2AC5F19F833D2005EC4D0 /* PostDayView.m */,
-				DA6C2BCC19F19B8D00AE1EB7 /* MenuViewController.h */,
-				DA6C2BCD19F19B8D00AE1EB7 /* MenuViewController.m */,
-				AC521EE11A1572E8007AD8A1 /* MenuInstructionsView.h */,
-				AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */,
-				DA064B111A19AA3F007438CF /* MenuMainView.h */,
-				DA064B121A19AA3F007438CF /* MenuMainView.m */,
-				FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */,
-				FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */,
-				ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */,
-				ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */,
-				DA064B141A19B0A6007438CF /* PreDayInfoView.h */,
-				DA064B151A19B0A6007438CF /* PreDayInfoView.m */,
-				DAB2821219F7946000441EAA /* PreDayRecipeView.h */,
-				DAB2821319F7946000441EAA /* PreDayRecipeView.m */,
-				DA0FB60319F641B00036D500 /* PreDayInventoryView.h */,
-				DA0FB60419F641B00036D500 /* PreDayInventoryView.m */,
-				AF7D06A01A26DADA0089CE7A /* PreDayAchievementsView.h */,
-				AF7D06A11A26DADA0089CE7A /* PreDayAchievementsView.m */,
-				DA2726A819F8F26300287791 /* Customer.h */,
-				DA2726A719F8F26300287791 /* Customer.m */,
-				DA2726AA19F8F26300287791 /* Model.h */,
-				DA2726A919F8F26300287791 /* Model.m */,
+				AFC87A761A294D5800CFB61D /* Menu */,
+				AFC87A731A294D0500CFB61D /* PreDay */,
+				AFC87A741A294D2500CFB61D /* MidDay */,
+				AFC87A751A294D4400CFB61D /* PostDay */,
+				AFC87A771A294DA600CFB61D /* Model */,
 				ACBEBFA519F619A300B173C7 /* DataStore.h */,
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
-				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
-				DA6C2BBE19F19B8D00AE1EB7 /* Supporting Files */,
 				ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */,
 				ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */,
+				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
+				DA6C2BBE19F19B8D00AE1EB7 /* Supporting Files */,
 			);
 			path = "When Life Gives You Lemons";
 			sourceTree = "<group>";
