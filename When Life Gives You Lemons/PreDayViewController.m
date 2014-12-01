@@ -265,12 +265,12 @@
     [_dataStore setRecipe:recipe];
 }
 
-- (NSNumber*) getMakableCups
+- (NSInteger) getMakableCups
 {
     NSDictionary* inventory = [_dataStore getInventory];
     NSDictionary* recipe = [_dataStore getRecipe];
     
-    int maxCustomers = [(NSNumber*) [inventory valueForKey:@"cups"] intValue];
+    int maxCustomers = [[inventory valueForKey:@"cups"] integerPart];
     for (NSString* key in [inventory allKeys]) {
         if (![key isEqual: @"cups"] &&
             [[recipe valueForKey:key] isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
@@ -282,7 +282,7 @@
         }
     }
     NSAssert(maxCustomers >= 0, @"Maximum number of customers is negative (%d)", maxCustomers);
-    return [NSNumber numberWithInt:maxCustomers];
+    return maxCustomers;
 }
 
 - (DayOfWeek) getDayOfWeek

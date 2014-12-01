@@ -468,7 +468,7 @@
             NumberWithTwoDecimals* ice = [self.delegate getIce];
             ice = [ice add:[[NumberWithTwoDecimals alloc] initWithFloat:1.0]];
             [self.delegate setIce:ice];
-            [self.delegate setMoney:[money subtract:[self.delegate getSugarPrice]]];
+            [self.delegate setMoney:[money subtract:[self.delegate getIcePrice]]];
             [self updateMoneyLabel];
             [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
         }
