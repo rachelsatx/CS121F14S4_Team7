@@ -43,7 +43,7 @@
                 grossEarnings += [price floatValue];
                 
                 // Check if they like the recipe.
-                if ([customer likesRecipe:recipe]) {
+                if ([customer likesRecipe:recipe forWeather:weather]) {
                     ++customersWhoLiked;
                 }
                 
@@ -84,7 +84,7 @@
     // First, we check if anything is very far off, then we check if anything is slightly off.
     if ([feedbackString isEqual: @""]) {
         
-        feedbackString = [self generateFeedbackFromRecipe:recipe];
+        feedbackString = [self generateFeedbackFromRecipe:recipe forWeather:weather];
         
         if (ranOut) {
             feedbackString = [NSString stringWithFormat:
@@ -113,6 +113,9 @@
     
     // Update ingredient prices to reflect changing market conditions.
     [dataStore setIngredientPrices:[self generateRandomIngredientPrices]];
+    
+    NSLog(@"BOUGHT: %f", portionWhoBought);
+    NSLog(@"LIKED: %f", portionWhoLiked);
     
     return dataStore;
 }
@@ -202,13 +205,24 @@
         portionBought:(float)portionWhoBought
         portionLiked:(float)portionWhoLiked
         fromOldPopularity:(NSNumber*)popularity {
+    // To prevent popularity from exploding, we limit "effective customers" to 100.
+    int effectiveCustomers = MIN(totalCustomers, 100);
+    
     int newPopularity = [popularity intValue];
     // If enough people were unwilling to buy because of price, lose some popularity proportionally.
-    newPopularity -= (int) ((1 - portionWhoBought) * 10);
+    newPopularity -= (int) ((1 - portionWhoBought) * effectiveCustomers / 3.0);
     // If enough people didn't like it, lose some popularity proportionally.
-    newPopularity -= (int) ((1 - portionWhoLiked) * 5);
+    newPopularity -= (int) ((1 - portionWhoLiked) * effectiveCustomers / 6.0);
+    
+    
     // Add some popularity for those who did like it.
-    newPopularity += (int) (totalCustomers * portionWhoBought * portionWhoLiked);
+    // This scales quadratically with the portion of customers who liked, so that if very few
+    // people like your lemonade, you don't get very much popularity. If 1/2 of people like your
+    // lemonade, then your popularity gain from this line will equal the number of customers
+    // who liked the lemonade after buying it.
+    newPopularity += (int) (3 * effectiveCustomers * portionWhoBought * (pow(portionWhoLiked, 2)));
+    
+    
     // If the resulting popularity is negative, set it to 0.
     if (newPopularity < 0) {
         newPopularity = 0;
@@ -240,9 +254,24 @@
     return inventory;
 }
 
-- (NSString*) generateFeedbackFromRecipe:(NSMutableDictionary*)recipe {
+- (NSString*) generateFeedbackFromRecipe:(NSMutableDictionary*)recipe forWeather:(Weather)weather {
     
     NSString* feedbackString = @"";
+    
+    float weatherMod;
+    switch (weather) {
+        case Sunny:
+            weatherMod = .06;
+            break;
+        case Cloudy:
+            weatherMod = 0;
+            break;
+        case Raining:
+            weatherMod = -.06;
+            break;
+        default:
+            break;
+    }
     
     if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] > .75) {
         feedbackString = @"Your lemonade was way too watery! Use more other ingredients.";
@@ -250,7 +279,7 @@
         feedbackString = @"Your lemonade was freezing! You should use less ice.";
     } else if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] < .15) {
         feedbackString = @"Your lemonade was way too strong! Use some water in it.";
-    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] < .05) {
+    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] < .03) {
         feedbackString = @"Your lemonade was way too warm! You need to use more ice.";
     } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] > .45) {
         feedbackString = @"Your lemonade was way too sour! Don't use too many lemons.";
@@ -266,12 +295,12 @@
     
     else if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] > .65) {
         feedbackString = @"Your lemonade was too watery! Use more other ingredients.";
-    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] > .2) {
-        feedbackString = @"Your lemonade was a bit cold. You don't need so much ice.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] > .2 + weatherMod) {
+        feedbackString = @"Your lemonade was a little cold for the weather. You don't need so much ice.";
     } else if ([ (NSNumber*)[recipe valueForKey:@"water"] floatValue] < .3) {
         feedbackString = @"Your lemonade was a little too strong. Water it down a little.";
-    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] < .1) {
-        feedbackString = @"Your lemonade was a bit warm. Add some ice.";
+    } else if ([ (NSNumber*)[recipe valueForKey:@"ice"] floatValue] < .1 + weatherMod) {
+        feedbackString = @"Your lemonade was a bit warm for the weather. Add some ice.";
     } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] > .25) {
         feedbackString = @"Your lemonade was too sour for some of your customers. Use fewer lemons.";
     } else if ([ (NSNumber*)[recipe valueForKey:@"lemons"] floatValue] < .16) {
