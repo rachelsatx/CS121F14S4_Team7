@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DataStore.h"
+#import "NumberWithTwoDecimals.h"
 
 @interface Model : NSObject
 

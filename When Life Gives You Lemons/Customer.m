@@ -11,7 +11,7 @@
 
 @interface Customer (){
     NSInteger _type;
-    NSNumber* _maximumPrice; // The maximum price at which the customer could buy lemonade.
+    NumberWithTwoDecimals* _maximumPrice; // The maximum price at which the customer could buy lemonade.
                              // For now, it's a linear model interpolating between the two points
                              // (0, 1) and (_maximumPrice, 0).
     
@@ -33,7 +33,7 @@
 - (id)init
 {
     // Initialize global variables.  These can be changed if they are unrealistic.
-    _maximumPrice = [NSNumber numberWithDouble:5.00];
+    _maximumPrice = [[NumberWithTwoDecimals alloc] initWithFloat:5.00];
     
     return self;
 }
@@ -123,24 +123,22 @@
 }
 
 /*  We use a logistic distribution to determine whether a customer will buy at a particular price because it has a simple cumulative distribution function.  */
-- (BOOL) willBuyAtPrice:(NSNumber*)price withRecipe:(NSMutableDictionary*)recipe
+- (BOOL) willBuyAtPrice:(NumberWithTwoDecimals*)price withRecipe:(NSMutableDictionary*)recipe
 {
     // If it doesn't even look like lemonade, no one will buy it.
     if ([((NSNumber*) [recipe valueForKey:@"lemons"]) floatValue] <= .05) {
         return NO;
     }
     
-    // Turn necessary global values into doubles for readability.
-    double maximumPrice = [_maximumPrice doubleValue];
-    
     // If above the maximum price, they won't buy; if below 0, there's something wrong.
     NSAssert(price > 0, @"Price provided to customer was negative: %@", price);
-    if ([price doubleValue] > maximumPrice) {
+    if ([price isGreaterThan:_maximumPrice]) {
         return NO;
     }
     
     // Determine how likely they are to buy the lemonade.
-    double probabilityOfBuying = (maximumPrice - [price doubleValue]) / maximumPrice;
+    double probabilityOfBuying =
+            ([[_maximumPrice subtract:price] floatValue]) / [_maximumPrice floatValue];
     
     // Generate a random number to represent desire for lemonade.
     double willingnessToBuy = drand48();

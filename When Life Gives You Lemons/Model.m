@@ -16,11 +16,11 @@
     DayOfWeek dayOfWeek = [dataStore getDayOfWeek];
     Weather weather = [dataStore getWeather];
     NSMutableDictionary* recipe = [dataStore getRecipe];
-    NSNumber* price = [dataStore getPrice];
-    NSNumber* popularity = [dataStore getPopularity];
+    NumberWithTwoDecimals* price = [dataStore getPrice];
+    NSInteger popularity = [dataStore getPopularity];
     NSMutableDictionary* inventory = [dataStore getInventory];
     NSString* feedbackString = @"";
-    NSNumber* money = [dataStore getMoney];
+    NumberWithTwoDecimals* money = [dataStore getMoney];
     
     // Get an array of customers.
     NSMutableArray *customers = [self getCustomersOnDay:dayOfWeek withWeather:weather
@@ -123,14 +123,14 @@
 }
 
 - (NSMutableArray*) getCustomersOnDay:(DayOfWeek)dayOfWeek withWeather:(Weather)weather
-                    andPopularity:(NSNumber*)popularity {
+                    andPopularity:(NSInteger)popularity {
     
     int baseCustomers = [self randomNumberAtLeast:20 andAtMost:25];
     int customersFromWeather = [self customersFromWeather:weather];
     int customersFromWeekday = [self customersFromWeekday:dayOfWeek];
     
     int totalCustomers = baseCustomers + customersFromWeather + customersFromWeekday;
-    float popularityMultiplier = ([popularity floatValue] / 100.0) + 1.0;
+    float popularityMultiplier = (popularity / 100.0) + 1.0;
     totalCustomers = (int) (totalCustomers * popularityMultiplier);
     
     NSMutableArray *customers = [[NSMutableArray alloc] initWithCapacity:totalCustomers];
