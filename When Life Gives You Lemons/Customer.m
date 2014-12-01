@@ -64,7 +64,7 @@
             _sugarMin = 0.05;
             _waterMax = 0.6;
             _waterMin = 0.3;
-            _iceMax = 0.35;
+            _iceMax = 0.25;
             _iceMin = 0.15;
             break;
         
@@ -149,7 +149,7 @@
 }
 
 /*  We use the customer type to determine whether they like the recipe.  */
-- (BOOL) likesRecipe:(NSMutableDictionary*)recipe
+- (BOOL) likesRecipe:(NSMutableDictionary*)recipe forWeather:(Weather)weather
 {
     // Default to yes, change to no if conditions are violated.
     BOOL likesRecipe = YES;
@@ -160,11 +160,30 @@
     NSNumber* waterValue = [recipe objectForKey:@"water"];
     NSNumber* iceValue = [recipe objectForKey:@"ice"];
     
+    
     // Get the double values from all of the NSNumbers.
     double lemon = [lemonValue doubleValue];
     double sugar = [sugarValue doubleValue];
     double water = [waterValue doubleValue];
     double ice = [iceValue doubleValue];
+    
+    // Get modification for weather to account for customers wanting more or less ice.
+    // If the weather is colder, it will be as if there is more ice in the lemonade.
+    float weatherMod;
+    switch (weather) {
+        case Sunny:
+            weatherMod = -.06;
+            break;
+        case Cloudy:
+            weatherMod = 0;
+            break;
+        case Raining:
+            weatherMod = .06;
+            break;
+        default:
+            break;
+    }
+    ice += weatherMod;
     
     // Add a small random factor, plus or minus .02.
     lemon += ((drand48() * .04) - .02);
