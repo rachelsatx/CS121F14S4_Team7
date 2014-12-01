@@ -24,7 +24,7 @@
 - (int) calculateNewPopularityWithNumCustomers:(int)totalCustomers
                                  portionBought:(float)portionWhoBought
                                   portionLiked:(float)portionWhoLiked
-                             fromOldPopularity:(NSNumber*)popularity;
+                             fromOldPopularity:(NSInteger)popularity;
 - (NSMutableDictionary*) removeIngredientsOfRecipe:(NSMutableDictionary*)recipe
                                      fromInventory:(NSMutableDictionary*)inventory;
 - (DayOfWeek) nextDayOfWeek:(DayOfWeek)currentDay;

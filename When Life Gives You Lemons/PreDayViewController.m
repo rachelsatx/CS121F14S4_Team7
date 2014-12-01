@@ -272,14 +272,16 @@
     
     int maxCustomers = [(NSNumber*) [inventory valueForKey:@"cups"] intValue];
     for (NSString* key in [inventory allKeys]) {
-        if (![key isEqual: @"cups"] && [[recipe valueForKey:key] floatValue] > 0.0) {
-            int maxCupsWithThisIngredient = (int) ([(NSNumber*) [inventory valueForKey:key] floatValue]/
-                                                   [(NSNumber*) [recipe valueForKey:key] floatValue]);
+        if (![key isEqual: @"cups"] &&
+            [[recipe valueForKey:key] isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
+            int maxCupsWithThisIngredient = (int) ([[inventory valueForKey:key] floatValue]/
+                                                   [[recipe valueForKey:key] floatValue]);
             if (maxCupsWithThisIngredient < maxCustomers) {
                 maxCustomers = maxCupsWithThisIngredient;
             }
         }
     }
+    NSAssert(maxCustomers >= 0, @"Maximum number of customers is negative (%d)", maxCustomers);
     return [NSNumber numberWithInt:maxCustomers];
 }
 

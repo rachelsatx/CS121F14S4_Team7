@@ -126,7 +126,7 @@
 - (BOOL) willBuyAtPrice:(NumberWithTwoDecimals*)price withRecipe:(NSMutableDictionary*)recipe
 {
     // If it doesn't even look like lemonade, no one will buy it.
-    if ([((NSNumber*) [recipe valueForKey:@"lemons"]) floatValue] <= .05) {
+    if ([[recipe valueForKey:@"lemons"] isLessThan:[[NumberWithTwoDecimals alloc] initWithFloat:.05]]) {
         return NO;
     }
     
@@ -153,17 +153,17 @@
     BOOL likesRecipe = YES;
     
     // Get ingredient values from the recipe.
-    NSNumber* lemonValue = [recipe objectForKey:@"lemons"];
-    NSNumber* sugarValue = [recipe objectForKey:@"sugar"];
-    NSNumber* waterValue = [recipe objectForKey:@"water"];
-    NSNumber* iceValue = [recipe objectForKey:@"ice"];
+    NumberWithTwoDecimals* lemonValue = [recipe objectForKey:@"lemons"];
+    NumberWithTwoDecimals* sugarValue = [recipe objectForKey:@"sugar"];
+    NumberWithTwoDecimals* waterValue = [recipe objectForKey:@"water"];
+    NumberWithTwoDecimals* iceValue = [recipe objectForKey:@"ice"];
     
     
     // Get the double values from all of the NSNumbers.
-    double lemon = [lemonValue doubleValue];
-    double sugar = [sugarValue doubleValue];
-    double water = [waterValue doubleValue];
-    double ice = [iceValue doubleValue];
+    float lemon = [lemonValue floatValue];
+    float sugar = [sugarValue floatValue];
+    float water = [waterValue floatValue];
+    float ice = [iceValue floatValue];
     
     // Get modification for weather to account for customers wanting more or less ice.
     // If the weather is colder, it will be as if there is more ice in the lemonade.
