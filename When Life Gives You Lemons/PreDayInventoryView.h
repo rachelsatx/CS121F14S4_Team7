@@ -17,8 +17,8 @@
 - (void) setSugar:(NumberWithTwoDecimals*) newSugar;
 - (NumberWithTwoDecimals*) getIce;
 - (void) setIce:(NumberWithTwoDecimals*) newIce;
-- (NSInteger) getCups;
-- (void) setCups:(NSInteger) newCups;
+- (NumberWithTwoDecimals*) getCups;
+- (void) setCups:(NumberWithTwoDecimals*) newCups;
 - (NumberWithTwoDecimals*) getMoney;
 - (void) setMoney:(NumberWithTwoDecimals*) newMoney;
 - (NumberWithTwoDecimals*) getLemonPrice;

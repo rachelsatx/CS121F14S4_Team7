@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NumberWithTwoDecimals.h"
 
 @protocol PreDayRecipeViewDelegate <NSObject>
 @required
-- (NSNumber*) getLemonsPercentage;
-- (void) setLemonsPercentage:(NSNumber*) newLemons;
-- (NSNumber*) getSugarPercentage;
-- (void) setSugarPercentage:(NSNumber*) newSugar;
-- (NSNumber*) getIcePercentage;
-- (void) setIcePercentage:(NSNumber*) newIce;
-- (NSNumber*) getWaterPercentage;
-- (void) setWaterPercentage:(NSNumber*) newWater;
+- (NumberWithTwoDecimals*) getLemonsPercentage;
+- (void) setLemonsPercentage:(NumberWithTwoDecimals*) newLemons;
+- (NumberWithTwoDecimals*) getSugarPercentage;
+- (void) setSugarPercentage:(NumberWithTwoDecimals*) newSugar;
+- (NumberWithTwoDecimals*) getIcePercentage;
+- (void) setIcePercentage:(NumberWithTwoDecimals*) newIce;
+- (NumberWithTwoDecimals*) getWaterPercentage;
+- (void) setWaterPercentage:(NumberWithTwoDecimals*) newWater;
 @end
 
 @interface PreDayRecipeView : UIView
