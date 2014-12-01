@@ -117,7 +117,7 @@
     [_recipeView updatePercentageLabels];
 }
 
-- (NSNumber*) getPrice
+- (NumberWithTwoDecimals*) getPrice
 {
     return [_dataStore getPrice];
 }
@@ -129,136 +129,136 @@
 
 - (void) decrementPrice:(id)sender
 {
-    if ([[_dataStore getPrice] floatValue] >= .10) {
-        [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] - .1]];
+    if ([[_dataStore getPrice] isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
+        [_dataStore setPrice:[[_dataStore getPrice] subtract:[[NumberWithTwoDecimals alloc] initWithFloat:0.1]]];
     }
 }
 
 - (void) incrementPrice:(id)sender
 {
-    [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] + .1]];
+    [_dataStore setPrice:[[_dataStore getPrice] add:[[NumberWithTwoDecimals alloc] initWithFloat:0.1]]];
 }
 
-- (NSNumber*) getLemons
+- (NumberWithTwoDecimals*) getLemons
 {
     return [[_dataStore getInventory] valueForKey:@"lemons"];
 }
 
-- (void) setLemons:(NSNumber*) newLemons
+- (void) setLemons:(NumberWithTwoDecimals*) newLemons
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newLemons forKey:@"lemons"];
     [_dataStore setInventory:inventory];
 }
 
-- (NSNumber*) getSugar
+- (NumberWithTwoDecimals*) getSugar
 {
     return [[_dataStore getInventory] valueForKey:@"sugar"];
 }
 
-- (void) setSugar:(NSNumber*) newSugar
+- (void) setSugar:(NumberWithTwoDecimals*) newSugar
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newSugar forKey:@"sugar"];
     [_dataStore setInventory:inventory];
 }
 
-- (NSNumber*) getIce
+- (NumberWithTwoDecimals*) getIce
 {
     return [[_dataStore getInventory] valueForKey:@"ice"];
 }
 
-- (void) setIce:(NSNumber*) newIce
+- (void) setIce:(NumberWithTwoDecimals*) newIce
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newIce forKey:@"ice"];
     [_dataStore setInventory:inventory];
 }
 
-- (NSNumber*) getCups
+- (NumberWithTwoDecimals*) getCups
 {
     return [[_dataStore getInventory] valueForKey:@"cups"];
 }
 
-- (void) setCups:(NSNumber*) newCups
+- (void) setCups:(NumberWithTwoDecimals*) newCups
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newCups forKey:@"cups"];
     [_dataStore setInventory:inventory];
 }
 
-- (NSNumber*) getMoney
+- (NumberWithTwoDecimals*) getMoney
 {
     return [_dataStore getMoney];
 }
 
-- (void) setMoney:(NSNumber*) newMoney
+- (void) setMoney:(NumberWithTwoDecimals*) newMoney
 {
     [_dataStore setMoney:newMoney];
 }
 
-- (NSNumber*) getLemonPrice
+- (NumberWithTwoDecimals*) getLemonPrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"lemons"];
 }
 
-- (NSNumber*) getSugarPrice
+- (NumberWithTwoDecimals*) getSugarPrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"sugar"];
 }
 
-- (NSNumber*) getIcePrice
+- (NumberWithTwoDecimals*) getIcePrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"ice"];
 }
 
-- (NSNumber*) getCupsPrice
+- (NumberWithTwoDecimals*) getCupsPrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"cups"];
 }
 
-- (NSNumber*) getLemonsPercentage
+- (NumberWithTwoDecimals*) getLemonsPercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"lemons"];
 }
 
-- (void) setLemonsPercentage:(NSNumber*) newLemons
+- (void) setLemonsPercentage:(NumberWithTwoDecimals*) newLemons
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newLemons forKey:@"lemons"];
     [_dataStore setRecipe:recipe];
 }
 
-- (NSNumber*) getSugarPercentage
+- (NumberWithTwoDecimals*) getSugarPercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"sugar"];
 }
 
-- (void) setSugarPercentage:(NSNumber*) newSugar
+- (void) setSugarPercentage:(NumberWithTwoDecimals*) newSugar
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newSugar forKey:@"sugar"];
     [_dataStore setRecipe:recipe];
 }
 
-- (NSNumber*) getIcePercentage
+- (NumberWithTwoDecimals*) getIcePercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"ice"];
 }
 
-- (void) setIcePercentage:(NSNumber*) newIce
+- (void) setIcePercentage:(NumberWithTwoDecimals*) newIce
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newIce forKey:@"ice"];
     [_dataStore setRecipe:recipe];
 }
 
-- (NSNumber*) getWaterPercentage
+- (NumberWithTwoDecimals*) getWaterPercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"water"];
 }
 
-- (void) setWaterPercentage:(NSNumber*) newWater
+- (void) setWaterPercentage:(NumberWithTwoDecimals*) newWater
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newWater forKey:@"water"];
@@ -287,7 +287,6 @@
 
 - (DayOfWeek) getDayOfWeek
 {
-    NSLog(@"%d", [_dataStore getDayOfWeek]);
     return [_dataStore getDayOfWeek];
 }
 

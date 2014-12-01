@@ -255,17 +255,14 @@
 
 - (void) incrementLemons:(id)sender
 {
-    NSNumber* water = [self.delegate getWaterPercentage];
-    if ([water floatValue] >= .005) {
-        water = [NSNumber numberWithFloat:[water floatValue] - .01];
-        if ([water floatValue] < 0) {
-            water = 0;
-        }
+    NumberWithTwoDecimals* water = [self.delegate getWaterPercentage];
+    if ([water isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
+        water = [water subtract:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
         [self.delegate setWaterPercentage:water];
         [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
     
-        NSNumber* lemons = [self.delegate getLemonsPercentage];
-        lemons = [NSNumber numberWithFloat:[lemons floatValue] + .01];
+        NumberWithTwoDecimals* lemons = [self.delegate getLemonsPercentage];
+        lemons = [lemons add:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
         [self.delegate setLemonsPercentage:lemons];
         [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [lemons floatValue] * 100]];
     }
@@ -273,36 +270,30 @@
 
 - (void) decrementLemons:(id)sender
 {
-    NSNumber* lemons = [self.delegate getLemonsPercentage];
-    if ([lemons floatValue] >= .005) {
-        lemons = [NSNumber numberWithFloat:[lemons floatValue] - .01];
-        if ([lemons floatValue] < 0) {
-            lemons = 0;
-        }
-        [self.delegate setLemonsPercentage:lemons];
-        [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [lemons floatValue] * 100]];
-    
-        NSNumber* water = [self.delegate getWaterPercentage];
-        water = [NSNumber numberWithFloat:[water floatValue] + .01];
+    NumberWithTwoDecimals* lemons = [self.delegate getLemonsPercentage];
+    if ([lemons isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
+        NumberWithTwoDecimals* water = [self.delegate getWaterPercentage];
+        water = [water add:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
         [self.delegate setWaterPercentage:water];
         [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
+        
+        lemons = [lemons subtract:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
+        [self.delegate setLemonsPercentage:lemons];
+        [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [lemons floatValue] * 100]];
     }
 }
 
 - (void) incrementSugar:(id)sender
 {
     
-    NSNumber* water = [self.delegate getWaterPercentage];
-    if ([water floatValue] >= .005) {
-        water = [NSNumber numberWithFloat:[water floatValue] - .01];
-        if ([water floatValue] < 0) {
-            water = 0;
-        }
+    NumberWithTwoDecimals* water = [self.delegate getWaterPercentage];
+    if ([water isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
+        water = [water subtract:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
         [self.delegate setWaterPercentage:water];
         [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
-    
-        NSNumber* sugar = [self.delegate getSugarPercentage];
-        sugar = [NSNumber numberWithFloat:[sugar floatValue] + .01];
+        
+        NumberWithTwoDecimals* sugar = [self.delegate getSugarPercentage];
+        sugar = [sugar add:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
         [self.delegate setSugarPercentage:sugar];
         [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [sugar floatValue] * 100]];
     }
@@ -310,35 +301,29 @@
 
 - (void) decrementSugar:(id)sender
 {
-    NSNumber* sugar = [self.delegate getSugarPercentage];
-    if ([sugar floatValue] >= .005) {
-        sugar = [NSNumber numberWithFloat:[sugar floatValue] - .01];
-        if ([sugar floatValue] < 0) {
-            sugar = 0;
-        }
-        [self.delegate setSugarPercentage:sugar];
-        [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [sugar floatValue] * 100]];
-    
-        NSNumber* water = [self.delegate getWaterPercentage];
-        water = [NSNumber numberWithFloat:[water floatValue] + .01];
+    NumberWithTwoDecimals* sugar = [self.delegate getSugarPercentage];
+    if ([sugar isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
+        NumberWithTwoDecimals* water = [self.delegate getWaterPercentage];
+        water = [water add:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
         [self.delegate setWaterPercentage:water];
         [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
+        
+        sugar = [sugar subtract:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
+        [self.delegate setSugarPercentage:sugar];
+        [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [sugar floatValue] * 100]];
     }
 }
 
 - (void) incrementIce:(id)sender
 {
-    NSNumber* water = [self.delegate getWaterPercentage];
-    if ([water floatValue] >= .005) {
-        water = [NSNumber numberWithFloat:[water floatValue] - .01];
-        if ([water floatValue] < 0) {
-            water = 0;
-        }
+    NumberWithTwoDecimals* water = [self.delegate getWaterPercentage];
+    if ([water isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
+        water = [water subtract:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
         [self.delegate setWaterPercentage:water];
         [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
-    
-        NSNumber* ice = [self.delegate getIcePercentage];
-        ice = [NSNumber numberWithFloat:[ice floatValue] + .01];
+        
+        NumberWithTwoDecimals* ice = [self.delegate getIcePercentage];
+        ice = [ice add:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
         [self.delegate setIcePercentage:ice];
         [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [ice floatValue] * 100]];
     }
@@ -346,19 +331,16 @@
 
 - (void) decrementIce:(id)sender
 {
-    NSNumber* ice = [self.delegate getIcePercentage];
-    if ([ice floatValue] >= .005) {
-        ice = [NSNumber numberWithFloat:[ice floatValue] - .01];
-        if ([ice floatValue] < 0) {
-            ice = 0;
-        }
-        [self.delegate setIcePercentage:ice];
-        [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [ice floatValue] * 100]];
-    
-        NSNumber* water = [self.delegate getWaterPercentage];
-        water = [NSNumber numberWithFloat:[water floatValue] + .01];
+    NumberWithTwoDecimals* ice = [self.delegate getIcePercentage];
+    if ([ice isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
+        NumberWithTwoDecimals* water = [self.delegate getWaterPercentage];
+        water = [water add:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
         [self.delegate setWaterPercentage:water];
         [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
+        
+        ice = [ice subtract:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];
+        [self.delegate setIcePercentage:ice];
+        [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [ice floatValue] * 100]];
     }
 }
 
