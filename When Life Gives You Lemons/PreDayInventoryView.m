@@ -399,12 +399,12 @@
 - (void) incrementLemons:(id)sender
 {
     for (int i = 0; i < _amountMultiplier; ++i) {
-        NSNumber* money = [self.delegate getMoney];
-        if ([money floatValue] >= [[self.delegate getLemonPrice] floatValue]){
-            NSNumber* lemons = [self.delegate getLemons];
-            lemons = [NSNumber numberWithFloat:[lemons floatValue] + 1.0];
+        NumberWithTwoDecimals* money = [self.delegate getMoney];
+        if ([money isGreaterThanOrEqual:[self.delegate getLemonPrice]]){
+            NumberWithTwoDecimals* lemons = [self.delegate getLemons];
+            lemons = [lemons add:[[NumberWithTwoDecimals alloc] initWithFloat:1.0]];
             [self.delegate setLemons:lemons];
-            [self.delegate setMoney:[NSNumber numberWithFloat:[money floatValue] - [[self.delegate getLemonPrice] floatValue]]];
+            [self.delegate setMoney:[money subtract:[self.delegate getLemonPrice]]];
             [self updateMoneyLabel];
             [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
         }

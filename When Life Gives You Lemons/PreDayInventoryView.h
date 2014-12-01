@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NumberWithTwoDecimals.h"
 
 @protocol PreDayInvenentoryViewDelegate <NSObject>
 @required
