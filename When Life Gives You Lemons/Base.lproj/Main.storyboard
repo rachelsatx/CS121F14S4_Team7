@@ -188,14 +188,14 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="displayAchievements:" destination="Cxe-8A-g9U" eventType="touchUpInside" id="3T7-IJ-PcF"/>
+                                    <action selector="displayBadges:" destination="Cxe-8A-g9U" eventType="touchUpInside" id="EVQ-6s-1pj"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="achievementsViewButton" destination="UdE-zJ-Rxd" id="Mqp-XY-HOl"/>
+                        <outlet property="badgesViewButton" destination="UdE-zJ-Rxd" id="Sqf-jg-ayY"/>
                         <outlet property="infoViewButton" destination="QFd-Kn-LCb" id="6dG-Qx-5sy"/>
                         <outlet property="inventoryViewButton" destination="JBM-37-gvs" id="oQ6-na-2Gh"/>
                         <outlet property="recipesViewButton" destination="Nya-ia-8kp" id="6Tp-GI-dZO"/>

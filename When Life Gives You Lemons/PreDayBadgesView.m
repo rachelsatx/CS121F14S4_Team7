@@ -1,14 +1,14 @@
 //
-//  PreDayAchievementsView.m
+//  PreDayBadgesView.m
 //  When Life Gives You Lemons
 //
-//  Created by Megan Shao on 11/26/14.
+//  Created by Megan Shao on 11/30/14.
 //  Copyright (c) 2014 Jonathan Finnell, Amit Maor, Joshua Petrack, Megan Shao, Rachel Wilson. All rights reserved.
 //
 
-#import "PreDayAchievementsView.h"
+#import "PreDayBadgesView.h"
 
-@interface PreDayAchievementsView() {
+@interface PreDayBadgesView() {
     // Constants
     UIColor* backgroundColor;
     
@@ -38,7 +38,7 @@
 }
 @end
 
-@implementation PreDayAchievementsView
+@implementation PreDayBadgesView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -69,7 +69,7 @@
     numRows = 4;
     numColumns = 4;
     badgeSize = ((frameHeight / (numRows + 1)) < (frameWidth / (numColumns + 1))) ?
-                (frameHeight / (numRows + 1)) : (frameWidth / (numColumns + 1));
+    (frameHeight / (numRows + 1)) : (frameWidth / (numColumns + 1));
     badgeCornerRadius = 20;
     badgeBorderWidth = 2;
     
@@ -100,6 +100,7 @@
     description.textAlignment = NSTextAlignmentCenter;
     description.textColor = [UIColor whiteColor];
     description.text = descriptionText;
+    description.editable = NO;
     [self addSubview:description];
 }
 
@@ -107,7 +108,7 @@
 {
     CGFloat spaceBetweenRows = (frameHeight - headerThickness - buttonHeight - 4 * borderThickness - numRows * badgeSize) / (numRows - 1);
     CGFloat spaceBetweenColumns = (frameWidth - 2 * borderThickness - numColumns * badgeSize) / (numColumns - 1);
-
+    
     for (int row = 0; row < numRows; row++) {
         for (int col = 0; col < numColumns; col++) {
             CGRect badgeFrame = CGRectMake(borderThickness + col * (badgeSize + spaceBetweenColumns), 2 * borderThickness + headerThickness + row * (badgeSize + spaceBetweenRows), badgeSize, badgeSize);
@@ -197,7 +198,7 @@
                 [badge setTitle:@"Earn all other badges" forState:UIControlStateHighlighted];
                 [badge setBackgroundColor:[UIColor whiteColor]];
             }
-
+            
             [self addSubview:badge];
         }
     }

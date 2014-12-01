@@ -11,14 +11,14 @@
 #import "MidDayViewController.h"
 #import "PreDayRecipeView.h"
 #import "PreDayInfoView.h"
-#import "PreDayAchievementsView.h"
+#import "PreDayBadgesView.h"
 
 @interface PreDayViewController (){
     DataStore* _dataStore;
     PreDayInventoryView* _inventoryView;
     PreDayRecipeView* _recipeView;
     PreDayInfoView* _infoView;
-    PreDayAchievementsView* _achievementsView;
+    PreDayBadgesView* _badgesView;
 }
 @end
 
@@ -59,9 +59,9 @@
     [_recipeView updatePercentageLabels];
     
     // Create the Achievements View
-    _achievementsView = [[PreDayAchievementsView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
-    [_achievementsView setHidden:YES];
-    [self.view addSubview:_achievementsView];
+    _badgesView = [[PreDayBadgesView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
+    [_badgesView setHidden:YES];
+    [self.view addSubview:_badgesView];
 }
 
 - (void) setDataStore:(DataStore*) dataStore
@@ -108,16 +108,16 @@
     [_infoView updateMakeableCupsLabel];
 }
 
-- (IBAction)displayAchievements:(id)sender
+- (IBAction)displayBadges:(id)sender
 {
-    [_achievementsView setHidden:NO];
+    [_badgesView setHidden:NO];
     CATransition *transition = [CATransition animation];
     transition.duration = 0.5;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionFade;
     transition.delegate = self;
     [self.view.layer addAnimation:transition forKey:nil];
-    [self.view bringSubviewToFront:_achievementsView];
+    [self.view bringSubviewToFront:_badgesView];
 }
 
 - (IBAction)unwindToPreDay:(UIStoryboardSegue*)unwindSegue

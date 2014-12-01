@@ -11,7 +11,7 @@
 		ACA77C001A1ACB36002D7CF7 /* NumberWithTwoDecimals.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */; };
 		ACBEBFA719F619A300B173C7 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFA619F619A300B173C7 /* DataStore.m */; };
 		ACBEBFB519F61FAD00B173C7 /* PreDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */; };
-		AF7D06A21A26DADA0089CE7A /* PreDayAchievementsView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF7D06A11A26DADA0089CE7A /* PreDayAchievementsView.m */; };
+		AF268E3A1A2C4BAD00ED6A53 /* PreDayBadgesView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF268E391A2C4BAD00ED6A53 /* PreDayBadgesView.m */; };
 		AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCB509719F7457900DFADE9 /* MidDayView.m */; };
 		AFE2AC6019F833D2005EC4D0 /* PostDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE2AC5F19F833D2005EC4D0 /* PostDayView.m */; };
 		DA064B131A19AA3F007438CF /* MenuMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA064B121A19AA3F007438CF /* MenuMainView.m */; };
@@ -64,8 +64,8 @@
 		ACBEBFA619F619A300B173C7 /* DataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStore.m; sourceTree = "<group>"; };
 		ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayViewController.h; sourceTree = "<group>"; };
 		ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayViewController.m; sourceTree = "<group>"; };
-		AF7D06A01A26DADA0089CE7A /* PreDayAchievementsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayAchievementsView.h; sourceTree = "<group>"; };
-		AF7D06A11A26DADA0089CE7A /* PreDayAchievementsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayAchievementsView.m; sourceTree = "<group>"; };
+		AF268E381A2C4BAD00ED6A53 /* PreDayBadgesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayBadgesView.h; sourceTree = "<group>"; };
+		AF268E391A2C4BAD00ED6A53 /* PreDayBadgesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayBadgesView.m; sourceTree = "<group>"; };
 		AFCB509619F7457900DFADE9 /* MidDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidDayView.h; sourceTree = "<group>"; };
 		AFCB509719F7457900DFADE9 /* MidDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidDayView.m; sourceTree = "<group>"; };
 		AFE2AC5E19F833D2005EC4D0 /* PostDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDayView.h; sourceTree = "<group>"; };
@@ -153,8 +153,8 @@
 				DAB2821319F7946000441EAA /* PreDayRecipeView.m */,
 				DA0FB60319F641B00036D500 /* PreDayInventoryView.h */,
 				DA0FB60419F641B00036D500 /* PreDayInventoryView.m */,
-				AF7D06A01A26DADA0089CE7A /* PreDayAchievementsView.h */,
-				AF7D06A11A26DADA0089CE7A /* PreDayAchievementsView.m */,
+				AF268E381A2C4BAD00ED6A53 /* PreDayBadgesView.h */,
+				AF268E391A2C4BAD00ED6A53 /* PreDayBadgesView.m */,
 			);
 			name = PreDay;
 			sourceTree = "<group>";
@@ -404,7 +404,6 @@
 				ACBEBFA719F619A300B173C7 /* DataStore.m in Sources */,
 				ACBEBFB519F61FAD00B173C7 /* PreDayViewController.m in Sources */,
 				DA6C2BC819F19B8D00AE1EB7 /* AppDelegate.m in Sources */,
-				AF7D06A21A26DADA0089CE7A /* PreDayAchievementsView.m in Sources */,
 				DA0FB60B19F646030036D500 /* PostDayViewController.m in Sources */,
 				AFE2AC6019F833D2005EC4D0 /* PostDayView.m in Sources */,
 				DA2726AB19F8F26300287791 /* Customer.m in Sources */,
@@ -416,6 +415,7 @@
 				DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */,
 				AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */,
 				DA064B161A19B0A6007438CF /* PreDayInfoView.m in Sources */,
+				AF268E3A1A2C4BAD00ED6A53 /* PreDayBadgesView.m in Sources */,
 				AC521EE31A1572E8007AD8A1 /* MenuInstructionsView.m in Sources */,
 				FEBAF03B1A0B122500951C36 /* SunnyScene.m in Sources */,
 				DA6C2BC419F19B8D00AE1EB7 /* main.m in Sources */,

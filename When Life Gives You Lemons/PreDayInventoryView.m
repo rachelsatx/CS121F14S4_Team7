@@ -92,7 +92,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
     labelWidth = frameWidth / 4;
     labelHeight = frameHeight / 8;
     
-    multiplierWidth = frameWidth / 4;
+    multiplierWidth = frameWidth / 5;
     multiplierHeight = borderThickness / 2;
     defaultMultiplier = 1;
     
@@ -126,16 +126,26 @@ typedef NS_ENUM(int, InventoryIngredient) {
 
 - (void)createMultipliers
 {
-    // Create multiplier label
-    CGRect multiplierLabelFrame = CGRectMake(0,
-                                             borderThickness - multiplierHeight,
-                                             multiplierWidth,
-                                             multiplierHeight);
-    UILabel* multiplierLabel = [[UILabel alloc] initWithFrame:multiplierLabelFrame];
-    [multiplierLabel setText:@"Multipliers: "];
-    [multiplierLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
-    [multiplierLabel setTextAlignment:NSTextAlignmentCenter];
-    [self addSubview:multiplierLabel];
+    // Create multiplier labels
+    CGRect beforeTextFrame = CGRectMake(0,
+                                        borderThickness - multiplierHeight,
+                                        multiplierWidth,
+                                        multiplierHeight);
+    UILabel* beforeLabel = [[UILabel alloc] initWithFrame:beforeTextFrame];
+    [beforeLabel setText:@"Buy"];
+    [beforeLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
+    [beforeLabel setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:beforeLabel];
+    
+    CGRect afterTextFrame = CGRectMake(frameWidth - multiplierWidth,
+                                       borderThickness - multiplierHeight,
+                                       multiplierWidth,
+                                       multiplierHeight);
+    UILabel* afterLabel = [[UILabel alloc] initWithFrame:afterTextFrame];
+    [afterLabel setText:@"at a time"];
+    [afterLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
+    [afterLabel setTextAlignment:NSTextAlignmentLeft];
+    [self addSubview:afterLabel];
     
     [self createSingleMultiplier:1 atIndex:1];
     [self createSingleMultiplier:10 atIndex:2];
@@ -149,7 +159,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
                                               multiplierWidth,
                                               multiplierHeight);
     UIButton* multiplierButton = [[UIButton alloc] initWithFrame:multiplierButtonFrame];
-    [multiplierButton setTitle:[NSString stringWithFormat:@"%dx", multiplier] forState:UIControlStateNormal];
+    [multiplierButton setTitle:[NSString stringWithFormat:@" %dx ", multiplier] forState:UIControlStateNormal];
     [[multiplierButton titleLabel] setFont:[UIFont fontWithName:fontName size:fontSize]];
     [multiplierButton setTag:multiplier];
     [multiplierButton addTarget:self action:@selector(setAmountMultiplier:) forControlEvents:UIControlEventTouchUpInside];
