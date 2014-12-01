@@ -48,8 +48,8 @@
         
         self.backgroundColor = backgroundColor;
         
-        [self addAchievementDescription];
-        [self addAchievements];
+        [self addHeader];
+        [self addBadges];
         
         [self addBackButton];
     }
@@ -86,9 +86,9 @@
     fontName = @"Chalkduster";
 }
 
-- (void)addAchievementDescription
+- (void)addHeader
 {
-    NSString* descriptionText = @"BADGES: \n Click on each image to see how to earn the badge";
+    NSString* descriptionText = @"BADGES: \n Click to see how to earn each badge";
     
     CGRect descriptionFrame = CGRectMake(borderThickness,
                                          borderThickness,
@@ -103,61 +103,59 @@
     [self addSubview:description];
 }
 
-- (void)addAchievements
+- (void)addBadges
 {
     CGFloat spaceBetweenRows = (frameHeight - headerThickness - buttonHeight - 4 * borderThickness - numRows * badgeSize) / (numRows - 1);
     CGFloat spaceBetweenColumns = (frameWidth - 2 * borderThickness - numColumns * badgeSize) / (numColumns - 1);
 
     for (int row = 0; row < numRows; row++) {
         for (int col = 0; col < numColumns; col++) {
-            CGRect achievementFrame = CGRectMake(borderThickness + col * (badgeSize + spaceBetweenColumns), 2 * borderThickness + headerThickness + row * (badgeSize + spaceBetweenRows), badgeSize, badgeSize);
-            UIButton* achievement = [[UIButton alloc] initWithFrame:achievementFrame];
-            achievement.backgroundColor = [UIColor whiteColor];
-            achievement.titleLabel.font = [UIFont fontWithName:fontName size:badgeFontSize];
-            achievement.titleLabel.textAlignment = NSTextAlignmentCenter;
-            achievement.titleLabel.numberOfLines = 0;
-//            achievement.titleLabel.adjustsFontSizeToFitWidth = TRUE;
-//            achievement.titleLabel.lineBreakMode = NSLineBreakByClipping;
-            [achievement setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [achievement setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-            achievement.layer.cornerRadius = badgeCornerRadius;
-            achievement.layer.borderWidth = badgeBorderWidth;
+            CGRect badgeFrame = CGRectMake(borderThickness + col * (badgeSize + spaceBetweenColumns), 2 * borderThickness + headerThickness + row * (badgeSize + spaceBetweenRows), badgeSize, badgeSize);
+            UIButton* badge = [[UIButton alloc] initWithFrame:badgeFrame];
+            badge.backgroundColor = [UIColor whiteColor];
+            badge.titleLabel.font = [UIFont fontWithName:fontName size:badgeFontSize];
+            badge.titleLabel.textAlignment = NSTextAlignmentCenter;
+            badge.titleLabel.numberOfLines = 0;
+            [badge setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [badge setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+            badge.layer.cornerRadius = badgeCornerRadius;
+            badge.layer.borderWidth = badgeBorderWidth;
             
             // These badges start out gray and turn green when earned
             if (row == 0 && col == 0) {
-                [achievement setTitle:@"Con\nArtist" forState:UIControlStateNormal];
-                [achievement setTitle:@"Try to sell 100% water" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor grayColor]];
+                [badge setTitle:@"Con\nArtist" forState:UIControlStateNormal];
+                [badge setTitle:@"Try to sell 100% water" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor grayColor]];
             } else if (row == 0 && col == 1) {
-                [achievement setTitle:@"Lemon\nHead" forState:UIControlStateNormal];
-                [achievement setTitle:@"Try to sell 100% lemons" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor grayColor]];
+                [badge setTitle:@"Lemon\nHead" forState:UIControlStateNormal];
+                [badge setTitle:@"Try to sell 100% lemons" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor grayColor]];
             } else if (row == 0 && col == 2) {
-                [achievement setTitle:@"Sweet\nTooth" forState:UIControlStateNormal];
-                [achievement setTitle:@"Try to sell 100% sugar" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor grayColor]];
+                [badge setTitle:@"Sweet\nTooth" forState:UIControlStateNormal];
+                [badge setTitle:@"Try to sell 100% sugar" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor grayColor]];
             } else if (row == 0 && col == 3) {
-                [achievement setTitle:@"Frozen" forState:UIControlStateNormal];
-                [achievement setTitle:@"Try to sell 100% ice" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor grayColor]];
+                [badge setTitle:@"Frozen" forState:UIControlStateNormal];
+                [badge setTitle:@"Try to sell 100% ice" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor grayColor]];
             }
             
             else if (row == 1 && col == 0) {
-                [achievement setTitle:@"Under-estimate" forState:UIControlStateNormal];
-                [achievement setTitle:@"Have your lemonade sell out" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor grayColor]];
+                [badge setTitle:@"Under-estimate" forState:UIControlStateNormal];
+                [badge setTitle:@"Have your lemonade sell out" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor grayColor]];
             } else if (row == 1 && col == 1) {
-                [achievement setTitle:@"The\nPerfect\nCup" forState:UIControlStateNormal];
-                [achievement setTitle:@"Make delicious lemonade" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor grayColor]];
+                [badge setTitle:@"The\nPerfect\nCup" forState:UIControlStateNormal];
+                [badge setTitle:@"Make delicious lemonade" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor grayColor]];
             } else if (row == 1 && col == 2) {
-                [achievement setTitle:@"The\nPerfect\nWeek" forState:UIControlStateNormal];
-                [achievement setTitle:@"Make delicious lemonade for a week" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor grayColor]];
+                [badge setTitle:@"The\nPerfect\nWeek" forState:UIControlStateNormal];
+                [badge setTitle:@"Make delicious lemonade for a week" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor grayColor]];
             } else if (row == 1 && col == 3) {
-                [achievement setTitle:@"Scientist" forState:UIControlStateNormal];
-                [achievement setTitle:@"Get every possible feedback" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor grayColor]];
+                [badge setTitle:@"Scientist" forState:UIControlStateNormal];
+                [badge setTitle:@"Get every possible feedback" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor grayColor]];
             }
             
             // These badges start out white and progress through bronze, silver, and gold
@@ -165,42 +163,42 @@
             // Silver: 204, 194, 194
             // Gold: 255, 215, 0
             else if (row == 2 && col == 0) {
-                [achievement setTitle:@"Salesman" forState:UIControlStateNormal];
-                [achievement setTitle:@"Sell 100 cups in a day" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor whiteColor]];
+                [badge setTitle:@"Salesman" forState:UIControlStateNormal];
+                [badge setTitle:@"Sell 100 cups in a day" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 2 && col == 1) {
-                [achievement setTitle:@"Lemon\nCorp TM" forState:UIControlStateNormal];
-                [achievement setTitle:@"Sell 1000 cups total" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor whiteColor]];
+                [badge setTitle:@"Lemon\nCorp TM" forState:UIControlStateNormal];
+                [badge setTitle:@"Sell 1000 cups total" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 2 && col == 2) {
-                [achievement setTitle:@"Great\nDay" forState:UIControlStateNormal];
-                [achievement setTitle:@"Earn $100 in a day" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor whiteColor]];
+                [badge setTitle:@"Great\nDay" forState:UIControlStateNormal];
+                [badge setTitle:@"Earn $100 in a day" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 2 && col == 3) {
-                [achievement setTitle:@"Bill\nGates" forState:UIControlStateNormal];
-                [achievement setTitle:@"Earn $1000 total" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor whiteColor]];
+                [badge setTitle:@"Bill\nGates" forState:UIControlStateNormal];
+                [badge setTitle:@"Earn $1000 total" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor whiteColor]];
             }
             
             else if (row == 3 && col == 0) {
-                [achievement setTitle:@"Rising\nStar" forState:UIControlStateNormal];
-                [achievement setTitle:@"Gain 10% popularity in a day" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor whiteColor]];
+                [badge setTitle:@"Rising\nStar" forState:UIControlStateNormal];
+                [badge setTitle:@"Gain 10% popularity in a day" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 3 && col == 1) {
-                [achievement setTitle:@"World\nFamous" forState:UIControlStateNormal];
-                [achievement setTitle:@"Get over 100% popularity" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor whiteColor]];
+                [badge setTitle:@"World\nFamous" forState:UIControlStateNormal];
+                [badge setTitle:@"Get over 100% popularity" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 3 && col == 2) {
-                [achievement setTitle:@"TBD" forState:UIControlStateNormal];
-                [achievement setTitle:@"" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor whiteColor]];
+                [badge setTitle:@"TBD" forState:UIControlStateNormal];
+                [badge setTitle:@"" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 3 && col == 3) {
-                [achievement setTitle:@"Perfection" forState:UIControlStateNormal];
-                [achievement setTitle:@"Earn all other badges" forState:UIControlStateHighlighted];
-                [achievement setBackgroundColor:[UIColor whiteColor]];
+                [badge setTitle:@"Perfection" forState:UIControlStateNormal];
+                [badge setTitle:@"Earn all other badges" forState:UIControlStateHighlighted];
+                [badge setBackgroundColor:[UIColor whiteColor]];
             }
 
-            [self addSubview:achievement];
+            [self addSubview:badge];
         }
     }
 }
