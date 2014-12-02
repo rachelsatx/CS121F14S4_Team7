@@ -8,6 +8,8 @@
 
 #import "PreDayRecipeView.h"
 
+#import <AudioToolbox/AudioToolbox.h>
+
 typedef NS_ENUM(int, RecipeIngredient) {
     Lemons,
     Sugar,
@@ -36,6 +38,9 @@ typedef NS_ENUM(int, RecipeIngredient) {
     CGFloat fontSize;
     CGFloat titleSizeIncrease;
     NSString* fontName;
+    
+    // Sounds
+    SystemSoundID clickSound;
 }
 @end
 
@@ -55,6 +60,8 @@ typedef NS_ENUM(int, RecipeIngredient) {
         [self createSugarSection];
         [self createIceSection];
         [self createWaterSection];
+        
+        [self initializeSounds];
     }
     
     return self;
@@ -167,6 +174,19 @@ typedef NS_ENUM(int, RecipeIngredient) {
     [_waterAmountLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
     [_waterAmountLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:_waterAmountLabel];
+}
+
+- (void)initializeSounds
+{
+    // Taken from http://soundbible.com/1705-Click2.html
+    // Under creative commons attribution 3.0
+    [self setUpSound:@"click" forLocation:&clickSound];
+}
+
+- (void)setUpSound:(NSString*)fileName forLocation:(SystemSoundID*)location {
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"wav"];
+    NSURL *URL = [NSURL fileURLWithPath:path];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)URL, location);
 }
 
 /*
@@ -286,6 +306,7 @@ typedef NS_ENUM(int, RecipeIngredient) {
         [self.delegate setLemonsPercentage:lemons];
         [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [lemons floatValue] * 100]];
     }
+    AudioServicesPlaySystemSound(clickSound);
 }
 
 - (void) decrementLemons:(id)sender
@@ -304,6 +325,7 @@ typedef NS_ENUM(int, RecipeIngredient) {
         [self.delegate setWaterPercentage:water];
         [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
     }
+    AudioServicesPlaySystemSound(clickSound);
 }
 
 - (void) incrementSugar:(id)sender
@@ -323,6 +345,7 @@ typedef NS_ENUM(int, RecipeIngredient) {
         [self.delegate setSugarPercentage:sugar];
         [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [sugar floatValue] * 100]];
     }
+    AudioServicesPlaySystemSound(clickSound);
 }
 
 - (void) decrementSugar:(id)sender
@@ -341,6 +364,7 @@ typedef NS_ENUM(int, RecipeIngredient) {
         [self.delegate setWaterPercentage:water];
         [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
     }
+    AudioServicesPlaySystemSound(clickSound);
 }
 
 - (void) incrementIce:(id)sender
@@ -359,6 +383,7 @@ typedef NS_ENUM(int, RecipeIngredient) {
         [self.delegate setIcePercentage:ice];
         [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [ice floatValue] * 100]];
     }
+    AudioServicesPlaySystemSound(clickSound);
 }
 
 - (void) decrementIce:(id)sender
@@ -377,6 +402,7 @@ typedef NS_ENUM(int, RecipeIngredient) {
         [self.delegate setWaterPercentage:water];
         [_waterAmountLabel setText:[NSString stringWithFormat:@"%0.0f", [water floatValue] * 100]];
     }
+    AudioServicesPlaySystemSound(clickSound);
 }
 
 @end
