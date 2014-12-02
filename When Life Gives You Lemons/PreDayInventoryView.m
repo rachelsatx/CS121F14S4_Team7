@@ -200,7 +200,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
     [self addSubview:_lemonsAmountLabel];
 }
 
-//meaninglesscomment
+
 - (void)createSugarSection
 {
     [self addImageAndLabelWithTextFor:Sugar];
