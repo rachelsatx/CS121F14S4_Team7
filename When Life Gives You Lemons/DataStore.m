@@ -161,4 +161,39 @@
     _cupsSold = newCupsSold;
 }
 
+-(void) initWithDictionary:(NSDictionary*) inputDictionary
+{
+    _price = [inputDictionary valueForKey:@"price"];
+    _weather = (Weather) [[inputDictionary valueForKey:@"weather"] intValue];
+    _dayOfWeek = (DayOfWeek) [[inputDictionary valueForKey:@"day of week"] intValue];
+    _feedbackString = [inputDictionary valueForKey:@"feedback String"];
+    _recipe = [inputDictionary valueForKey:@"recipe"];
+    _inventory = [inputDictionary valueForKey:@"inventory"];
+    _ingredientPrices = [inputDictionary valueForKey:@"ingredient prices"];
+    _popularity = [inputDictionary valueForKey:@"popularity"];
+    _money = [inputDictionary valueForKey:@"money"];
+    _profit = [inputDictionary valueForKey:@"profit"];
+    _cupsSold = [[inputDictionary valueForKey:@"price"] integerValue];
+
+}
+
+-(NSDictionary*) convertToDictionary
+{
+    NSMutableDictionary *returnDictionary;
+    
+    [returnDictionary setValue:_price forKey:@"price"];
+    [returnDictionary setValue:[NSNumber numberWithInt:_weather] forKey:@"weather"];
+    [returnDictionary setValue:[NSNumber numberWithInt:_dayOfWeek] forKey:@"day of week"];
+    [returnDictionary setValue:_feedbackString forKey:@"feedback string"];
+    [returnDictionary setValue:_recipe forKey:@"recipe"];
+    [returnDictionary setValue:_inventory forKey:@"inventory"];
+    [returnDictionary setValue:_ingredientPrices forKey:@"ingredient prices"];
+    [returnDictionary setValue:_popularity forKey:@"popularity"];
+    [returnDictionary setValue:_money forKey:@"money"];
+    [returnDictionary setValue:_profit forKey:@"profit"];
+    [returnDictionary setValue:[NSNumber numberWithInteger:_cupsSold] forKey:@"cups sold"];
+    
+    return [NSDictionary dictionaryWithDictionary:returnDictionary];
+}
+
 @end

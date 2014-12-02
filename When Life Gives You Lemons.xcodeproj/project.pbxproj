@@ -35,6 +35,7 @@
 		DA6C2BE119F19B8D00AE1EB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BDF19F19B8D00AE1EB7 /* InfoPlist.strings */; };
 		DA6C2BE319F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */; };
 		DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB2821319F7946000441EAA /* PreDayRecipeView.m */; };
+		FE05C7C71A2D4C4900BCE136 /* Fireworks.sks in Resources */ = {isa = PBXBuildFile; fileRef = FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */; };
 		FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */; };
 		FE1471F81A1AD37E00BC7DFF /* LemonRainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */; };
 		FEBAF03B1A0B122500951C36 /* SunnyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF03A1A0B122500951C36 /* SunnyScene.m */; };
@@ -102,6 +103,7 @@
 		DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = When_Life_Gives_You_LemonsTests.m; sourceTree = "<group>"; };
 		DAB2821219F7946000441EAA /* PreDayRecipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayRecipeView.h; sourceTree = "<group>"; };
 		DAB2821319F7946000441EAA /* PreDayRecipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayRecipeView.m; sourceTree = "<group>"; };
+		FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fireworks.sks; sourceTree = "<group>"; };
 		FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LemonEmitter.sks; sourceTree = "<group>"; };
 		FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LemonRainScene.h; sourceTree = "<group>"; };
 		FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LemonRainScene.m; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				DA2726A919F8F26300287791 /* Model.m */,
 				ACBEBFA519F619A300B173C7 /* DataStore.h */,
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
+				FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */,
 				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
 				DA6C2BBE19F19B8D00AE1EB7 /* Supporting Files */,
 				ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */,
@@ -333,6 +336,7 @@
 				FEBAF0421A0B2FB300951C36 /* spark.png in Resources */,
 				DA6C2BD019F19B8D00AE1EB7 /* Images.xcassets in Resources */,
 				DA6C2BC219F19B8D00AE1EB7 /* InfoPlist.strings in Resources */,
+				FE05C7C71A2D4C4900BCE136 /* Fireworks.sks in Resources */,
 				FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */,
 				FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */,
 				DA6C2BCB19F19B8D00AE1EB7 /* Main.storyboard in Resources */,
