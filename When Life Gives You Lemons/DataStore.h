@@ -48,8 +48,8 @@ typedef NS_ENUM(int, DayOfWeek) {
 -(NSMutableDictionary*) getIngredientPrices;
 -(void) setIngredientPrices:(NSMutableDictionary*) newIngredientPrices;
 
--(NSMutableDictionary*) getAchievements;
--(void) setAchievements:(NSMutableDictionary*) newAchievements;
+-(NSMutableDictionary*) getBadges;
+-(void) setBadges:(NSMutableDictionary*) newBadges;
 
 -(NSMutableSet*) getFeedbackSet;
 -(void) setFeedbackSet:(NSMutableSet*) newFeedbackSet;
@@ -69,4 +69,9 @@ typedef NS_ENUM(int, DayOfWeek) {
 -(NSInteger) getDaysOfPerfectLemonade;
 -(void) setDaysOfPerfectLemonade:(NSInteger) newDays;
 
+-(NSInteger) getTotalCupsSold;
+-(void) setTotalCupsSold:(NSInteger) newCups;
+
+-(NumberWithTwoDecimals*) getTotalEarnings;
+-(void) setTotalEarnings:(NumberWithTwoDecimals*) newTotal;
 @end

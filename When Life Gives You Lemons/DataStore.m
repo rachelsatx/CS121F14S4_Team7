@@ -7,6 +7,7 @@
 //
 
 #import "DataStore.h"
+#import "Badges.h"
 
 @interface DataStore () {
     NumberWithTwoDecimals* _price;
@@ -16,14 +17,16 @@
     NSMutableDictionary* _recipe;
     NSMutableDictionary* _inventory;
     NSMutableDictionary* _ingredientPrices;
-    NSMutableDictionary* _achievementsDictionary;
+    NSMutableDictionary* _badgeDictionary;
     NSMutableSet* _feedbackSet;
     NSInteger _popularity;
     NumberWithTwoDecimals* _money;
     NumberWithTwoDecimals* _profit;
     NSInteger _cupsSold;
-    // for an achievement
+    // for achievementS
     NSInteger _daysOfPerfectLemonade;
+    NSInteger _totalCupsSold;
+    NumberWithTwoDecimals* _totalEarnings;
 }
 @end
 
@@ -39,12 +42,13 @@
     [self initInventory];
     [self initRecipe];
     [self initPrices];
+    [self initBadges];
     _feedbackSet = [[NSMutableSet alloc] init];
     _popularity = 0;
     _money = [[NumberWithTwoDecimals alloc] initWithFloat:20];
-    // TODO: INITIALIZE ACHIEVEMENTS DICTIONARY WITH NAMES OF ACHIEVEMENTS, ALL TO 0.
     _daysOfPerfectLemonade = 0;
-    
+    _totalCupsSold = 0;
+    _totalEarnings = [[NumberWithTwoDecimals alloc] initWithFloat:0];
     
     return self;
 }
@@ -74,6 +78,15 @@
     [_ingredientPrices setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.50] forKey:@"sugar"];
     [_ingredientPrices setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.25] forKey:@"ice"];
     [_ingredientPrices setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.05] forKey:@"cups"];
+}
+
+-(void) initBadges
+{
+    _badgeDictionary = [[NSMutableDictionary alloc] init];
+    for (NSString* badge in [Badges badgeArray]) {
+        [_badgeDictionary setValue:@0 forKey:badge];
+    }
+
 }
 
 // Price
@@ -152,14 +165,14 @@
 }
 
 // Achievements
--(NSMutableDictionary*) getAchievements
+-(NSMutableDictionary*) getBadges
 {
-    return _achievementsDictionary;
+    return _badgeDictionary;
 }
 
--(void) setAchievements:(NSMutableDictionary *)newAchievements
+-(void) setBadges:(NSMutableDictionary *)newBadges
 {
-    _achievementsDictionary = newAchievements;
+    _badgeDictionary = newBadges;
 }
 
 // Feedbacks that have been gotten so far
@@ -223,6 +236,26 @@
 -(void) setDaysOfPerfectLemonade:(NSInteger) newDays
 {
     _daysOfPerfectLemonade = newDays;
+}
+
+-(NSInteger) getTotalCupsSold
+{
+    return _totalCupsSold;
+}
+
+-(void) setTotalCupsSold:(NSInteger) newCups
+{
+    _totalCupsSold = newCups;
+}
+
+-(NumberWithTwoDecimals*) getTotalEarnings
+{
+    return _totalEarnings;
+}
+
+-(void) setTotalEarnings:(NumberWithTwoDecimals *)newTotal
+{
+    _totalEarnings = newTotal;
 }
 
 @end

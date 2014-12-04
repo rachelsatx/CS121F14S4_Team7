@@ -35,6 +35,7 @@
 		DA6C2BD919F19B8D00AE1EB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BBB19F19B8D00AE1EB7 /* UIKit.framework */; };
 		DA6C2BE119F19B8D00AE1EB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BDF19F19B8D00AE1EB7 /* InfoPlist.strings */; };
 		DA6C2BE319F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */; };
+		DA940C8C1A3083E50049A5A8 /* Badges.m in Sources */ = {isa = PBXBuildFile; fileRef = DA940C8B1A3083E50049A5A8 /* Badges.m */; };
 		DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB2821319F7946000441EAA /* PreDayRecipeView.m */; };
 		FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */; };
 		FE1471F81A1AD37E00BC7DFF /* LemonRainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */; };
@@ -103,6 +104,8 @@
 		DA6C2BDE19F19B8D00AE1EB7 /* When Life Gives You LemonsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "When Life Gives You LemonsTests-Info.plist"; sourceTree = "<group>"; };
 		DA6C2BE019F19B8D00AE1EB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = When_Life_Gives_You_LemonsTests.m; sourceTree = "<group>"; };
+		DA940C8B1A3083E50049A5A8 /* Badges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Badges.m; sourceTree = "<group>"; };
+		DA940C8D1A3088960049A5A8 /* Badges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Badges.h; path = "When Life Gives You Lemons/Badges.h"; sourceTree = "<group>"; };
 		DAB2821219F7946000441EAA /* PreDayRecipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayRecipeView.h; sourceTree = "<group>"; };
 		DAB2821319F7946000441EAA /* PreDayRecipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayRecipeView.m; sourceTree = "<group>"; };
 		FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LemonEmitter.sks; sourceTree = "<group>"; };
@@ -219,6 +222,8 @@
 		DA6C2BAB19F19B8C00AE1EB7 = {
 			isa = PBXGroup;
 			children = (
+				DA940C8D1A3088960049A5A8 /* Badges.h */,
+				DA940C8B1A3083E50049A5A8 /* Badges.m */,
 				DA6C2BBD19F19B8D00AE1EB7 /* When Life Gives You Lemons */,
 				DA6C2BDC19F19B8D00AE1EB7 /* When Life Gives You LemonsTests */,
 				DA6C2BB619F19B8D00AE1EB7 /* Frameworks */,
@@ -412,6 +417,7 @@
 				FE1471F81A1AD37E00BC7DFF /* LemonRainScene.m in Sources */,
 				DA064B131A19AA3F007438CF /* MenuMainView.m in Sources */,
 				ACA77C001A1ACB36002D7CF7 /* NumberWithTwoDecimals.m in Sources */,
+				DA940C8C1A3083E50049A5A8 /* Badges.m in Sources */,
 				DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */,
 				AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */,
 				DA064B161A19B0A6007438CF /* PreDayInfoView.m in Sources */,

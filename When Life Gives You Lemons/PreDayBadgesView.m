@@ -168,7 +168,7 @@
                 [badge setTitle:@"Sell 100 cups in a day" forState:UIControlStateHighlighted];
                 [badge setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 2 && col == 1) {
-                [badge setTitle:@"Lemon\nCorp TM" forState:UIControlStateNormal];
+                [badge setTitle:@"Lemon\nCorp\u2122" forState:UIControlStateNormal];
                 [badge setTitle:@"Sell 1000 cups total" forState:UIControlStateHighlighted];
                 [badge setBackgroundColor:[UIColor whiteColor]];
             } else if (row == 2 && col == 2) {

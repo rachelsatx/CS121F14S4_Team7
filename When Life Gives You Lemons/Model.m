@@ -8,6 +8,7 @@
 
 #import "Model.h"
 #import "Customer.h"
+#import "Badges.h"
 
 @implementation Model
 
@@ -19,7 +20,7 @@
     NumberWithTwoDecimals* price = [dataStore getPrice];
     NSInteger popularity = [dataStore getPopularity];
     NSMutableDictionary* inventory = [dataStore getInventory];
-    NSMutableDictionary* achievements = [dataStore getAchievements];
+    NSMutableDictionary* badges = [dataStore getBadges];
     NSMutableSet* feedbackSet = [dataStore getFeedbackSet];
     NSString* feedbackString = @"";
     NumberWithTwoDecimals* money = [dataStore getMoney];
@@ -61,6 +62,22 @@
                 }
             }
         }
+        if (customersWhoBought >= 100) {
+            [badges setValue:@1 forKey:dayCups];
+            NSLog(@"Earned SALESMAN");
+        }
+        if ([dataStore getTotalCupsSold] + customersWhoBought >= 1000) {
+            [badges setValue:@1 forKey:totalCups];
+            NSLog(@"Earned LEMON-CORP\u2122");
+        }
+        if ([grossEarnings floatValue] >= 100) {
+            [badges setValue:@1 forKey:dayMoney];
+            NSLog(@"Earned GREAT DAY");
+        }
+        if ([[[dataStore getTotalEarnings] add:grossEarnings] floatValue] >= 1000) {
+            [badges setValue:@1 forKey:totalMoney];
+            NSLog(@"Earned BILL GATES");
+        }
     } else {
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
         [feedbackSet addObject:feedbackString];
@@ -82,8 +99,17 @@
     }
     
     // Calculate new value for popularity.
+    NSInteger oldPopularity = popularity;
     NSInteger newPopularity = [self calculateNewPopularityWithNumCustomers:totalCustomers
         portionBought:portionWhoBought portionLiked:portionWhoLiked fromOldPopularity:popularity];
+    if ((newPopularity - oldPopularity) >= 10) {
+        [badges setValue:@1 forKey:dayPopularity];
+        NSLog(@"Earned RISING STAR");
+    }
+    if (newPopularity >= 100) {
+        [badges setValue:@1 forKey:totalPopularity];
+        NSLog(@"Earned WORLD FAMOUS");
+    }
     
     NumberWithTwoDecimals* newMoney = [money add:grossEarnings];
     
@@ -94,11 +120,13 @@
         feedbackString = [self generateFeedbackFromRecipe:recipe forWeather:weather];
         [feedbackSet addObject:feedbackString];
         if ([feedbackString isEqualToString:@"Your lemonade was delicious!"]) {
-            // TODO: set The Perfect Cup to 1
+            [badges setValue:@1 forKey:onceDelicious];
+            NSLog(@"Earned THE PERFECT CUP");
             
             [dataStore setDaysOfPerfectLemonade:perfectDaysInRow + 1];
             if (perfectDaysInRow == 6) {
-                // TODO: set The Perfect Week to 1
+                [badges setValue:@1 forKey:weekDelicious];
+                NSLog(@"Earned THE PERFECT WEEK");
             }
         } else {
             [dataStore setDaysOfPerfectLemonade:0];
@@ -109,7 +137,8 @@
             feedbackString = [NSString stringWithFormat:
                @"%@\nYou also ran out of ingredients!",
                               feedbackString];
-            // TODO: set Under-estimate to 1
+            [badges setValue:@1 forKey:runOut];
+            NSLog(@"Earned UNDER-ESTIMATE");
             [feedbackSet addObject:@"You also ran out of ingredients!"];
         } else if ((float) customersWhoBought / (float) totalCustomers < .1) {
             feedbackString = [NSString stringWithFormat:
@@ -129,6 +158,8 @@
     [dataStore setMoney:newMoney];
     [dataStore setProfit:grossEarnings];
     [dataStore setCupsSold:customersWhoBought];
+    [dataStore setTotalCupsSold:[dataStore getTotalCupsSold] + customersWhoBought];
+    [dataStore setTotalEarnings:[[dataStore getTotalEarnings] add:grossEarnings]];
     
     // A day passed, so change the day of the week and the weather.
     [dataStore setDayOfWeek:[self nextDayOfWeek:dayOfWeek]];
@@ -138,14 +169,16 @@
     [dataStore setIngredientPrices:[self generateRandomIngredientPrices]];
     
     // Update achievements that are based on recipe.
-    achievements = [self updateAchievements:achievements fromRecipe:recipe];
+    badges = [self updateBadges:badges fromRecipe:recipe];
     
     
     // If feedback set is complete, tell the datastore.
     if ([feedbackSet count] > NUM_FEEDBACKS) {
-        // TODO: set Scientist to 1
+        [badges setValue:@1 forKey:allFeedback];
+        NSLog(@"Earned SCIENTIST");
     }
     [dataStore setFeedbackSet:feedbackSet];
+    [dataStore setBadges:badges];
     
     NSLog(@"BOUGHT: %f", portionWhoBought);
     NSLog(@"LIKED: %f", portionWhoLiked);
@@ -417,24 +450,25 @@
     return newPrices;
 }
 
-- (NSMutableDictionary*) updateAchievements:(NSMutableDictionary*)achievements fromRecipe:(NSMutableDictionary*)recipe {
-    
-    // TODO: add functionality to this.
-    
+- (NSMutableDictionary*) updateBadges:(NSMutableDictionary*)badges fromRecipe:(NSMutableDictionary*)recipe {
     NumberWithTwoDecimals* one = [[NumberWithTwoDecimals alloc] initWithFloat:1.0];
     if ([[recipe valueForKey:@"lemons"] isEqual:one]) {
-        // TODO: set Lemonhead to 1
+        [badges setValue:@1 forKey:allLemons];
+        NSLog(@"Earned LEMONHEAD");
     }
     if ([[recipe valueForKey:@"sugar"] isEqual:one]) {
-        // TODO: set Sweet Tooth to 1
+        [badges setValue:@1 forKey:allSugar];
+        NSLog(@"Earned SWEET TOOTH");
     }
     if ([[recipe valueForKey:@"ice"] isEqual:one]) {
-        // TODO: set Frozen to 1
+        [badges setValue:@1 forKey:allIce];
+        NSLog(@"Earned FROZEN");
     }
     if ([[recipe valueForKey:@"water"] isEqual:one]) {
-        // TODO: set Con Artist to 1
+        [badges setValue:@1 forKey:allWater];
+        NSLog(@"Earned CON-ARTIST");
     }
-    return achievements;
+    return badges;
 }
 
 @end
