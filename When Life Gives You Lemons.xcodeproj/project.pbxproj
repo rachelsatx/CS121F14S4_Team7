@@ -43,6 +43,7 @@
 		FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */; };
 		FEBAF0421A0B2FB300951C36 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF0401A0B2FB300951C36 /* spark.png */; };
 		FEBAF0451A0B3F9600951C36 /* RainyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF0441A0B3F9500951C36 /* RainyScene.m */; };
+		FEF18CEF1A311DA60068A0C7 /* save1.json in Resources */ = {isa = PBXBuildFile; fileRef = FEF18CEE1A311DA60068A0C7 /* save1.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		FEBAF0401A0B2FB300951C36 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		FEBAF0431A0B3F9500951C36 /* RainyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RainyScene.h; sourceTree = "<group>"; };
 		FEBAF0441A0B3F9500951C36 /* RainyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RainyScene.m; sourceTree = "<group>"; };
+		FEF18CEE1A311DA60068A0C7 /* save1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = save1.json; path = ../../../../../../../Desktop/save1.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +218,7 @@
 				DA2726A919F8F26300287791 /* Model.m */,
 				ACBEBFA519F619A300B173C7 /* DataStore.h */,
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
+				FEF18CEE1A311DA60068A0C7 /* save1.json */,
 				FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */,
 				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
 				DA6C2BBE19F19B8D00AE1EB7 /* Supporting Files */,
@@ -335,6 +338,7 @@
 			files = (
 				FEBAF0421A0B2FB300951C36 /* spark.png in Resources */,
 				DA6C2BD019F19B8D00AE1EB7 /* Images.xcassets in Resources */,
+				FEF18CEF1A311DA60068A0C7 /* save1.json in Resources */,
 				DA6C2BC219F19B8D00AE1EB7 /* InfoPlist.strings in Resources */,
 				FE05C7C71A2D4C4900BCE136 /* Fireworks.sks in Resources */,
 				FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */,
@@ -510,6 +514,7 @@
 				GCC_PREFIX_HEADER = "When Life Gives You Lemons/When Life Gives You Lemons-Prefix.pch";
 				INFOPLIST_FILE = "When Life Gives You Lemons/When Life Gives You Lemons-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -524,6 +529,7 @@
 				GCC_PREFIX_HEADER = "When Life Gives You Lemons/When Life Gives You Lemons-Prefix.pch";
 				INFOPLIST_FILE = "When Life Gives You Lemons/When Life Gives You Lemons-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -22,6 +22,9 @@
 {
     [super viewDidLoad];
     
+    // Save the game
+    [self save];
+    
     // Create the PostDay View
     CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     _postDayView = [[PostDayView alloc] initWithFrame:frame andDataStore:_dataStore];
@@ -38,13 +41,30 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Make sure segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"PostDayToPreDay"])
-    {
+    if ([[segue identifier] isEqualToString:@"PostDayToPreDay"]) {
         // Get reference to the destination view controller
         PreDayViewController* preDayViewController = [segue destinationViewController];
         
         // Pass dataStore to the view controller
         [preDayViewController setDataStore:_dataStore];
+    }
+}
+
+- (void)save
+{
+    NSDictionary *dataDictionary = [_dataStore convertToDictionary];
+    
+    NSError *error = nil;
+    if ([NSJSONSerialization isValidJSONObject:dataDictionary]){
+        NSData *json = [NSJSONSerialization dataWithJSONObject:dataDictionary options:NSJSONWritingPrettyPrinted error:&error];
+        
+        if (json != nil && error == nil)
+        {
+            NSString *jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"JSON: %@", jsonString);
+            //[jsonString release];
+        }
     }
 }
 
