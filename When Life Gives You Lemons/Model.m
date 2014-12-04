@@ -202,14 +202,14 @@
     return maxCustomers;
 }
 
-- (int) calculateNewPopularityWithNumCustomers:(int)totalCustomers
+- (NSInteger) calculateNewPopularityWithNumCustomers:(int)totalCustomers
         portionBought:(float)portionWhoBought
         portionLiked:(float)portionWhoLiked
         fromOldPopularity:(NSInteger)popularity {
     // To prevent popularity from exploding, we limit "effective customers" to 100.
     int effectiveCustomers = MIN(totalCustomers, 100);
     
-    int newPopularity = popularity;
+    NSInteger newPopularity = popularity;
     // If enough people were unwilling to buy because of price, lose some popularity proportionally.
     newPopularity -= (int) ((1 - portionWhoBought) * effectiveCustomers / 3.0);
     // If enough people didn't like it, lose some popularity proportionally.
@@ -228,7 +228,7 @@
     if (newPopularity < 0) {
         newPopularity = 0;
     }
-    NSAssert(newPopularity >= 0, @"Popularity is negative (%d)", newPopularity);
+    NSAssert(newPopularity >= 0, @"Popularity is negative (%ld)", (long)newPopularity);
     return newPopularity;
 }
 

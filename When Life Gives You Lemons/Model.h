@@ -21,7 +21,7 @@
 - (int) customersFromWeekday:(DayOfWeek)dayOfWeek;
 - (int) mostCupsMakableFromInventory:(NSMutableDictionary*)inventory
                           withRecipe:(NSMutableDictionary*) recipe;
-- (int) calculateNewPopularityWithNumCustomers:(int)totalCustomers
+- (NSInteger) calculateNewPopularityWithNumCustomers:(int)totalCustomers
                                  portionBought:(float)portionWhoBought
                                   portionLiked:(float)portionWhoLiked
                              fromOldPopularity:(NSInteger)popularity;

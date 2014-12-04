@@ -169,7 +169,7 @@
 
 - (void)updateMakeableCupsLabel
 {
-    [_makeableCupsLabel setText:[NSString stringWithFormat:@"With your current inventory and recipe, \n you can make a total of %d cups of lemonade.", [self.delegate getMakableCups]]];
+    [_makeableCupsLabel setText:[NSString stringWithFormat:@"With your current inventory and recipe, \n you can make a total of %ld cups of lemonade.", (long)[self.delegate getMakableCups]]];
 }
 
 - (void)updateWeather

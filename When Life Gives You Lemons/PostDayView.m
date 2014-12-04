@@ -50,8 +50,8 @@
         popularityView.textAlignment = NSTextAlignmentCenter;
         [popularityView setFont:[UIFont fontWithName:fontName size:fontSize]];
         NSInteger popularity = [dataStore getPopularity];
-        NSAssert(popularity >= 0, @"Negative popularity (%d)", popularity);
-        popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %d percent.", popularity];
+        NSAssert(popularity >= 0, @"Negative popularity (%ld)", (long)popularity);
+        popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %ld percent.", (long)popularity];
         popularityView.editable = NO;
         [self addSubview:popularityView];
         
