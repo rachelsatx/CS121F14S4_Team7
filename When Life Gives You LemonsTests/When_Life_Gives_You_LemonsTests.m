@@ -19,11 +19,18 @@
 
 
 Model *model;
-
+NumberWithTwoDecimals* five;
+NumberWithTwoDecimals* four;
+NumberWithTwoDecimals* one;
+NumberWithTwoDecimals* zero;
 - (void)setUp
 {
     [super setUp];
     model = [[Model alloc] init];
+    five = [[NumberWithTwoDecimals alloc] initWithFloat:5.0];
+    four = [[NumberWithTwoDecimals alloc] initWithFloat:4.0];
+    one = [[NumberWithTwoDecimals alloc] initWithFloat:1.0];
+    zero = [[NumberWithTwoDecimals alloc] initWithFloat:0.0];
 }
 
 - (void)tearDown
@@ -43,62 +50,67 @@ Model *model;
     DataStore* dataStore = [[DataStore alloc] init];
     DayOfWeek beforeDay = dataStore.getDayOfWeek;
     NSDictionary* beforeInventory = dataStore.getInventory;
-    NSNumber* beforeMoney = dataStore.getMoney;
+    NumberWithTwoDecimals* beforeMoney = dataStore.getMoney;
     
     DataStore* newDataStore = [model simulateDayWithDataStore:dataStore];
     DayOfWeek afterDay = newDataStore.getDayOfWeek;
     NSDictionary* afterInventory = newDataStore.getInventory;
-    NSNumber* afterMoney = newDataStore.getMoney;
+    NumberWithTwoDecimals* afterMoney = newDataStore.getMoney;
     
     XCTAssertEqual(afterDay, beforeDay + 1, @"We went from %d to %d", beforeDay, afterDay);
     XCTAssertEqual(afterInventory, beforeInventory, @"Inventory changed when there were initially no ingredients");
 
     
-    XCTAssertEqual(newDataStore.getCupsSold, 0, @"Sold %d cups of lemonade without having any ingredients", newDataStore.getCupsSold);
+    XCTAssertEqual(newDataStore.getCupsSold, 0, @"Sold %ld cups of lemonade without having any ingredients", (long)newDataStore.getCupsSold);
     XCTAssertEqual([afterMoney floatValue], [beforeMoney floatValue], @"Money increased from %0.2f to %0.2f without selling any lemonade", [beforeMoney floatValue], [afterMoney floatValue]);
-    XCTAssertEqual([newDataStore.getPopularity floatValue], 0, @"Popularity increased from 0 to %@ without selling any lemonade", newDataStore.getPopularity);
+    XCTAssertEqual(newDataStore.getPopularity, 0, @"Popularity increased from 0 to %ld without selling any lemonade", (long)newDataStore.getPopularity);
     XCTAssertEqual([newDataStore.getProfit floatValue], 0, @"Earned $%0.2f without selling any lemonade", [newDataStore.getProfit floatValue]);
 }
 
 - (void)testSimulateDayWithOverMaxPrice{
     DataStore* dataStore = [[DataStore alloc] init];
-    [dataStore setPrice:[NSNumber numberWithInt:6]];
+    [dataStore setPrice:[[NumberWithTwoDecimals alloc] initWithFloat:6.0]];
     DayOfWeek beforeDay = dataStore.getDayOfWeek;
     NSDictionary* beforeInventory = dataStore.getInventory;
-    NSNumber* beforeMoney = dataStore.getMoney;
+    NumberWithTwoDecimals* beforeMoney = dataStore.getMoney;
     
     DataStore* newDataStore = [model simulateDayWithDataStore:dataStore];
     DayOfWeek afterDay = newDataStore.getDayOfWeek;
     NSDictionary* afterInventory = newDataStore.getInventory;
-    NSNumber* afterMoney = newDataStore.getMoney;
+    NumberWithTwoDecimals* afterMoney = newDataStore.getMoney;
     
     XCTAssertEqual(afterDay, beforeDay + 1, @"We went from %d to %d", beforeDay, afterDay);
     XCTAssertEqual(afterInventory, beforeInventory, @"Inventory changed when there were initially no ingredients");
     
-    XCTAssertEqual(newDataStore.getCupsSold, 0, @"Sold %d cups of lemonade when the price was set above the maximum customers would pay", newDataStore.getCupsSold);
+    XCTAssertEqual(newDataStore.getCupsSold, 0, @"Sold %ld cups of lemonade when the price was set above the maximum customers would pay", (long)newDataStore.getCupsSold);
     XCTAssertEqual([afterMoney floatValue], [beforeMoney floatValue], @"Money increased from %0.2f to %0.2f without selling any lemonade", [beforeMoney floatValue], [afterMoney floatValue]);
-    XCTAssertEqual([newDataStore.getPopularity floatValue], 0, @"Popularity increased from 0 to %@ without selling any lemonade", newDataStore.getPopularity);
+    XCTAssertEqual(newDataStore.getPopularity, 0, @"Popularity increased from 0 to %ld without selling any lemonade", (long)newDataStore.getPopularity);
     XCTAssertEqual([newDataStore.getProfit floatValue], 0, @"Earned $%@ without selling any lemonade", newDataStore.getProfit);
 }
 
 - (void)testSimulateDayWithReasonableInputs{
     DataStore* dataStore = [[DataStore alloc] init];
-    NSNumber* numIngredients = @20.00;
+    NumberWithTwoDecimals* numIngredients = [[NumberWithTwoDecimals alloc] initWithFloat:100.0];
+    NumberWithTwoDecimals* lemonAmount = [[NumberWithTwoDecimals alloc] initWithFloat:.2];
+    NumberWithTwoDecimals* sugarAmount = [[NumberWithTwoDecimals alloc] initWithFloat:.15];
+    NumberWithTwoDecimals* iceAmount = [[NumberWithTwoDecimals alloc] initWithFloat:.15];
+    NumberWithTwoDecimals* waterAmount = [[NumberWithTwoDecimals alloc] initWithFloat:.5];
+    
     NSMutableDictionary* beforeInventory      = [[NSMutableDictionary alloc] initWithObjects:
                                               @[numIngredients,      numIngredients,     numIngredients,   numIngredients] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     [dataStore setInventory:beforeInventory];
     NSMutableDictionary* recipe               = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@0.20,      @0.15,     @0.15,   @0.50] forKeys:
+                                              @[lemonAmount,sugarAmount,iceAmount,waterAmount] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"water"]];
     [dataStore setRecipe:recipe];
     DayOfWeek beforeDay = dataStore.getDayOfWeek;
-    NSNumber* beforeMoney = dataStore.getMoney;
+    NumberWithTwoDecimals* beforeMoney = dataStore.getMoney;
     
     DataStore* newDataStore = [model simulateDayWithDataStore:dataStore];
     DayOfWeek afterDay = newDataStore.getDayOfWeek;
     NSDictionary* afterInventory = newDataStore.getInventory;
-    NSNumber* afterMoney = newDataStore.getMoney;
+    NumberWithTwoDecimals* afterMoney = newDataStore.getMoney;
     
     XCTAssertEqual(afterDay, beforeDay + 1, @"We went from %d to %d", beforeDay, afterDay);
     for (NSString* ingredient in [beforeInventory allKeys]) {
@@ -109,7 +121,7 @@ Model *model;
     
     XCTAssertTrue(newDataStore.getCupsSold > 0, @"No lemonade sold with good recipe and stocked inventory");
     XCTAssertTrue([afterMoney floatValue] > [beforeMoney floatValue], @"Lemonade was sold but money did not increase");
-    XCTAssertTrue([newDataStore.getPopularity floatValue] > 0, @"Popularity did not increase after selling good lemonade");
+    XCTAssertTrue(newDataStore.getPopularity > 0, @"Popularity did not increase after selling good lemonade: was %ld", (long)newDataStore.getPopularity);
     XCTAssertTrue([newDataStore.getProfit floatValue] > 0, @"Lemonade sold but profit is 0");
 }
 
@@ -146,11 +158,11 @@ Model *model;
 // Test mostCupsMakeableFromInventory:
 - (void)testCorrectCupsFromInventory0{
     NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@5.00,      @5.00,     @5.00,   @5.00] forKeys:
+                                              @[five,      five,     five,   five    ] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     
     NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@1.00,      @0.00,     @0.00,   @0.00] forKeys:
+                                              @[one, zero, zero, zero] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"water"]];
     
     int correctCups = 5;
@@ -159,12 +171,15 @@ Model *model;
 }
 
 - (void)testCorrectCupsFromInventory1{
+    NumberWithTwoDecimals* startingCups = [[NumberWithTwoDecimals alloc] initWithFloat:25.0];
+    NumberWithTwoDecimals* pctWater = [[NumberWithTwoDecimals alloc] initWithFloat:0.4];
+    NumberWithTwoDecimals* pctOther = [[NumberWithTwoDecimals alloc] initWithFloat:0.2];
     NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@5.00,      @5.00,     @5.00,   @25.00] forKeys:
+                                              @[five,five,five,startingCups] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     
     NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@0.20,      @0.20,     @0.20,   @0.40] forKeys:
+                                              @[pctOther, pctOther, pctOther, pctWater] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"water"]];
     
     int correctCups = 25;
@@ -173,12 +188,13 @@ Model *model;
 }
 
 - (void)testCorrectCupsFromInventory2{
+    NumberWithTwoDecimals* startingCups = [[NumberWithTwoDecimals alloc] initWithFloat:500.0];
     NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@5.00,      @5.00,     @5.00,   @500.00] forKeys:
+                                              @[five,five,five,startingCups    ] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     
     NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@0.00,      @0.00,     @0.00,   @1.00] forKeys:
+                                              @[zero, zero, zero, one] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"water"]];
     
     int correctCups = 500;
@@ -188,11 +204,11 @@ Model *model;
 
 - (void)testCorrectCupsFromInventory3{
     NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@0.00,      @5.00,     @5.00,   @5.00] forKeys:
+                                              @[zero,five,five,five] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     
     NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@1.00,      @0.00,     @0.00,   @0.00] forKeys:
+                                              @[one, zero, zero, zero] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"water"]];
     
     int correctCups = 0;
@@ -206,7 +222,7 @@ Model *model;
     int totalCustomers = 40;
     float portionWhoBought = 0.0;
     float portionWhoLiked = 0.0;
-    NSNumber* oldPopularity = [NSNumber numberWithInt:0];
+    NSInteger oldPopularity = 0;
     
     XCTAssertEqual([model calculateNewPopularityWithNumCustomers:totalCustomers
                                                    portionBought:portionWhoBought
@@ -227,15 +243,15 @@ Model *model;
 // Test removeIngredientsOfRecipe:fromInventory:
 - (void)testRemoveIngredientsAllLemons{
     NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@5.00,      @5.00,     @5.00,   @5.00] forKeys:
+                                              @[five,      five,     five,  five] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     
     NSMutableDictionary *expectedInventory = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@4.00,      @5.00,     @5.00,   @4.00] forKeys:
+                                              @[four,      five,     five,   four] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     
     NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@1.00,      @0.00,     @0.00,   @0.00] forKeys:
+                                              @[one,     zero,     zero,   zero] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"water"]];
     
     NSMutableDictionary *newInventory = [model removeIngredientsOfRecipe:recipe fromInventory:inventory];
@@ -246,15 +262,15 @@ Model *model;
 
 - (void)testRemoveIngredientsAllWater{
     NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@5.00,      @5.00,     @5.00,   @5.00] forKeys:
+                                              @[five,      five,     five,   five] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     
     NSMutableDictionary *expectedInventory = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@5.00,      @5.00,     @5.00,   @4.00] forKeys:
+                                              @[five,      five,     five,   four] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     
     NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@0.00,      @0.00,     @0.00,   @1.00] forKeys:
+                                              @[zero,      zero,     zero,   one] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"water"]];
     
     NSMutableDictionary *newInventory = [model removeIngredientsOfRecipe:recipe fromInventory:inventory];
@@ -264,32 +280,32 @@ Model *model;
 }
 
 - (void)testRemoveIngredientsMixedRecipe{
-
-    // This test is prone to floating point errors, so:
-    float acceptableError = .0001;
+    NumberWithTwoDecimals* n485 = [[NumberWithTwoDecimals alloc] initWithFloat:4.85];
+    NumberWithTwoDecimals* n490 = [[NumberWithTwoDecimals alloc] initWithFloat:4.90];
+    NumberWithTwoDecimals* n480 = [[NumberWithTwoDecimals alloc] initWithFloat:4.80];
+    NumberWithTwoDecimals* n015 = [[NumberWithTwoDecimals alloc] initWithFloat:0.15];
+    NumberWithTwoDecimals* n010 = [[NumberWithTwoDecimals alloc] initWithFloat:0.10];
+    NumberWithTwoDecimals* n020 = [[NumberWithTwoDecimals alloc] initWithFloat:0.20];
+    NumberWithTwoDecimals* n055 = [[NumberWithTwoDecimals alloc] initWithFloat:0.55];
     
     NSMutableDictionary *inventory         = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@5.00,      @5.00,     @5.00,   @5.00] forKeys:
+                                              @[five,      five,     five,   five] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     
     NSMutableDictionary *expectedInventory = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@4.85,      @4.90,     @4.80,   @4.00] forKeys:
+                                              @[n485,      n490,     n480,   four] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"cups"]];
     
     NSMutableDictionary *recipe            = [[NSMutableDictionary alloc] initWithObjects:
-                                              @[@0.15,      @0.10,     @0.20,   @0.55] forKeys:
+                                              @[n015,      n010,     n020,   n055] forKeys:
                                               @[@"lemons", @"sugar", @"ice", @"water"]];
     
     NSMutableDictionary *newInventory = [model removeIngredientsOfRecipe:recipe fromInventory:inventory];
     
     // Test that each ingredient is within acceptable floating-point deviation from what is expected.
     
-    for (NSString *ingredient in @[@"lemons", @"sugar", @"ice", @"cups"]) {
-        XCTAssert(
-                  fabsf([[expectedInventory valueForKey:ingredient] floatValue] -
-                        [[newInventory valueForKey:ingredient] floatValue])
-                  < acceptableError, @"Removing mixed recipe gave incorrect value for %@", ingredient);
-    }
+    XCTAssertEqualObjects(newInventory, expectedInventory,
+                          @"Removing mixed recipe gave incorrect result");
 }
 
 

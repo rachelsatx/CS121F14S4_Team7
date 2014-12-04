@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DataStore.h"
+#import "NumberWithTwoDecimals.h"
 
 @interface Model : NSObject
 
@@ -20,10 +21,10 @@
 - (int) customersFromWeekday:(DayOfWeek)dayOfWeek;
 - (int) mostCupsMakableFromInventory:(NSMutableDictionary*)inventory
                           withRecipe:(NSMutableDictionary*) recipe;
-- (int) calculateNewPopularityWithNumCustomers:(int)totalCustomers
+- (NSInteger) calculateNewPopularityWithNumCustomers:(int)totalCustomers
                                  portionBought:(float)portionWhoBought
                                   portionLiked:(float)portionWhoLiked
-                             fromOldPopularity:(NSNumber*)popularity;
+                             fromOldPopularity:(NSInteger)popularity;
 - (NSMutableDictionary*) removeIngredientsOfRecipe:(NSMutableDictionary*)recipe
                                      fromInventory:(NSMutableDictionary*)inventory;
 - (DayOfWeek) nextDayOfWeek:(DayOfWeek)currentDay;

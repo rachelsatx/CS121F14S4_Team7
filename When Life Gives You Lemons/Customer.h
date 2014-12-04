@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DataStore.h"
+#import "NumberWithTwoDecimals.h"
 
 @interface Customer : NSObject
 
 - (void) setCustomerType:(NSInteger)type;
-- (BOOL) willBuyAtPrice:(NSNumber*)price withRecipe:(NSMutableDictionary*)recipe;
-- (BOOL) likesRecipe:(NSMutableDictionary*)recipe;
+- (BOOL) willBuyAtPrice:(NumberWithTwoDecimals*)price withRecipe:(NSMutableDictionary*)recipe;
+- (BOOL) likesRecipe:(NSMutableDictionary*)recipe forWeather:(Weather)weather;
 
 @end
