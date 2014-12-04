@@ -19,8 +19,13 @@
     NumberWithTwoDecimals* price = [dataStore getPrice];
     NSInteger popularity = [dataStore getPopularity];
     NSMutableDictionary* inventory = [dataStore getInventory];
+    NSMutableDictionary* achievements = [dataStore getAchievements];
+    NSMutableSet* feedbackSet = [dataStore getFeedbackSet];
     NSString* feedbackString = @"";
     NumberWithTwoDecimals* money = [dataStore getMoney];
+    NSInteger perfectDaysInRow = [dataStore getDaysOfPerfectLemonade];
+    
+    NSInteger NUM_FEEDBACKS = 22;
     
     // Get an array of customers.
     NSMutableArray *customers = [self getCustomersOnDay:dayOfWeek withWeather:weather
@@ -58,11 +63,13 @@
         }
     } else {
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
+        [feedbackSet addObject:feedbackString];
     }
     
     // If the lemonade has almost no lemons, then tell them it needs to be lemonade.
-    if ([[recipe valueForKey:@"lemons"] isLessThan:[[NumberWithTwoDecimals alloc] initWithFloat:.05]]) {
+    if ([feedbackString isEqualToString:@""] && [[recipe valueForKey:@"lemons"] isLessThan:[[NumberWithTwoDecimals alloc] initWithFloat:.05]]) {
         feedbackString = @"Your lemonade didn't have enough lemons in it to look like lemonade, so no one wanted to buy it!";
+        [feedbackSet addObject:feedbackString];
     }
     
     float portionWhoBought = ((float) customersWhoBought) / ((float) totalCustomers);
@@ -85,19 +92,35 @@
     if ([feedbackString isEqual: @""]) {
         
         feedbackString = [self generateFeedbackFromRecipe:recipe forWeather:weather];
+        [feedbackSet addObject:feedbackString];
+        if ([feedbackString isEqualToString:@"Your lemonade was delicious!"]) {
+            // TODO: set The Perfect Cup to 1
+            
+            [dataStore setDaysOfPerfectLemonade:perfectDaysInRow + 1];
+            if (perfectDaysInRow == 6) {
+                // TODO: set The Perfect Week to 1
+            }
+        } else {
+            [dataStore setDaysOfPerfectLemonade:0];
+        }
+        
         
         if (ranOut) {
             feedbackString = [NSString stringWithFormat:
                @"%@\nYou also ran out of ingredients!",
                               feedbackString];
+            // TODO: set Under-estimate to 1
+            [feedbackSet addObject:@"You also ran out of ingredients!"];
         } else if ((float) customersWhoBought / (float) totalCustomers < .1) {
             feedbackString = [NSString stringWithFormat:
                @"%@\nUnfortunately, your lemonade was really expensive, so nobody bought it!",
                               feedbackString];
+            [feedbackSet addObject:@"Unfortunately, your lemonade was really expensive, so nobody bought it!"];
         } else if ((float) customersWhoBought / (float) totalCustomers < .3) {
             feedbackString = [NSString stringWithFormat:
                @"%@\nAlso, your lemonade was a bit expensive, so very few customers bought it!",
                               feedbackString];
+            [feedbackSet addObject:@"Also, your lemonade was a bit expensive, so very few customers bought it!"];
         }
     }
     [dataStore setPopularity:newPopularity];
@@ -113,6 +136,16 @@
     
     // Update ingredient prices to reflect changing market conditions.
     [dataStore setIngredientPrices:[self generateRandomIngredientPrices]];
+    
+    // Update achievements that are based on recipe.
+    achievements = [self updateAchievements:achievements fromRecipe:recipe];
+    
+    
+    // If feedback set is complete, tell the datastore.
+    if ([feedbackSet count] > NUM_FEEDBACKS) {
+        // TODO: set Scientist to 1
+    }
+    [dataStore setFeedbackSet:feedbackSet];
     
     NSLog(@"BOUGHT: %f", portionWhoBought);
     NSLog(@"LIKED: %f", portionWhoLiked);
@@ -382,6 +415,26 @@
     [newPrices setValue:newCupsPrice forKey:@"cups"];
     
     return newPrices;
+}
+
+- (NSMutableDictionary*) updateAchievements:(NSMutableDictionary*)achievements fromRecipe:(NSMutableDictionary*)recipe {
+    
+    // TODO: add functionality to this.
+    
+    NumberWithTwoDecimals* one = [[NumberWithTwoDecimals alloc] initWithFloat:1.0];
+    if ([[recipe valueForKey:@"lemons"] isEqual:one]) {
+        // TODO: set Lemonhead to 1
+    }
+    if ([[recipe valueForKey:@"sugar"] isEqual:one]) {
+        // TODO: set Sweet Tooth to 1
+    }
+    if ([[recipe valueForKey:@"ice"] isEqual:one]) {
+        // TODO: set Frozen to 1
+    }
+    if ([[recipe valueForKey:@"water"] isEqual:one]) {
+        // TODO: set Con Artist to 1
+    }
+    return achievements;
 }
 
 @end

@@ -16,10 +16,14 @@
     NSMutableDictionary* _recipe;
     NSMutableDictionary* _inventory;
     NSMutableDictionary* _ingredientPrices;
+    NSMutableDictionary* _achievementsDictionary;
+    NSMutableSet* _feedbackSet;
     NSInteger _popularity;
     NumberWithTwoDecimals* _money;
     NumberWithTwoDecimals* _profit;
     NSInteger _cupsSold;
+    // for an achievement
+    NSInteger _daysOfPerfectLemonade;
 }
 @end
 
@@ -35,8 +39,12 @@
     [self initInventory];
     [self initRecipe];
     [self initPrices];
+    _feedbackSet = [[NSMutableSet alloc] init];
     _popularity = 0;
     _money = [[NumberWithTwoDecimals alloc] initWithFloat:20];
+    // TODO: INITIALIZE ACHIEVEMENTS DICTIONARY WITH NAMES OF ACHIEVEMENTS, ALL TO 0.
+    _daysOfPerfectLemonade = 0;
+    
     
     return self;
 }
@@ -143,6 +151,28 @@
     _ingredientPrices = newIngredientPrices;
 }
 
+// Achievements
+-(NSMutableDictionary*) getAchievements
+{
+    return _achievementsDictionary;
+}
+
+-(void) setAchievements:(NSMutableDictionary *)newAchievements
+{
+    _achievementsDictionary = newAchievements;
+}
+
+// Feedbacks that have been gotten so far
+-(NSMutableSet*) getFeedbackSet
+{
+    return _feedbackSet;
+}
+
+-(void) setFeedbackSet:(NSMutableSet*)newFeedbackSet
+{
+    _feedbackSet = newFeedbackSet;
+}
+
 // Popularity
 -(NSInteger) getPopularity
 {
@@ -183,6 +213,16 @@
 -(void) setCupsSold:(NSInteger) newCupsSold
 {
     _cupsSold = newCupsSold;
+}
+
+-(NSInteger) getDaysOfPerfectLemonade
+{
+    return _daysOfPerfectLemonade;
+}
+
+-(void) setDaysOfPerfectLemonade:(NSInteger) newDays
+{
+    _daysOfPerfectLemonade = newDays;
 }
 
 @end
