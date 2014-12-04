@@ -68,7 +68,7 @@
     maxProfitForHue = 40.0;
 }
 
-- (void)setBackgroundByProfit:(NSNumber *)profit
+- (void)setBackgroundByProfit:(NumberWithTwoDecimals *)profit
 {
     NSAssert(profit >= 0, @"Negative amount of profit (%@)", profit);
 
@@ -79,9 +79,9 @@
     [self setBackgroundColor:backgroundColor];
 }
 
-- (void)createPopularityView:(NSNumber *)popularity
+- (void)createPopularityView:(NSInteger)popularity
 {
-    NSAssert(popularity >= 0, @"Negative popularity (%@)", popularity);
+    NSAssert(popularity >= 0, @"Negative popularity (%d)", popularity);
 
     // Create popularity frame and text
     CGRect popularityFrame = CGRectMake(borderThickness,
@@ -90,7 +90,7 @@
                                         textViewHeight);
     UITextView *popularityView = [[UITextView alloc] initWithFrame:popularityFrame];
     [self formatTextView:popularityView];
-    popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %@ percent.", popularity];
+    popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %d percent.", popularity];
     popularityView.editable = NO;
     [self addSubview:popularityView];
 }
@@ -121,11 +121,12 @@
     [self addSubview:feedbackTextView];
 }
 
-- (void)createSummaryViewWithCupsSold:(NSInteger)cupsSold profit:(NSNumber *)profit money:(NSNumber *)money
+- (void)createSummaryViewWithCupsSold:(NSInteger)cupsSold profit:(NumberWithTwoDecimals *)profit money:(NumberWithTwoDecimals *)money
 {
+    NumberWithTwoDecimals *zero = [[NumberWithTwoDecimals alloc] initWithFloat:0.0];
     NSAssert(cupsSold >= 0, @"Negative number of cups sold (%d)", cupsSold);
-    NSAssert(profit >= 0, @"Negative amount of profit (%@)", profit);
-    NSAssert(money >= 0, @"Negative money (%@)", money);
+    NSAssert([profit isGreaterThanOrEqual:zero], @"Negative amount of profit (%0.2f)", [profit floatValue]);
+    NSAssert([money isGreaterThanOrEqual:zero], @"Negative money (%0.2f)", [money floatValue]);
     
     // Create end-of-day summary frame and text
     CGRect summaryFrame = CGRectMake(borderThickness,
@@ -150,12 +151,12 @@
     [view setFont:[UIFont fontWithName:fontName size:fontSize]];
 }
 
-- (void)addCustomersByPopularity:(NSNumber *)popularity
+- (void)addCustomersByPopularity:(NSInteger)popularity
 {
-    NSAssert(popularity >= 0, @"Negative popularity (%@)", popularity);
+    NSAssert(popularity >= 0, @"Negative popularity (%d)", popularity);
 
     // Add customer images according to popularity - the max that will fit is 9
-    NSInteger numCustomers = [popularity integerValue] / 10 < 9 ? [popularity integerValue] / 10 : 9;
+    NSInteger numCustomers = popularity / 10 < 9 ? popularity / 10 : 9;
     for (NSInteger i = 0; i < numCustomers; i += 1) {
         CGRect customerFrame = CGRectMake(i * (imageSize / 2),
                                           (3 * borderThickness / 2) + textViewHeight - imageSize,

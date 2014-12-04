@@ -275,7 +275,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
                                              3 * buttonSize,
                                              buttonSize);
     _cupsAmountLabel = [[UILabel alloc] initWithFrame:cupsAmountLabelFrame];
-    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] intValue]]];
+    [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [[self.delegate getCups] integerPart]]];
     [_cupsAmountLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
     [_cupsAmountLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:_cupsAmountLabel];
