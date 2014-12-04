@@ -64,7 +64,7 @@
 - (void)setBackground
 {
     // Add animation SKView
-    SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
+    SKView* animation = [[SKView alloc] initWithFrame:self.bounds];
     [self addSubview:animation];
     LemonRainScene *animationScene = [[LemonRainScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
     [animation presentScene:animationScene];
@@ -74,7 +74,7 @@
                                              2 * frameHeight / 3,
                                              frameWidth,
                                              frameHeight / 3);
-    UIImageView *grassBackground = [[UIImageView alloc] initWithFrame:grassBackgroundFrame];
+    UIImageView* grassBackground = [[UIImageView alloc] initWithFrame:grassBackgroundFrame];
     [grassBackground setImage:[UIImage imageNamed:@"grass-background"]];
     [self addSubview:grassBackground];
     
@@ -82,7 +82,7 @@
                                    6 * frameHeight / 7,
                                    frameWidth,
                                    frameHeight / 7);
-    UIImageView *grass = [[UIImageView alloc] initWithFrame:grassFrame];
+    UIImageView* grass = [[UIImageView alloc] initWithFrame:grassFrame];
     [grass setImage:[UIImage imageNamed:@"grass-foreground"]];
     [self addSubview:grass];
 }

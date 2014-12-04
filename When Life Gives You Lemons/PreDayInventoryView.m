@@ -126,7 +126,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
 
 - (void)createMultipliers
 {
-    // Create multiplier labels
+    // Create labels to indicate that these are multipliers
     CGRect beforeTextFrame = CGRectMake(0,
                                         borderThickness - multiplierHeight,
                                         multiplierWidth,
@@ -159,7 +159,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
                                               multiplierWidth,
                                               multiplierHeight);
     UIButton* multiplierButton = [[UIButton alloc] initWithFrame:multiplierButtonFrame];
-    [multiplierButton setTitle:[NSString stringWithFormat:@" %dx ", multiplier] forState:UIControlStateNormal];
+    [multiplierButton setTitle:[NSString stringWithFormat:@"%dx", multiplier] forState:UIControlStateNormal];
     [[multiplierButton titleLabel] setFont:[UIFont fontWithName:fontName size:fontSize]];
     [multiplierButton setTag:multiplier];
     [multiplierButton addTarget:self action:@selector(setAmountMultiplier:) forControlEvents:UIControlEventTouchUpInside];
@@ -169,7 +169,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
     if (multiplier == defaultMultiplier) {
         _selectedButton = multiplierButton;
         [multiplierButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _amountMultiplier = 1;
+        _amountMultiplier = defaultMultiplier;
     }
 }
 

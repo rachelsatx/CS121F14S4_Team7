@@ -42,6 +42,7 @@
         [self setConstants];
         
         self.backgroundColor = backgroundColor;
+        
         [self addTitle];
         [self addInstructions];
         [self addBackButton];
