@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AC521EE31A1572E8007AD8A1 /* MenuInstructionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */; };
-		AC96C8EC1A2D4C38007DCCB3 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = AC96C8EB1A2D4C38007DCCB3 /* click.wav */; };
-		AC96C8EE1A2D507A007DCCB3 /* tada.wav in Resources */ = {isa = PBXBuildFile; fileRef = AC96C8ED1A2D507A007DCCB3 /* tada.wav */; };
 		ACA77C001A1ACB36002D7CF7 /* NumberWithTwoDecimals.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */; };
 		ACBEBFA719F619A300B173C7 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFA619F619A300B173C7 /* DataStore.m */; };
 		ACBEBFB519F61FAD00B173C7 /* PreDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */; };
@@ -38,6 +36,8 @@
 		DA6C2BE119F19B8D00AE1EB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BDF19F19B8D00AE1EB7 /* InfoPlist.strings */; };
 		DA6C2BE319F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */; };
 		DA940C8C1A3083E50049A5A8 /* Badges.m in Sources */ = {isa = PBXBuildFile; fileRef = DA940C8B1A3083E50049A5A8 /* Badges.m */; };
+		DA940C8F1A311DB90049A5A8 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA940C8E1A311DB90049A5A8 /* click.wav */; };
+		DA940C911A311E8D0049A5A8 /* tada.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA940C901A311E8D0049A5A8 /* tada.wav */; };
 		DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB2821319F7946000441EAA /* PreDayRecipeView.m */; };
 		FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */; };
 		FE1471F81A1AD37E00BC7DFF /* LemonRainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */; };
@@ -61,8 +61,6 @@
 /* Begin PBXFileReference section */
 		AC521EE11A1572E8007AD8A1 /* MenuInstructionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuInstructionsView.h; sourceTree = "<group>"; };
 		AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuInstructionsView.m; sourceTree = "<group>"; };
-		AC96C8EB1A2D4C38007DCCB3 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = click.wav; path = ../../click.wav; sourceTree = "<group>"; };
-		AC96C8ED1A2D507A007DCCB3 /* tada.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = tada.wav; path = ../../tada.wav; sourceTree = "<group>"; };
 		ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberWithTwoDecimals.h; sourceTree = "<group>"; };
 		ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumberWithTwoDecimals.m; sourceTree = "<group>"; };
 		ACBEBFA519F619A300B173C7 /* DataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataStore.h; sourceTree = "<group>"; };
@@ -110,6 +108,8 @@
 		DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = When_Life_Gives_You_LemonsTests.m; sourceTree = "<group>"; };
 		DA940C8B1A3083E50049A5A8 /* Badges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Badges.m; sourceTree = "<group>"; };
 		DA940C8D1A3088960049A5A8 /* Badges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Badges.h; path = "When Life Gives You Lemons/Badges.h"; sourceTree = "<group>"; };
+		DA940C8E1A311DB90049A5A8 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = click.wav; path = ../click.wav; sourceTree = "<group>"; };
+		DA940C901A311E8D0049A5A8 /* tada.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tada.wav; sourceTree = "<group>"; };
 		DAB2821219F7946000441EAA /* PreDayRecipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayRecipeView.h; sourceTree = "<group>"; };
 		DAB2821319F7946000441EAA /* PreDayRecipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayRecipeView.m; sourceTree = "<group>"; };
 		FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LemonEmitter.sks; sourceTree = "<group>"; };
@@ -160,9 +160,9 @@
 				DAB2821319F7946000441EAA /* PreDayRecipeView.m */,
 				DA0FB60319F641B00036D500 /* PreDayInventoryView.h */,
 				DA0FB60419F641B00036D500 /* PreDayInventoryView.m */,
-				AC96C8EB1A2D4C38007DCCB3 /* click.wav */,
 				AF268E381A2C4BAD00ED6A53 /* PreDayBadgesView.h */,
 				AF268E391A2C4BAD00ED6A53 /* PreDayBadgesView.m */,
+				DA940C8E1A311DB90049A5A8 /* click.wav */,
 			);
 			name = PreDay;
 			sourceTree = "<group>";
@@ -194,7 +194,7 @@
 				DA0FB60A19F646030036D500 /* PostDayViewController.m */,
 				AFE2AC5E19F833D2005EC4D0 /* PostDayView.h */,
 				AFE2AC5F19F833D2005EC4D0 /* PostDayView.m */,
-				AC96C8ED1A2D507A007DCCB3 /* tada.wav */,
+				DA940C901A311E8D0049A5A8 /* tada.wav */,
 			);
 			name = PostDay;
 			sourceTree = "<group>";
@@ -387,12 +387,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEBAF0421A0B2FB300951C36 /* spark.png in Resources */,
-				AC96C8EC1A2D4C38007DCCB3 /* click.wav in Resources */,
 				DA6C2BD019F19B8D00AE1EB7 /* Images.xcassets in Resources */,
 				DA6C2BC219F19B8D00AE1EB7 /* InfoPlist.strings in Resources */,
 				FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */,
+				DA940C8F1A311DB90049A5A8 /* click.wav in Resources */,
 				FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */,
-				AC96C8EE1A2D507A007DCCB3 /* tada.wav in Resources */,
+				DA940C911A311E8D0049A5A8 /* tada.wav in Resources */,
 				DA6C2BCB19F19B8D00AE1EB7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

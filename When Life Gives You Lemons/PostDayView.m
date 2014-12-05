@@ -201,7 +201,7 @@
 
 - (void)initializeSounds
 {
-    // Taken from http://soundbible.com/1705-Click2.html
+    // Taken from http://soundbible.com/1003-Ta-Da.html
     // Under creative commons attribution 3.0
     [self setUpSound:@"tada" forLocation:&tadaSound];
 }
