@@ -32,7 +32,7 @@
 
 - (id)initWithFrame:(CGRect)frame andDataStore:(DataStore *)dataStore
 {
-    self = [self initWithFrame:frame];
+    self = [super initWithFrame:frame];
     
     if (self) {
         [self setConstants];

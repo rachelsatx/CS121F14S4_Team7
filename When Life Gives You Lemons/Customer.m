@@ -32,8 +32,12 @@
 
 - (id)init
 {
-    // Initialize global variables.  These can be changed if they are unrealistic.
-    _maximumPrice = [[NumberWithTwoDecimals alloc] initWithFloat:5.00];
+    self = [super init];
+    
+    if (self) {
+        // Initialize global variables.  These can be changed if they are unrealistic.
+        _maximumPrice = [[NumberWithTwoDecimals alloc] initWithFloat:5.00];
+    }
     
     return self;
 }

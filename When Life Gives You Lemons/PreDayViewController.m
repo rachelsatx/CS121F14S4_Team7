@@ -59,7 +59,7 @@
     [_recipeView updatePercentageLabels];
     
     // Create the Achievements View
-    _badgesView = [[PreDayBadgesView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
+    _badgesView = [[PreDayBadgesView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) andBadges:[_dataStore getBadges]];
     [_badgesView setHidden:YES];
     [self.view addSubview:_badgesView];
 }
@@ -134,6 +134,9 @@
     
     [_recipeView setHidden:YES];
     [_recipeView updatePercentageLabels];
+    
+    [_badgesView setHidden:YES];
+    [_badgesView updateAllBadgeBackgrounds:[_dataStore getBadges]];
 }
 
 - (NumberWithTwoDecimals*) getPrice

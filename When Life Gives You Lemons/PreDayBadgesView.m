@@ -7,8 +7,11 @@
 //
 
 #import "PreDayBadgesView.h"
+#import "Badges.h"
 
 @interface PreDayBadgesView() {
+    NSMutableArray* _badges;
+    
     // Constants
     UIColor* backgroundColor;
     
@@ -23,6 +26,7 @@
     CGFloat badgeSize;
     CGFloat badgeCornerRadius;
     CGFloat badgeBorderWidth;
+    NSMutableDictionary* badgeDescriptions;
     
     CGFloat buttonBorderThickness;
     CGFloat buttonWidth;
@@ -40,16 +44,17 @@
 
 @implementation PreDayBadgesView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame andBadges:(NSMutableDictionary*)badgeDictionary
 {
     self = [super initWithFrame:frame];
+    
     if (self) {
         [self setConstants];
         
         self.backgroundColor = backgroundColor;
         
         [self addHeader];
-        [self addBadges];
+        [self addBadgesWith:badgeDictionary];
         
         [self addBackButton];
     }
@@ -69,9 +74,15 @@
     numRows = 4;
     numColumns = 4;
     badgeSize = ((frameHeight / (numRows + 1)) < (frameWidth / (numColumns + 1))) ?
-    (frameHeight / (numRows + 1)) : (frameWidth / (numColumns + 1));
+                (frameHeight / (numRows + 1)) : (frameWidth / (numColumns + 1));
     badgeCornerRadius = 20;
     badgeBorderWidth = 2;
+    badgeDescriptions = [[NSMutableDictionary alloc] init];
+    NSArray* badgeArray = Badges.badgeArray;
+    NSArray* descriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Sell 100 cups in a day", @"Sell 1000 cups total", @"Earn $100 in a day", @"Earn $1000 total", @"Gain 10% popularity in a day", @"Get over 100% popularity", @"", @"Earn all other badges", nil];
+    for (int i = 0; i < badgeArray.count; i++) {
+        [badgeDescriptions setValue:[descriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
+    }
     
     buttonBorderThickness = 20;
     buttonWidth = 200;
@@ -88,7 +99,7 @@
 
 - (void)addHeader
 {
-    NSString* descriptionText = @"BADGES: \n Click to see how to earn each badge";
+    NSString* descriptionText = @"BADGES: \n Touch to see how to earn each badge";
     
     CGRect descriptionFrame = CGRectMake(borderThickness,
                                          borderThickness,
@@ -104,11 +115,12 @@
     [self addSubview:description];
 }
 
-- (void)addBadges
+- (void)addBadgesWith:(NSMutableDictionary*)badgeDictionary
 {
     CGFloat spaceBetweenRows = (frameHeight - headerThickness - buttonHeight - 4 * borderThickness - numRows * badgeSize) / (numRows - 1);
     CGFloat spaceBetweenColumns = (frameWidth - 2 * borderThickness - numColumns * badgeSize) / (numColumns - 1);
     
+    NSArray* badgeArray = Badges.badgeArray;
     for (int row = 0; row < numRows; row++) {
         for (int col = 0; col < numColumns; col++) {
             CGRect badgeFrame = CGRectMake(borderThickness + col * (badgeSize + spaceBetweenColumns), 2 * borderThickness + headerThickness + row * (badgeSize + spaceBetweenRows), badgeSize, badgeSize);
@@ -122,84 +134,49 @@
             badge.layer.cornerRadius = badgeCornerRadius;
             badge.layer.borderWidth = badgeBorderWidth;
             
-            // These badges start out gray and turn green when earned
-            if (row == 0 && col == 0) {
-                [badge setTitle:@"Con\nArtist" forState:UIControlStateNormal];
-                [badge setTitle:@"Try to sell 100% water" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor grayColor]];
-            } else if (row == 0 && col == 1) {
-                [badge setTitle:@"Lemon\nHead" forState:UIControlStateNormal];
-                [badge setTitle:@"Try to sell 100% lemons" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor grayColor]];
-            } else if (row == 0 && col == 2) {
-                [badge setTitle:@"Sweet\nTooth" forState:UIControlStateNormal];
-                [badge setTitle:@"Try to sell 100% sugar" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor grayColor]];
-            } else if (row == 0 && col == 3) {
-                [badge setTitle:@"Frozen" forState:UIControlStateNormal];
-                [badge setTitle:@"Try to sell 100% ice" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor grayColor]];
-            }
-            
-            else if (row == 1 && col == 0) {
-                [badge setTitle:@"Under-estimate" forState:UIControlStateNormal];
-                [badge setTitle:@"Have your lemonade sell out" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor grayColor]];
-            } else if (row == 1 && col == 1) {
-                [badge setTitle:@"The\nPerfect\nCup" forState:UIControlStateNormal];
-                [badge setTitle:@"Make delicious lemonade" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor grayColor]];
-            } else if (row == 1 && col == 2) {
-                [badge setTitle:@"The\nPerfect\nWeek" forState:UIControlStateNormal];
-                [badge setTitle:@"Make delicious lemonade for a week" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor grayColor]];
-            } else if (row == 1 && col == 3) {
-                [badge setTitle:@"Scientist" forState:UIControlStateNormal];
-                [badge setTitle:@"Get every possible feedback" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor grayColor]];
-            }
-            
-            // These badges start out white and progress through bronze, silver, and gold
-            // Bronze: 150, 90, 56
-            // Silver: 204, 194, 194
-            // Gold: 255, 215, 0
-            else if (row == 2 && col == 0) {
-                [badge setTitle:@"Salesman" forState:UIControlStateNormal];
-                [badge setTitle:@"Sell 100 cups in a day" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor whiteColor]];
-            } else if (row == 2 && col == 1) {
-                [badge setTitle:@"Lemon\nCorp\u2122" forState:UIControlStateNormal];
-                [badge setTitle:@"Sell 1000 cups total" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor whiteColor]];
-            } else if (row == 2 && col == 2) {
-                [badge setTitle:@"Great\nDay" forState:UIControlStateNormal];
-                [badge setTitle:@"Earn $100 in a day" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor whiteColor]];
-            } else if (row == 2 && col == 3) {
-                [badge setTitle:@"Bill\nGates" forState:UIControlStateNormal];
-                [badge setTitle:@"Earn $1000 total" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor whiteColor]];
-            }
-            
-            else if (row == 3 && col == 0) {
-                [badge setTitle:@"Rising\nStar" forState:UIControlStateNormal];
-                [badge setTitle:@"Gain 10% popularity in a day" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor whiteColor]];
-            } else if (row == 3 && col == 1) {
-                [badge setTitle:@"World\nFamous" forState:UIControlStateNormal];
-                [badge setTitle:@"Get over 100% popularity" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor whiteColor]];
-            } else if (row == 3 && col == 2) {
-                [badge setTitle:@"TBD" forState:UIControlStateNormal];
-                [badge setTitle:@"" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor whiteColor]];
-            } else if (row == 3 && col == 3) {
-                [badge setTitle:@"Perfection" forState:UIControlStateNormal];
-                [badge setTitle:@"Earn all other badges" forState:UIControlStateHighlighted];
-                [badge setBackgroundColor:[UIColor whiteColor]];
-            }
+            NSString* badgeTitle = [badgeArray objectAtIndex:row * numColumns + col];
+            [badge setTitle:badgeTitle forState:UIControlStateNormal];
+            [badge setTitle:[badgeDescriptions objectForKey:badgeTitle] forState:UIControlStateHighlighted];
+            [self updateBadgeBackground:badge withValue:[badgeDictionary objectForKey:badgeTitle]];
             
             [self addSubview:badge];
+            [_badges addObject:badge];
+        }
+    }
+}
+
+- (void)updateBadgeBackground:(UIButton*)badge withValue:(NSNumber*)value
+{
+    if ([value isEqualToNumber:@0]) {
+        [badge setBackgroundColor:[UIColor whiteColor]];
+    } else {
+        [badge setBackgroundColor:[UIColor greenColor]];
+    }
+    
+    NSLog([NSString stringWithFormat:@"%@ blah", value]);
+}
+
+- (void)updateAllBadgeBackgrounds:(NSMutableDictionary*)badgeDictionary
+{
+    NSArray* badgeArray = Badges.badgeArray;
+    for (int row = 0; row < numRows; row++) {
+        for (int col = 0; col < numColumns; col++) {
+            NSString* badgeTitle = [badgeArray objectAtIndex:row * numColumns + col];
+            UIButton* badge = [_badges objectAtIndex:row * numColumns + col];
+            NSNumber* value = [badgeDictionary objectForKey:badgeTitle];
+            if ([value isEqualToNumber:@0]) {
+                [badge setBackgroundImage:[UIImage imageNamed:@"lemons"] forState:UIControlStateNormal];
+//                badge.backgroundColor = [UIColor whiteColor];
+//                [[_badges objectAtIndex:row * numColumns + col] setBackgroundColor:[UIColor whiteColor]];
+            } else {
+                NSLog(@"ELSE STATEMENT");
+                [badge setBackgroundImage:[UIImage imageNamed:@"lemons"] forState:UIControlStateNormal];
+//                badge.backgroundColor = [UIColor greenColor];
+//                [[_badges objectAtIndex:row * numColumns + col] setBackgroundColor:[UIColor greenColor]];
+            }
+
+//            [self updateBadgeBackground:[_badges objectAtIndex:row * numColumns + col] withValue:[badgeDictionary objectForKey:badgeTitle]];
+            [_badges setObject:badge atIndexedSubscript:row * numColumns + col];
         }
     }
 }

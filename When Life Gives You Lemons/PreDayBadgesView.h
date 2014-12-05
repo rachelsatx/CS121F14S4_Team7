@@ -10,4 +10,7 @@
 
 @interface PreDayBadgesView : UIView
 
+- (id)initWithFrame:(CGRect)frame andBadges:(NSMutableDictionary*)badgeDictionary;
+- (void)updateAllBadgeBackgrounds:(NSMutableDictionary*)badgeDictionary;
+
 @end

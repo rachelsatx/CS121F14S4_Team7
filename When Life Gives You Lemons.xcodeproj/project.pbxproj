@@ -104,8 +104,8 @@
 		DA6C2BDE19F19B8D00AE1EB7 /* When Life Gives You LemonsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "When Life Gives You LemonsTests-Info.plist"; sourceTree = "<group>"; };
 		DA6C2BE019F19B8D00AE1EB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = When_Life_Gives_You_LemonsTests.m; sourceTree = "<group>"; };
-		DA940C8B1A3083E50049A5A8 /* Badges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Badges.m; sourceTree = "<group>"; };
-		DA940C8D1A3088960049A5A8 /* Badges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Badges.h; path = "When Life Gives You Lemons/Badges.h"; sourceTree = "<group>"; };
+		DA940C8B1A3083E50049A5A8 /* Badges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Badges.m; path = ../Badges.m; sourceTree = "<group>"; };
+		DA940C8D1A3088960049A5A8 /* Badges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Badges.h; sourceTree = "<group>"; };
 		DAB2821219F7946000441EAA /* PreDayRecipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayRecipeView.h; sourceTree = "<group>"; };
 		DAB2821319F7946000441EAA /* PreDayRecipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayRecipeView.m; sourceTree = "<group>"; };
 		FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LemonEmitter.sks; sourceTree = "<group>"; };
@@ -222,8 +222,6 @@
 		DA6C2BAB19F19B8C00AE1EB7 = {
 			isa = PBXGroup;
 			children = (
-				DA940C8D1A3088960049A5A8 /* Badges.h */,
-				DA940C8B1A3083E50049A5A8 /* Badges.m */,
 				DA6C2BBD19F19B8D00AE1EB7 /* When Life Gives You Lemons */,
 				DA6C2BDC19F19B8D00AE1EB7 /* When Life Gives You LemonsTests */,
 				DA6C2BB619F19B8D00AE1EB7 /* Frameworks */,
@@ -262,6 +260,8 @@
 				AFC87A741A294D2500CFB61D /* MidDay */,
 				AFC87A751A294D4400CFB61D /* PostDay */,
 				AFC87A771A294DA600CFB61D /* Model */,
+				DA940C8D1A3088960049A5A8 /* Badges.h */,
+				DA940C8B1A3083E50049A5A8 /* Badges.m */,
 				ACBEBFA519F619A300B173C7 /* DataStore.h */,
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
 				ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */,
