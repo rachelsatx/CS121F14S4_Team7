@@ -179,19 +179,19 @@
 
 -(NSDictionary*) convertToDictionary
 {
-    NSMutableDictionary *returnDictionary;
+    NSMutableDictionary *returnDictionary = [[NSMutableDictionary alloc] init];
     
-    [returnDictionary setValue:_price forKey:@"price"];
-    [returnDictionary setValue:[NSNumber numberWithInt:_weather] forKey:@"weather"];
-    [returnDictionary setValue:[NSNumber numberWithInt:_dayOfWeek] forKey:@"day of week"];
-    [returnDictionary setValue:_feedbackString forKey:@"feedback string"];
-    [returnDictionary setValue:_recipe forKey:@"recipe"];
-    [returnDictionary setValue:_inventory forKey:@"inventory"];
-    [returnDictionary setValue:_ingredientPrices forKey:@"ingredient prices"];
-    [returnDictionary setValue:_popularity forKey:@"popularity"];
-    [returnDictionary setValue:_money forKey:@"money"];
-    [returnDictionary setValue:_profit forKey:@"profit"];
-    [returnDictionary setValue:[NSNumber numberWithInteger:_cupsSold] forKey:@"cups sold"];
+    [returnDictionary setObject:_price forKey:@"price"];
+    [returnDictionary setObject:[NSNumber numberWithInt:_weather] forKey:@"weather"];
+    [returnDictionary setObject:[NSNumber numberWithInt:_dayOfWeek] forKey:@"day of week"];
+    [returnDictionary setObject:_feedbackString forKey:@"feedback string"];
+    [returnDictionary setObject:_recipe forKey:@"recipe"];
+    [returnDictionary setObject:_inventory forKey:@"inventory"];
+    [returnDictionary setObject:_ingredientPrices forKey:@"ingredient prices"];
+    [returnDictionary setObject:_popularity forKey:@"popularity"];
+    [returnDictionary setObject:_money forKey:@"money"];
+    [returnDictionary setObject:_profit forKey:@"profit"];
+    [returnDictionary setObject:[NSNumber numberWithInteger:_cupsSold] forKey:@"cups sold"];
     
     return [NSDictionary dictionaryWithDictionary:returnDictionary];
 }

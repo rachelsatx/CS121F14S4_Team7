@@ -14,5 +14,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *goToPreDayButton;
 
 - (void) setDataStore:(DataStore*) dataStore;
+- (void) save;
 
 @end
