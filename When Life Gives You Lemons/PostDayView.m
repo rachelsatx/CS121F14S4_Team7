@@ -9,6 +9,8 @@
 #import "PostDayView.h"
 #import "DataStore.h"
 
+#import <AudioToolbox/AudioToolbox.h>
+
 @interface PostDayView() {
     // Constants
     CGFloat frameWidth;
@@ -25,6 +27,10 @@
     NSString *fontName;
     
     CGFloat maxProfitForHue;
+    
+    // Sounds
+    SystemSoundID tadaSound;
+    
 }
 @end
 
@@ -45,6 +51,10 @@
         
         [self addCustomersByPopularity:dataStore.getPopularity];
         [self addImages];
+        
+        [self initializeSounds];
+        AudioServicesPlaySystemSound(tadaSound);
+
     }
     
     return self;
@@ -188,5 +198,19 @@
     coinsView.image = [UIImage imageNamed:@"coins"];
     [self addSubview:coinsView];
 }
+
+- (void)initializeSounds
+{
+    // Taken from http://soundbible.com/1003-Ta-Da.html
+    // Under creative commons attribution 3.0
+    [self setUpSound:@"tada" forLocation:&tadaSound];
+}
+
+- (void)setUpSound:(NSString*)fileName forLocation:(SystemSoundID*)location {
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"wav"];
+    NSURL *URL = [NSURL fileURLWithPath:path];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)URL, location);
+}
+
 
 @end

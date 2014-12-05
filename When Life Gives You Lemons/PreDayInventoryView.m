@@ -8,6 +8,8 @@
 
 #import "PreDayInventoryView.h"
 
+#import <AudioToolbox/AudioToolbox.h>
+
 typedef NS_ENUM(int, InventoryIngredient) {
     Lemons,
     Sugar,
@@ -50,6 +52,9 @@ typedef NS_ENUM(int, InventoryIngredient) {
     CGFloat fontSize;
     CGFloat titleSizeIncrease;
     NSString* fontName;
+    
+    // Sounds
+    SystemSoundID clickSound;
 }
 @end
 
@@ -71,6 +76,8 @@ typedef NS_ENUM(int, InventoryIngredient) {
         [self createSugarSection];
         [self createIceSection];
         [self createCupsSection];
+        
+        [self initializeSounds];
         
         [self createMoneyLabel];
     }
@@ -200,6 +207,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
     [self addSubview:_lemonsAmountLabel];
 }
 
+
 - (void)createSugarSection
 {
     [self addImageAndLabelWithTextFor:Sugar];
@@ -279,6 +287,19 @@ typedef NS_ENUM(int, InventoryIngredient) {
     [_cupsAmountLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
     [_cupsAmountLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:_cupsAmountLabel];
+}
+
+- (void)initializeSounds
+{
+    // Taken from http://soundbible.com/1705-Click2.html
+    // Under creative commons attribution 3.0
+    [self setUpSound:@"click" forLocation:&clickSound];
+}
+
+- (void)setUpSound:(NSString*)fileName forLocation:(SystemSoundID*)location {
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"wav"];
+    NSURL *URL = [NSURL fileURLWithPath:path];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)URL, location);
 }
 
 /*
@@ -434,6 +455,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
             [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
         }
     }
+    AudioServicesPlaySystemSound(clickSound);
     NSAssert([[self.delegate getMoney] isGreaterThanOrEqual:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]], @"Money is negative");
 }
 
@@ -450,6 +472,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
             [_lemonsAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [lemons floatValue]]];
         }
     }
+    AudioServicesPlaySystemSound(clickSound);
     NSAssert([[self.delegate getLemons] isGreaterThanOrEqual:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]], @"Lemons are negative");
 }
 
@@ -466,6 +489,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
             [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
         }
     }
+    AudioServicesPlaySystemSound(clickSound);
     NSAssert([[self.delegate getMoney] isGreaterThanOrEqual:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]], @"Money is negative");
 }
 
@@ -482,6 +506,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
             [_sugarAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [sugar floatValue]]];
         }
     }
+    AudioServicesPlaySystemSound(clickSound);
     NSAssert([[self.delegate getSugar] isGreaterThanOrEqual:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]], @"Sugar is negative");
 }
 
@@ -498,6 +523,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
             [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
         }
     }
+    AudioServicesPlaySystemSound(clickSound);
     NSAssert([[self.delegate getMoney] isGreaterThanOrEqual:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]], @"Money is negative");
 }
 
@@ -514,6 +540,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
             [_iceAmountLabel setText:[NSString stringWithFormat:@"%0.2f", [ice floatValue]]];
         }
     }
+    AudioServicesPlaySystemSound(clickSound);
     NSAssert([[self.delegate getIce] isGreaterThanOrEqual:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]], @"Ice is negative");
 }
 
@@ -530,6 +557,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
             [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups integerPart]]];
         }
     }
+    AudioServicesPlaySystemSound(clickSound);
     NSAssert([[self.delegate getMoney] isGreaterThanOrEqual:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]], @"Money is negative");
 }
 
@@ -546,6 +574,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
             [_cupsAmountLabel setText:[NSString stringWithFormat:@"%d", [cups integerPart]]];
         }
     }
+    AudioServicesPlaySystemSound(clickSound);
     NSAssert([[self.delegate getCups] isGreaterThanOrEqual:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]], @"Cups are negative");
 }
 
