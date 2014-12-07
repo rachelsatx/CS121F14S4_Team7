@@ -61,6 +61,7 @@
     // Create the Achievements View
     _badgesView = [[PreDayBadgesView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) andBadges:[_dataStore getBadges]];
     [_badgesView setHidden:YES];
+    [_badgesView updateAllBadgeBackgrounds:[_dataStore getBadges]];
     [self.view addSubview:_badgesView];
 }
 
@@ -105,6 +106,7 @@
     [self.view.layer addAnimation:transition forKey:nil];
     [self.view sendSubviewToBack:_recipeView];
     [self.view sendSubviewToBack:_inventoryView];
+    [self.view sendSubviewToBack:_badgesView];
     [_infoView updateMakeableCupsLabel];
 }
 

@@ -63,6 +63,8 @@
 
 - (void)setConstants
 {
+    _badges = [[NSMutableArray alloc] init];
+    
     backgroundColor = [UIColor whiteColor];
     
     frameWidth = CGRectGetWidth(self.frame);
@@ -121,27 +123,31 @@
     CGFloat spaceBetweenColumns = (frameWidth - 2 * borderThickness - numColumns * badgeSize) / (numColumns - 1);
     
     NSArray* badgeArray = Badges.badgeArray;
-    for (int row = 0; row < numRows; row++) {
-        for (int col = 0; col < numColumns; col++) {
-            CGRect badgeFrame = CGRectMake(borderThickness + col * (badgeSize + spaceBetweenColumns), 2 * borderThickness + headerThickness + row * (badgeSize + spaceBetweenRows), badgeSize, badgeSize);
-            UIButton* badge = [[UIButton alloc] initWithFrame:badgeFrame];
-            badge.backgroundColor = [UIColor whiteColor];
-            badge.titleLabel.font = [UIFont fontWithName:fontName size:badgeFontSize];
-            badge.titleLabel.textAlignment = NSTextAlignmentCenter;
-            badge.titleLabel.numberOfLines = 0;
-            [badge setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [badge setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-            badge.layer.cornerRadius = badgeCornerRadius;
-            badge.layer.borderWidth = badgeBorderWidth;
-            
-            NSString* badgeTitle = [badgeArray objectAtIndex:row * numColumns + col];
-            [badge setTitle:badgeTitle forState:UIControlStateNormal];
-            [badge setTitle:[badgeDescriptions objectForKey:badgeTitle] forState:UIControlStateHighlighted];
-            [self updateBadgeBackground:badge withValue:[badgeDictionary objectForKey:badgeTitle]];
-            
-            [self addSubview:badge];
-            [_badges addObject:badge];
-        }
+    for (int i = 0; i < badgeArray.count; i++) {
+        NSInteger rowIndex = i / numColumns;
+        NSInteger columnIndex = i % numColumns;
+        
+        CGRect badgeFrame = CGRectMake(borderThickness + columnIndex * (badgeSize + spaceBetweenColumns),
+                                       2 * borderThickness + headerThickness + rowIndex * (badgeSize + spaceBetweenRows),
+                                       badgeSize,
+                                       badgeSize);
+        UIButton* badge = [[UIButton alloc] initWithFrame:badgeFrame];
+        badge.backgroundColor = [UIColor whiteColor];
+        badge.titleLabel.font = [UIFont fontWithName:fontName size:badgeFontSize];
+        badge.titleLabel.textAlignment = NSTextAlignmentCenter;
+        badge.titleLabel.numberOfLines = 0;
+        [badge setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [badge setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        badge.layer.cornerRadius = badgeCornerRadius;
+        badge.layer.borderWidth = badgeBorderWidth;
+        
+        NSString* badgeTitle = [badgeArray objectAtIndex:i];
+        [badge setTitle:badgeTitle forState:UIControlStateNormal];
+        [badge setTitle:[badgeDescriptions objectForKey:badgeTitle] forState:UIControlStateHighlighted];
+        [self updateBadgeBackground:badge withValue:[badgeDictionary objectForKey:badgeTitle]];
+        
+        [self addSubview:badge];
+        [_badges addObject:badge];
     }
 }
 
@@ -152,32 +158,15 @@
     } else {
         [badge setBackgroundColor:[UIColor greenColor]];
     }
-    
-    NSLog([NSString stringWithFormat:@"%@ blah", value]);
 }
 
 - (void)updateAllBadgeBackgrounds:(NSMutableDictionary*)badgeDictionary
 {
     NSArray* badgeArray = Badges.badgeArray;
-    for (int row = 0; row < numRows; row++) {
-        for (int col = 0; col < numColumns; col++) {
-            NSString* badgeTitle = [badgeArray objectAtIndex:row * numColumns + col];
-            UIButton* badge = [_badges objectAtIndex:row * numColumns + col];
-            NSNumber* value = [badgeDictionary objectForKey:badgeTitle];
-            if ([value isEqualToNumber:@0]) {
-                [badge setBackgroundImage:[UIImage imageNamed:@"lemons"] forState:UIControlStateNormal];
-//                badge.backgroundColor = [UIColor whiteColor];
-//                [[_badges objectAtIndex:row * numColumns + col] setBackgroundColor:[UIColor whiteColor]];
-            } else {
-                NSLog(@"ELSE STATEMENT");
-                [badge setBackgroundImage:[UIImage imageNamed:@"lemons"] forState:UIControlStateNormal];
-//                badge.backgroundColor = [UIColor greenColor];
-//                [[_badges objectAtIndex:row * numColumns + col] setBackgroundColor:[UIColor greenColor]];
-            }
-
-//            [self updateBadgeBackground:[_badges objectAtIndex:row * numColumns + col] withValue:[badgeDictionary objectForKey:badgeTitle]];
-            [_badges setObject:badge atIndexedSubscript:row * numColumns + col];
-        }
+    for (int i = 0; i < badgeArray.count; i++) {
+        NSString* badgeTitle = [badgeArray objectAtIndex:i];
+        NSNumber* value = [badgeDictionary objectForKey:badgeTitle];
+        [self updateBadgeBackground:[_badges objectAtIndex:i] withValue:value];
     }
 }
 
