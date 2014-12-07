@@ -91,7 +91,7 @@
 
 - (void)addInstructions
 {
-    NSString* instructionsText = @" You've been given 20 dollars to start up your own business. You've decided to make a lemonade stand! \n \n Use the money you have to buy ingredients and prepare for the next day. Change your recipe to try to make the tastiest lemonade possible. If your customers like your lemonade, your popularity will go up! \n \n The more popular your stand is, the more customers you will have. Good luck, and don't forget the cups!";
+    NSString* instructionsText = @" You've been given 20 dollars to start up your own business. You've decided to make a lemonade stand! \n \n Use the money you have to buy ingredients and change your recipe to try to make the tastiest lemonade possible. If your customers like your lemonade, your popularity will go up! The more popular your stand is, the more customers you will have. \n \n Earn badges along the way. Good luck, and don't forget the cups!";
     
     // Create Text box with instructions
     CGRect instructionsFrame = CGRectMake(instructionsBorderThickness,

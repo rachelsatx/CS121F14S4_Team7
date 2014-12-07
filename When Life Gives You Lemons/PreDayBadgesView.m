@@ -26,7 +26,10 @@
     CGFloat badgeSize;
     CGFloat badgeCornerRadius;
     CGFloat badgeBorderWidth;
-    NSMutableDictionary* badgeDescriptions;
+    
+    NSMutableDictionary* badgeWhiteDescriptions;
+    NSMutableDictionary* badgeBronzeDescriptions;
+    NSMutableDictionary* badgeSilverDescriptions;
     
     CGFloat buttonBorderThickness;
     CGFloat buttonWidth;
@@ -79,11 +82,22 @@
                 (frameHeight / (numRows + 1)) : (frameWidth / (numColumns + 1));
     badgeCornerRadius = 20;
     badgeBorderWidth = 2;
-    badgeDescriptions = [[NSMutableDictionary alloc] init];
+    
     NSArray* badgeArray = Badges.badgeArray;
-    NSArray* descriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Sell 100 cups in a day", @"Sell 1000 cups total", @"Earn $100 in a day", @"Earn $1000 total", @"Gain 10% popularity in a day", @"Get over 100% popularity", @"", @"Earn all other badges", nil];
+    badgeWhiteDescriptions = [[NSMutableDictionary alloc] init];
+    NSArray* whiteDescriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $10 in a day", @"Earn $100 total", @"Gain 10% popularity in a day", @"Get over 100% popularity", @"Sell 10 cups in a day", @"Sell 100 cups total", @"Sell 50 cups in each weather", @"Earn all other badges", nil];
     for (int i = 0; i < badgeArray.count; i++) {
-        [badgeDescriptions setValue:[descriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
+        [badgeWhiteDescriptions setValue:[whiteDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
+    }
+    badgeBronzeDescriptions = [[NSMutableDictionary alloc] init];
+    NSArray* bronzeDescriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $50 in a day", @"Earn $500 total", @"Gain 50% popularity in a day", @"Get over 500% popularity", @"Sell 50 cups in a day", @"Sell 500 cups total", @"Sell 100 cups in each weather", @"Earn all other badges", nil];
+    for (int i = 0; i < badgeArray.count; i++) {
+        [badgeBronzeDescriptions setValue:[bronzeDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
+    }
+    badgeSilverDescriptions = [[NSMutableDictionary alloc] init];
+    NSArray* silverDescriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $100 in a day", @"Earn $1000 total", @"Gain 100% popularity in a day", @"Get over 1000% popularity", @"Sell 100 cups in a day", @"Sell 1000 cups total", @"Sell 500 cups in each weather", @"Earn all other badges", nil];
+    for (int i = 0; i < badgeArray.count; i++) {
+        [badgeSilverDescriptions setValue:[silverDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
     }
     
     buttonBorderThickness = 20;
@@ -101,7 +115,7 @@
 
 - (void)addHeader
 {
-    NSString* descriptionText = @"BADGES: \n Touch to see how to earn each badge";
+    NSString* descriptionText = @"BADGES: \n Touch to see how to earn each badge \n Get to green or gold for each badge";
     
     CGRect descriptionFrame = CGRectMake(borderThickness,
                                          borderThickness,
@@ -143,20 +157,28 @@
         
         NSString* badgeTitle = [badgeArray objectAtIndex:i];
         [badge setTitle:badgeTitle forState:UIControlStateNormal];
-        [badge setTitle:[badgeDescriptions objectForKey:badgeTitle] forState:UIControlStateHighlighted];
-        [self updateBadgeBackground:badge withValue:[badgeDictionary objectForKey:badgeTitle]];
+        [badge setTitle:[badgeWhiteDescriptions objectForKey:badgeTitle] forState:UIControlStateHighlighted];
+        [self updateBadgeBackground:badge withTitle:badgeTitle withValue:[badgeDictionary objectForKey:badgeTitle]];
         
         [self addSubview:badge];
         [_badges addObject:badge];
     }
 }
 
-- (void)updateBadgeBackground:(UIButton*)badge withValue:(NSNumber*)value
+- (void)updateBadgeBackground:(UIButton*)badge withTitle:(NSString*)badgeTitle withValue:(NSNumber*)value
 {
     if ([value isEqualToNumber:@0]) {
         [badge setBackgroundColor:[UIColor whiteColor]];
-    } else {
+    } else if ([value isEqualToNumber:@-1]) {
         [badge setBackgroundColor:[UIColor greenColor]];
+    } else if ([value isEqualToNumber:@1]) {
+        [badge setTitle:[badgeBronzeDescriptions objectForKey:badgeTitle] forState:UIControlStateHighlighted];
+        [badge setBackgroundColor:[UIColor colorWithRed:150.0/255 green:90.0/255 blue:56.0/255 alpha:1.0]];
+    } else if ([value isEqualToNumber:@2]) {
+        [badge setTitle:[badgeSilverDescriptions objectForKey:badgeTitle] forState:UIControlStateHighlighted];
+        [badge setBackgroundColor:[UIColor colorWithRed:204.0/255 green:194.0/255 blue:194.0/255 alpha:1.0]];
+    } else if ([value isEqualToNumber:@3]) {
+        [badge setBackgroundColor:[UIColor colorWithRed:255.0/255 green:215.0/255 blue:0.0/255 alpha:1.0]];
     }
 }
 
@@ -166,7 +188,7 @@
     for (int i = 0; i < badgeArray.count; i++) {
         NSString* badgeTitle = [badgeArray objectAtIndex:i];
         NSNumber* value = [badgeDictionary objectForKey:badgeTitle];
-        [self updateBadgeBackground:[_badges objectAtIndex:i] withValue:value];
+        [self updateBadgeBackground:[_badges objectAtIndex:i] withTitle:badgeTitle withValue:value];
     }
 }
 

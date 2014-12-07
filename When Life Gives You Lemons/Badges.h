@@ -18,13 +18,13 @@ extern NSString* runOut;
 extern NSString* onceDelicious;
 extern NSString* weekDelicious;
 extern NSString* allFeedback;
-extern NSString* dayCups;
-extern NSString* totalCups;
 extern NSString* dayMoney;
 extern NSString* totalMoney;
 extern NSString* dayPopularity;
 extern NSString* totalPopularity;
-extern NSString* yolo;
+extern NSString* dayCups;
+extern NSString* totalCups;
+extern NSString* differentWeatherCups;
 extern NSString* allBadges;
 
 +(NSArray*) badgeArray;

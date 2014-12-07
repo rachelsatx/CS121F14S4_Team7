@@ -18,17 +18,17 @@ NSString* runOut = @"Under-estimate";
 NSString* onceDelicious = @"The\nPerfect\nCup";
 NSString* weekDelicious = @"The\nPerfect\nWeek";
 NSString* allFeedback = @"Scientist";
-NSString* dayCups = @"Salesman";
-NSString* totalCups = @"Lemon\nCorp\u2122";
 NSString* dayMoney = @"Great\nDay";
 NSString* totalMoney = @"Bill\nGates";
 NSString* dayPopularity = @"Rising\nStar";
 NSString* totalPopularity = @"World\nFamous";
-NSString* yolo = @"TBD";
+NSString* dayCups = @"Salesman";
+NSString* totalCups = @"Lemon\nCorp\u2122";
+NSString* differentWeatherCups = @"Jack-of-all-Trades";
 NSString* allBadges = @"Perfection";
 
 + (NSArray*) badgeArray {
-    return [NSArray arrayWithObjects:allWater, allLemons, allSugar, allIce, runOut, onceDelicious, weekDelicious, allFeedback, dayCups, totalCups, dayMoney, totalMoney, dayPopularity, totalPopularity, yolo, allBadges, nil];
+    return [NSArray arrayWithObjects:allWater, allLemons, allSugar, allIce, runOut, onceDelicious, weekDelicious, allFeedback, dayMoney, totalMoney, dayPopularity, totalPopularity, dayCups, totalCups, differentWeatherCups, allBadges, nil];
 }
 
 @end
