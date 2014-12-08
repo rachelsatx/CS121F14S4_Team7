@@ -257,6 +257,13 @@
     
     NumberWithTwoDecimals *newProfit = [[NumberWithTwoDecimals alloc] initWithFloat:[[inputDictionary valueForKey:@"profit"] floatValue]];
     
+    NSMutableSet *newFeedbackSet = [[NSMutableSet alloc] init];
+    for (NSString* feedback in [inputDictionary valueForKey:@"feedback set"]) {
+        [newFeedbackSet addObject:feedback];
+    }
+    
+    NumberWithTwoDecimals *newTotalEarnings = [[NumberWithTwoDecimals alloc] initWithFloat:[[inputDictionary valueForKey:@"total earnings"] floatValue]];
+    
     _price = newPrice;
     _weather = (Weather) [[inputDictionary valueForKey:@"weather"] intValue];
     _dayOfWeek = (DayOfWeek) [[inputDictionary valueForKey:@"day of week"] intValue];
@@ -264,10 +271,16 @@
     _recipe = convertedRecipe;
     _inventory = convertedInventory;
     _ingredientPrices = convertedIngredientPrices;
-    _popularity = [[inputDictionary valueForKey:@"popularity"]integerValue];
+    _badgeDictionary = [inputDictionary valueForKey:@"badges"];
+    _cupsSold = [[inputDictionary valueForKey:@"cups sold"] integerValue];
+    _feedbackSet = newFeedbackSet;
+    _popularity = [[inputDictionary valueForKey:@"popularity"] integerValue];
     _money = newMoney;
     _profit = newProfit;
     _cupsSold = [[inputDictionary valueForKey:@"price"] integerValue];
+    _daysOfPerfectLemonade = [[inputDictionary valueForKey:@"perf days"] integerValue];
+    _totalCupsSold = [[inputDictionary valueForKey:@"total cups sold"] integerValue];
+    _totalEarnings = newTotalEarnings;
 }
 
 -(NSInteger) getDaysOfPerfectLemonade
@@ -293,6 +306,9 @@
     float convertedProfitFloat = [_profit floatValue];
     NSNumber *convertedProfitNumber = [NSNumber numberWithFloat:convertedProfitFloat];
     
+    float convertedEarningsFloat = [_profit floatValue];
+    NSNumber *convertedEarningsNumber = [NSNumber numberWithFloat:convertedEarningsFloat];
+    
     NSMutableDictionary *convertedRecipe = [[NSMutableDictionary alloc] init];
     for (NSString* ingredient in [_recipe allKeys]) {
         [convertedRecipe setObject:[NSNumber numberWithFloat:[[_recipe valueForKey:ingredient] floatValue]] forKey:ingredient];
@@ -308,6 +324,11 @@
         [convertedIngredientPrices setObject:[NSNumber numberWithFloat:[[_ingredientPrices valueForKey:ingredient] floatValue]] forKey:ingredient];
     }
     
+    NSMutableArray *feedbackArray = [[NSMutableArray alloc] init];
+    for (NSString* feedback in _feedbackSet) {
+        [feedbackArray addObject:feedback];
+    }
+    
     [returnDictionary setObject:convertedPriceNumber forKey:@"price"];
     [returnDictionary setObject:[NSNumber numberWithInt:_weather] forKey:@"weather"];
     [returnDictionary setObject:[NSNumber numberWithInt:_dayOfWeek] forKey:@"day of week"];
@@ -315,10 +336,16 @@
     [returnDictionary setObject:convertedRecipe forKey:@"recipe"];
     [returnDictionary setObject:convertedInventory forKey:@"inventory"];
     [returnDictionary setObject:convertedIngredientPrices forKey:@"ingredient prices"];
+    [returnDictionary setObject:_badgeDictionary forKey:@"badges"];
+    [returnDictionary setObject:feedbackArray forKey:@"feedback set"];
     [returnDictionary setObject:[NSNumber numberWithInteger:_popularity] forKey:@"popularity"];
+    [returnDictionary setObject:[NSNumber numberWithInteger:_cupsSold] forKey:@"cups sold"];
+    [returnDictionary setObject:[NSNumber numberWithInteger:_daysOfPerfectLemonade] forKey:@"perf days"];
+    [returnDictionary setObject:[NSNumber numberWithInteger:_totalCupsSold] forKey:@"total cups sold"];
     [returnDictionary setObject:convertedMoneyNumber forKey:@"money"];
     [returnDictionary setObject:convertedProfitNumber forKey:@"profit"];
     [returnDictionary setObject:[NSNumber numberWithInteger:_cupsSold] forKey:@"cups sold"];
+    [returnDictionary setObject:convertedEarningsNumber forKey:@"total earnings"];
     
     return [NSDictionary dictionaryWithDictionary:returnDictionary];
 }
