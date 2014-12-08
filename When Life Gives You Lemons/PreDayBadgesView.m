@@ -56,7 +56,7 @@
         
         self.backgroundColor = backgroundColor;
         
-        [self addHeader];
+        [self addDescription];
         [self addBadgesWith:badgeDictionary];
         
         [self addBackButton];
@@ -83,21 +83,21 @@
     badgeCornerRadius = 20;
     badgeBorderWidth = 2;
     
+    // There are different levels for some badges and so the description needs to be updated accordingly.
     NSArray* badgeArray = Badges.badgeArray;
     badgeWhiteDescriptions = [[NSMutableDictionary alloc] init];
     NSArray* whiteDescriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $10 in a day", @"Earn $100 total", @"Gain 10% popularity in a day", @"Get over 100% popularity", @"Sell 10 cups in a day", @"Sell 100 cups total", @"Sell 10 cups in each weather", @"Earn all other badges", nil];
-    for (int i = 0; i < badgeArray.count; i++) {
-        [badgeWhiteDescriptions setValue:[whiteDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
-    }
     badgeBronzeDescriptions = [[NSMutableDictionary alloc] init];
     NSArray* bronzeDescriptions = [NSArray arrayWithObjects:@"Try to sell 100% water", @"Try to sell 100% lemons", @"Try to sell 100% sugar", @"Try to sell 100% ice", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $50 in a day", @"Earn $500 total", @"Gain 50% popularity in a day", @"Get over 500% popularity", @"Sell 50 cups in a day", @"Sell 500 cups total", @"Sell 50 cups in each weather", @"Earn all other badges", nil];
-    for (int i = 0; i < badgeArray.count; i++) {
-        [badgeBronzeDescriptions setValue:[bronzeDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
-    }
     badgeSilverDescriptions = [[NSMutableDictionary alloc] init];
     NSArray* silverDescriptions = [NSArray arrayWithObjects:@"Try to sell 100% water", @"Try to sell 100% lemons", @"Try to sell 100% sugar", @"Try to sell 100% ice", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $100 in a day", @"Earn $1000 total", @"Gain 100% popularity in a day", @"Get over 1000% popularity", @"Sell 100 cups in a day", @"Sell 1000 cups total", @"Sell 100 cups in each weather", @"Earn all other badges", nil];
     for (int i = 0; i < badgeArray.count; i++) {
-        [badgeSilverDescriptions setValue:[silverDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
+        [badgeWhiteDescriptions setValue:[whiteDescriptions objectAtIndex:i]
+                                  forKey:[badgeArray objectAtIndex:i]];
+        [badgeBronzeDescriptions setValue:[bronzeDescriptions objectAtIndex:i]
+                                   forKey:[badgeArray objectAtIndex:i]];
+        [badgeSilverDescriptions setValue:[silverDescriptions objectAtIndex:i]
+                                   forKey:[badgeArray objectAtIndex:i]];
     }
     
     buttonBorderThickness = 20;
@@ -113,9 +113,9 @@
     fontName = @"Chalkduster";
 }
 
-- (void)addHeader
+- (void)addDescription
 {
-    NSString* descriptionText = @"BADGES: \n Touch to see how to earn each badge \n Get to green or gold for each badge";
+    NSString* descriptionText = @"BADGES: \n Touch to see how to earn each badge \n Get to green or gold for every badge";
     
     CGRect descriptionFrame = CGRectMake(borderThickness,
                                          borderThickness,
@@ -124,9 +124,9 @@
     UITextView* description = [[UITextView alloc] initWithFrame:descriptionFrame];
     description.backgroundColor = [UIColor blackColor];
     [description setFont:[UIFont fontWithName:fontName size:headerFontSize]];
-    description.textAlignment = NSTextAlignmentCenter;
-    description.textColor = [UIColor whiteColor];
-    description.text = descriptionText;
+    [description setTextAlignment:NSTextAlignmentCenter];
+    [description setTextColor:[UIColor whiteColor]];
+    [description setText:descriptionText];
     description.editable = NO;
     [self addSubview:description];
 }
@@ -146,12 +146,12 @@
                                        badgeSize,
                                        badgeSize);
         UIButton* badge = [[UIButton alloc] initWithFrame:badgeFrame];
-        badge.backgroundColor = [UIColor whiteColor];
-        badge.titleLabel.font = [UIFont fontWithName:fontName size:badgeFontSize];
-        badge.titleLabel.textAlignment = NSTextAlignmentCenter;
-        badge.titleLabel.numberOfLines = 0;
+        [badge setBackgroundColor:[UIColor whiteColor]];
         [badge setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [badge setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        [badge.titleLabel setFont:[UIFont fontWithName:fontName size:badgeFontSize]];
+        [badge.titleLabel setTextAlignment:NSTextAlignmentCenter];
+        badge.titleLabel.numberOfLines = 0;
         badge.layer.cornerRadius = badgeCornerRadius;
         badge.layer.borderWidth = badgeBorderWidth;
         
@@ -193,6 +193,9 @@
     }
 }
 
+/*
+ * Adds UIButton to return to PreDay Views
+ */
 - (void)addBackButton
 {
     CGRect backButtonFrame = CGRectMake(frameWidth - buttonWidth - buttonBorderThickness,
@@ -208,7 +211,7 @@
                    action:@selector(backButtonPressed:)
          forControlEvents:UIControlEventTouchUpInside];
     [backButton setTitle:@"Back" forState:UIControlStateNormal];
-    backButton.titleLabel.font = [UIFont systemFontOfSize:buttonFontSize];
+    [backButton.titleLabel setFont:[UIFont systemFontOfSize:buttonFontSize]];
     [backButton setTitleColor:buttonFontColor forState:UIControlStateNormal];
     [self addSubview:backButton];
 }

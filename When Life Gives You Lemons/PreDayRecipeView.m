@@ -103,7 +103,7 @@ typedef NS_ENUM(int, RecipeIngredient) {
                                    frameWidth,
                                    borderThickness);
     UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
-    title.text = @"Recipe:";
+    [title setText:@"Recipe:"];
     [title setFont:[UIFont fontWithName:fontName size:(fontSize + titleSizeIncrease)]];
     [title setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:title];
@@ -112,7 +112,6 @@ typedef NS_ENUM(int, RecipeIngredient) {
 - (void)createLemonsSection
 {
     [self addImageAndLabelWithTextFor:Lemons];
-    
     [self addIncrementAndDecrementButtonsFor:Lemons];
     
     CGRect lemonAmountLabelFrame = CGRectMake((ingredientColumnWidth + labelColumnWidth) - (buttonSize / 2),
@@ -129,7 +128,6 @@ typedef NS_ENUM(int, RecipeIngredient) {
 - (void)createSugarSection
 {
     [self addImageAndLabelWithTextFor:Sugar];
-    
     [self addIncrementAndDecrementButtonsFor:Sugar];
     
     CGRect sugarAmountLabelFrame = CGRectMake((ingredientColumnWidth + labelColumnWidth) - (buttonSize / 2),
@@ -146,7 +144,6 @@ typedef NS_ENUM(int, RecipeIngredient) {
 - (void)createIceSection
 {
     [self addImageAndLabelWithTextFor:Ice];
-    
     [self addIncrementAndDecrementButtonsFor:Ice];
     
     CGRect iceAmountLabelFrame = CGRectMake((ingredientColumnWidth + labelColumnWidth) - (buttonSize / 2),

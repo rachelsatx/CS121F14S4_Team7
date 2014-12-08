@@ -100,7 +100,7 @@
                                         textViewHeight);
     UITextView *popularityView = [[UITextView alloc] initWithFrame:popularityFrame];
     [self formatTextView:popularityView];
-    popularityView.text = [NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %d percent.", popularity];
+    [popularityView setText:[NSString stringWithFormat: @"\nPopularity:\n\rYour popularity is at %d percent.", popularity]];
     popularityView.editable = NO;
     [self addSubview:popularityView];
 }
@@ -123,10 +123,10 @@
                                           textViewWidth - borderThickness - (2 * outlineWidth),
                                           textViewHeight - (2 * outlineWidth));
     UITextView *feedbackTextView = [[UITextView alloc] initWithFrame:feedbackTextFrame];
-    feedbackTextView.backgroundColor = [UIColor whiteColor];
-    feedbackTextView.textAlignment = NSTextAlignmentCenter;
+    [feedbackTextView setBackgroundColor:[UIColor whiteColor]];
+    [feedbackTextView setTextAlignment:NSTextAlignmentCenter];
     [feedbackTextView setFont:[UIFont fontWithName:fontName size:fontSize]];
-    feedbackTextView.text = [NSString stringWithFormat: @"\nFeedback:\n\r%@", feedback];
+    [feedbackTextView setText:[NSString stringWithFormat: @"\nFeedback:\n\r%@", feedback]];
     feedbackTextView.editable = NO;
     [self addSubview:feedbackTextView];
 }
@@ -147,17 +147,17 @@
     [self formatTextView:summaryView];
     NSString *profitFromDay = [NSString stringWithFormat:@"You sold %d cups of lemonade and made $%0.2f.", cupsSold, [profit floatValue]];
     NSString *moneyOnHand = [NSString stringWithFormat:@"Total money on hand: $%0.2f", [money floatValue]];
-    summaryView.text = [NSString stringWithFormat:@"\nMoney:\n\r%@\n\r%@", profitFromDay, moneyOnHand];
+    [summaryView setText:[NSString stringWithFormat:@"\nMoney:\n\r%@\n\r%@", profitFromDay, moneyOnHand]];
     summaryView.editable = NO;
     [self addSubview:summaryView];
 }
 
 - (void)formatTextView:(UITextView *)view
 {
-    view.backgroundColor = [UIColor whiteColor];
+    [view setBackgroundColor:[UIColor whiteColor]];
     view.layer.borderWidth = outlineWidth;
     view.layer.borderColor = [UIColor blackColor].CGColor;
-    view.textAlignment = NSTextAlignmentCenter;
+    [view setTextAlignment:NSTextAlignmentCenter];
     [view setFont:[UIFont fontWithName:fontName size:fontSize]];
 }
 
@@ -173,7 +173,7 @@
                                           imageSize,
                                           imageSize);
         UIImageView *customerView = [[UIImageView alloc] initWithFrame:customerFrame];
-        customerView.image = [UIImage imageNamed:@"person-navy"];
+        [customerView setImage:[UIImage imageNamed:@"person-navy"]];
         [self addSubview:customerView];
     }
 }
@@ -186,7 +186,7 @@
                                  imageSize,
                                  imageSize);
     UIImageView *jugView = [[UIImageView alloc] initWithFrame:jugFrame];
-    jugView.image = [UIImage imageNamed:@"jug"];
+    [jugView setImage:[UIImage imageNamed:@"jug"]];
     [self addSubview:jugView];
     
     // Add coins image
@@ -195,7 +195,7 @@
                                    imageSize,
                                    imageSize);
     UIImageView *coinsView = [[UIImageView alloc] initWithFrame:coinsFrame];
-    coinsView.image = [UIImage imageNamed:@"coins"];
+    [coinsView setImage:[UIImage imageNamed:@"coins"]];
     [self addSubview:coinsView];
 }
 
