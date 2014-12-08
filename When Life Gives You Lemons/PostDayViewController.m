@@ -7,7 +7,6 @@
 //
 
 #import "PostDayViewController.h"
-#import "PreDayViewController.h"
 #import "PostDayView.h"
 
 @interface PostDayViewController () {
@@ -38,14 +37,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Make sure segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"PostDayToPreDay"])
+    if ([[segue identifier] isEqualToString:@"PostDayToMenu"])
     {
-        // Get reference to the destination view controller
-        PreDayViewController* preDayViewController = [segue destinationViewController];
-        
-        // Pass dataStore to the view controller
-        [preDayViewController setDataStore:_dataStore];
+        ;
     }
 }
 

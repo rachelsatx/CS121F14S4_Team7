@@ -77,7 +77,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="05n-rw-e0h" kind="unwind" unwindAction="unwindToMenu:" id="9WL-4G-YEa"/>
+                                    <segue destination="05n-rw-e0h" kind="unwind" identifier="PostDayToMenu" unwindAction="unwindToMenu:" id="9WL-4G-YEa"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -72,7 +72,7 @@
 
 - (IBAction)unwindToMenu:(UIStoryboardSegue*)unwindSegue
 {
-    ;
+    _dataStore = [[DataStore alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
