@@ -24,8 +24,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    _dataStore = [[DataStore alloc] init];
     // Create frame for additional views
     CGRect viewFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     
@@ -54,6 +52,14 @@
 
 - (void)newGame:(id)sender
 {
+    // If new game, DataStore should be empty
+    _dataStore = [[DataStore alloc] init];
+    [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
+}
+
+- (void)continueGame:(id)sender
+{
+    // If continue game, we need to load the DataStore from JSON
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
 }
 
@@ -72,7 +78,7 @@
 
 - (IBAction)unwindToMenu:(UIStoryboardSegue*)unwindSegue
 {
-    _dataStore = [[DataStore alloc] init];
+    
 }
 
 - (void)didReceiveMemoryWarning
