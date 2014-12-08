@@ -137,7 +137,7 @@
     [self formatButton:continueButton];
     [continueButton setTitle:@"Continue Game" forState:UIControlStateNormal];
     [continueButton addTarget:self
-                       action:@selector(newGame:)
+                       action:@selector(continueGame:)
              forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:continueButton];
 }
@@ -155,6 +155,11 @@
 - (void)newGame:(id)sender
 {
     [self.delegate newGame:sender];
+}
+
+- (void)continueGame:(id)sender
+{
+    [self.delegate continueGame:sender];
 }
 
 - (void)displayInstructions:(id)sender
