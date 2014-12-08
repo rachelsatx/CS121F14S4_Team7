@@ -40,6 +40,7 @@
         
         [self addNewGameButton];
         [self addInstructionsButton];
+        [self addContinueButton];
     }
     
     return self;
@@ -50,7 +51,7 @@
     frameWidth = CGRectGetWidth(self.frame);
     frameHeight = CGRectGetHeight(self.frame);
     
-    topBorderThickness = frameHeight / 8;
+    topBorderThickness = frameHeight / 10;
     titleSize = (frameHeight < frameWidth) ? (frameHeight / 2) : (frameWidth / 2);
     
     buttonWidth = 200;
@@ -124,6 +125,21 @@
                            action:@selector(displayInstructions:)
                  forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:instructionsButton];
+}
+
+- (void)addContinueButton
+{
+    CGRect continueButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                            3 * frameHeight / 5 + (3 * buttonHeight / 2),
+                                            buttonWidth,
+                                            buttonHeight);
+    UIButton* continueButton = [[UIButton alloc] initWithFrame:continueButtonFrame];
+    [self formatButton:continueButton];
+    [continueButton setTitle:@"Continue Game" forState:UIControlStateNormal];
+    [continueButton addTarget:self
+                       action:@selector(newGame:)
+             forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:continueButton];
 }
 
 - (void)formatButton:(UIButton *)button
