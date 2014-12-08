@@ -85,17 +85,17 @@
     
     NSArray* badgeArray = Badges.badgeArray;
     badgeWhiteDescriptions = [[NSMutableDictionary alloc] init];
-    NSArray* whiteDescriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $10 in a day", @"Earn $100 total", @"Gain 10% popularity in a day", @"Get over 100% popularity", @"Sell 10 cups in a day", @"Sell 100 cups total", @"Sell 50 cups in each weather", @"Earn all other badges", nil];
+    NSArray* whiteDescriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $10 in a day", @"Earn $100 total", @"Gain 10% popularity in a day", @"Get over 100% popularity", @"Sell 10 cups in a day", @"Sell 100 cups total", @"Sell 10 cups in each weather", @"Earn all other badges", nil];
     for (int i = 0; i < badgeArray.count; i++) {
         [badgeWhiteDescriptions setValue:[whiteDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
     }
     badgeBronzeDescriptions = [[NSMutableDictionary alloc] init];
-    NSArray* bronzeDescriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $50 in a day", @"Earn $500 total", @"Gain 50% popularity in a day", @"Get over 500% popularity", @"Sell 50 cups in a day", @"Sell 500 cups total", @"Sell 100 cups in each weather", @"Earn all other badges", nil];
+    NSArray* bronzeDescriptions = [NSArray arrayWithObjects:@"Try to sell 100% water", @"Try to sell 100% lemons", @"Try to sell 100% sugar", @"Try to sell 100% ice", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $50 in a day", @"Earn $500 total", @"Gain 50% popularity in a day", @"Get over 500% popularity", @"Sell 50 cups in a day", @"Sell 500 cups total", @"Sell 50 cups in each weather", @"Earn all other badges", nil];
     for (int i = 0; i < badgeArray.count; i++) {
         [badgeBronzeDescriptions setValue:[bronzeDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
     }
     badgeSilverDescriptions = [[NSMutableDictionary alloc] init];
-    NSArray* silverDescriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $100 in a day", @"Earn $1000 total", @"Gain 100% popularity in a day", @"Get over 1000% popularity", @"Sell 100 cups in a day", @"Sell 1000 cups total", @"Sell 500 cups in each weather", @"Earn all other badges", nil];
+    NSArray* silverDescriptions = [NSArray arrayWithObjects:@"Try to sell 100% water", @"Try to sell 100% lemons", @"Try to sell 100% sugar", @"Try to sell 100% ice", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $100 in a day", @"Earn $1000 total", @"Gain 100% popularity in a day", @"Get over 1000% popularity", @"Sell 100 cups in a day", @"Sell 1000 cups total", @"Sell 100 cups in each weather", @"Earn all other badges", nil];
     for (int i = 0; i < badgeArray.count; i++) {
         [badgeSilverDescriptions setValue:[silverDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
     }
@@ -170,6 +170,7 @@
     if ([value isEqualToNumber:@0]) {
         [badge setBackgroundColor:[UIColor whiteColor]];
     } else if ([value isEqualToNumber:@-1]) {
+        [badge setTitle:[badgeBronzeDescriptions objectForKey:badgeTitle] forState:UIControlStateHighlighted];
         [badge setBackgroundColor:[UIColor greenColor]];
     } else if ([value isEqualToNumber:@1]) {
         [badge setTitle:[badgeBronzeDescriptions objectForKey:badgeTitle] forState:UIControlStateHighlighted];

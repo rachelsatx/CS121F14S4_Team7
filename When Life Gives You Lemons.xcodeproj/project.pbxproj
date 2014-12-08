@@ -169,6 +169,7 @@
 				AF268E381A2C4BAD00ED6A53 /* PreDayBadgesView.h */,
 				AF268E391A2C4BAD00ED6A53 /* PreDayBadgesView.m */,
 				DA2B59201A321C1200EEDC70 /* click.wav */,
+				FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */,
 			);
 			name = PreDay;
 			sourceTree = "<group>";
@@ -187,7 +188,6 @@
 				FEBAF0431A0B3F9500951C36 /* RainyScene.h */,
 				FEBAF0441A0B3F9500951C36 /* RainyScene.m */,
 				FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */,
-				FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */,
 				FEBAF0401A0B2FB300951C36 /* spark.png */,
 			);
 			name = MidDay;
@@ -216,6 +216,7 @@
 				DA064B121A19AA3F007438CF /* MenuMainView.m */,
 				FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */,
 				FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */,
+				FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -276,7 +277,6 @@
 				DA940C8B1A3083E50049A5A8 /* Badges.m */,
 				ACBEBFA519F619A300B173C7 /* DataStore.h */,
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
-				FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */,
 				ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */,
 				ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */,
 				FEFC08601A358EC900B46B88 /* save1.json */,
