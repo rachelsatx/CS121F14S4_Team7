@@ -7,7 +7,6 @@
 //
 
 #import "PreDayRecipeView.h"
-
 #import <AudioToolbox/AudioToolbox.h>
 
 typedef NS_ENUM(int, RecipeIngredient) {
@@ -324,7 +323,6 @@ typedef NS_ENUM(int, RecipeIngredient) {
 
 - (void) incrementSugar:(id)sender
 {
-    
     NumberWithTwoDecimals* water = [self.delegate getWaterPercentage];
     if ([water isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
         water = [water subtract:[[NumberWithTwoDecimals alloc] initWithFloat:.01]];

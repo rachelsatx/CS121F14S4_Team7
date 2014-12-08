@@ -7,6 +7,7 @@
 //
 
 #import "PreDayInfoView.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface PreDayInfoView () {
     UILabel* _priceLabel;
@@ -26,6 +27,9 @@
     
     CGFloat fontSize;
     NSString* fontName;
+    
+    // Sounds
+    SystemSoundID clickSound;
 }
 @end
 
@@ -44,6 +48,8 @@
         [self addWeather];
         [self addMakeableCupsLabel];
         [self addPrice];
+        
+        [self initializeSounds];
     }
     
     return self;
@@ -154,17 +160,31 @@
     label.numberOfLines = 0;
 }
 
+- (void)initializeSounds
+{
+    // Taken from http://soundbible.com/1705-Click2.html
+    // Under creative commons attribution 3.0
+    [self setUpSound:@"click" forLocation:&clickSound];
+}
+
+- (void)setUpSound:(NSString*)fileName forLocation:(SystemSoundID*)location {
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"wav"];
+    NSURL *URL = [NSURL fileURLWithPath:path];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)URL, location);
+}
+
 - (void)incrementPrice:(id)sender
 {
-    
     [self.delegate incrementPrice:sender];
     [self updatePriceLabel];
+    AudioServicesPlaySystemSound(clickSound);
 }
 
 - (void)decrementPrice:(id)sender
 {
     [self.delegate decrementPrice:sender];
     [self updatePriceLabel];
+    AudioServicesPlaySystemSound(clickSound);
 }
 
 - (void)updatePriceLabel
@@ -175,7 +195,6 @@
 - (void)updateDayLabel
 {
     DayOfWeek dayOfWeek = [self.delegate getDayOfWeek];
-    NSLog(@"%d", dayOfWeek);
     if (dayOfWeek == Monday) {
         [_dayLabel setText:@"Today is Monday."];
     }
@@ -201,7 +220,14 @@
 
 - (void)updateMakeableCupsLabel
 {
-    [_makeableCupsLabel setText:[NSString stringWithFormat:@"With your current inventory and recipe, \n you can make a total of %ld cups of lemonade.", (long)[self.delegate getMakableCups]]];
+    NSInteger makeableCups = [self.delegate getMakableCups];
+    NSInteger digitsInMakeableCups = (makeableCups == 0) ? 1 : log10(makeableCups) + 1;
+    
+    NSMutableAttributedString *makeableCupsText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"With your current inventory and recipe, \n you can make a total of %ld cups of lemonade.", (long)[self.delegate getMakableCups]]];
+    
+    [makeableCupsText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(66, digitsInMakeableCups + 5)];
+    
+    [_makeableCupsLabel setAttributedText: makeableCupsText];
 }
 
 - (void)updateWeather

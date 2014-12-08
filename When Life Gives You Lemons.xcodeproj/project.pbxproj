@@ -183,7 +183,6 @@
 				FEBAF0431A0B3F9500951C36 /* RainyScene.h */,
 				FEBAF0441A0B3F9500951C36 /* RainyScene.m */,
 				FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */,
-				FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */,
 				FEBAF0401A0B2FB300951C36 /* spark.png */,
 			);
 			name = MidDay;
@@ -212,6 +211,7 @@
 				DA064B121A19AA3F007438CF /* MenuMainView.m */,
 				FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */,
 				FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */,
+				FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
