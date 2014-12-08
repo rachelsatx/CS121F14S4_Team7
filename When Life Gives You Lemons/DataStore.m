@@ -18,6 +18,7 @@
     NSMutableDictionary* _inventory;
     NSMutableDictionary* _ingredientPrices;
     NSMutableDictionary* _badgeDictionary;
+    NSMutableDictionary* _bestAmountsForWeathers;
     NSMutableSet* _feedbackSet;
     NSInteger _popularity;
     NumberWithTwoDecimals* _money;
@@ -27,6 +28,7 @@
     NSInteger _daysOfPerfectLemonade;
     NSInteger _totalCupsSold;
     NumberWithTwoDecimals* _totalEarnings;
+    bool _newBadge;
 }
 @end
 
@@ -43,12 +45,14 @@
     [self initRecipe];
     [self initPrices];
     [self initBadges];
+    [self initBestAmountsForWeathers];
     _feedbackSet = [[NSMutableSet alloc] init];
     _popularity = 0;
     _money = [[NumberWithTwoDecimals alloc] initWithFloat:20];
     _daysOfPerfectLemonade = 0;
     _totalCupsSold = 0;
     _totalEarnings = [[NumberWithTwoDecimals alloc] initWithFloat:0];
+    _newBadge = NO;
     
     return self;
 }
@@ -86,7 +90,16 @@
     for (NSString* badge in [Badges badgeArray]) {
         [_badgeDictionary setValue:@0 forKey:badge];
     }
+    
+}
 
+-(void) initBestAmountsForWeathers
+{
+    _bestAmountsForWeathers = [[NSMutableDictionary alloc] init];
+    [_bestAmountsForWeathers setValue:@0 forKey:@"Sunny"];
+    [_bestAmountsForWeathers setValue:@0 forKey:@"Cloudy"];
+    [_bestAmountsForWeathers setValue:@0 forKey:@"Raining"];
+    
 }
 
 // Price
@@ -173,6 +186,17 @@
 -(void) setBadges:(NSMutableDictionary *)newBadges
 {
     _badgeDictionary = newBadges;
+}
+
+// Best amount for each weather
+-(NSMutableDictionary*) getBestAmountsForWeathers
+{
+    return _bestAmountsForWeathers;
+}
+
+-(void) setBestAmountsForWeathers:(NSMutableDictionary *)newBestAmounts
+{
+    _bestAmountsForWeathers = newBestAmounts;
 }
 
 // Feedbacks that have been gotten so far
@@ -281,6 +305,7 @@
     _daysOfPerfectLemonade = [[inputDictionary valueForKey:@"perf days"] integerValue];
     _totalCupsSold = [[inputDictionary valueForKey:@"total cups sold"] integerValue];
     _totalEarnings = newTotalEarnings;
+    _bestAmountsForWeathers = [NSMutableDictionary dictionaryWithDictionary:[inputDictionary valueForKey:@"best amounts for weathers"]];
 }
 
 -(NSInteger) getDaysOfPerfectLemonade
@@ -346,6 +371,7 @@
     [returnDictionary setObject:convertedProfitNumber forKey:@"profit"];
     [returnDictionary setObject:[NSNumber numberWithInteger:_cupsSold] forKey:@"cups sold"];
     [returnDictionary setObject:convertedEarningsNumber forKey:@"total earnings"];
+    [returnDictionary setObject:_bestAmountsForWeathers forKey:@"best amounts for weathers"];
     
     return [NSDictionary dictionaryWithDictionary:returnDictionary];
 }
@@ -368,6 +394,16 @@
 -(void) setTotalEarnings:(NumberWithTwoDecimals *)newTotal
 {
     _totalEarnings = newTotal;
+}
+
+-(bool) getNewBadge
+{
+    return _newBadge;
+}
+
+-(void) setNewBadge:(bool)newBadge
+{
+    _newBadge = newBadge;
 }
 
 @end
