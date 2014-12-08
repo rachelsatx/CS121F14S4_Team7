@@ -75,16 +75,30 @@
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
 }
 
+- (NSURL *)applicationDocumentsDirectory {
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                   inDomains:NSUserDomainMask] lastObject];
+}
+
 -(void)continueGame:(id)sender
 {
-    NSString *savePath = [[NSBundle mainBundle] pathForResource:@"save1" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:savePath];
+    NSString *savePath = [[self applicationDocumentsDirectory].path
+                          stringByAppendingPathComponent:@"save1.json"];
+    //NSLog(savePath);
+    NSError *readingError;
+    NSData *data = [NSData dataWithContentsOfFile:savePath options:kNilOptions error:&readingError];
+    if (readingError != nil) {
+        NSLog(@"Reading error: %@", readingError);
+    }
+    NSLog(@"Data: %@", data);
     NSError *error = nil;
     
     NSDictionary* dataDictionary = [NSJSONSerialization JSONObjectWithData:data
                                                               options:kNilOptions
                                                               error:&error];
-    
+    if (error != nil) {
+        NSLog(@"%@", error);
+    }
     [_dataStore initWithDictionary:dataDictionary];
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
 }
