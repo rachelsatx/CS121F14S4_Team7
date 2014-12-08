@@ -21,6 +21,9 @@
     NSInteger popularity = [dataStore getPopularity];
     NSMutableDictionary* inventory = [dataStore getInventory];
     NSMutableDictionary* badges = [dataStore getBadges];
+    //Save this so that we can check if we got anything new easily.
+    NSMutableDictionary* originalBadges = [NSMutableDictionary dictionaryWithDictionary:badges];
+    
     NSMutableDictionary* bestAmountsForWeathers = [dataStore getBestAmountsForWeathers];
     NSMutableSet* feedbackSet = [dataStore getFeedbackSet];
     NSString* feedbackString = @"";
@@ -180,6 +183,16 @@
     
     NSLog(@"BOUGHT: %f", portionWhoBought);
     NSLog(@"LIKED: %f", portionWhoLiked);
+    
+    if (![badges isEqualToDictionary:originalBadges]) {
+        [dataStore setNewBadge:YES];
+    }
+    
+    // Check for perfection achievement.
+    if ([self isPerfectBadges:badges]) {
+        [badges setValue:@-1 forKey:allBadges];
+    }
+    
     
     return dataStore;
 }
@@ -484,7 +497,7 @@
     } else if (value >= bronzeThreshold) {
         newValue = @1;
     }
-    if ([badges valueForKey:badgeName] < newValue) {
+    if ([[badges valueForKey:badgeName] intValue] < [newValue intValue]) {
         [badges setValue:newValue forKey:badgeName];
     }
     
@@ -504,6 +517,33 @@
         [NSException raise:@"Invalid weather value being converted to string" format:@"Weather %d is invalid", weather];
         return @"";
     }
+}
+
+- (bool) isPerfectBadges:(NSMutableDictionary*)badges {
+    int threesAllowed = 8;
+    int negativeOnesAllowed = 7;
+    int zeroesAllowed = 1;
+    
+    for (NSNumber* value in [badges allValues]) {
+        if ([value intValue] == 3) {
+            if (--threesAllowed < 0) {
+                return NO;
+            }
+        } else if ([value intValue] == -1) {
+            if (--negativeOnesAllowed < 0) {
+                return NO;
+            }
+        } else if ([value intValue] == 0) {
+            if (--zeroesAllowed < 0) {
+                return NO;
+            }
+        } else {
+            return NO;
+        }
+
+    }
+    
+    return YES;
 }
 
 @end

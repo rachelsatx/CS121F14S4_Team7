@@ -80,13 +80,13 @@
     [grassBackground setImage:[UIImage imageNamed:@"grass-background"]];
     [self addSubview:grassBackground];
     
-    CGRect grassFrame = CGRectMake(0,
-                                   6 * frameHeight / 7,
-                                   frameWidth,
-                                   frameHeight / 7);
-    UIImageView *grass = [[UIImageView alloc] initWithFrame:grassFrame];
-    [grass setImage:[UIImage imageNamed:@"grass-foreground"]];
-    [self addSubview:grass];
+    CGRect grassForegroundFrame = CGRectMake(0,
+                                             6 * frameHeight / 7,
+                                             frameWidth,
+                                             frameHeight / 7);
+    UIImageView *grassForeground = [[UIImageView alloc] initWithFrame:grassForegroundFrame];
+    [grassForeground setImage:[UIImage imageNamed:@"grass-foreground"]];
+    [self addSubview:grassForeground];
 }
 
 - (void)addTitle
@@ -96,7 +96,7 @@
                                    titleSize,
                                    titleSize);
     UIImageView* titleView = [[UIImageView alloc] initWithFrame:titleFrame];
-    titleView.image = [UIImage imageNamed:@"title"];
+    [titleView setImage:[UIImage imageNamed:@"title"]];
     [self addSubview:titleView];
 }
 
@@ -163,7 +163,7 @@
     button.layer.cornerRadius = buttonCornerRadius;
     button.layer.borderWidth = buttonBorderWidth;
     button.layer.borderColor = [UIColor blackColor].CGColor;
-    button.titleLabel.font = [UIFont systemFontOfSize:buttonFontSize];
+    [button.titleLabel setFont:[UIFont systemFontOfSize:buttonFontSize]];
     [button setTitleColor:buttonFontColor forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor whiteColor]];
 }

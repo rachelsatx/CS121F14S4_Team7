@@ -87,7 +87,7 @@
                                     frameWidth / 4,
                                     frameHeight / 4);
     UIImageView *vendor = [[UIImageView alloc] initWithFrame:vendorFrame];
-    vendor.image = [UIImage imageNamed:@"person-pink"];
+    [vendor setImage:[UIImage imageNamed:@"person-pink"]];
     [self addSubview:vendor];
     
     // Add lemonade stand image in bottom left
@@ -96,7 +96,7 @@
                                            3 * frameWidth / 4,
                                            3 * frameHeight / 4);
     UIImageView *lemonadeStand =[[UIImageView alloc] initWithFrame:lemonadeStandFrame];
-    lemonadeStand.image = [UIImage imageNamed:@"lemonade-stand"];
+    [lemonadeStand setImage:[UIImage imageNamed:@"lemonade-stand"]];
     [self addSubview:lemonadeStand];
     
     // Add price on the lemonade stand to reflect what the user chose
@@ -107,7 +107,7 @@
     UILabel *priceLabel = [[UILabel alloc] initWithFrame:priceLabelFrame];
     CGFloat price = [dataStore.getPrice floatValue];
     NSAssert(price >= 0, @"Negative price (%0.2f)", price);
-    priceLabel.text = [NSString stringWithFormat:@"$%0.2f", price];
+    [priceLabel setText:[NSString stringWithFormat:@"$%0.2f", price]];
     [priceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
     [self addSubview:priceLabel];
     
@@ -117,7 +117,7 @@
                                        frameWidth / 4,
                                        frameHeight / 4);
     UIImageView *customer1 = [[UIImageView alloc] initWithFrame:customer1Frame];
-    customer1.image = [UIImage imageNamed:@"person-navy"];
+    [customer1 setImage:[UIImage imageNamed:@"person-navy"]];
     [self addSubview:customer1];
     
     CGRect customer2Frame = CGRectMake(3 * frameWidth / 4,
@@ -125,7 +125,7 @@
                                        frameWidth / 4,
                                        frameHeight / 4);
     UIImageView *customer2 = [[UIImageView alloc] initWithFrame:customer2Frame];
-    customer2.image = [UIImage imageNamed:@"person-purple"];
+    [customer2 setImage:[UIImage imageNamed:@"person-purple"]];
     [self addSubview:customer2];
     
     CGRect customer3Frame = CGRectMake(2 * frameWidth / 3,
@@ -133,7 +133,7 @@
                                        frameWidth / 4,
                                        frameHeight / 4);
     UIImageView *customer3 = [[UIImageView alloc] initWithFrame:customer3Frame];
-    customer3.image = [UIImage imageNamed:@"person-red"];
+    [customer3 setImage:[UIImage imageNamed:@"person-red"]];
     [self addSubview:customer3];
     
     // Set grass foreground - in front of stand
