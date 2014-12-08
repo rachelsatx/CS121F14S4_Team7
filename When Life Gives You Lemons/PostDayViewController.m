@@ -28,6 +28,7 @@
     [self.view addSubview:_postDayView];
     
     [self.view bringSubviewToFront:_goToPreDayButton];
+    [self.view bringSubviewToFront:_quitGameButton];
 }
 
 - (void)setDataStore:(DataStore *) dataStore

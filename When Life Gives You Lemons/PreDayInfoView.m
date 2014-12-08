@@ -22,6 +22,7 @@
     CGFloat labelHeight;
     CGFloat imageSize;
     CGFloat buttonSize;
+    CGFloat borderWidth;
     
     CGFloat fontSize;
     NSString* fontName;
@@ -56,6 +57,7 @@
     labelHeight = frameHeight / 9;
     imageSize = frameHeight < frameWidth ? frameHeight / 4 : frameWidth / 4;
     buttonSize = frameHeight < frameWidth ? frameHeight / 10 : frameWidth / 10;
+    borderWidth = 2;
     
     fontSize = 25;
     fontName = @"Chalkduster";
@@ -63,13 +65,8 @@
 
 - (void)setBackground
 {
-    // Set background image to a spiral notebook
-    self.backgroundColor = [UIColor whiteColor];
-    UIGraphicsBeginImageContext(self.frame.size);
-    [[UIImage imageNamed:@"spiral-notebook"] drawInRect:self.bounds];
-    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    self.backgroundColor = [UIColor colorWithPatternImage:image];
+    self.layer.borderWidth = borderWidth;
+    self.backgroundColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:200.0/255 alpha:1.0];
 }
 
 - (void)addDayLabel
