@@ -95,7 +95,7 @@
         [badgeBronzeDescriptions setValue:[bronzeDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
     }
     badgeSilverDescriptions = [[NSMutableDictionary alloc] init];
-    NSArray* silverDescriptions = [NSArray arrayWithObjects:@"???", @"???", @"???", @"???", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $100 in a day", @"Earn $1000 total", @"Gain 100% popularity in a day", @"Get over 1000% popularity", @"Sell 100 cups in a day", @"Sell 1000 cups total", @"Sell 100 cups in each weather", @"Earn all other badges", nil];
+    NSArray* silverDescriptions = [NSArray arrayWithObjects:@"Try to sell 100% water", @"Try to sell 100% lemons", @"Try to sell 100% sugar", @"Try to sell 100% ice", @"Have your lemonade sell out", @"Make delicious lemonade", @"Make delicious lemonade for a week", @"Get every possible feedback", @"Earn $100 in a day", @"Earn $1000 total", @"Gain 100% popularity in a day", @"Get over 1000% popularity", @"Sell 100 cups in a day", @"Sell 1000 cups total", @"Sell 100 cups in each weather", @"Earn all other badges", nil];
     for (int i = 0; i < badgeArray.count; i++) {
         [badgeSilverDescriptions setValue:[silverDescriptions objectAtIndex:i] forKey:[badgeArray objectAtIndex:i]];
     }
