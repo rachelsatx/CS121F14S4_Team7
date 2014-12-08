@@ -11,8 +11,8 @@
 
 @protocol MenuMainViewDelegate <NSObject>
 @required
-- (void)displayInstructions:(id)sender;
 - (void)newGame:(id)sender;
+- (void)displayInstructions:(id)sender;
 @end
 
 

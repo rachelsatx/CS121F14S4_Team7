@@ -7,19 +7,26 @@
 //
 
 #import "DataStore.h"
+#import "Badges.h"
 
 @interface DataStore () {
-    NSNumber* _price;
+    NumberWithTwoDecimals* _price;
     Weather _weather;
     DayOfWeek _dayOfWeek;
     NSString* _feedbackString;
     NSMutableDictionary* _recipe;
     NSMutableDictionary* _inventory;
     NSMutableDictionary* _ingredientPrices;
-    NSNumber* _popularity;
-    NSNumber* _money;
-    NSNumber* _profit;
+    NSMutableDictionary* _badgeDictionary;
+    NSMutableSet* _feedbackSet;
+    NSInteger _popularity;
+    NumberWithTwoDecimals* _money;
+    NumberWithTwoDecimals* _profit;
     NSInteger _cupsSold;
+    // for achievementS
+    NSInteger _daysOfPerfectLemonade;
+    NSInteger _totalCupsSold;
+    NumberWithTwoDecimals* _totalEarnings;
 }
 @end
 
@@ -28,29 +35,67 @@
 -(id)init
 {
     self = [super init];
-    _price = [NSNumber numberWithFloat:.50];
+    _price = [[NumberWithTwoDecimals alloc] initWithFloat:.50];
     _weather = Sunny;
     _dayOfWeek = Saturday;
     _feedbackString = @"";
-    _inventory = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,     @0.00,    @0.00,  @0.00]
-                                                      forKeys:@[@"lemons", @"sugar", @"ice", @"cups"]];
-    _recipe = [[NSMutableDictionary alloc] initWithObjects:@[@0.00,     @0.00,    @0.00,  @1.00]
-                                                   forKeys:@[@"lemons", @"sugar", @"ice", @"water"]];
-    _ingredientPrices = [[NSMutableDictionary alloc] initWithObjects:@[@0.50,     @0.50,    @0.25,  @0.05]
-                                                    forKeys:@[@"lemons", @"sugar", @"ice", @"cups"]];
+    [self initInventory];
+    [self initRecipe];
+    [self initPrices];
+    [self initBadges];
+    _feedbackSet = [[NSMutableSet alloc] init];
     _popularity = 0;
-    _money = [NSNumber numberWithFloat:20];
+    _money = [[NumberWithTwoDecimals alloc] initWithFloat:20];
+    _daysOfPerfectLemonade = 0;
+    _totalCupsSold = 0;
+    _totalEarnings = [[NumberWithTwoDecimals alloc] initWithFloat:0];
     
     return self;
 }
 
+-(void) initInventory
+{
+    _inventory = [[NSMutableDictionary alloc] init];
+    [_inventory setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.00] forKey:@"lemons"];
+    [_inventory setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.00] forKey:@"sugar"];
+    [_inventory setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.00] forKey:@"ice"];
+    [_inventory setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.00] forKey:@"cups"];
+}
+
+-(void) initRecipe
+{
+    _recipe = [[NSMutableDictionary alloc] init];
+    [_recipe setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.00] forKey:@"lemons"];
+    [_recipe setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.00] forKey:@"sugar"];
+    [_recipe setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.00] forKey:@"ice"];
+    [_recipe setValue:[[NumberWithTwoDecimals alloc] initWithFloat:1.00] forKey:@"water"];
+}
+
+-(void) initPrices
+{
+    _ingredientPrices = [[NSMutableDictionary alloc] init];
+    [_ingredientPrices setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.50] forKey:@"lemons"];
+    [_ingredientPrices setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.50] forKey:@"sugar"];
+    [_ingredientPrices setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.25] forKey:@"ice"];
+    [_ingredientPrices setValue:[[NumberWithTwoDecimals alloc] initWithFloat:0.05] forKey:@"cups"];
+}
+
+-(void) initBadges
+{
+    _badgeDictionary = [[NSMutableDictionary alloc] init];
+    for (NSString* badge in [Badges badgeArray]) {
+        [_badgeDictionary setValue:@0 forKey:badge];
+    }
+
+}
+
 // Price
--(NSNumber*) getPrice
+-(NumberWithTwoDecimals*) getPrice
 {
     return _price;
 }
 
--(void) setPrice:(NSNumber*) newPrice
+-(void) setPrice:(NumberWithTwoDecimals*) newPrice
 {
     _price = newPrice;
 }
@@ -119,34 +164,56 @@
     _ingredientPrices = newIngredientPrices;
 }
 
+// Achievements
+-(NSMutableDictionary*) getBadges
+{
+    return _badgeDictionary;
+}
+
+-(void) setBadges:(NSMutableDictionary *)newBadges
+{
+    _badgeDictionary = newBadges;
+}
+
+// Feedbacks that have been gotten so far
+-(NSMutableSet*) getFeedbackSet
+{
+    return _feedbackSet;
+}
+
+-(void) setFeedbackSet:(NSMutableSet*)newFeedbackSet
+{
+    _feedbackSet = newFeedbackSet;
+}
+
 // Popularity
--(NSNumber*) getPopularity
+-(NSInteger) getPopularity
 {
     return _popularity;
 }
 
--(void) setPopularity:(NSNumber*) newPopularity
+-(void) setPopularity:(NSInteger) newPopularity
 {
     _popularity = newPopularity;
 }
 
 // Money
--(NSNumber*) getMoney
+-(NumberWithTwoDecimals*) getMoney
 {
     return _money;
 }
 
--(void) setMoney:(NSNumber*) newMoney
+-(void) setMoney:(NumberWithTwoDecimals*) newMoney
 {
     _money = newMoney;
 }
 
--(NSNumber*) getProfit
+-(NumberWithTwoDecimals*) getProfit
 {
     return _profit;
 }
 
--(void) setProfit:(NSNumber*) newProfit
+-(void) setProfit:(NumberWithTwoDecimals*) newProfit
 {
     _profit = newProfit;
 }
