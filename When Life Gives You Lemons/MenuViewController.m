@@ -9,6 +9,7 @@
 #import "MenuViewController.h"
 #import "PreDayViewController.h"
 #import "MenuInstructionsView.h"
+#import "MenuCreditsView.h"
 #import "MenuMainView.h"
 #import "DataStore.h"
 
@@ -16,6 +17,7 @@
     DataStore* _dataStore;
     MenuMainView* _mainView;
     MenuInstructionsView* _instructionsView;
+    MenuCreditsView* _creditsView;
 }
 @end
 
@@ -36,6 +38,10 @@
     _instructionsView = [[MenuInstructionsView alloc] initWithFrame:viewFrame];
     [_instructionsView setHidden:YES];
     [self.view addSubview:_instructionsView];
+    
+    _creditsView = [[MenuCreditsView alloc] initWithFrame:viewFrame];
+    [_creditsView setHidden:YES];
+    [self.view addSubview:_creditsView];
 }
 
 - (void)displayInstructions:(id)sender
@@ -48,6 +54,18 @@
     transition.delegate = self;
     [self.view.layer addAnimation:transition forKey:nil];
     [self.view bringSubviewToFront:_instructionsView];
+}
+
+- (void)displayCredits:(id)sender
+{
+    [_creditsView setHidden:NO];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.delegate = self;
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self.view bringSubviewToFront:_creditsView];
 }
 
 - (void)newGame:(id)sender

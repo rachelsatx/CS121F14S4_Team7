@@ -41,6 +41,7 @@
         [self addNewGameButton];
         [self addInstructionsButton];
         [self addContinueButton];
+        [self addCreditsButton];
     }
     
     return self;
@@ -142,6 +143,21 @@
     [self addSubview:continueButton];
 }
 
+- (void)addCreditsButton
+{
+    CGRect creditsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                            3 * frameHeight / 5 + (2*(3 * buttonHeight / 2)),
+                                            buttonWidth,
+                                            buttonHeight);
+    UIButton* creditsButton = [[UIButton alloc] initWithFrame:creditsButtonFrame];
+    [self formatButton:creditsButton];
+    [creditsButton setTitle:@"Credits" forState:UIControlStateNormal];
+    [creditsButton addTarget:self
+                       action:@selector(displayCredits:)
+             forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:creditsButton];
+}
+
 - (void)formatButton:(UIButton *)button
 {
     button.layer.cornerRadius = buttonCornerRadius;
@@ -165,6 +181,11 @@
 - (void)displayInstructions:(id)sender
 {
     [self.delegate displayInstructions:sender];
+}
+
+- (void)displayCredits:(id)sender
+{
+    [self.delegate displayCredits:sender];
 }
 
 @end
