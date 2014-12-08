@@ -43,7 +43,7 @@
         
         self.backgroundColor = backgroundColor;
         [self addTitle];
-        [self addInstructions];
+        [self addCredits];
         [self addBackButton];
         [self addLemonImage];
     }
@@ -89,20 +89,20 @@
     [self addSubview:title];
 }
 
-- (void)addInstructions
+- (void)addCredits
 {
-    NSString* instructionsText = @" We need to thank the NSF for making this game possible. \n \n Team members: \n Jonathan Finnell \n Amit Maor \n Joshua Petrack \n Megan Shao \n Rachel Gale Wilson \n \n Created for CS121 at Harvey Mudd College.";
+    NSString* creditsText = @" We need to thank the NSF for making this game possible. \n \n Team members: \n Jonathan Finnell \n Amit Maor \n Joshua Petrack \n Megan Shao \n Rachel Gale Wilson \n \n Created for CS121 at Harvey Mudd College.";
     
     // Create Text box with instructions
-    CGRect instructionsFrame = CGRectMake(instructionsBorderThickness,
+    CGRect creditsFrame = CGRectMake(instructionsBorderThickness,
                                           topBorderThickness + headerThickness + instructionsBorderThickness,
                                           frameWidth - 2 * instructionsBorderThickness,
                                           frameHeight - topBorderThickness - headerThickness - 2 * instructionsBorderThickness);
-    UITextView* instructions = [[UITextView alloc] initWithFrame:instructionsFrame];
-    [instructions setFont:[UIFont fontWithName:fontName size:fontSize]];
-    [instructions setText:instructionsText];
-    instructions.editable = NO;
-    [self addSubview:instructions];
+    UITextView* credits = [[UITextView alloc] initWithFrame:creditsFrame];
+    [credits setFont:[UIFont fontWithName:fontName size:fontSize]];
+    [credits setText:creditsText];
+    credits.editable = NO;
+    [self addSubview:credits];
 }
 
 - (void)addBackButton
