@@ -106,12 +106,12 @@
         feedbackString = [self generateFeedbackFromRecipe:recipe forWeather:weather];
         [feedbackSet addObject:feedbackString];
         if ([feedbackString isEqualToString:@"Your lemonade was delicious!"]) {
-            [badges setValue:@1 forKey:onceDelicious];
+            [badges setValue:@-1 forKey:onceDelicious];
             NSLog(@"Earned THE PERFECT CUP");
             
             [dataStore setDaysOfPerfectLemonade:perfectDaysInRow + 1];
             if (perfectDaysInRow == 6) {
-                [badges setValue:@1 forKey:weekDelicious];
+                [badges setValue:@-1 forKey:weekDelicious];
                 NSLog(@"Earned THE PERFECT WEEK");
             }
         } else {
@@ -123,7 +123,7 @@
             feedbackString = [NSString stringWithFormat:
                @"%@\nYou also ran out of ingredients!",
                               feedbackString];
-            [badges setValue:@1 forKey:runOut];
+            [badges setValue:@-1 forKey:runOut];
             NSLog(@"Earned UNDER-ESTIMATE");
             [feedbackSet addObject:@"You also ran out of ingredients!"];
         } else if ((float) customersWhoBought / (float) totalCustomers < .1) {
@@ -160,7 +160,7 @@
     
     // If feedback set is complete, tell the datastore.
     if ([feedbackSet count] > NUM_FEEDBACKS) {
-        [badges setValue:@1 forKey:allFeedback];
+        [badges setValue:@-1 forKey:allFeedback];
         NSLog(@"Earned SCIENTIST");
     }
     [dataStore setFeedbackSet:feedbackSet];
@@ -439,19 +439,19 @@
 - (NSMutableDictionary*) updateBadges:(NSMutableDictionary*)badges fromRecipe:(NSMutableDictionary*)recipe{
     NumberWithTwoDecimals* one = [[NumberWithTwoDecimals alloc] initWithFloat:1.0];
     if ([[recipe valueForKey:@"lemons"] isEqual:one]) {
-        [badges setValue:@1 forKey:allLemons];
+        [badges setValue:@-1 forKey:allLemons];
         NSLog(@"Earned LEMONHEAD");
     }
     if ([[recipe valueForKey:@"sugar"] isEqual:one]) {
-        [badges setValue:@1 forKey:allSugar];
+        [badges setValue:@-1 forKey:allSugar];
         NSLog(@"Earned SWEET TOOTH");
     }
     if ([[recipe valueForKey:@"ice"] isEqual:one]) {
-        [badges setValue:@1 forKey:allIce];
+        [badges setValue:@-1 forKey:allIce];
         NSLog(@"Earned FROZEN");
     }
     if ([[recipe valueForKey:@"water"] isEqual:one]) {
-        [badges setValue:@1 forKey:allWater];
+        [badges setValue:@-1 forKey:allWater];
         NSLog(@"Earned CON-ARTIST");
     }
     return badges;

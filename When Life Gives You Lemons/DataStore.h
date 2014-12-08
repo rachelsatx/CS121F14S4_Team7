@@ -51,6 +51,9 @@ typedef NS_ENUM(int, DayOfWeek) {
 -(NSMutableDictionary*) getBadges;
 -(void) setBadges:(NSMutableDictionary*) newBadges;
 
+-(NSMutableDictionary*) getBestAmountsForWeathers;
+-(void) setBestAmountsForWeathers:(NSMutableDictionary*) newBestAmounts;
+
 -(NSMutableSet*) getFeedbackSet;
 -(void) setFeedbackSet:(NSMutableSet*) newFeedbackSet;
 
