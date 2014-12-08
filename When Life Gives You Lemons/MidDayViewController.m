@@ -57,7 +57,6 @@
         
         // Pass dataStore to the view controller
         [postDayViewController setDataStore:_dataStore];
-        [postDayViewController save];
     }
 }
 

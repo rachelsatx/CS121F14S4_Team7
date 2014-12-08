@@ -28,6 +28,7 @@
     [self.view addSubview:_postDayView];
     
     [self.view bringSubviewToFront:_goToPreDayButton];
+    [self save];
 
 }
 
@@ -60,9 +61,13 @@
         
         if (json != nil && error == nil)
         {
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSString *savePath = [[NSBundle mainBundle] pathForResource:@"save1" ofType:@"json"];
+            
+            [json writeToFile:savePath atomically:YES];
             NSString *jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
             
-           // NSLog(@"feedbackstring: %@", [dataDictionary valueForKey:@"feedback string"]);
+            NSLog(@"feedbackstring: %@", [dataDictionary valueForKey:@"feedback string"]);
             
             NSLog(@"JSON: %@", jsonString);
             //[jsonString release];
