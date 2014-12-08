@@ -62,22 +62,13 @@
                 }
             }
         }
-        if (customersWhoBought >= 100) {
-            [badges setValue:@1 forKey:dayCups];
-            NSLog(@"Earned SALESMAN");
-        }
-        if ([dataStore getTotalCupsSold] + customersWhoBought >= 1000) {
-            [badges setValue:@1 forKey:totalCups];
-            NSLog(@"Earned LEMON-CORP\u2122");
-        }
-        if ([grossEarnings floatValue] >= 100) {
-            [badges setValue:@1 forKey:dayMoney];
-            NSLog(@"Earned GREAT DAY");
-        }
-        if ([[[dataStore getTotalEarnings] add:grossEarnings] floatValue] >= 1000) {
-            [badges setValue:@1 forKey:totalMoney];
-            NSLog(@"Earned BILL GATES");
-        }
+        
+        // Set badges that can be bronze, silver or gold.
+        [self setBadge:dayCups inBadges:badges withValue:customersWhoBought forBronzeThreshold:10 silverThreshold:50 goldThreshold:100];
+        [self setBadge:totalCups inBadges:badges withValue:[dataStore getTotalCupsSold] + customersWhoBought forBronzeThreshold:100 silverThreshold:500 goldThreshold:1000];
+        [self setBadge:dayMoney inBadges:badges withValue:[grossEarnings floatValue] forBronzeThreshold:10 silverThreshold:50 goldThreshold:100];
+        [self setBadge:totalMoney inBadges:badges withValue:[[[dataStore getTotalEarnings] add:grossEarnings] floatValue] forBronzeThreshold:100 silverThreshold:500 goldThreshold:1000];
+        
     } else {
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
         [feedbackSet addObject:feedbackString];
@@ -102,14 +93,9 @@
     NSInteger oldPopularity = popularity;
     NSInteger newPopularity = [self calculateNewPopularityWithNumCustomers:totalCustomers
         portionBought:portionWhoBought portionLiked:portionWhoLiked fromOldPopularity:popularity];
-    if ((newPopularity - oldPopularity) >= 10) {
-        [badges setValue:@1 forKey:dayPopularity];
-        NSLog(@"Earned RISING STAR");
-    }
-    if (newPopularity >= 100) {
-        [badges setValue:@1 forKey:totalPopularity];
-        NSLog(@"Earned WORLD FAMOUS");
-    }
+    
+    [self setBadge:dayPopularity inBadges:badges withValue:newPopularity - oldPopularity forBronzeThreshold:10 silverThreshold:50 goldThreshold:100];
+    [self setBadge:totalPopularity inBadges:badges withValue:newPopularity forBronzeThreshold:100 silverThreshold:500 goldThreshold:1000];
     
     NumberWithTwoDecimals* newMoney = [money add:grossEarnings];
     
@@ -273,7 +259,7 @@
         portionLiked:(float)portionWhoLiked
         fromOldPopularity:(NSInteger)popularity {
     // To prevent popularity from exploding, we limit "effective customers" to 100.
-    int effectiveCustomers = MIN(totalCustomers, 100);
+    int effectiveCustomers = MIN(totalCustomers, 150);
     
     NSInteger newPopularity = popularity;
     // If enough people were unwilling to buy because of price, lose some popularity proportionally.
@@ -450,7 +436,7 @@
     return newPrices;
 }
 
-- (NSMutableDictionary*) updateBadges:(NSMutableDictionary*)badges fromRecipe:(NSMutableDictionary*)recipe {
+- (NSMutableDictionary*) updateBadges:(NSMutableDictionary*)badges fromRecipe:(NSMutableDictionary*)recipe{
     NumberWithTwoDecimals* one = [[NumberWithTwoDecimals alloc] initWithFloat:1.0];
     if ([[recipe valueForKey:@"lemons"] isEqual:one]) {
         [badges setValue:@1 forKey:allLemons];
@@ -471,5 +457,24 @@
     return badges;
 }
 
+- (NSMutableDictionary*) setBadge:(NSString*)badgeName
+        inBadges:(NSMutableDictionary*)badges withValue:(int)value
+        forBronzeThreshold:(int)bronzeThreshold
+        silverThreshold:(int)silverThreshold
+        goldThreshold:(int)goldThreshold {
+            
+    if (value >= goldThreshold) {
+        [badges setValue:@3 forKey:badgeName];
+    } else if (value >= silverThreshold) {
+        [badges setValue:@2 forKey:badgeName];
+    } else if (value >= bronzeThreshold) {
+        [badges setValue:@1 forKey:badgeName];
+    }
+    
+    
+    return badges;
+}
+
 @end
+
 
