@@ -271,7 +271,7 @@
     _recipe = convertedRecipe;
     _inventory = convertedInventory;
     _ingredientPrices = convertedIngredientPrices;
-    _badgeDictionary = [inputDictionary valueForKey:@"badges"];
+    _badgeDictionary = [NSMutableDictionary dictionaryWithDictionary:[inputDictionary valueForKey:@"badges"]];
     _cupsSold = [[inputDictionary valueForKey:@"cups sold"] integerValue];
     _feedbackSet = newFeedbackSet;
     _popularity = [[inputDictionary valueForKey:@"popularity"] integerValue];
