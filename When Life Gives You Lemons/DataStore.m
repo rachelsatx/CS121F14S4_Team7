@@ -305,6 +305,7 @@
     _daysOfPerfectLemonade = [[inputDictionary valueForKey:@"perf days"] integerValue];
     _totalCupsSold = [[inputDictionary valueForKey:@"total cups sold"] integerValue];
     _totalEarnings = newTotalEarnings;
+    _bestAmountsForWeathers = [NSMutableDictionary dictionaryWithDictionary:[inputDictionary valueForKey:@"best amounts for weathers"]];
 }
 
 -(NSInteger) getDaysOfPerfectLemonade
@@ -370,6 +371,7 @@
     [returnDictionary setObject:convertedProfitNumber forKey:@"profit"];
     [returnDictionary setObject:[NSNumber numberWithInteger:_cupsSold] forKey:@"cups sold"];
     [returnDictionary setObject:convertedEarningsNumber forKey:@"total earnings"];
+    [returnDictionary setObject:_bestAmountsForWeathers forKey:@"best amounts for weathers"];
     
     return [NSDictionary dictionaryWithDictionary:returnDictionary];
 }
