@@ -188,6 +188,12 @@
         [dataStore setNewBadge:YES];
     }
     
+    // Check for perfection achievement.
+    if ([self isPerfectBadges:badges]) {
+        [badges setValue:@-1 forKey:allBadges];
+    }
+    
+    
     return dataStore;
 }
 
@@ -511,6 +517,33 @@
         [NSException raise:@"Invalid weather value being converted to string" format:@"Weather %d is invalid", weather];
         return @"";
     }
+}
+
+- (bool) isPerfectBadges:(NSMutableDictionary*)badges {
+    int threesAllowed = 8;
+    int negativeOnesAllowed = 7;
+    int zeroesAllowed = 1;
+    
+    for (NSNumber* value in [badges allValues]) {
+        if ([value intValue] == 3) {
+            if (--threesAllowed < 0) {
+                return NO;
+            }
+        } else if ([value intValue] == -1) {
+            if (--negativeOnesAllowed < 0) {
+                return NO;
+            }
+        } else if ([value intValue] == 0) {
+            if (--zeroesAllowed < 0) {
+                return NO;
+            }
+        } else {
+            return NO;
+        }
+
+    }
+    
+    return YES;
 }
 
 @end
