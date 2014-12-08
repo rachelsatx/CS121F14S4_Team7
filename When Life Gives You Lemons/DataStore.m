@@ -230,16 +230,43 @@
 
 -(void) initWithDictionary:(NSDictionary*) inputDictionary
 {
-    _price = [inputDictionary valueForKey:@"price"];
+    NumberWithTwoDecimals *newPrice = [[NumberWithTwoDecimals alloc] initWithFloat:[[inputDictionary valueForKey:@"price"] floatValue]];
+    
+    NSMutableDictionary *convertedRecipe = [[NSMutableDictionary alloc] init];
+    for (NSString* ingredient in [_recipe allKeys]) {
+        NumberWithTwoDecimals *newNumber = [[NumberWithTwoDecimals alloc]
+                                           initWithFloat:[[[inputDictionary valueForKey:@"recipe"] valueForKey:ingredient] floatValue]];
+        [convertedRecipe setObject:newNumber forKey:ingredient];
+    }
+    
+    NSMutableDictionary *convertedInventory = [[NSMutableDictionary alloc] init];
+    for (NSString* ingredient in [_inventory allKeys]) {
+        NumberWithTwoDecimals *newNumber = [[NumberWithTwoDecimals alloc]
+                                            initWithFloat:[[[inputDictionary valueForKey:@"inventory"] valueForKey:ingredient] floatValue]];
+        [convertedInventory setObject:newNumber forKey:ingredient];
+    }
+    
+    NSMutableDictionary *convertedIngredientPrices = [[NSMutableDictionary alloc] init];
+    for (NSString* ingredient in [_ingredientPrices allKeys]) {
+        NumberWithTwoDecimals *newNumber = [[NumberWithTwoDecimals alloc]
+                                            initWithFloat:[[[inputDictionary valueForKey:@"ingredient prices"] valueForKey:ingredient] floatValue]];
+        [convertedIngredientPrices setObject:newNumber forKey:ingredient];
+    }
+    
+    NumberWithTwoDecimals *newMoney = [[NumberWithTwoDecimals alloc] initWithFloat:[[inputDictionary valueForKey:@"money"] floatValue]];
+    
+    NumberWithTwoDecimals *newProfit = [[NumberWithTwoDecimals alloc] initWithFloat:[[inputDictionary valueForKey:@"profit"] floatValue]];
+    
+    _price = newPrice;
     _weather = (Weather) [[inputDictionary valueForKey:@"weather"] intValue];
     _dayOfWeek = (DayOfWeek) [[inputDictionary valueForKey:@"day of week"] intValue];
     _feedbackString = [inputDictionary valueForKey:@"feedback String"];
-    _recipe = [inputDictionary valueForKey:@"recipe"];
-    _inventory = [inputDictionary valueForKey:@"inventory"];
-    _ingredientPrices = [inputDictionary valueForKey:@"ingredient prices"];
+    _recipe = convertedRecipe;
+    _inventory = convertedInventory;
+    _ingredientPrices = convertedIngredientPrices;
     _popularity = [[inputDictionary valueForKey:@"popularity"]integerValue];
-    _money = [inputDictionary valueForKey:@"money"];
-    _profit = [inputDictionary valueForKey:@"profit"];
+    _money = newMoney;
+    _profit = newProfit;
     _cupsSold = [[inputDictionary valueForKey:@"price"] integerValue];
 }
 
@@ -257,16 +284,40 @@
 {
     NSMutableDictionary *returnDictionary = [[NSMutableDictionary alloc] init];
     
-    [returnDictionary setObject:_price forKey:@"price"];
+    float convertedPriceFloat = [_price floatValue];
+    NSNumber *convertedPriceNumber = [NSNumber numberWithFloat:convertedPriceFloat];
+    
+    float convertedMoneyFloat = [_money floatValue];
+    NSNumber *convertedMoneyNumber = [NSNumber numberWithFloat:convertedMoneyFloat];
+    
+    float convertedProfitFloat = [_profit floatValue];
+    NSNumber *convertedProfitNumber = [NSNumber numberWithFloat:convertedProfitFloat];
+    
+    NSMutableDictionary *convertedRecipe = [[NSMutableDictionary alloc] init];
+    for (NSString* ingredient in [_recipe allKeys]) {
+        [convertedRecipe setObject:[NSNumber numberWithFloat:[[_recipe valueForKey:ingredient] floatValue]] forKey:ingredient];
+    }
+    
+    NSMutableDictionary *convertedInventory = [[NSMutableDictionary alloc] init];
+    for (NSString* ingredient in [_inventory allKeys]) {
+        [convertedInventory setObject:[NSNumber numberWithFloat:[[_inventory valueForKey:ingredient] floatValue]] forKey:ingredient];
+    }
+    
+    NSMutableDictionary *convertedIngredientPrices = [[NSMutableDictionary alloc] init];
+    for (NSString* ingredient in [_ingredientPrices allKeys]) {
+        [convertedIngredientPrices setObject:[NSNumber numberWithFloat:[[_ingredientPrices valueForKey:ingredient] floatValue]] forKey:ingredient];
+    }
+    
+    [returnDictionary setObject:convertedPriceNumber forKey:@"price"];
     [returnDictionary setObject:[NSNumber numberWithInt:_weather] forKey:@"weather"];
     [returnDictionary setObject:[NSNumber numberWithInt:_dayOfWeek] forKey:@"day of week"];
     [returnDictionary setObject:_feedbackString forKey:@"feedback string"];
-    [returnDictionary setObject:_recipe forKey:@"recipe"];
-    [returnDictionary setObject:_inventory forKey:@"inventory"];
-    [returnDictionary setObject:_ingredientPrices forKey:@"ingredient prices"];
+    [returnDictionary setObject:convertedRecipe forKey:@"recipe"];
+    [returnDictionary setObject:convertedInventory forKey:@"inventory"];
+    [returnDictionary setObject:convertedIngredientPrices forKey:@"ingredient prices"];
     [returnDictionary setObject:[NSNumber numberWithInteger:_popularity] forKey:@"popularity"];
-    [returnDictionary setObject:_money forKey:@"money"];
-    [returnDictionary setObject:_profit forKey:@"profit"];
+    [returnDictionary setObject:convertedMoneyNumber forKey:@"money"];
+    [returnDictionary setObject:convertedProfitNumber forKey:@"profit"];
     [returnDictionary setObject:[NSNumber numberWithInteger:_cupsSold] forKey:@"cups sold"];
     
     return [NSDictionary dictionaryWithDictionary:returnDictionary];

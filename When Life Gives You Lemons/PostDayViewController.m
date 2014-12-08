@@ -28,6 +28,7 @@
     [self.view addSubview:_postDayView];
     
     [self.view bringSubviewToFront:_goToPreDayButton];
+    [self.view bringSubviewToFront:_quitGameButton];
     [self save];
 
 }
@@ -53,15 +54,17 @@
 {
     NSDictionary *dataDictionary = [_dataStore convertToDictionary];
     
-//    NSLog(@"feedbackstring: %@", [dataDictionary valueForKey:@"price"]);
+    NSLog(@"thing: %@", [dataDictionary valueForKey:@"price"]);
     
     NSError *error = nil;
     if ([NSJSONSerialization isValidJSONObject:dataDictionary]){
+        NSLog(@"Valid dictionary");
         NSData *json = [NSJSONSerialization dataWithJSONObject:dataDictionary options:NSJSONWritingPrettyPrinted error:&error];
         
         if (json != nil && error == nil)
         {
-            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSLog(@"Valid JSON conversion.");
+            //NSFileManager *fileManager = [NSFileManager defaultManager];
             NSString *savePath = [[NSBundle mainBundle] pathForResource:@"save1" ofType:@"json"];
             
             [json writeToFile:savePath atomically:YES];
