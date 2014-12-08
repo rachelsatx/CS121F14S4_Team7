@@ -167,4 +167,9 @@
     [self.delegate displayInstructions:sender];
 }
 
+- (void)displayCredits:(id)sender
+{
+    [self.delegate displayCredits:sender];
+}
+
 @end

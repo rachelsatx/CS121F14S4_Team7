@@ -14,6 +14,7 @@
 - (void)newGame:(id)sender;
 - (void)continueGame:(id)sender;
 - (void)displayInstructions:(id)sender;
+- (void)displayCredits:(id)sender;
 @end
 
 

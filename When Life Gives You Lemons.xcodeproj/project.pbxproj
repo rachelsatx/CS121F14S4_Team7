@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08BDF2921A358E8C00DA30FC /* MenuCreditsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BDF2911A358E8C00DA30FC /* MenuCreditsView.m */; };
 		AC521EE31A1572E8007AD8A1 /* MenuInstructionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */; };
 		ACA77C001A1ACB36002D7CF7 /* NumberWithTwoDecimals.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */; };
 		ACBEBFA719F619A300B173C7 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFA619F619A300B173C7 /* DataStore.m */; };
@@ -63,6 +64,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08BDF2901A358E8C00DA30FC /* MenuCreditsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCreditsView.h; sourceTree = "<group>"; };
+		08BDF2911A358E8C00DA30FC /* MenuCreditsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCreditsView.m; sourceTree = "<group>"; };
 		AC521EE11A1572E8007AD8A1 /* MenuInstructionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuInstructionsView.h; sourceTree = "<group>"; };
 		AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuInstructionsView.m; sourceTree = "<group>"; };
 		ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberWithTwoDecimals.h; sourceTree = "<group>"; };
@@ -210,6 +213,8 @@
 			children = (
 				DA6C2BCC19F19B8D00AE1EB7 /* MenuViewController.h */,
 				DA6C2BCD19F19B8D00AE1EB7 /* MenuViewController.m */,
+				08BDF2901A358E8C00DA30FC /* MenuCreditsView.h */,
+				08BDF2911A358E8C00DA30FC /* MenuCreditsView.m */,
 				AC521EE11A1572E8007AD8A1 /* MenuInstructionsView.h */,
 				AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */,
 				DA064B111A19AA3F007438CF /* MenuMainView.h */,
@@ -426,6 +431,7 @@
 			files = (
 				DA0FB60519F641B00036D500 /* PreDayInventoryView.m in Sources */,
 				DA6C2BCE19F19B8D00AE1EB7 /* MenuViewController.m in Sources */,
+				08BDF2921A358E8C00DA30FC /* MenuCreditsView.m in Sources */,
 				ACBEBFA719F619A300B173C7 /* DataStore.m in Sources */,
 				ACBEBFB519F61FAD00B173C7 /* PreDayViewController.m in Sources */,
 				DA6C2BC819F19B8D00AE1EB7 /* AppDelegate.m in Sources */,
