@@ -28,6 +28,7 @@
     NSInteger _daysOfPerfectLemonade;
     NSInteger _totalCupsSold;
     NumberWithTwoDecimals* _totalEarnings;
+    bool _newBadge;
 }
 @end
 
@@ -51,6 +52,7 @@
     _daysOfPerfectLemonade = 0;
     _totalCupsSold = 0;
     _totalEarnings = [[NumberWithTwoDecimals alloc] initWithFloat:0];
+    _newBadge = NO;
     
     return self;
 }
@@ -390,6 +392,16 @@
 -(void) setTotalEarnings:(NumberWithTwoDecimals *)newTotal
 {
     _totalEarnings = newTotal;
+}
+
+-(bool) getNewBadge
+{
+    return _newBadge;
+}
+
+-(void) setNewBadge:(bool)newBadge
+{
+    _newBadge = newBadge;
 }
 
 @end

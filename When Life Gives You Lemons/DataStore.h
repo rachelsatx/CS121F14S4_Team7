@@ -79,4 +79,7 @@ typedef NS_ENUM(int, DayOfWeek) {
 
 -(NumberWithTwoDecimals*) getTotalEarnings;
 -(void) setTotalEarnings:(NumberWithTwoDecimals*) newTotal;
+
+-(bool) getNewBadge;
+-(void) setNewBadge:(bool) newBadge;
 @end

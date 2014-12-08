@@ -21,6 +21,9 @@
     NSInteger popularity = [dataStore getPopularity];
     NSMutableDictionary* inventory = [dataStore getInventory];
     NSMutableDictionary* badges = [dataStore getBadges];
+    //Save this so that we can check if we got anything new easily.
+    NSMutableDictionary* originalBadges = [NSMutableDictionary dictionaryWithDictionary:badges];
+    
     NSMutableDictionary* bestAmountsForWeathers = [dataStore getBestAmountsForWeathers];
     NSMutableSet* feedbackSet = [dataStore getFeedbackSet];
     NSString* feedbackString = @"";
@@ -180,6 +183,10 @@
     
     NSLog(@"BOUGHT: %f", portionWhoBought);
     NSLog(@"LIKED: %f", portionWhoLiked);
+    
+    if (![badges isEqualToDictionary:originalBadges]) {
+        [dataStore setNewBadge:YES];
+    }
     
     return dataStore;
 }
