@@ -7,7 +7,6 @@
 //
 
 #import "PostDayViewController.h"
-#import "PreDayViewController.h"
 #import "PostDayView.h"
 
 @interface PostDayViewController () {
@@ -29,6 +28,8 @@
     
     [self.view bringSubviewToFront:_goToPreDayButton];
     [self.view bringSubviewToFront:_quitGameButton];
+    [self save];
+
 }
 
 - (void)setDataStore:(DataStore *) dataStore
@@ -38,14 +39,37 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Make sure segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"PostDayToPreDay"])
+    if ([[segue identifier] isEqualToString:@"PostDayToMenu"])
     {
-        // Get reference to the destination view controller
-        PreDayViewController* preDayViewController = [segue destinationViewController];
+        ;
+    }
+}
+
+- (void)save
+{
+    NSDictionary *dataDictionary = [_dataStore convertToDictionary];
+    
+    NSLog(@"thing: %@", [dataDictionary valueForKey:@"price"]);
+    
+    NSError *error = nil;
+    if ([NSJSONSerialization isValidJSONObject:dataDictionary]){
+        NSLog(@"Valid dictionary");
+        NSData *json = [NSJSONSerialization dataWithJSONObject:dataDictionary options:NSJSONWritingPrettyPrinted error:&error];
         
-        // Pass dataStore to the view controller
-        [preDayViewController setDataStore:_dataStore];
+        if (json != nil && error == nil)
+        {
+            NSLog(@"Valid JSON conversion.");
+            //NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSString *savePath = [[NSBundle mainBundle] pathForResource:@"save1" ofType:@"json"];
+            
+            [json writeToFile:savePath atomically:YES];
+            NSString *jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"feedbackstring: %@", [dataDictionary valueForKey:@"feedback string"]);
+            
+            NSLog(@"JSON: %@", jsonString);
+            //[jsonString release];
+        }
     }
 }
 

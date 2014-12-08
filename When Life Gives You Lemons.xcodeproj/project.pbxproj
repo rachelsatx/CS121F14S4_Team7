@@ -41,6 +41,7 @@
 		DA940C8F1A311DB90049A5A8 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		DA940C911A311E8D0049A5A8 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB2821319F7946000441EAA /* PreDayRecipeView.m */; };
+		FE05C7C71A2D4C4900BCE136 /* Fireworks.sks in Resources */ = {isa = PBXBuildFile; fileRef = FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */; };
 		FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */; };
 		FE1471F81A1AD37E00BC7DFF /* LemonRainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */; };
 		FEBAF03B1A0B122500951C36 /* SunnyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF03A1A0B122500951C36 /* SunnyScene.m */; };
@@ -48,6 +49,7 @@
 		FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */; };
 		FEBAF0421A0B2FB300951C36 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF0401A0B2FB300951C36 /* spark.png */; };
 		FEBAF0451A0B3F9600951C36 /* RainyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF0441A0B3F9500951C36 /* RainyScene.m */; };
+		FEF18CEF1A311DA60068A0C7 /* save1.json in Resources */ = {isa = PBXBuildFile; fileRef = FEF18CEE1A311DA60068A0C7 /* save1.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +116,7 @@
 		DA940C8D1A3088960049A5A8 /* Badges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Badges.h; sourceTree = "<group>"; };
 		DAB2821219F7946000441EAA /* PreDayRecipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayRecipeView.h; sourceTree = "<group>"; };
 		DAB2821319F7946000441EAA /* PreDayRecipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayRecipeView.m; sourceTree = "<group>"; };
+		FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fireworks.sks; sourceTree = "<group>"; };
 		FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LemonEmitter.sks; sourceTree = "<group>"; };
 		FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LemonRainScene.h; sourceTree = "<group>"; };
 		FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LemonRainScene.m; sourceTree = "<group>"; };
@@ -125,6 +128,7 @@
 		FEBAF0401A0B2FB300951C36 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		FEBAF0431A0B3F9500951C36 /* RainyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RainyScene.h; sourceTree = "<group>"; };
 		FEBAF0441A0B3F9500951C36 /* RainyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RainyScene.m; sourceTree = "<group>"; };
+		FEF18CEE1A311DA60068A0C7 /* save1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = save1.json; path = ../../../../../../../Desktop/save1.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +276,8 @@
 				DA940C8B1A3083E50049A5A8 /* Badges.m */,
 				ACBEBFA519F619A300B173C7 /* DataStore.h */,
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
+				FEF18CEE1A311DA60068A0C7 /* save1.json */,
+				FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */,
 				ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */,
 				ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */,
 				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
@@ -391,7 +397,9 @@
 				DA2B59231A321CDD00EEDC70 /* Main.storyboard in Resources */,
 				FEBAF0421A0B2FB300951C36 /* spark.png in Resources */,
 				DA6C2BD019F19B8D00AE1EB7 /* Images.xcassets in Resources */,
+				FEF18CEF1A311DA60068A0C7 /* save1.json in Resources */,
 				DA6C2BC219F19B8D00AE1EB7 /* InfoPlist.strings in Resources */,
+				FE05C7C71A2D4C4900BCE136 /* Fireworks.sks in Resources */,
 				FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */,
 				DA940C8F1A311DB90049A5A8 /* (null) in Resources */,
 				FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */,
@@ -570,6 +578,7 @@
 				GCC_PREFIX_HEADER = "When Life Gives You Lemons/When Life Gives You Lemons-Prefix.pch";
 				INFOPLIST_FILE = "When Life Gives You Lemons/When Life Gives You Lemons-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -584,6 +593,7 @@
 				GCC_PREFIX_HEADER = "When Life Gives You Lemons/When Life Gives You Lemons-Prefix.pch";
 				INFOPLIST_FILE = "When Life Gives You Lemons/When Life Gives You Lemons-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

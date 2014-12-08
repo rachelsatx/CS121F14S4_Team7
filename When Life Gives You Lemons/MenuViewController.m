@@ -57,6 +57,20 @@
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
 }
 
+-(void)continueGame:(id)sender
+{
+    NSString *savePath = [[NSBundle mainBundle] pathForResource:@"save1" ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:savePath];
+    NSError *error = nil;
+    
+    NSDictionary* dataDictionary = [NSJSONSerialization JSONObjectWithData:data
+                                                              options:kNilOptions
+                                                              error:&error];
+    
+    [_dataStore initWithDictionary:dataDictionary];
+    [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // Make sure segue name in storyboard is the same as this line
@@ -68,6 +82,11 @@
         // Pass dataStore to the view controller
         [preDayViewController setDataStore:_dataStore];
     }
+}
+
+- (IBAction)unwindToMenu:(UIStoryboardSegue*)unwindSegue
+{
+    _dataStore = [[DataStore alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
