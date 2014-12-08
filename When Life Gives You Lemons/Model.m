@@ -491,7 +491,7 @@
     } else if (value >= bronzeThreshold) {
         newValue = @1;
     }
-    if ([badges valueForKey:badgeName] < newValue) {
+    if ([[badges valueForKey:badgeName] intValue] < [newValue intValue]) {
         [badges setValue:newValue forKey:badgeName];
     }
     
