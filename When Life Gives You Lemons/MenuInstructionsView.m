@@ -82,7 +82,7 @@
                                    frameWidth,
                                    headerThickness);
     UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
-    title.text = @"How to Play";
+    [title setText:@"How to Play"];
     [title setFont:[UIFont fontWithName:fontName size:(fontSize + 5)]];
     [title setTextAlignment:NSTextAlignmentCenter];
     [title setBackgroundColor:titleBackgroundColor];
@@ -105,6 +105,9 @@
     [self addSubview:instructions];
 }
 
+/*
+ * Adds UIButton to go back to MenuMainView
+ */
 - (void)addBackButton
 {
     CGRect backButtonFrame = CGRectMake(frameWidth - buttonWidth - 2 * instructionsBorderThickness,
@@ -120,7 +123,7 @@
                    action:@selector(backButtonPressed:)
          forControlEvents:UIControlEventTouchUpInside];
     [backButton setTitle:@"Back to Menu" forState:UIControlStateNormal];
-    backButton.titleLabel.font = [UIFont systemFontOfSize:buttonFontSize];
+    [backButton.titleLabel setFont:[UIFont systemFontOfSize:buttonFontSize]];
     [backButton setTitleColor:buttonFontColor forState:UIControlStateNormal];
     [self addSubview:backButton];
 }

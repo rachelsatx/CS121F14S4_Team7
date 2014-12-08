@@ -126,7 +126,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
                                    frameWidth,
                                    borderThickness / 2);
     UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
-    title.text = @"Inventory:";
+    [title setText:@"Inventory:"];
     [title setFont:[UIFont fontWithName:fontName size:(fontSize + titleSizeIncrease)]];
     [title setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:title];
@@ -134,7 +134,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
 
 - (void)createMultipliers
 {
-    // Create multiplier labels
+    // Create multiplier label
     CGRect beforeTextFrame = CGRectMake(0,
                                         borderThickness / 2,
                                         multiplierWidth,
@@ -145,6 +145,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
     [beforeLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:beforeLabel];
     
+    // Create actual multipliers
     [self createSingleMultiplier:1 atIndex:1];
     [self createSingleMultiplier:10 atIndex:2];
     [self createSingleMultiplier:100 atIndex:3];
@@ -178,7 +179,6 @@ typedef NS_ENUM(int, InventoryIngredient) {
 - (void)createLemonsSection
 {
     [self addImageAndLabelWithTextFor:Lemons];
-    
     [self addIncrementAndDecrementButtonsFor:Lemons];
     
     CGRect lemonPriceLabelFrame = CGRectMake(ingredientColumnWidth,
@@ -206,7 +206,6 @@ typedef NS_ENUM(int, InventoryIngredient) {
 - (void)createSugarSection
 {
     [self addImageAndLabelWithTextFor:Sugar];
-    
     [self addIncrementAndDecrementButtonsFor:Sugar];
     
     CGRect sugarPriceLabelFrame = CGRectMake(ingredientColumnWidth,
@@ -233,7 +232,6 @@ typedef NS_ENUM(int, InventoryIngredient) {
 - (void)createIceSection
 {
     [self addImageAndLabelWithTextFor:Ice];
-    
     [self addIncrementAndDecrementButtonsFor:Ice];
     
     CGRect icePriceLabelFrame = CGRectMake(ingredientColumnWidth,
@@ -260,7 +258,6 @@ typedef NS_ENUM(int, InventoryIngredient) {
 - (void)createCupsSection
 {
     [self addImageAndLabelWithTextFor:Cups];
-    
     [self addIncrementAndDecrementButtonsFor:Cups];
     
     CGRect cupsPriceLabelFrame = CGRectMake(ingredientColumnWidth,
