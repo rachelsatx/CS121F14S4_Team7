@@ -68,5 +68,12 @@ typedef NS_ENUM(int, DayOfWeek) {
 
 -(void) initWithDictionary:(NSDictionary*) inputDictionary;
 -(NSDictionary*) convertToDictionary;
+-(NSInteger) getDaysOfPerfectLemonade;
+-(void) setDaysOfPerfectLemonade:(NSInteger) newDays;
 
+-(NSInteger) getTotalCupsSold;
+-(void) setTotalCupsSold:(NSInteger) newCups;
+
+-(NumberWithTwoDecimals*) getTotalEarnings;
+-(void) setTotalEarnings:(NumberWithTwoDecimals*) newTotal;
 @end

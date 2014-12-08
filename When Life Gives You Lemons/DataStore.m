@@ -237,11 +237,20 @@
     _recipe = [inputDictionary valueForKey:@"recipe"];
     _inventory = [inputDictionary valueForKey:@"inventory"];
     _ingredientPrices = [inputDictionary valueForKey:@"ingredient prices"];
-    _popularity = [inputDictionary valueForKey:@"popularity"];
+    _popularity = [[inputDictionary valueForKey:@"popularity"]integerValue];
     _money = [inputDictionary valueForKey:@"money"];
     _profit = [inputDictionary valueForKey:@"profit"];
     _cupsSold = [[inputDictionary valueForKey:@"price"] integerValue];
+}
 
+-(NSInteger) getDaysOfPerfectLemonade
+{
+    return _daysOfPerfectLemonade;
+}
+    
+-(void) setDaysOfPerfectLemonade:(NSInteger) newDays
+{
+    _daysOfPerfectLemonade = newDays;
 }
 
 -(NSDictionary*) convertToDictionary
@@ -255,12 +264,32 @@
     [returnDictionary setObject:_recipe forKey:@"recipe"];
     [returnDictionary setObject:_inventory forKey:@"inventory"];
     [returnDictionary setObject:_ingredientPrices forKey:@"ingredient prices"];
-    [returnDictionary setObject:_popularity forKey:@"popularity"];
+    [returnDictionary setObject:[NSNumber numberWithInteger:_popularity] forKey:@"popularity"];
     [returnDictionary setObject:_money forKey:@"money"];
     [returnDictionary setObject:_profit forKey:@"profit"];
     [returnDictionary setObject:[NSNumber numberWithInteger:_cupsSold] forKey:@"cups sold"];
     
     return [NSDictionary dictionaryWithDictionary:returnDictionary];
+}
+
+-(NSInteger) getTotalCupsSold
+{
+    return _totalCupsSold;
+}
+
+-(void) setTotalCupsSold:(NSInteger) newCups
+{
+    _totalCupsSold = newCups;
+}
+
+-(NumberWithTwoDecimals*) getTotalEarnings
+{
+    return _totalEarnings;
+}
+
+-(void) setTotalEarnings:(NumberWithTwoDecimals *)newTotal
+{
+    _totalEarnings = newTotal;
 }
 
 @end

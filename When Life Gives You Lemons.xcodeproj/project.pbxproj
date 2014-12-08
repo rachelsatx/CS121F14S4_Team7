@@ -278,8 +278,6 @@
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
 				FEF18CEE1A311DA60068A0C7 /* save1.json */,
 				FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */,
-				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
-				DA6C2BBE19F19B8D00AE1EB7 /* Supporting Files */,
 				ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */,
 				ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */,
 				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
