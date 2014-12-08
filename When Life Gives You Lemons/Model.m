@@ -171,7 +171,7 @@
     
     
     // If feedback set is complete, tell the datastore.
-    if ([feedbackSet count] > NUM_FEEDBACKS) {
+    if ([feedbackSet count] >= NUM_FEEDBACKS) {
         [badges setValue:@-1 forKey:allFeedback];
         NSLog(@"Earned SCIENTIST");
     }
