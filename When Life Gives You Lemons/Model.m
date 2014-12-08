@@ -21,6 +21,7 @@
     NSInteger popularity = [dataStore getPopularity];
     NSMutableDictionary* inventory = [dataStore getInventory];
     NSMutableDictionary* badges = [dataStore getBadges];
+    NSMutableDictionary* bestAmountsForWeathers = [dataStore getBestAmountsForWeathers];
     NSMutableSet* feedbackSet = [dataStore getFeedbackSet];
     NSString* feedbackString = @"";
     NumberWithTwoDecimals* money = [dataStore getMoney];
@@ -68,6 +69,17 @@
         [self setBadge:totalCups inBadges:badges withValue:[dataStore getTotalCupsSold] + customersWhoBought forBronzeThreshold:100 silverThreshold:500 goldThreshold:1000];
         [self setBadge:dayMoney inBadges:badges withValue:[grossEarnings floatValue] forBronzeThreshold:10 silverThreshold:50 goldThreshold:100];
         [self setBadge:totalMoney inBadges:badges withValue:[[[dataStore getTotalEarnings] add:grossEarnings] floatValue] forBronzeThreshold:100 silverThreshold:500 goldThreshold:1000];
+        
+        // Check the best that they've done for each weather.
+        [bestAmountsForWeathers setValue:[NSNumber numberWithInt:customersWhoBought] forKey:[self getStringFromWeather:weather]];
+        
+        int worstCustomers = 1000000; // More than maximum that we care about.
+        for (NSString* key in @[@"Sunny", @"Cloudy", @"Raining"]) {
+            worstCustomers = MIN(worstCustomers, [[bestAmountsForWeathers valueForKey:key] integerValue]);
+        }
+        [self setBadge:differentWeatherCups inBadges:badges withValue:worstCustomers forBronzeThreshold:10 silverThreshold:50 goldThreshold:100];
+        
+        
         
     } else {
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
@@ -462,17 +474,36 @@
         forBronzeThreshold:(int)bronzeThreshold
         silverThreshold:(int)silverThreshold
         goldThreshold:(int)goldThreshold {
-            
+    
+    NSNumber* newValue = @0;
+    
     if (value >= goldThreshold) {
-        [badges setValue:@3 forKey:badgeName];
+        newValue = @3;
     } else if (value >= silverThreshold) {
-        [badges setValue:@2 forKey:badgeName];
+        newValue = @2;
     } else if (value >= bronzeThreshold) {
-        [badges setValue:@1 forKey:badgeName];
+        newValue = @1;
+    }
+    if ([badges valueForKey:badgeName] < newValue) {
+        [badges setValue:newValue forKey:badgeName];
     }
     
     
+    
     return badges;
+}
+
+- (NSString*) getStringFromWeather:(Weather)weather {
+    if (weather == Sunny) {
+        return @"Sunny";
+    } else if (weather == Cloudy) {
+        return @"Cloudy";
+    } else if (weather == Raining) {
+        return @"Raining";
+    } else {
+        [NSException raise:@"Invalid weather value being converted to string" format:@"Weather %d is invalid", weather];
+        return @"";
+    }
 }
 
 @end
