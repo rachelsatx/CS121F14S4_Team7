@@ -21,6 +21,7 @@
     NSInteger popularity = [dataStore getPopularity];
     NSMutableDictionary* inventory = [dataStore getInventory];
     NSMutableDictionary* badges = [dataStore getBadges];
+    NSMutableDictionary* bestAmountsForWeathers = [dataStore getBestAmountsForWeathers];
     NSMutableSet* feedbackSet = [dataStore getFeedbackSet];
     NSString* feedbackString = @"";
     NumberWithTwoDecimals* money = [dataStore getMoney];
@@ -62,22 +63,24 @@
                 }
             }
         }
-        if (customersWhoBought >= 100) {
-            [badges setValue:@1 forKey:dayCups];
-            NSLog(@"Earned SALESMAN");
+        
+        // Set badges that can be bronze, silver or gold.
+        [self setBadge:dayCups inBadges:badges withValue:customersWhoBought forBronzeThreshold:10 silverThreshold:50 goldThreshold:100];
+        [self setBadge:totalCups inBadges:badges withValue:[dataStore getTotalCupsSold] + customersWhoBought forBronzeThreshold:100 silverThreshold:500 goldThreshold:1000];
+        [self setBadge:dayMoney inBadges:badges withValue:[grossEarnings floatValue] forBronzeThreshold:10 silverThreshold:50 goldThreshold:100];
+        [self setBadge:totalMoney inBadges:badges withValue:[[[dataStore getTotalEarnings] add:grossEarnings] floatValue] forBronzeThreshold:100 silverThreshold:500 goldThreshold:1000];
+        
+        // Check the best that they've done for each weather.
+        [bestAmountsForWeathers setValue:[NSNumber numberWithInt:customersWhoBought] forKey:[self getStringFromWeather:weather]];
+        
+        int worstCustomers = 1000000; // More than maximum that we care about.
+        for (NSString* key in @[@"Sunny", @"Cloudy", @"Raining"]) {
+            worstCustomers = MIN(worstCustomers, [[bestAmountsForWeathers valueForKey:key] integerValue]);
         }
-        if ([dataStore getTotalCupsSold] + customersWhoBought >= 1000) {
-            [badges setValue:@1 forKey:totalCups];
-            NSLog(@"Earned LEMON-CORP\u2122");
-        }
-        if ([grossEarnings floatValue] >= 100) {
-            [badges setValue:@1 forKey:dayMoney];
-            NSLog(@"Earned GREAT DAY");
-        }
-        if ([[[dataStore getTotalEarnings] add:grossEarnings] floatValue] >= 1000) {
-            [badges setValue:@1 forKey:totalMoney];
-            NSLog(@"Earned BILL GATES");
-        }
+        [self setBadge:differentWeatherCups inBadges:badges withValue:worstCustomers forBronzeThreshold:10 silverThreshold:50 goldThreshold:100];
+        
+        
+        
     } else {
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
         [feedbackSet addObject:feedbackString];
@@ -102,14 +105,9 @@
     NSInteger oldPopularity = popularity;
     NSInteger newPopularity = [self calculateNewPopularityWithNumCustomers:totalCustomers
         portionBought:portionWhoBought portionLiked:portionWhoLiked fromOldPopularity:popularity];
-    if ((newPopularity - oldPopularity) >= 10) {
-        [badges setValue:@1 forKey:dayPopularity];
-        NSLog(@"Earned RISING STAR");
-    }
-    if (newPopularity >= 100) {
-        [badges setValue:@1 forKey:totalPopularity];
-        NSLog(@"Earned WORLD FAMOUS");
-    }
+    
+    [self setBadge:dayPopularity inBadges:badges withValue:newPopularity - oldPopularity forBronzeThreshold:10 silverThreshold:50 goldThreshold:100];
+    [self setBadge:totalPopularity inBadges:badges withValue:newPopularity forBronzeThreshold:100 silverThreshold:500 goldThreshold:1000];
     
     NumberWithTwoDecimals* newMoney = [money add:grossEarnings];
     
@@ -120,12 +118,12 @@
         feedbackString = [self generateFeedbackFromRecipe:recipe forWeather:weather];
         [feedbackSet addObject:feedbackString];
         if ([feedbackString isEqualToString:@"Your lemonade was delicious!"]) {
-            [badges setValue:@1 forKey:onceDelicious];
+            [badges setValue:@-1 forKey:onceDelicious];
             NSLog(@"Earned THE PERFECT CUP");
             
             [dataStore setDaysOfPerfectLemonade:perfectDaysInRow + 1];
             if (perfectDaysInRow == 6) {
-                [badges setValue:@1 forKey:weekDelicious];
+                [badges setValue:@-1 forKey:weekDelicious];
                 NSLog(@"Earned THE PERFECT WEEK");
             }
         } else {
@@ -137,7 +135,7 @@
             feedbackString = [NSString stringWithFormat:
                @"%@\nYou also ran out of ingredients!",
                               feedbackString];
-            [badges setValue:@1 forKey:runOut];
+            [badges setValue:@-1 forKey:runOut];
             NSLog(@"Earned UNDER-ESTIMATE");
             [feedbackSet addObject:@"You also ran out of ingredients!"];
         } else if ((float) customersWhoBought / (float) totalCustomers < .1) {
@@ -173,8 +171,8 @@
     
     
     // If feedback set is complete, tell the datastore.
-    if ([feedbackSet count] > NUM_FEEDBACKS) {
-        [badges setValue:@1 forKey:allFeedback];
+    if ([feedbackSet count] >= NUM_FEEDBACKS) {
+        [badges setValue:@-1 forKey:allFeedback];
         NSLog(@"Earned SCIENTIST");
     }
     [dataStore setFeedbackSet:feedbackSet];
@@ -273,7 +271,7 @@
         portionLiked:(float)portionWhoLiked
         fromOldPopularity:(NSInteger)popularity {
     // To prevent popularity from exploding, we limit "effective customers" to 100.
-    int effectiveCustomers = MIN(totalCustomers, 100);
+    int effectiveCustomers = MIN(totalCustomers, 150);
     
     NSInteger newPopularity = popularity;
     // If enough people were unwilling to buy because of price, lose some popularity proportionally.
@@ -450,26 +448,64 @@
     return newPrices;
 }
 
-- (NSMutableDictionary*) updateBadges:(NSMutableDictionary*)badges fromRecipe:(NSMutableDictionary*)recipe {
+- (NSMutableDictionary*) updateBadges:(NSMutableDictionary*)badges fromRecipe:(NSMutableDictionary*)recipe{
     NumberWithTwoDecimals* one = [[NumberWithTwoDecimals alloc] initWithFloat:1.0];
     if ([[recipe valueForKey:@"lemons"] isEqual:one]) {
-        [badges setValue:@1 forKey:allLemons];
+        [badges setValue:@-1 forKey:allLemons];
         NSLog(@"Earned LEMONHEAD");
     }
     if ([[recipe valueForKey:@"sugar"] isEqual:one]) {
-        [badges setValue:@1 forKey:allSugar];
+        [badges setValue:@-1 forKey:allSugar];
         NSLog(@"Earned SWEET TOOTH");
     }
     if ([[recipe valueForKey:@"ice"] isEqual:one]) {
-        [badges setValue:@1 forKey:allIce];
+        [badges setValue:@-1 forKey:allIce];
         NSLog(@"Earned FROZEN");
     }
     if ([[recipe valueForKey:@"water"] isEqual:one]) {
-        [badges setValue:@1 forKey:allWater];
+        [badges setValue:@-1 forKey:allWater];
         NSLog(@"Earned CON-ARTIST");
     }
     return badges;
 }
 
+- (NSMutableDictionary*) setBadge:(NSString*)badgeName
+        inBadges:(NSMutableDictionary*)badges withValue:(int)value
+        forBronzeThreshold:(int)bronzeThreshold
+        silverThreshold:(int)silverThreshold
+        goldThreshold:(int)goldThreshold {
+    
+    NSNumber* newValue = @0;
+    
+    if (value >= goldThreshold) {
+        newValue = @3;
+    } else if (value >= silverThreshold) {
+        newValue = @2;
+    } else if (value >= bronzeThreshold) {
+        newValue = @1;
+    }
+    if ([badges valueForKey:badgeName] < newValue) {
+        [badges setValue:newValue forKey:badgeName];
+    }
+    
+    
+    
+    return badges;
+}
+
+- (NSString*) getStringFromWeather:(Weather)weather {
+    if (weather == Sunny) {
+        return @"Sunny";
+    } else if (weather == Cloudy) {
+        return @"Cloudy";
+    } else if (weather == Raining) {
+        return @"Raining";
+    } else {
+        [NSException raise:@"Invalid weather value being converted to string" format:@"Weather %d is invalid", weather];
+        return @"";
+    }
+}
+
 @end
+
 

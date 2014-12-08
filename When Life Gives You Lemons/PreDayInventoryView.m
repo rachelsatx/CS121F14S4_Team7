@@ -7,7 +7,6 @@
 //
 
 #import "PreDayInventoryView.h"
-
 #import <AudioToolbox/AudioToolbox.h>
 
 typedef NS_ENUM(int, InventoryIngredient) {
@@ -47,6 +46,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
     
     CGFloat multiplierWidth;
     CGFloat multiplierHeight;
+    CGFloat spaceBetweenMultipliers;
     NSInteger defaultMultiplier;
     
     CGFloat fontSize;
@@ -77,9 +77,9 @@ typedef NS_ENUM(int, InventoryIngredient) {
         [self createIceSection];
         [self createCupsSection];
         
-        [self initializeSounds];
-        
         [self createMoneyLabel];
+        
+        [self initializeSounds];
     }
     
     return self;
@@ -100,7 +100,8 @@ typedef NS_ENUM(int, InventoryIngredient) {
     labelHeight = frameHeight / 8;
     
     multiplierWidth = frameWidth / 5;
-    multiplierHeight = borderThickness / 2;
+    multiplierHeight = borderThickness / 3;
+    spaceBetweenMultipliers = frameWidth / 20;
     defaultMultiplier = 1;
     
     fontSize = 30;
@@ -123,7 +124,7 @@ typedef NS_ENUM(int, InventoryIngredient) {
     CGRect titleFrame = CGRectMake(0,
                                    0,
                                    frameWidth,
-                                   borderThickness - multiplierHeight);
+                                   borderThickness / 2);
     UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
     title.text = @"Inventory:";
     [title setFont:[UIFont fontWithName:fontName size:(fontSize + titleSizeIncrease)]];
@@ -135,24 +136,14 @@ typedef NS_ENUM(int, InventoryIngredient) {
 {
     // Create multiplier labels
     CGRect beforeTextFrame = CGRectMake(0,
-                                        borderThickness - multiplierHeight,
+                                        borderThickness / 2,
                                         multiplierWidth,
                                         multiplierHeight);
     UILabel* beforeLabel = [[UILabel alloc] initWithFrame:beforeTextFrame];
-    [beforeLabel setText:@"Buy"];
+    [beforeLabel setText:@"Buy:"];
     [beforeLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
     [beforeLabel setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:beforeLabel];
-    
-    CGRect afterTextFrame = CGRectMake(frameWidth - multiplierWidth,
-                                       borderThickness - multiplierHeight,
-                                       multiplierWidth,
-                                       multiplierHeight);
-    UILabel* afterLabel = [[UILabel alloc] initWithFrame:afterTextFrame];
-    [afterLabel setText:@"at a time"];
-    [afterLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
-    [afterLabel setTextAlignment:NSTextAlignmentLeft];
-    [self addSubview:afterLabel];
     
     [self createSingleMultiplier:1 atIndex:1];
     [self createSingleMultiplier:10 atIndex:2];
@@ -161,13 +152,16 @@ typedef NS_ENUM(int, InventoryIngredient) {
 
 - (void)createSingleMultiplier:(NSInteger)multiplier atIndex:(NSInteger)index
 {
-    CGRect multiplierButtonFrame = CGRectMake(index * multiplierWidth,
-                                              borderThickness - multiplierHeight,
+    CGRect multiplierButtonFrame = CGRectMake(index * (multiplierWidth + spaceBetweenMultipliers),
+                                              borderThickness / 2,
                                               multiplierWidth,
                                               multiplierHeight);
     UIButton* multiplierButton = [[UIButton alloc] initWithFrame:multiplierButtonFrame];
     [multiplierButton setTitle:[NSString stringWithFormat:@" %dx ", multiplier] forState:UIControlStateNormal];
     [[multiplierButton titleLabel] setFont:[UIFont fontWithName:fontName size:fontSize]];
+    [multiplierButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [multiplierButton setBackgroundColor:[UIColor colorWithRed:255.0/255 green:220.0/255 blue:180.0/255 alpha:1.0]];
+    multiplierButton.layer.borderWidth = 2;
     [multiplierButton setTag:multiplier];
     [multiplierButton addTarget:self action:@selector(setAmountMultiplier:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:multiplierButton];
@@ -175,7 +169,8 @@ typedef NS_ENUM(int, InventoryIngredient) {
     // Set default multiplier
     if (multiplier == defaultMultiplier) {
         _selectedButton = multiplierButton;
-        [multiplierButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [multiplierButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [multiplierButton setBackgroundColor:[UIColor brownColor]];
         _amountMultiplier = 1;
     }
 }
@@ -435,10 +430,12 @@ typedef NS_ENUM(int, InventoryIngredient) {
 
 - (void) setAmountMultiplier:(id)sender
 {
-    [_selectedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_selectedButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_selectedButton setBackgroundColor:[UIColor colorWithRed:255.0/255 green:220.0/255 blue:180.0/255 alpha:1.0]];
     UIButton* button = (UIButton*) sender;
     _selectedButton = button;
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor brownColor]];
     _amountMultiplier = (int) [button tag];
 }
 
