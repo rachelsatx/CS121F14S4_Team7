@@ -49,7 +49,7 @@
 		FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */; };
 		FEBAF0421A0B2FB300951C36 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF0401A0B2FB300951C36 /* spark.png */; };
 		FEBAF0451A0B3F9600951C36 /* RainyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF0441A0B3F9500951C36 /* RainyScene.m */; };
-		FEF18CEF1A311DA60068A0C7 /* save1.json in Resources */ = {isa = PBXBuildFile; fileRef = FEF18CEE1A311DA60068A0C7 /* save1.json */; };
+		FEFC08611A358EC900B46B88 /* save1.json in Resources */ = {isa = PBXBuildFile; fileRef = FEFC08601A358EC900B46B88 /* save1.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,7 +128,7 @@
 		FEBAF0401A0B2FB300951C36 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		FEBAF0431A0B3F9500951C36 /* RainyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RainyScene.h; sourceTree = "<group>"; };
 		FEBAF0441A0B3F9500951C36 /* RainyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RainyScene.m; sourceTree = "<group>"; };
-		FEF18CEE1A311DA60068A0C7 /* save1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = save1.json; path = ../../../../../../../Desktop/save1.json; sourceTree = "<group>"; };
+		FEFC08601A358EC900B46B88 /* save1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = save1.json; path = ../save1.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,10 +276,10 @@
 				DA940C8B1A3083E50049A5A8 /* Badges.m */,
 				ACBEBFA519F619A300B173C7 /* DataStore.h */,
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
-				FEF18CEE1A311DA60068A0C7 /* save1.json */,
 				FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */,
 				ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */,
 				ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */,
+				FEFC08601A358EC900B46B88 /* save1.json */,
 				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
 				DA6C2BBE19F19B8D00AE1EB7 /* Supporting Files */,
 			);
@@ -397,7 +397,6 @@
 				DA2B59231A321CDD00EEDC70 /* Main.storyboard in Resources */,
 				FEBAF0421A0B2FB300951C36 /* spark.png in Resources */,
 				DA6C2BD019F19B8D00AE1EB7 /* Images.xcassets in Resources */,
-				FEF18CEF1A311DA60068A0C7 /* save1.json in Resources */,
 				DA6C2BC219F19B8D00AE1EB7 /* InfoPlist.strings in Resources */,
 				FE05C7C71A2D4C4900BCE136 /* Fireworks.sks in Resources */,
 				FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */,
@@ -405,6 +404,7 @@
 				FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */,
 				DA2B59211A321C1200EEDC70 /* tada.wav in Resources */,
 				DA2B59221A321C1200EEDC70 /* click.wav in Resources */,
+				FEFC08611A358EC900B46B88 /* save1.json in Resources */,
 				DA940C911A311E8D0049A5A8 /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
