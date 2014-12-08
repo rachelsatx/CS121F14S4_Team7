@@ -40,6 +40,10 @@
     _instructionsView = [[MenuInstructionsView alloc] initWithFrame:viewFrame];
     [_instructionsView setHidden:YES];
     [self.view addSubview:_instructionsView];
+    
+    _creditsView = [[MenuCreditsView alloc] initWithFrame:viewFrame];
+    [_creditsView setHidden:YES];
+    [self.view addSubview:_creditsView];
 }
 
 - (void)displayInstructions:(id)sender
@@ -63,7 +67,7 @@
     transition.type = kCATransitionFade;
     transition.delegate = self;
     [self.view.layer addAnimation:transition forKey:nil];
-    [self.view bringSubviewToFront:_instructionsView];
+    [self.view bringSubviewToFront:_creditsView];
 }
 
 - (void)newGame:(id)sender
