@@ -57,12 +57,6 @@
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
 }
 
-- (void)continueGame:(id)sender
-{
-    // If continue game, we need to load the DataStore from JSON
-    [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
-}
-
 -(void)continueGame:(id)sender
 {
     NSString *savePath = [[NSBundle mainBundle] pathForResource:@"save1" ofType:@"json"];
