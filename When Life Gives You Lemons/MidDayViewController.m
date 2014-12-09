@@ -15,6 +15,7 @@
     DataStore *_dataStore;
     MidDayView *_midDayView;
     Model *_model;
+    Weather _currentWeather;
 }
 @end
 
@@ -28,6 +29,9 @@
     CGRect frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     _midDayView = [[MidDayView alloc] initWithFrame:frame andDataStore:_dataStore];
     [self.view addSubview:_midDayView];
+    
+    // Get the current day's weather before running the Model
+    _currentWeather = [_dataStore getWeather];
     
     // Run Model after creating MidDay View, so that it uses the old weather value
     _model = [[Model alloc] init];
@@ -60,7 +64,7 @@
         [postDayViewController setDataStore:_dataStore];
     }
     
-    [_midDayView releaseAnimation];
+    [_midDayView releaseAnimationForWeather:_currentWeather];
 }
 
 - (void)didReceiveMemoryWarning

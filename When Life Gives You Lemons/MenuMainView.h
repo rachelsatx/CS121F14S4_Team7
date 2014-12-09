@@ -22,6 +22,8 @@
 {
     id <MenuMainViewDelegate> _delegate;
 }
+    -(id) initWithFrame:(CGRect)frame andHiddenContinue:(BOOL)hide;
+
 
 @property (nonatomic,strong) id delegate;
 
