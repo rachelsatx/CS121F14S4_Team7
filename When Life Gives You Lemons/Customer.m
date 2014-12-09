@@ -108,7 +108,7 @@
             _iceMin = 0.1;
             break;
             
-            // Flavor customer
+        // Flavor customer
         case HighFlavor:
             _lemonMax = 0.35;
             _lemonMin = 0.15;
