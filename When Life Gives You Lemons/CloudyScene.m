@@ -31,19 +31,17 @@
     
     // Set background image.
     SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"cloudy-background.png"];
-    backgroundSprite.position = CGPointMake(frameWidth/2,frameHeight/2);
+    backgroundSprite.position = CGPointMake(frameWidth / 2,frameHeight / 2);
     [self addChild:backgroundSprite];
     
     for (int i = 0; i < 5; ++i) {
         SKSpriteNode *cloudSprite = [SKSpriteNode spriteNodeWithImageNamed:@"cloud.png"];
-        cloudSprite.position = CGPointMake(frameWidth * (-1 + (2 *i))/8, 7*frameHeight/8);
+        cloudSprite.position = CGPointMake(frameWidth * (-1 + (2 * i)) / 8, 7 * frameHeight / 8);
         [self addChild:cloudSprite];
-        SKAction *move = [SKAction moveByX:(5 - i)*frameWidth / 4 y:0 duration:(self.duration * (5-i)/5)];
+        SKAction *move = [SKAction moveByX:((5 - i) * (frameWidth / 4)) y:0 duration:(self.duration * (5 - i) / 5)];
         SKAction *done = [SKAction removeFromParent];
         SKAction *sequence = [SKAction sequence:@[move, done]];
         [cloudSprite runAction:sequence];
-        
-        
     }
 }
 
@@ -53,10 +51,10 @@
     CGFloat frameHeight = CGRectGetHeight(self.frame);
     
     SKSpriteNode *cloudSprite = [SKSpriteNode spriteNodeWithImageNamed:@"cloud.png"];
-    cloudSprite.position = CGPointMake(frameWidth * (-1)/8, 7*frameHeight/8);
+    cloudSprite.position = CGPointMake(frameWidth * (-1) / 8, 7 * frameHeight / 8);
     [self addChild:cloudSprite];
     
-    SKAction *move = [SKAction moveByX:5*frameWidth / 4 y:0 duration:self.duration];
+    SKAction *move = [SKAction moveByX:(5 * frameWidth / 4) y:0 duration:self.duration];
     SKAction *done = [SKAction removeFromParent];
     SKAction *sequence = [SKAction sequence:@[move, done]];
     [cloudSprite runAction:sequence];
@@ -65,7 +63,7 @@
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
     
     self.lastSpawnTimeInterval += timeSinceLast;
-    if (self.lastSpawnTimeInterval > (self.duration /5)) {
+    if (self.lastSpawnTimeInterval > (self.duration / 5)) {
         self.lastSpawnTimeInterval = 0;
         [self newCloud];
     }
@@ -82,7 +80,6 @@
     }
     
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
-    
 }
 
 @end

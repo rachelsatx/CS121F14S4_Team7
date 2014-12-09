@@ -137,9 +137,10 @@
     _continueButton  = continueButton;
 }
 
-- (void)hideContinueButton:(BOOL)boolean
+- (void)hideContinueButton:(BOOL)shouldHideContinueButton
 {
-    [_continueButton setHidden:boolean];
+    _hasSavedGame = !shouldHideContinueButton;
+    [_continueButton setHidden:shouldHideContinueButton];
 }
 
 - (void)addInstructionsButton
