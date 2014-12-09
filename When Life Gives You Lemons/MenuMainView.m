@@ -113,21 +113,6 @@
     [self addSubview:newGameButton];
 }
 
-- (void)addInstructionsButton
-{
-    CGRect instructionsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
-                                                3 * frameHeight / 5,
-                                                buttonWidth,
-                                                buttonHeight);
-    UIButton* instructionsButton = [[UIButton alloc] initWithFrame:instructionsButtonFrame];
-    [self formatButton:instructionsButton];
-    [instructionsButton setTitle:@"How to Play" forState:UIControlStateNormal];
-    [instructionsButton addTarget:self
-                           action:@selector(displayInstructions:)
-                 forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:instructionsButton];
-}
-
 - (void)addContinueButtonWithHidden:(BOOL)hide
 {
     CGRect continueButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
