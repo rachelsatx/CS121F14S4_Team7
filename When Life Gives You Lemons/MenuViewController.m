@@ -54,16 +54,14 @@
         NSDictionary *attributes = [manager attributesOfItemAtPath:savePath error:nil];
         unsigned long long size = [attributes fileSize];
         if (attributes && size == 0) {
-            // file exists, but is empty.
+            // File exists, but is empty.
             return YES;
-            NSLog(@"Save file exists, but is empty.");
         }
-        // file exists and is non-empty.
+        // File exists and is non-empty.
         return NO;
     }
-    // file does not exist.
+    // File does not exist.
     return YES;
-    NSLog(@"Save file does not exist.");
 }
 
 - (void)displayInstructions:(id)sender
@@ -104,20 +102,18 @@
 {
     NSString *savePath = [[self applicationDocumentsDirectory].path
                           stringByAppendingPathComponent:@"save1.json"];
-    //NSLog(savePath);
     NSError *readingError;
     NSData *data = [NSData dataWithContentsOfFile:savePath options:kNilOptions error:&readingError];
     if (readingError != nil) {
         NSLog(@"Reading error: %@", readingError);
     }
-    NSLog(@"Data: %@", data);
     NSError *error = nil;
     
     NSDictionary* dataDictionary = [NSJSONSerialization JSONObjectWithData:data
                                                               options:kNilOptions
                                                               error:&error];
     if (error != nil) {
-        NSLog(@"%@", error);
+        NSLog(@"Error: %@", error);
     }
     [_dataStore initWithDictionary:dataDictionary];
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
