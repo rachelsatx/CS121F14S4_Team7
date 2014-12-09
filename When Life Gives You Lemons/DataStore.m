@@ -37,7 +37,7 @@
 -(id)init
 {
     self = [super init];
-    _price = [[NumberWithTwoDecimals alloc] initWithFloat:.50];
+    _price = [[NumberWithTwoDecimals alloc] initWithFloat:0.5];
     _weather = Sunny;
     _dayOfWeek = Saturday;
     _feedbackString = @"";

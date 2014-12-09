@@ -25,10 +25,11 @@
     
     // Set background image
     SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"sunny-background.png"];
-    backgroundSprite.position = CGPointMake(frameWidth/2, frameHeight/2);
+    backgroundSprite.position = CGPointMake(frameWidth / 2, frameHeight / 2);
+    
     // Since the background is the only other node, the lemon emitter node is a child of the background.
     SKEmitterNode *lemons = [self lemons];
-    lemons.position = CGPointMake(0, frameHeight/2);
+    lemons.position = CGPointMake(0, frameHeight / 2);
     [backgroundSprite addChild:lemons];
     [self addChild:backgroundSprite];
 }

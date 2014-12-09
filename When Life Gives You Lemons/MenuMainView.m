@@ -25,6 +25,8 @@
     UIColor* buttonFontColor;
     CGFloat buttonCornerRadius;
     CGFloat buttonBorderWidth;
+    
+    UIButton* _continueButton;
 }
 @end
 
@@ -132,6 +134,13 @@
     if (!_hasSavedGame) {
         continueButton.hidden = YES;
     }
+    _continueButton  = continueButton;
+}
+
+- (void)hideContinueButton:(BOOL)shouldHideContinueButton
+{
+    _hasSavedGame = !shouldHideContinueButton;
+    [_continueButton setHidden:shouldHideContinueButton];
 }
 
 - (void)addInstructionsButton

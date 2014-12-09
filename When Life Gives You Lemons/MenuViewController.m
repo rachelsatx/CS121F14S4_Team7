@@ -26,8 +26,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
     _dataStore = [[DataStore alloc] init];
+    
     // Create frame for additional views
     CGRect viewFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     
@@ -106,7 +107,6 @@
 {
     NSString *savePath = [[self applicationDocumentsDirectory].path
                           stringByAppendingPathComponent:@"save1.json"];
-    //NSLog(savePath);
     NSError *readingError;
     NSData *data = [NSData dataWithContentsOfFile:savePath options:kNilOptions error:&readingError];
     if (readingError != nil) {
@@ -119,7 +119,7 @@
                                                               options:kNilOptions
                                                               error:&error];
     if (error != nil) {
-        NSLog(@"%@", error);
+        NSLog(@"Error: %@", error);
     }
     [_dataStore initWithDictionary:dataDictionary];
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
@@ -141,6 +141,12 @@
 - (IBAction)unwindToMenu:(UIStoryboardSegue*)unwindSegue
 {
     _dataStore = [[DataStore alloc] init];
+    if ([self hasSavedGame]){
+        [_mainView hideContinueButton:YES];
+    }
+    else {
+        [_mainView hideContinueButton:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning

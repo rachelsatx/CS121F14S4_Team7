@@ -27,4 +27,6 @@
 
 @property (nonatomic,strong) id delegate;
 
+-(void) hideContinueButton:(BOOL)boolean;
+
 @end
