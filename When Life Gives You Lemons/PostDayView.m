@@ -184,7 +184,7 @@
 - (void)hideBadgeView
 {
     CATransition *transition = [CATransition animation];
-    transition.duration = 0.5;
+    transition.duration = 1.0;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionFade;
     transition.delegate = self;

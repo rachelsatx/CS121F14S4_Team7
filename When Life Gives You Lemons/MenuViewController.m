@@ -156,10 +156,10 @@
 {
     _dataStore = [[DataStore alloc] init];
     if ([self hasSavedGame]){
-        [_mainView hideContinueButton:YES];
+        [_mainView hideContinueButton:NO];
     }
     else {
-        [_mainView hideContinueButton:NO];
+        [_mainView hideContinueButton:YES];
     }
 }
 
