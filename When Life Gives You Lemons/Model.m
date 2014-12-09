@@ -187,7 +187,7 @@
     
     // Check for perfection achievement.
     if ([self isPerfectBadges:badges]) {
-        [badges setValue:@-1 forKey:allBadges];
+        [badges setValue:@3 forKey:allBadges];
     }
     
     
