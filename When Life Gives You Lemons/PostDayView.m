@@ -167,7 +167,7 @@
         
         _badgeView = [[UITextView alloc] initWithFrame:badgeFrame];
         [self formatTextView:_badgeView];
-        [_badgeView setText:@"Congratulations!\nYou earned a new badge!"];
+        [_badgeView setText:@"\n\nCongratulations!\n\nYou earned a new badge!"];
         _badgeView.editable = NO;
         [self addSubview:_badgeView];
         

@@ -110,7 +110,14 @@
     NSError *readingError;
     NSData *data = [NSData dataWithContentsOfFile:savePath options:kNilOptions error:&readingError];
     if (readingError != nil) {
-        NSLog(@"Reading error: %@", readingError);
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Could not load saved game."
+                                  message:@"Restart the app or start a new game."
+                                  delegate:self
+                                  cancelButtonTitle:@"Cancel"
+                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
     }
     //NSLog(@"Data: %@", data);
     NSError *error = nil;
@@ -119,7 +126,14 @@
                                                               options:kNilOptions
                                                               error:&error];
     if (error != nil) {
-        NSLog(@"Error: %@", error);
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Could not load saved game."
+                                  message:@"Restart the app or start a new game."
+                                  delegate:self
+                                  cancelButtonTitle:@"Cancel"
+                                  otherButtonTitles:nil];
+        [alertView show];
+        return;
     }
     [_dataStore initWithDictionary:dataDictionary];
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
