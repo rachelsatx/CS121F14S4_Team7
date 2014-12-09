@@ -164,17 +164,18 @@
                                        frameHeight - 2 * borderThickness);
         _badgeView = [[UITextView alloc] initWithFrame:badgeFrame];
         [self formatTextView:_badgeView];
-        [_badgeView setText:@"\n\nCongratulations!\n\nYou earned a new badge!"];
+        [_badgeView setFont:[UIFont fontWithName:fontName size:(2 * fontSize)]];
+        [_badgeView setText:@"\n\nCongratulations!\n\nYou've earned a new badge!\n\nCheck your badges page!"];
         _badgeView.editable = NO;
         [self addSubview:_badgeView];
-        [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(hideBadgeView) userInfo:nil repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideBadgeView) userInfo:nil repeats:NO];
     }
 }
 
 - (void)hideBadgeView
 {
     CATransition *transition = [CATransition animation];
-    transition.duration = 0.5;
+    transition.duration = 1.0;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionFade;
     transition.delegate = self;
