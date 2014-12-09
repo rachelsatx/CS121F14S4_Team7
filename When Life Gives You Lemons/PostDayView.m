@@ -28,6 +28,8 @@
     
     CGFloat maxProfitForHue;
     
+    UITextView *_badgeView;
+    
     // Sounds
     SystemSoundID tadaSound;
     
@@ -48,6 +50,7 @@
         [self createPopularityView:dataStore.getPopularity];
         [self createFeedbackView:dataStore.getFeedbackString];
         [self createSummaryViewWithCupsSold:dataStore.getCupsSold profit:dataStore.getProfit money:dataStore.getMoney];
+        [self createBadgeViewWithBadge:[dataStore getNewBadge]];
         
         [self addCustomersByPopularity:dataStore.getPopularity];
         [self addImages];
@@ -150,6 +153,33 @@
     [summaryView setText:[NSString stringWithFormat:@"\nMoney:\n\r%@\n\r%@", profitFromDay, moneyOnHand]];
     summaryView.editable = NO;
     [self addSubview:summaryView];
+}
+
+- (void)createBadgeViewWithBadge:(BOOL)existsNewBadge
+{
+    if (existsNewBadge) {
+        CGRect badgeFrame = CGRectMake(borderThickness,
+                                       borderThickness,
+                                       frameWidth - 2*borderThickness,
+                                       frameHeight - 2*borderThickness);
+        _badgeView = [[UITextView alloc] initWithFrame:badgeFrame];
+        [self formatTextView:_badgeView];
+        [_badgeView setText:@"Congratulations!\nYou earned a new badge!"];
+        _badgeView.editable = NO;
+        [self addSubview:_badgeView];
+        [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(hideBadgeView) userInfo:nil repeats:NO];
+    }
+}
+
+- (void)hideBadgeView
+{
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.delegate = self;
+    [self.layer addAnimation:transition forKey:nil];
+    [_badgeView setHidden:YES];
 }
 
 - (void)formatTextView:(UITextView *)view
