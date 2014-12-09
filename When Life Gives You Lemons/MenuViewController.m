@@ -54,15 +54,19 @@
     if ([manager fileExistsAtPath:savePath]) {
         NSDictionary *attributes = [manager attributesOfItemAtPath:savePath error:nil];
         unsigned long long size = [attributes fileSize];
-        if (attributes && size == 0) {
-            // File exists, but is empty.
-            return YES;
+        //if (attributes && size == 0) {
+        if (size == 0) {
+            // file exists, but is empty.
+            NSLog(@"Save file exists, but is empty.");
+            return NO;
+            
         }
-        // File exists and is non-empty.
-        return NO;
+        // file exists and is non-empty.
+        return YES;
     }
-    // File does not exist.
-    return YES;
+    // file does not exist.
+    NSLog(@"Save file does not exist.");
+    return NO;
 }
 
 - (void)displayInstructions:(id)sender
@@ -115,6 +119,7 @@
         [alertView show];
         return;
     }
+    //NSLog(@"Data: %@", data);
     NSError *error = nil;
     
     NSDictionary* dataDictionary = [NSJSONSerialization JSONObjectWithData:data
@@ -151,10 +156,10 @@
 {
     _dataStore = [[DataStore alloc] init];
     if ([self hasSavedGame]){
-        [_mainView hideContinueButton:YES];
+        [_mainView hideContinueButton:NO];
     }
     else {
-        [_mainView hideContinueButton:NO];
+        [_mainView hideContinueButton:YES];
     }
 }
 

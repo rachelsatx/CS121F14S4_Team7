@@ -10,9 +10,18 @@
 #import "DataStore.h"
 #import "NumberWithTwoDecimals.h"
 
+typedef NS_ENUM(int, customerType) {
+    Happy,
+    HighIce,
+    LowIce,
+    Sweet,
+    Sour,
+    HighFlavor
+};
+
 @interface Customer : NSObject
 
-- (void) setCustomerType:(NSInteger)type;
+- (void) setCustomerType:(customerType)type;
 - (BOOL) willBuyAtPrice:(NumberWithTwoDecimals*)price withRecipe:(NSMutableDictionary*)recipe;
 - (BOOL) likesRecipe:(NSMutableDictionary*)recipe forWeather:(Weather)weather;
 

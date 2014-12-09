@@ -8,6 +8,7 @@
 
 #import "PostDayView.h"
 #import "DataStore.h"
+#import "FireworksScene.h"
 
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -29,6 +30,7 @@
     CGFloat maxProfitForHue;
     
     UITextView *_badgeView;
+    SKView *_animation;
     
     // Sounds
     SystemSoundID tadaSound;
@@ -160,8 +162,9 @@
     if (existsNewBadge) {
         CGRect badgeFrame = CGRectMake(borderThickness,
                                        borderThickness,
-                                       frameWidth - 2 * borderThickness,
-                                       frameHeight - 2 * borderThickness);
+                                       frameWidth - 2*borderThickness,
+                                       frameHeight - 2*borderThickness);
+        
         _badgeView = [[UITextView alloc] initWithFrame:badgeFrame];
         [self formatTextView:_badgeView];
         [_badgeView setFont:[UIFont fontWithName:fontName size:(2 * fontSize)]];
@@ -181,6 +184,8 @@
     transition.delegate = self;
     [self.layer addAnimation:transition forKey:nil];
     [_badgeView setHidden:YES];
+    [_animation setHidden:YES];
+    
 }
 
 - (void)formatTextView:(UITextView *)view
