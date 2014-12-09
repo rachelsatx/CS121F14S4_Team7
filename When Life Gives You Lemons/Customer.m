@@ -121,7 +121,6 @@
             break;
             
         default:
-            NSLog(@"Invalid Customer type");
             break;
     }
 }

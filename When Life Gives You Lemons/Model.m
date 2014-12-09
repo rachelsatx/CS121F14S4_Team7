@@ -21,7 +21,7 @@
     NSInteger popularity = [dataStore getPopularity];
     NSMutableDictionary* inventory = [dataStore getInventory];
     NSMutableDictionary* badges = [dataStore getBadges];
-    //Save this so that we can check if we got anything new easily.
+    // Save this so that we can check if we got anything new easily.
     NSMutableDictionary* originalBadges = [NSMutableDictionary dictionaryWithDictionary:badges];
     
     NSMutableDictionary* bestAmountsForWeathers = [dataStore getBestAmountsForWeathers];
@@ -82,8 +82,6 @@
         }
         [self setBadge:differentWeatherCups inBadges:badges withValue:worstCustomers forBronzeThreshold:10 silverThreshold:50 goldThreshold:100];
         
-        
-        
     } else {
         feedbackString = @"You didn't have enough ingredients to make any lemonade!";
         [feedbackSet addObject:feedbackString];
@@ -122,27 +120,24 @@
         [feedbackSet addObject:feedbackString];
         if ([feedbackString isEqualToString:@"Your lemonade was delicious!"]) {
             [badges setValue:@-1 forKey:onceDelicious];
-            NSLog(@"Earned THE PERFECT CUP");
             
             [dataStore setDaysOfPerfectLemonade:perfectDaysInRow + 1];
             if (perfectDaysInRow == 6) {
                 [badges setValue:@-1 forKey:weekDelicious];
-                NSLog(@"Earned THE PERFECT WEEK");
             }
         } else {
             [dataStore setDaysOfPerfectLemonade:0];
         }
-        
         
         if (ranOut) {
             feedbackString = [NSString stringWithFormat:
                @"%@\nYou also ran out of ingredients!",
                               feedbackString];
             [badges setValue:@-1 forKey:runOut];
-            NSLog(@"Earned UNDER-ESTIMATE");
             [feedbackSet addObject:@"You also ran out of ingredients!"];
         } else if ((float) customersWhoBought / (float) totalCustomers < .05) {
-            feedbackString = @"Your lemonade was really expensive, so nobody bought it!";            [feedbackSet addObject:@"Unfortunately, your lemonade was really expensive, so nobody bought it!"];
+            feedbackString = @"Your lemonade was really expensive, so nobody bought it!";
+            [feedbackSet addObject:@"Unfortunately, your lemonade was really expensive, so nobody bought it!"];
         } else if ((float) customersWhoBought / (float) totalCustomers < .3) {
             feedbackString = [NSString stringWithFormat:
                @"%@\nAlso, your lemonade was a bit expensive, so very few customers bought it!",
@@ -150,6 +145,7 @@
             [feedbackSet addObject:@"Also, your lemonade was a bit expensive, so very few customers bought it!"];
         }
     }
+    
     [dataStore setPopularity:newPopularity];
     [dataStore setFeedbackString:(feedbackString)];
     [dataStore setInventory:inventory];
@@ -169,11 +165,9 @@
     // Update achievements that are based on recipe.
     badges = [self updateBadges:badges fromRecipe:recipe];
     
-    
     // If feedback set is complete, tell the datastore.
     if ([feedbackSet count] >= NUM_FEEDBACKS) {
         [badges setValue:@-1 forKey:allFeedback];
-        NSLog(@"Earned SCIENTIST");
     }
     [dataStore setFeedbackSet:feedbackSet];
     [dataStore setBadges:badges];
@@ -188,7 +182,6 @@
     if ([self isPerfectBadges:badges]) {
         [badges setValue:@3 forKey:allBadges];
     }
-    
     
     return dataStore;
 }
@@ -287,7 +280,6 @@
     // If enough people didn't like it, lose some popularity proportionally.
     newPopularity -= (int) ((1 - portionWhoLiked) * effectiveCustomers / 6.0);
     
-    
     // Add some popularity for those who did like it.
     // This scales quadratically with the portion of customers who liked, so that if very few
     // people like your lemonade, you don't get very much popularity. If 1/2 of people like your
@@ -296,7 +288,6 @@
     // explosive growth early.
     newPopularity +=
             (int) (3 * effectiveCustomers * portionWhoBought * (pow(MIN(.7, portionWhoLiked), 2)));
-    
     
     // If the resulting popularity is negative, set it to 0.
     if (newPopularity < 0) {
@@ -462,19 +453,15 @@
     NumberWithTwoDecimals* one = [[NumberWithTwoDecimals alloc] initWithFloat:1.0];
     if ([[recipe valueForKey:@"lemons"] isEqual:one]) {
         [badges setValue:@-1 forKey:allLemons];
-        NSLog(@"Earned LEMONHEAD");
     }
     if ([[recipe valueForKey:@"sugar"] isEqual:one]) {
         [badges setValue:@-1 forKey:allSugar];
-        NSLog(@"Earned SWEET TOOTH");
     }
     if ([[recipe valueForKey:@"ice"] isEqual:one]) {
         [badges setValue:@-1 forKey:allIce];
-        NSLog(@"Earned FROZEN");
     }
     if ([[recipe valueForKey:@"water"] isEqual:one]) {
         [badges setValue:@-1 forKey:allWater];
-        NSLog(@"Earned CON-ARTIST");
     }
     return badges;
 }
@@ -497,8 +484,6 @@
     if ([[badges valueForKey:badgeName] intValue] < [newValue intValue]) {
         [badges setValue:newValue forKey:badgeName];
     }
-    
-    
     
     return badges;
 }
@@ -537,12 +522,9 @@
         } else {
             return NO;
         }
-
     }
     
     return YES;
 }
 
 @end
-
-

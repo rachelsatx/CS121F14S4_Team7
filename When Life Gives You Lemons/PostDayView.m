@@ -160,11 +160,11 @@
     if (existsNewBadge) {
         CGRect badgeFrame = CGRectMake(borderThickness,
                                        borderThickness,
-                                       frameWidth - 2*borderThickness,
-                                       frameHeight - 2*borderThickness);
+                                       frameWidth - 2 * borderThickness,
+                                       frameHeight - 2 * borderThickness);
         _badgeView = [[UITextView alloc] initWithFrame:badgeFrame];
         [self formatTextView:_badgeView];
-        [_badgeView setText:@"Congratulations!\nYou earned a new badge!"];
+        [_badgeView setText:@"\n\nCongratulations!\n\nYou earned a new badge!"];
         _badgeView.editable = NO;
         [self addSubview:_badgeView];
         [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(hideBadgeView) userInfo:nil repeats:NO];
