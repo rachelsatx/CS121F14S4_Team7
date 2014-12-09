@@ -137,6 +137,12 @@
 - (IBAction)unwindToMenu:(UIStoryboardSegue*)unwindSegue
 {
     _dataStore = [[DataStore alloc] init];
+    if ([self hasSavedGame]){
+        [_mainView hideContinueButton:NO];
+    }
+    else {
+        [_mainView hideContinueButton:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
