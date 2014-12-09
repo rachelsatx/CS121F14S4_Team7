@@ -28,7 +28,7 @@
 
 @implementation MenuMainView
 
-- (id) initWithFrame:(CGRect)frame
+- (id) initWithFrame:(CGRect)frame andHiddenContinue:(BOOL)hide;
 {
     self = [super initWithFrame:frame];
     
@@ -40,7 +40,7 @@
         
         [self addNewGameButton];
         [self addInstructionsButton];
-        [self addContinueButton];
+        [self addContinueButtonWithHidden:hide];
         [self addCreditsButton];
     }
     
@@ -128,7 +128,7 @@
     [self addSubview:instructionsButton];
 }
 
-- (void)addContinueButton
+- (void)addContinueButtonWithHidden:(BOOL)hide
 {
     CGRect continueButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
                                             3 * frameHeight / 5 + (3 * buttonHeight / 2),
@@ -141,6 +141,9 @@
                        action:@selector(continueGame:)
              forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:continueButton];
+    if (hide) {
+        continueButton.hidden = YES;
+    }
 }
 
 - (void)addCreditsButton

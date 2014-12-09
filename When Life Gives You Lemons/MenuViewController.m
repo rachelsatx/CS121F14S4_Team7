@@ -32,7 +32,7 @@
     CGRect viewFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     
     // Create the Main View
-    _mainView = [[MenuMainView alloc] initWithFrame:viewFrame];
+    _mainView = [[MenuMainView alloc] initWithFrame:viewFrame andHiddenContinue:[self hideContinueButton]];
     [_mainView setDelegate:self];
     [self.view addSubview:_mainView];
     
@@ -44,6 +44,26 @@
     _creditsView = [[MenuCreditsView alloc] initWithFrame:viewFrame];
     [_creditsView setHidden:YES];
     [self.view addSubview:_creditsView];
+}
+
+- (BOOL)hideContinueButton
+{
+    NSString *savePath = [[self applicationDocumentsDirectory].path stringByAppendingPathComponent:@"save1.json"];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if ([manager fileExistsAtPath:savePath]) {
+        NSDictionary *attributes = [manager attributesOfItemAtPath:savePath error:nil];
+        unsigned long long size = [attributes fileSize];
+        if (attributes && size == 0) {
+            // file exists, but is empty.
+            return YES;
+            NSLog(@"Save file exists, but is empty.");
+        }
+        // file exists and is non-empty.
+        return NO;
+    }
+    // file does not exist.
+    return YES;
+    NSLog(@"Save file does not exist.");
 }
 
 - (void)displayInstructions:(id)sender
