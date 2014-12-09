@@ -55,7 +55,6 @@
         [self createBadgeViewWithBadge:[dataStore getNewBadge]];
         
         [self addCustomersByPopularity:dataStore.getPopularity];
-        [self addImages];
         
         [self initializeSounds];
         AudioServicesPlaySystemSound(tadaSound);
@@ -172,12 +171,15 @@
         
         _badgeView = [[UITextView alloc] initWithFrame:badgeFrame];
         [self formatTextView:_badgeView];
+        [_badgeView setFont:[UIFont fontWithName:fontName size:(2 * fontSize)]];
+        [_badgeView setText:@"\n\nCongratulations!\n\nYou've earned a new badge!\n\nCheck your badges page!"];
         [_badgeView setBackgroundColor:[UIColor clearColor]];
-        [_badgeView setText:@"\n\nCongratulations!\n\nYou earned a new badge!"];
         _badgeView.editable = NO;
         [self addSubview:_badgeView];
-        
-        [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(hideBadgeView) userInfo:nil repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideBadgeView) userInfo:nil repeats:NO];
+    }
+    else {
+        [self addImages];
     }
 }
 
@@ -191,6 +193,7 @@
     [self.layer addAnimation:transition forKey:nil];
     [_badgeView setHidden:YES];
     [_animation setHidden:YES];
+    [self addImages];
     
 }
 
