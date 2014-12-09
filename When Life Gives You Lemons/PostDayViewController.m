@@ -36,14 +36,6 @@
     _dataStore = dataStore;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"PostDayToMenu"])
-    {
-        ;
-    }
-}
-
 - (NSURL *)applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
                                                    inDomains:NSUserDomainMask] lastObject];
@@ -63,7 +55,6 @@
             NSError *error;
             [json writeToFile:savePath options:kNilOptions error:&error];
         }
-        
     }
 }
 
