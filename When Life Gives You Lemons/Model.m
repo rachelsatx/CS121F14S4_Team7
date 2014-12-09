@@ -212,7 +212,7 @@
     NSMutableArray *customers = [[NSMutableArray alloc] initWithCapacity:totalCustomers];
     
     for (int i = 0; i < totalCustomers; ++i) {
-        Customer* nextCustomer = [self getOneCustomerForWeather:weather];
+        Customer* nextCustomer = [self getOneCustomer];
         [customers addObject:nextCustomer];
     }
     
@@ -249,8 +249,7 @@
     }
 }
 
-- (Customer*) getOneCustomerForWeather:(Weather)weather {
-    // For now, does not actually base this on the weather.
+- (Customer*) getOneCustomer {
     int randomValue = arc4random() % 6;
     Customer* customer = [[Customer alloc] init];
     [customer setCustomerType:randomValue];

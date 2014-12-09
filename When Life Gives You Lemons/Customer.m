@@ -10,7 +10,7 @@
 #import <math.h>
 
 @interface Customer (){
-    NSInteger _type;
+    customerType _type;
     NumberWithTwoDecimals* _maximumPrice; // The maximum price at which the customer could buy lemonade.
                              // For now, it's a linear model interpolating between the two points
                              // (0, 1) and (_maximumPrice, 0).
@@ -42,14 +42,14 @@
     return self;
 }
 
-- (void) setCustomerType:(NSInteger)type
+- (void) setCustomerType:(customerType)type
 {
     _type = type;
     
     // Set recipe preferences based on type.
     switch (_type) {
         // Happy customer
-        case 0:
+        case Happy:
             _lemonMax = 0.5;
             _lemonMin = 0.05;
             _sugarMax = 0.4;
@@ -61,7 +61,7 @@
             break;
             
         // Lots of ice customer
-        case 1:
+        case HighIce:
             _lemonMax = 0.3;
             _lemonMin = 0.1;
             _sugarMax = 0.2;
@@ -73,7 +73,7 @@
             break;
         
         // Less ice customer
-        case 2:
+        case LowIce:
             _lemonMax = 0.3;
             _lemonMin = 0.1;
             _sugarMax = 0.2;
@@ -85,7 +85,7 @@
             break;
         
         // Sweet customer
-        case 3:
+        case Sweet:
             _lemonMax = 0.25;
             _lemonMin = 0.05;
             _sugarMax = 0.35;
@@ -97,7 +97,7 @@
             break;
         
         // Sour customer
-        case 4:
+        case Sour:
             _lemonMax = 0.4;
             _lemonMin = 0.2;
             _sugarMax = 0.2;
@@ -109,7 +109,7 @@
             break;
             
             // Flavor customer
-        case 5:
+        case HighFlavor:
             _lemonMax = 0.35;
             _lemonMin = 0.15;
             _sugarMax = 0.3;
@@ -126,7 +126,7 @@
     }
 }
 
-/*  We use a logistic distribution to determine whether a customer will buy at a particular price because it has a simple cumulative distribution function.  */
+
 - (BOOL) willBuyAtPrice:(NumberWithTwoDecimals*)price withRecipe:(NSMutableDictionary*)recipe
 {
     // If it doesn't even look like lemonade, no one will buy it.
@@ -140,7 +140,8 @@
         return NO;
     }
     
-    // Determine how likely they are to buy the lemonade.
+    // Determine how likely they are to buy the lemonade. This scales linearly with price, so long
+    // as price is between 0 and _maximumPrice.
     double probabilityOfBuying =
             ([[_maximumPrice subtract:price] floatValue]) / [_maximumPrice floatValue];
     
