@@ -134,7 +134,7 @@
     if (!_hasSavedGame) {
         continueButton.hidden = YES;
     }
-    _continueButton  = continueButton;
+    _continueButton = continueButton;
 }
 
 - (void)hideContinueButton:(BOOL)shouldHideContinueButton

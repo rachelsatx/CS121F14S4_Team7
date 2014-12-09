@@ -176,9 +176,8 @@
         [_badgeView setBackgroundColor:[UIColor clearColor]];
         _badgeView.editable = NO;
         [self addSubview:_badgeView];
-        [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(hideBadgeView) userInfo:nil repeats:NO];
-    }
-    else {
+        [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(hideBadgeView) userInfo:nil repeats:NO];
+    } else {
         [self addImages];
     }
 }
@@ -194,7 +193,6 @@
     [_badgeView setHidden:YES];
     [_animation setHidden:YES];
     [self addImages];
-    
 }
 
 - (void)formatTextView:(UITextView *)view
@@ -256,6 +254,5 @@
     NSURL *URL = [NSURL fileURLWithPath:path];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)URL, location);
 }
-
 
 @end
