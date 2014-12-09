@@ -181,9 +181,6 @@
     [dataStore setFeedbackSet:feedbackSet];
     [dataStore setBadges:badges];
     
-    NSLog(@"BOUGHT: %f", portionWhoBought);
-    NSLog(@"LIKED: %f", portionWhoLiked);
-    
     if (![badges isEqualToDictionary:originalBadges]) {
         [dataStore setNewBadge:YES];
     }

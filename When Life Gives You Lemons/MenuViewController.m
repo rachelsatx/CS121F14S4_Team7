@@ -84,13 +84,11 @@
 {
     NSString *savePath = [[self applicationDocumentsDirectory].path
                           stringByAppendingPathComponent:@"save1.json"];
-    //NSLog(savePath);
     NSError *readingError;
     NSData *data = [NSData dataWithContentsOfFile:savePath options:kNilOptions error:&readingError];
     if (readingError != nil) {
         NSLog(@"Reading error: %@", readingError);
     }
-    NSLog(@"Data: %@", data);
     NSError *error = nil;
     
     NSDictionary* dataDictionary = [NSJSONSerialization JSONObjectWithData:data

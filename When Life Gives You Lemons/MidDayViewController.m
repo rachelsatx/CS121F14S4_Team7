@@ -34,6 +34,7 @@
     _dataStore = [self runModelWith:_dataStore];
     
     [self.view bringSubviewToFront:_goToPostDayButton];
+    
 }
 
 - (void)setDataStore:(DataStore *) dataStore
