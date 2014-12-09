@@ -148,8 +148,20 @@
     [self addSubview:grass];
 }
 
-- (void) releaseAnimation
+- (void) releaseAnimationForWeather:(Weather)weather
 {
+    // Add the weather background so when the animation disappears, we don't have a white screen
+    UIImageView *backgroundView;
+    if (weather == Sunny) {
+        backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
+    } else if (weather == Cloudy) {
+        backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloudy-background"]];
+    } else if (weather == Raining) {
+        backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"raining-background"]];
+    }
+    [backgroundView sendSubviewToBack:backgroundView];
+    [self addSubview:backgroundView];
+    
     [_weatherScene removeAllActions];
     [_weatherScene removeAllChildren];
     

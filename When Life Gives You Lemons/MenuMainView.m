@@ -131,7 +131,7 @@
 - (void)addContinueButtonWithHidden:(BOOL)hide
 {
     CGRect continueButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
-                                            3 * frameHeight / 5 + (3 * buttonHeight / 2),
+                                            3 * frameHeight / 5,
                                             buttonWidth,
                                             buttonHeight);
     UIButton* continueButton = [[UIButton alloc] initWithFrame:continueButtonFrame];
@@ -146,10 +146,25 @@
     }
 }
 
+- (void)addInstructionsButton
+{
+    CGRect instructionsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                                3 * frameHeight / 5 + (3 * buttonHeight / 2),
+                                                buttonWidth,
+                                                buttonHeight);
+    UIButton* instructionsButton = [[UIButton alloc] initWithFrame:instructionsButtonFrame];
+    [self formatButton:instructionsButton];
+    [instructionsButton setTitle:@"How to Play" forState:UIControlStateNormal];
+    [instructionsButton addTarget:self
+                           action:@selector(displayInstructions:)
+                 forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:instructionsButton];
+}
+
 - (void)addCreditsButton
 {
     CGRect creditsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
-                                            3 * frameHeight / 5 + (2*(3 * buttonHeight / 2)),
+                                            3 * frameHeight / 5 + (2 * (3 * buttonHeight / 2)),
                                             buttonWidth,
                                             buttonHeight);
     UIButton* creditsButton = [[UIButton alloc] initWithFrame:creditsButtonFrame];
@@ -173,7 +188,27 @@
 
 - (void)newGame:(id)sender
 {
+    if (YES) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Are you sure?"
+                                  message:@"If you start a new game, your current saved game will be deleted."
+                                  delegate:self
+                                  cancelButtonTitle:@"Cancel"
+                                  otherButtonTitles:@"New Game", nil];
+        [alertView show];
+        return;
+    }
+    
     [self.delegate newGame:sender];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        // Cancel button - nothing to do
+    } else if (buttonIndex == 1) {
+        // New game
+        [self.delegate newGame:self];
+    }
 }
 
 - (void)continueGame:(id)sender
