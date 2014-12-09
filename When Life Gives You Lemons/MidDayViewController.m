@@ -59,7 +59,7 @@
         [postDayViewController setDataStore:_dataStore];
     }
     
-    [_midDayView releaseAnimation];
+    [_midDayView releaseAnimationForWeather:[_dataStore getWeather]];
 }
 
 - (void)didReceiveMemoryWarning

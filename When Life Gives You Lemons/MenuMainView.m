@@ -173,7 +173,7 @@
     if (YES) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Are you sure?"
-                                  message:@"If you start a new game, your current game will be deleted."
+                                  message:@"If you start a new game, your current saved game will be deleted."
                                   delegate:self
                                   cancelButtonTitle:@"Cancel"
                                   otherButtonTitles:@"New Game", nil];
