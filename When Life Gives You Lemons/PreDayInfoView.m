@@ -7,6 +7,7 @@
 //
 
 #import "PreDayInfoView.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface PreDayInfoView () {
     UILabel* _priceLabel;
@@ -14,6 +15,21 @@
     UILabel* _dayLabel;
     UILabel* _makeableCupsLabel;
     UIImageView* _weatherImageView;
+    
+    // Constants
+    CGFloat frameWidth;
+    CGFloat frameHeight;
+    
+    CGFloat labelHeight;
+    CGFloat imageSize;
+    CGFloat buttonSize;
+    CGFloat borderWidth;
+    
+    CGFloat fontSize;
+    NSString* fontName;
+    
+    // Sounds
+    SystemSoundID clickSound;
 }
 @end
 
@@ -24,115 +40,151 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        CGFloat frameWidth = CGRectGetWidth(self.frame);
-        CGFloat frameHeight = CGRectGetHeight(self.frame);
+        [self setConstants];
         
-        CGFloat labelHeight = frameHeight / 9;
-        CGFloat imageSize = frameHeight < frameWidth ? frameHeight / 4 : frameWidth / 4;
-        CGFloat buttonSize = frameHeight < frameWidth ? frameHeight / 10 : frameWidth / 10;
+        [self setBackground];
         
-        CGFloat fontSize = 25;
-        NSString* fontName = @"Chalkduster";
+        [self addDayLabel];
+        [self addWeather];
+        [self addMakeableCupsLabel];
+        [self addPrice];
         
-        // Set background image to a spiral notebook
-        self.backgroundColor = [UIColor whiteColor];
-        UIGraphicsBeginImageContext(self.frame.size);
-        [[UIImage imageNamed:@"spiral-notebook"] drawInRect:self.bounds];
-        UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        self.backgroundColor = [UIColor colorWithPatternImage:image];
-        
-        // Create Day Label
-        CGRect dayLabelFrame = CGRectMake(0,
-                                          0,
-                                          frameWidth,
-                                          labelHeight);
-        _dayLabel = [[UILabel alloc] initWithFrame:dayLabelFrame];
-        [_dayLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
-        [_dayLabel setTextAlignment:NSTextAlignmentCenter];
-        _dayLabel.numberOfLines = 0;
-        [self updateDayLabel];
-        [self addSubview:_dayLabel];
-        
-        // Create Weather Label
-        CGRect weatherLabelFrame = CGRectMake(0,
-                                              labelHeight,
-                                              frameWidth,
-                                              labelHeight);
-        _weatherLabel = [[UILabel alloc] initWithFrame:weatherLabelFrame];
-        [_weatherLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
-        [_weatherLabel setTextAlignment:NSTextAlignmentCenter];
-        _weatherLabel.numberOfLines = 0;
-        [self addSubview:_weatherLabel];
-        
-        // Create Weather Image
-        CGRect weatherImageViewFrame = CGRectMake((frameWidth - imageSize) / 2,
-                                                  2 * labelHeight,
-                                                  imageSize,
-                                                  imageSize);
-        _weatherImageView = [[UIImageView alloc] initWithFrame:weatherImageViewFrame];
-        [self updateWeather];
-        [self addSubview:_weatherImageView];
-        
-        // Create Makable Cups Label
-        CGRect makeableCupsLabelFrame = CGRectMake(0,
-                                                   (2 * labelHeight) + imageSize,
-                                                   frameWidth,
-                                                   2 * labelHeight);
-        _makeableCupsLabel = [[UILabel alloc] initWithFrame:makeableCupsLabelFrame];
-        [_makeableCupsLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
-        [_makeableCupsLabel setTextAlignment:NSTextAlignmentCenter];
-        _makeableCupsLabel.numberOfLines = 0;
-        [self updateMakeableCupsLabel];
-        [self addSubview:_makeableCupsLabel];
-        
-        // Create Increment Price Button
-        CGRect incrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2,
-                                                      (4 * labelHeight) + imageSize,
-                                                      buttonSize,
-                                                      buttonSize);
-        UIButton* incrementPriceButton = [[UIButton alloc] initWithFrame:incrementPriceButtonFrame];
-        [incrementPriceButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
-        [incrementPriceButton addTarget:self action:@selector(incrementPrice:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:incrementPriceButton];
-        
-        // Create Price Label
-        CGRect priceLabelFrame = CGRectMake(0,
-                                            (5 * labelHeight) + imageSize,
-                                            frameWidth,
-                                            labelHeight);
-        _priceLabel = [[UILabel alloc] initWithFrame:priceLabelFrame];
-        [_priceLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
-        [_priceLabel setTextAlignment:NSTextAlignmentCenter];
-        _priceLabel.numberOfLines = 0;
-        [self updatePriceLabel];
-        [self addSubview:_priceLabel];
-        
-        // Create Decrement Price Button
-        CGRect decrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2,
-                                                      (6 * labelHeight) + imageSize,
-                                                      buttonSize,
-                                                      buttonSize);
-        UIButton* decrementPriceButton = [[UIButton alloc] initWithFrame:decrementPriceButtonFrame];
-        [decrementPriceButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
-        [decrementPriceButton addTarget:self action:@selector(decrementPrice:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:decrementPriceButton];
+        [self initializeSounds];
     }
     
     return self;
 }
 
+- (void)setConstants
+{
+    frameWidth = CGRectGetWidth(self.frame);
+    frameHeight = CGRectGetHeight(self.frame);
+    
+    labelHeight = frameHeight / 9;
+    imageSize = frameHeight < frameWidth ? frameHeight / 4 : frameWidth / 4;
+    buttonSize = frameHeight < frameWidth ? frameHeight / 10 : frameWidth / 10;
+    borderWidth = 2;
+    
+    fontSize = 25;
+    fontName = @"Chalkduster";
+}
+
+- (void)setBackground
+{
+    self.layer.borderWidth = borderWidth;
+    self.backgroundColor = [UIColor colorWithRed:255.0/255 green:255.0/255 blue:200.0/255 alpha:1.0];
+}
+
+- (void)addDayLabel
+{
+    CGRect dayLabelFrame = CGRectMake(0,
+                                      0,
+                                      frameWidth,
+                                      labelHeight);
+    _dayLabel = [[UILabel alloc] initWithFrame:dayLabelFrame];
+    [self formatLabel:_dayLabel];
+    [self updateDayLabel];
+    [self addSubview:_dayLabel];
+}
+
+- (void)addWeather
+{
+    // Add weather label
+    CGRect weatherLabelFrame = CGRectMake(0,
+                                          labelHeight,
+                                          frameWidth,
+                                          labelHeight);
+    _weatherLabel = [[UILabel alloc] initWithFrame:weatherLabelFrame];
+    [self formatLabel:_weatherLabel];
+    [self addSubview:_weatherLabel];
+    
+    // Add weather image
+    CGRect weatherImageViewFrame = CGRectMake((frameWidth - imageSize) / 2,
+                                              2 * labelHeight,
+                                              imageSize,
+                                              imageSize);
+    _weatherImageView = [[UIImageView alloc] initWithFrame:weatherImageViewFrame];
+    [self updateWeather];
+    [self addSubview:_weatherImageView];
+}
+
+- (void)addMakeableCupsLabel
+{
+    CGRect makeableCupsLabelFrame = CGRectMake(0,
+                                               (2 * labelHeight) + imageSize,
+                                               frameWidth,
+                                               2 * labelHeight);
+    _makeableCupsLabel = [[UILabel alloc] initWithFrame:makeableCupsLabelFrame];
+    [self formatLabel:_makeableCupsLabel];
+    [self updateMakeableCupsLabel];
+    [self addSubview:_makeableCupsLabel];
+}
+
+- (void)addPrice
+{
+    // Create Increment Price Button
+    CGRect incrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2,
+                                                  (4 * labelHeight) + imageSize,
+                                                  buttonSize,
+                                                  buttonSize);
+    UIButton* incrementPriceButton = [[UIButton alloc] initWithFrame:incrementPriceButtonFrame];
+    [incrementPriceButton setImage:[UIImage imageNamed:@"increase"] forState:UIControlStateNormal];
+    [incrementPriceButton addTarget:self action:@selector(incrementPrice:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:incrementPriceButton];
+    
+    // Create Price Label
+    CGRect priceLabelFrame = CGRectMake(0,
+                                        (5 * labelHeight) + imageSize,
+                                        frameWidth,
+                                        labelHeight);
+    _priceLabel = [[UILabel alloc] initWithFrame:priceLabelFrame];
+    [self formatLabel:_priceLabel];
+    [self updatePriceLabel];
+    [self addSubview:_priceLabel];
+    
+    // Create Decrement Price Button
+    CGRect decrementPriceButtonFrame = CGRectMake((frameWidth - buttonSize) / 2,
+                                                  (6 * labelHeight) + imageSize,
+                                                  buttonSize,
+                                                  buttonSize);
+    UIButton* decrementPriceButton = [[UIButton alloc] initWithFrame:decrementPriceButtonFrame];
+    [decrementPriceButton setImage:[UIImage imageNamed:@"decrease"] forState:UIControlStateNormal];
+    [decrementPriceButton addTarget:self action:@selector(decrementPrice:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:decrementPriceButton];
+}
+
+- (void)formatLabel:(UILabel *)label
+{
+    [label setFont:[UIFont fontWithName:fontName size:fontSize]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    label.numberOfLines = 0;
+}
+
+- (void)initializeSounds
+{
+    // Taken from http://soundbible.com/1705-Click2.html
+    // Under creative commons attribution 3.0
+    [self setUpSound:@"click" forLocation:&clickSound];
+}
+
+- (void)setUpSound:(NSString*)fileName forLocation:(SystemSoundID*)location {
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:@"wav"];
+    NSURL *URL = [NSURL fileURLWithPath:path];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)URL, location);
+}
+
 - (void)incrementPrice:(id)sender
 {
-    
     [self.delegate incrementPrice:sender];
     [self updatePriceLabel];
+    AudioServicesPlaySystemSound(clickSound);
 }
 
 - (void)decrementPrice:(id)sender
 {
     [self.delegate decrementPrice:sender];
     [self updatePriceLabel];
+    AudioServicesPlaySystemSound(clickSound);
 }
 
 - (void)updatePriceLabel
@@ -143,7 +195,6 @@
 - (void)updateDayLabel
 {
     DayOfWeek dayOfWeek = [self.delegate getDayOfWeek];
-    NSLog(@"%d", dayOfWeek);
     if (dayOfWeek == Monday) {
         [_dayLabel setText:@"Today is Monday."];
     }
@@ -169,7 +220,14 @@
 
 - (void)updateMakeableCupsLabel
 {
-    [_makeableCupsLabel setText:[NSString stringWithFormat:@"With your current inventory and recipe, \n you can make a total of %d cups of lemonade.", [[self.delegate getMakableCups] intValue]]];
+    NSInteger makeableCups = [self.delegate getMakableCups];
+    NSInteger digitsInMakeableCups = (makeableCups == 0) ? 1 : log10(makeableCups) + 1;
+    
+    NSMutableAttributedString *makeableCupsText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"With your current inventory and recipe, \n you can make a total of %ld cups of lemonade.", (long)[self.delegate getMakableCups]]];
+    
+    [makeableCupsText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(66, digitsInMakeableCups + 5)];
+    
+    [_makeableCupsLabel setAttributedText: makeableCupsText];
 }
 
 - (void)updateWeather

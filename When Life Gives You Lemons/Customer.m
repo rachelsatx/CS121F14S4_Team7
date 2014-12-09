@@ -10,8 +10,8 @@
 #import <math.h>
 
 @interface Customer (){
-    NSInteger _type;
-    NSNumber* _maximumPrice; // The maximum price at which the customer could buy lemonade.
+    customerType _type;
+    NumberWithTwoDecimals* _maximumPrice; // The maximum price at which the customer could buy lemonade.
                              // For now, it's a linear model interpolating between the two points
                              // (0, 1) and (_maximumPrice, 0).
     
@@ -32,20 +32,24 @@
 
 - (id)init
 {
-    // Initialize global variables.  These can be changed if they are unrealistic.
-    _maximumPrice = [NSNumber numberWithDouble:5.00];
+    self = [super init];
+    
+    if (self) {
+        // Initialize global variables.  These can be changed if they are unrealistic.
+        _maximumPrice = [[NumberWithTwoDecimals alloc] initWithFloat:5.00];
+    }
     
     return self;
 }
 
-- (void) setCustomerType:(NSInteger)type
+- (void) setCustomerType:(customerType)type
 {
     _type = type;
     
     // Set recipe preferences based on type.
     switch (_type) {
         // Happy customer
-        case 0:
+        case Happy:
             _lemonMax = 0.5;
             _lemonMin = 0.05;
             _sugarMax = 0.4;
@@ -57,19 +61,19 @@
             break;
             
         // Lots of ice customer
-        case 1:
+        case HighIce:
             _lemonMax = 0.3;
             _lemonMin = 0.1;
             _sugarMax = 0.2;
             _sugarMin = 0.05;
             _waterMax = 0.6;
             _waterMin = 0.3;
-            _iceMax = 0.35;
+            _iceMax = 0.25;
             _iceMin = 0.15;
             break;
         
         // Less ice customer
-        case 2:
+        case LowIce:
             _lemonMax = 0.3;
             _lemonMin = 0.1;
             _sugarMax = 0.2;
@@ -81,7 +85,7 @@
             break;
         
         // Sweet customer
-        case 3:
+        case Sweet:
             _lemonMax = 0.25;
             _lemonMin = 0.05;
             _sugarMax = 0.35;
@@ -93,7 +97,7 @@
             break;
         
         // Sour customer
-        case 4:
+        case Sour:
             _lemonMax = 0.4;
             _lemonMin = 0.2;
             _sugarMax = 0.2;
@@ -104,8 +108,8 @@
             _iceMin = 0.1;
             break;
             
-            // Flavor customer
-        case 5:
+        // Flavor customer
+        case HighFlavor:
             _lemonMax = 0.35;
             _lemonMin = 0.15;
             _sugarMax = 0.3;
@@ -117,30 +121,28 @@
             break;
             
         default:
-            NSLog(@"Invalid Customer type");
             break;
     }
 }
 
-/*  We use a logistic distribution to determine whether a customer will buy at a particular price because it has a simple cumulative distribution function.  */
-- (BOOL) willBuyAtPrice:(NSNumber*)price withRecipe:(NSMutableDictionary*)recipe
+
+- (BOOL) willBuyAtPrice:(NumberWithTwoDecimals*)price withRecipe:(NSMutableDictionary*)recipe
 {
     // If it doesn't even look like lemonade, no one will buy it.
-    if ([((NSNumber*) [recipe valueForKey:@"lemons"]) floatValue] <= .05) {
+    if ([[recipe valueForKey:@"lemons"] isLessThan:[[NumberWithTwoDecimals alloc] initWithFloat:.05]]) {
         return NO;
     }
-    
-    // Turn necessary global values into doubles for readability.
-    double maximumPrice = [_maximumPrice doubleValue];
     
     // If above the maximum price, they won't buy; if below 0, there's something wrong.
     NSAssert(price > 0, @"Price provided to customer was negative: %@", price);
-    if ([price doubleValue] > maximumPrice) {
+    if ([price isGreaterThan:_maximumPrice]) {
         return NO;
     }
     
-    // Determine how likely they are to buy the lemonade.
-    double probabilityOfBuying = (maximumPrice - [price doubleValue]) / maximumPrice;
+    // Determine how likely they are to buy the lemonade. This scales linearly with price, so long
+    // as price is between 0 and _maximumPrice.
+    double probabilityOfBuying =
+            ([[_maximumPrice subtract:price] floatValue]) / [_maximumPrice floatValue];
     
     // Generate a random number to represent desire for lemonade.
     double willingnessToBuy = drand48();
@@ -149,22 +151,41 @@
 }
 
 /*  We use the customer type to determine whether they like the recipe.  */
-- (BOOL) likesRecipe:(NSMutableDictionary*)recipe
+- (BOOL) likesRecipe:(NSMutableDictionary*)recipe forWeather:(Weather)weather
 {
     // Default to yes, change to no if conditions are violated.
     BOOL likesRecipe = YES;
     
     // Get ingredient values from the recipe.
-    NSNumber* lemonValue = [recipe objectForKey:@"lemons"];
-    NSNumber* sugarValue = [recipe objectForKey:@"sugar"];
-    NSNumber* waterValue = [recipe objectForKey:@"water"];
-    NSNumber* iceValue = [recipe objectForKey:@"ice"];
+    NumberWithTwoDecimals* lemonValue = [recipe objectForKey:@"lemons"];
+    NumberWithTwoDecimals* sugarValue = [recipe objectForKey:@"sugar"];
+    NumberWithTwoDecimals* waterValue = [recipe objectForKey:@"water"];
+    NumberWithTwoDecimals* iceValue = [recipe objectForKey:@"ice"];
+    
     
     // Get the double values from all of the NSNumbers.
-    double lemon = [lemonValue doubleValue];
-    double sugar = [sugarValue doubleValue];
-    double water = [waterValue doubleValue];
-    double ice = [iceValue doubleValue];
+    float lemon = [lemonValue floatValue];
+    float sugar = [sugarValue floatValue];
+    float water = [waterValue floatValue];
+    float ice = [iceValue floatValue];
+    
+    // Get modification for weather to account for customers wanting more or less ice.
+    // If the weather is colder, it will be as if there is more ice in the lemonade.
+    float weatherMod;
+    switch (weather) {
+        case Sunny:
+            weatherMod = -.06;
+            break;
+        case Cloudy:
+            weatherMod = 0;
+            break;
+        case Raining:
+            weatherMod = .06;
+            break;
+        default:
+            break;
+    }
+    ice += weatherMod;
     
     // Add a small random factor, plus or minus .02.
     lemon += ((drand48() * .04) - .02);

@@ -12,7 +12,9 @@
 @interface PostDayViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIButton *goToPreDayButton;
+@property (nonatomic, weak) IBOutlet UIButton *quitGameButton;
 
 - (void) setDataStore:(DataStore*) dataStore;
+- (void) save;
 
 @end

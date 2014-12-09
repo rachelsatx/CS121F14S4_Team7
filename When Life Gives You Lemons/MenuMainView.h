@@ -11,8 +11,10 @@
 
 @protocol MenuMainViewDelegate <NSObject>
 @required
-- (void)displayInstructions:(id)sender;
 - (void)newGame:(id)sender;
+- (void)continueGame:(id)sender;
+- (void)displayInstructions:(id)sender;
+- (void)displayCredits:(id)sender;
 @end
 
 
@@ -20,7 +22,11 @@
 {
     id <MenuMainViewDelegate> _delegate;
 }
+    -(id) initWithFrame:(CGRect)frame withSavedGame:(BOOL)hasSavedGame;
+
 
 @property (nonatomic,strong) id delegate;
+
+-(void) hideContinueButton:(BOOL)boolean;
 
 @end

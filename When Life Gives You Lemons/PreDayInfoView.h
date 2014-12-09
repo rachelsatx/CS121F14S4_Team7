@@ -13,8 +13,8 @@
 @required
 - (void) incrementPrice:(id)sender;
 - (void) decrementPrice:(id)sender;
-- (NSNumber*) getPrice;
-- (NSNumber*) getMakableCups;
+- (NumberWithTwoDecimals*) getPrice;
+- (NSInteger) getMakableCups;
 - (Weather) getWeather;
 - (DayOfWeek) getDayOfWeek;
 @end

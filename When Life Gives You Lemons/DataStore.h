@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NumberWithTwoDecimals.h"
 
 typedef NS_ENUM(int, Weather) {
     Sunny,
@@ -26,8 +27,8 @@ typedef NS_ENUM(int, DayOfWeek) {
 
 @interface DataStore : NSObject
 
-- (NSNumber*) getPrice;
-- (void) setPrice:(NSNumber*) newPrice;
+- (NumberWithTwoDecimals*) getPrice;
+- (void) setPrice:(NumberWithTwoDecimals*) newPrice;
 
 - (Weather) getWeather;
 - (void) setWeather:(Weather) newWeather;
@@ -47,16 +48,38 @@ typedef NS_ENUM(int, DayOfWeek) {
 -(NSMutableDictionary*) getIngredientPrices;
 -(void) setIngredientPrices:(NSMutableDictionary*) newIngredientPrices;
 
--(NSNumber*) getPopularity;
--(void) setPopularity:(NSNumber*) newPopularity;
+-(NSMutableDictionary*) getBadges;
+-(void) setBadges:(NSMutableDictionary*) newBadges;
 
--(NSNumber*) getMoney;
--(void) setMoney:(NSNumber*) newMoney;
+-(NSMutableDictionary*) getBestAmountsForWeathers;
+-(void) setBestAmountsForWeathers:(NSMutableDictionary*) newBestAmounts;
 
--(NSNumber*) getProfit;
--(void) setProfit:(NSNumber*) newProfit;
+-(NSMutableSet*) getFeedbackSet;
+-(void) setFeedbackSet:(NSMutableSet*) newFeedbackSet;
+
+-(NSInteger) getPopularity;
+-(void) setPopularity:(NSInteger) newPopularity;
+
+-(NumberWithTwoDecimals*) getMoney;
+-(void) setMoney:(NumberWithTwoDecimals*) newMoney;
+
+-(NumberWithTwoDecimals*) getProfit;
+-(void) setProfit:(NumberWithTwoDecimals*) newProfit;
 
 -(NSInteger) getCupsSold;
 -(void) setCupsSold:(NSInteger) newCupsSold;
 
+-(void) initWithDictionary:(NSDictionary*) inputDictionary;
+-(NSDictionary*) convertToDictionary;
+-(NSInteger) getDaysOfPerfectLemonade;
+-(void) setDaysOfPerfectLemonade:(NSInteger) newDays;
+
+-(NSInteger) getTotalCupsSold;
+-(void) setTotalCupsSold:(NSInteger) newCups;
+
+-(NumberWithTwoDecimals*) getTotalEarnings;
+-(void) setTotalEarnings:(NumberWithTwoDecimals*) newTotal;
+
+-(bool) getNewBadge;
+-(void) setNewBadge:(bool) newBadge;
 @end

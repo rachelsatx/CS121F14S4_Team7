@@ -1,14 +1,14 @@
 //
-//  MenuInstructionsView.m
+//  MenuCreditsView.m
 //  When Life Gives You Lemons
 //
-//  Created by Guest User on 11/13/14.
+//  Created by Rachel Gale Wilson on 12/7/14.
 //  Copyright (c) 2014 Jonathan Finnell, Amit Maor, Joshua Petrack, Megan Shao, Rachel Wilson. All rights reserved.
 //
 
-#import "MenuInstructionsView.h"
+#import "MenuCreditsView.h"
 
-@interface MenuInstructionsView() {
+@interface MenuCreditsView() {
     // Constants
     UIColor* backgroundColor;
     
@@ -32,7 +32,7 @@
 }
 @end
 
-@implementation MenuInstructionsView
+@implementation MenuCreditsView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -82,7 +82,7 @@
                                    frameWidth,
                                    headerThickness);
     UILabel* title = [[UILabel alloc] initWithFrame:titleFrame];
-    [title setText:@"How to Play"];
+    title.text = @"Credits";
     [title setFont:[UIFont fontWithName:fontName size:(fontSize + 5)]];
     [title setTextAlignment:NSTextAlignmentCenter];
     [title setBackgroundColor:titleBackgroundColor];
@@ -91,7 +91,7 @@
 
 - (void)addInstructions
 {
-    NSString* instructionsText = @" You've been given 20 dollars to start up your own business. You've decided to make a lemonade stand! \n \n Use the money you have to buy ingredients and change your recipe to try to make the tastiest lemonade possible. If your customers like your lemonade, your popularity will go up! The more popular your stand is, the more customers you will have. \n \n Earn badges along the way. Good luck, and don't forget the cups!";
+    NSString* instructionsText = @" We need to thank the NSF for making this game possible. This game was developed as part of the Games Network, funded by NSF grant #1042472.\n\nTeam members:\nJonathan Finnell\nAmit Maor\nJoshua Petrack\nMegan Shao\nRachel Gale Wilson\n\nCreated for CS121 at Harvey Mudd College.";
     
     // Create Text box with instructions
     CGRect instructionsFrame = CGRectMake(instructionsBorderThickness,
@@ -105,9 +105,6 @@
     [self addSubview:instructions];
 }
 
-/*
- * Adds UIButton to go back to MenuMainView
- */
 - (void)addBackButton
 {
     CGRect backButtonFrame = CGRectMake(frameWidth - buttonWidth - 2 * instructionsBorderThickness,
@@ -123,7 +120,7 @@
                    action:@selector(backButtonPressed:)
          forControlEvents:UIControlEventTouchUpInside];
     [backButton setTitle:@"Back to Menu" forState:UIControlStateNormal];
-    [backButton.titleLabel setFont:[UIFont systemFontOfSize:buttonFontSize]];
+    backButton.titleLabel.font = [UIFont systemFontOfSize:buttonFontSize];
     [backButton setTitleColor:buttonFontColor forState:UIControlStateNormal];
     [self addSubview:backButton];
 }
@@ -150,5 +147,6 @@
     [self.layer addAnimation:transition forKey:nil];
     [self sendSubviewToBack:self];
 }
+
 
 @end

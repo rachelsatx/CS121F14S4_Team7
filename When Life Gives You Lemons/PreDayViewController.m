@@ -11,12 +11,14 @@
 #import "MidDayViewController.h"
 #import "PreDayRecipeView.h"
 #import "PreDayInfoView.h"
+#import "PreDayBadgesView.h"
 
 @interface PreDayViewController (){
     DataStore* _dataStore;
     PreDayInventoryView* _inventoryView;
     PreDayRecipeView* _recipeView;
     PreDayInfoView* _infoView;
+    PreDayBadgesView* _badgesView;
 }
 @end
 
@@ -55,6 +57,12 @@
     [self.view addSubview:_recipeView];
     [_recipeView setDelegate:self];
     [_recipeView updatePercentageLabels];
+    
+    // Create the Achievements View
+    _badgesView = [[PreDayBadgesView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) andBadges:[_dataStore getBadges]];
+    [_badgesView setHidden:YES];
+    [_badgesView updateAllBadgeBackgrounds:[_dataStore getBadges]];
+    [self.view addSubview:_badgesView];
 }
 
 - (void) setDataStore:(DataStore*) dataStore
@@ -98,7 +106,20 @@
     [self.view.layer addAnimation:transition forKey:nil];
     [self.view sendSubviewToBack:_recipeView];
     [self.view sendSubviewToBack:_inventoryView];
+    [self.view sendSubviewToBack:_badgesView];
     [_infoView updateMakeableCupsLabel];
+}
+
+- (IBAction)displayBadges:(id)sender
+{
+    [_badgesView setHidden:NO];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.delegate = self;
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self.view bringSubviewToFront:_badgesView];
 }
 
 - (IBAction)unwindToPreDay:(UIStoryboardSegue*)unwindSegue
@@ -115,9 +136,12 @@
     
     [_recipeView setHidden:YES];
     [_recipeView updatePercentageLabels];
+    
+    [_badgesView setHidden:YES];
+    [_badgesView updateAllBadgeBackgrounds:[_dataStore getBadges]];
 }
 
-- (NSNumber*) getPrice
+- (NumberWithTwoDecimals*) getPrice
 {
     return [_dataStore getPrice];
 }
@@ -129,163 +153,164 @@
 
 - (void) decrementPrice:(id)sender
 {
-    if ([[_dataStore getPrice] floatValue] >= .10) {
-        [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] - .1]];
+    if ([[_dataStore getPrice] isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
+        [_dataStore setPrice:[[_dataStore getPrice] subtract:[[NumberWithTwoDecimals alloc] initWithFloat:0.1]]];
     }
 }
 
 - (void) incrementPrice:(id)sender
 {
-    [_dataStore setPrice:[NSNumber numberWithFloat:[[_dataStore getPrice] floatValue] + .1]];
+    [_dataStore setPrice:[[_dataStore getPrice] add:[[NumberWithTwoDecimals alloc] initWithFloat:0.1]]];
 }
 
-- (NSNumber*) getLemons
+- (NumberWithTwoDecimals*) getLemons
 {
     return [[_dataStore getInventory] valueForKey:@"lemons"];
 }
 
-- (void) setLemons:(NSNumber*) newLemons
+- (void) setLemons:(NumberWithTwoDecimals*) newLemons
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newLemons forKey:@"lemons"];
     [_dataStore setInventory:inventory];
 }
 
-- (NSNumber*) getSugar
+- (NumberWithTwoDecimals*) getSugar
 {
     return [[_dataStore getInventory] valueForKey:@"sugar"];
 }
 
-- (void) setSugar:(NSNumber*) newSugar
+- (void) setSugar:(NumberWithTwoDecimals*) newSugar
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newSugar forKey:@"sugar"];
     [_dataStore setInventory:inventory];
 }
 
-- (NSNumber*) getIce
+- (NumberWithTwoDecimals*) getIce
 {
     return [[_dataStore getInventory] valueForKey:@"ice"];
 }
 
-- (void) setIce:(NSNumber*) newIce
+- (void) setIce:(NumberWithTwoDecimals*) newIce
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newIce forKey:@"ice"];
     [_dataStore setInventory:inventory];
 }
 
-- (NSNumber*) getCups
+- (NumberWithTwoDecimals*) getCups
 {
     return [[_dataStore getInventory] valueForKey:@"cups"];
 }
 
-- (void) setCups:(NSNumber*) newCups
+- (void) setCups:(NumberWithTwoDecimals*) newCups
 {
     NSMutableDictionary* inventory = [_dataStore getInventory];
     [inventory setValue:newCups forKey:@"cups"];
     [_dataStore setInventory:inventory];
 }
 
-- (NSNumber*) getMoney
+- (NumberWithTwoDecimals*) getMoney
 {
     return [_dataStore getMoney];
 }
 
-- (void) setMoney:(NSNumber*) newMoney
+- (void) setMoney:(NumberWithTwoDecimals*) newMoney
 {
     [_dataStore setMoney:newMoney];
 }
 
-- (NSNumber*) getLemonPrice
+- (NumberWithTwoDecimals*) getLemonPrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"lemons"];
 }
 
-- (NSNumber*) getSugarPrice
+- (NumberWithTwoDecimals*) getSugarPrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"sugar"];
 }
 
-- (NSNumber*) getIcePrice
+- (NumberWithTwoDecimals*) getIcePrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"ice"];
 }
 
-- (NSNumber*) getCupsPrice
+- (NumberWithTwoDecimals*) getCupsPrice
 {
     return [[_dataStore getIngredientPrices] valueForKey:@"cups"];
 }
 
-- (NSNumber*) getLemonsPercentage
+- (NumberWithTwoDecimals*) getLemonsPercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"lemons"];
 }
 
-- (void) setLemonsPercentage:(NSNumber*) newLemons
+- (void) setLemonsPercentage:(NumberWithTwoDecimals*) newLemons
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newLemons forKey:@"lemons"];
     [_dataStore setRecipe:recipe];
 }
 
-- (NSNumber*) getSugarPercentage
+- (NumberWithTwoDecimals*) getSugarPercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"sugar"];
 }
 
-- (void) setSugarPercentage:(NSNumber*) newSugar
+- (void) setSugarPercentage:(NumberWithTwoDecimals*) newSugar
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newSugar forKey:@"sugar"];
     [_dataStore setRecipe:recipe];
 }
 
-- (NSNumber*) getIcePercentage
+- (NumberWithTwoDecimals*) getIcePercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"ice"];
 }
 
-- (void) setIcePercentage:(NSNumber*) newIce
+- (void) setIcePercentage:(NumberWithTwoDecimals*) newIce
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newIce forKey:@"ice"];
     [_dataStore setRecipe:recipe];
 }
 
-- (NSNumber*) getWaterPercentage
+- (NumberWithTwoDecimals*) getWaterPercentage
 {
     return [[_dataStore getRecipe] valueForKey:@"water"];
 }
 
-- (void) setWaterPercentage:(NSNumber*) newWater
+- (void) setWaterPercentage:(NumberWithTwoDecimals*) newWater
 {
     NSMutableDictionary* recipe = [_dataStore getRecipe];
     [recipe setValue:newWater forKey:@"water"];
     [_dataStore setRecipe:recipe];
 }
 
-- (NSNumber*) getMakableCups
+- (NSInteger) getMakableCups
 {
     NSDictionary* inventory = [_dataStore getInventory];
     NSDictionary* recipe = [_dataStore getRecipe];
     
-    int maxCustomers = [(NSNumber*) [inventory valueForKey:@"cups"] intValue];
+    int maxCustomers = [[inventory valueForKey:@"cups"] integerPart];
     for (NSString* key in [inventory allKeys]) {
-        if (![key isEqual: @"cups"] && [[recipe valueForKey:key] floatValue] > 0.0) {
-            int maxCupsWithThisIngredient = (int) ([(NSNumber*) [inventory valueForKey:key] floatValue]/
-                                                   [(NSNumber*) [recipe valueForKey:key] floatValue]);
+        if (![key isEqual: @"cups"] &&
+            [[recipe valueForKey:key] isGreaterThan:[[NumberWithTwoDecimals alloc] initWithFloat:0.0]]) {
+            int maxCupsWithThisIngredient = (int) ([[inventory valueForKey:key] floatValue]/
+                                                   [[recipe valueForKey:key] floatValue]);
             if (maxCupsWithThisIngredient < maxCustomers) {
                 maxCustomers = maxCupsWithThisIngredient;
             }
         }
     }
-    return [NSNumber numberWithInt:maxCustomers];
+    NSAssert(maxCustomers >= 0, @"Maximum number of customers is negative (%d)", maxCustomers);
+    return maxCustomers;
 }
 
 - (DayOfWeek) getDayOfWeek
 {
-    NSLog(@"%d", [_dataStore getDayOfWeek]);
     return [_dataStore getDayOfWeek];
 }
 
