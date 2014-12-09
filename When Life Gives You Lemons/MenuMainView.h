@@ -22,7 +22,7 @@
 {
     id <MenuMainViewDelegate> _delegate;
 }
-    -(id) initWithFrame:(CGRect)frame andHiddenContinue:(BOOL)hide;
+    -(id) initWithFrame:(CGRect)frame withSavedGame:(BOOL)hasSavedGame;
 
 
 @property (nonatomic,strong) id delegate;

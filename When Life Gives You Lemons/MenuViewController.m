@@ -32,7 +32,7 @@
     CGRect viewFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     
     // Create the Main View
-    _mainView = [[MenuMainView alloc] initWithFrame:viewFrame andHiddenContinue:[self hideContinueButton]];
+    _mainView = [[MenuMainView alloc] initWithFrame:viewFrame withSavedGame:[self hasSavedGame]];
     [_mainView setDelegate:self];
     [self.view addSubview:_mainView];
     
@@ -46,7 +46,7 @@
     [self.view addSubview:_creditsView];
 }
 
-- (BOOL)hideContinueButton
+- (BOOL)hasSavedGame
 {
     NSString *savePath = [[self applicationDocumentsDirectory].path stringByAppendingPathComponent:@"save1.json"];
     NSFileManager *manager = [NSFileManager defaultManager];

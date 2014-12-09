@@ -10,6 +10,8 @@
 #import "LemonRainScene.h"
 
 @interface MenuMainView() {
+    BOOL _hasSavedGame;
+    
     // Constants
     CGFloat frameWidth;
     CGFloat frameHeight;
@@ -28,11 +30,12 @@
 
 @implementation MenuMainView
 
-- (id) initWithFrame:(CGRect)frame andHiddenContinue:(BOOL)hide;
+- (id) initWithFrame:(CGRect)frame withSavedGame:(BOOL)hasSavedGame;
 {
     self = [super initWithFrame:frame];
     
     if (self) {
+        _hasSavedGame = hasSavedGame;
         [self setConstants];
         
         [self setBackground];
@@ -40,7 +43,7 @@
         
         [self addNewGameButton];
         [self addInstructionsButton];
-        [self addContinueButtonWithHidden:hide];
+        [self addContinueButton];
         [self addCreditsButton];
     }
     
@@ -113,7 +116,7 @@
     [self addSubview:newGameButton];
 }
 
-- (void)addContinueButtonWithHidden:(BOOL)hide
+- (void)addContinueButton
 {
     CGRect continueButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
                                             3 * frameHeight / 5,
@@ -126,7 +129,7 @@
                        action:@selector(continueGame:)
              forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:continueButton];
-    if (hide) {
+    if (!_hasSavedGame) {
         continueButton.hidden = YES;
     }
 }
@@ -173,7 +176,7 @@
 
 - (void)newGame:(id)sender
 {
-    if (YES) {
+    if (_hasSavedGame) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Are you sure?"
                                   message:@"If you start a new game, your current saved game will be deleted."
