@@ -26,8 +26,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
     _dataStore = [[DataStore alloc] init];
+    
     // Create frame for additional views
     CGRect viewFrame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
     
@@ -54,16 +55,14 @@
         NSDictionary *attributes = [manager attributesOfItemAtPath:savePath error:nil];
         unsigned long long size = [attributes fileSize];
         if (attributes && size == 0) {
-            // file exists, but is empty.
+            // File exists, but is empty.
             return YES;
-            NSLog(@"Save file exists, but is empty.");
         }
-        // file exists and is non-empty.
+        // File exists and is non-empty.
         return NO;
     }
-    // file does not exist.
+    // File does not exist.
     return YES;
-    NSLog(@"Save file does not exist.");
 }
 
 - (void)displayInstructions:(id)sender
@@ -115,7 +114,7 @@
                                                               options:kNilOptions
                                                               error:&error];
     if (error != nil) {
-        NSLog(@"%@", error);
+        NSLog(@"Error: %@", error);
     }
     [_dataStore initWithDictionary:dataDictionary];
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];

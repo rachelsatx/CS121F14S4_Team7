@@ -36,14 +36,6 @@
     _dataStore = dataStore;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"PostDayToMenu"])
-    {
-        ;
-    }
-}
-
 - (NSURL *)applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
                                                    inDomains:NSUserDomainMask] lastObject];
@@ -55,29 +47,14 @@
     
     NSError *error = nil;
     if ([NSJSONSerialization isValidJSONObject:dataDictionary]){
-        // NSLog(@"Valid dictionary");
         NSData *json = [NSJSONSerialization dataWithJSONObject:dataDictionary options:NSJSONWritingPrettyPrinted error:&error];
         
-        if (json != nil && error == nil)
-        {
-            // NSLog(@"Valid JSON conversion.");
-            //NSFileManager *fileManager = [NSFileManager defaultManager];
-            //NSString *savePath = [[NSBundle mainBundle] pathForResource:@"save1" ofType:@"json"];
+        if (json != nil && error == nil) {
             NSString *savePath = [[self applicationDocumentsDirectory].path
                               stringByAppendingPathComponent:@"save1.json"];
             NSError *error;
-            
-            // NSLog(savePath);
-            
             [json writeToFile:savePath options:kNilOptions error:&error];
-            // NSLog(@"%@", error);
-            //NSString *jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-            
-            //NSLog(@"feedbackstring: %@", [dataDictionary valueForKey:@"feedback string"]);
-            
-            //NSLog(@"JSON: %@", jsonString);
         }
-        
     }
 }
 

@@ -25,16 +25,16 @@
     
     // Set background image
     SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"raining-background.png"];
-    backgroundSprite.position = CGPointMake(frameWidth/2,frameHeight/2);
+    backgroundSprite.position = CGPointMake(frameWidth / 2, frameHeight / 2);
     [self addChild:backgroundSprite];
     
     // Create clouds, and add rain emitters.
     for (int i = 0; i < 4; ++i) {
         SKSpriteNode *cloudSprite = [SKSpriteNode spriteNodeWithImageNamed:@"raincloud.png"];
-        cloudSprite.position = CGPointMake(frameWidth * (1 + (2 *i))/8, 7*frameHeight/8);
+        cloudSprite.position = CGPointMake(frameWidth * (1 + (2 * i)) / 8, 7 * frameHeight / 8);
         SKEmitterNode *rain = [self rain];
         // Make rain start beneath the clouds.
-        rain.position = CGPointMake(0,-1 * CGRectGetHeight(cloudSprite.frame) / 2);
+        rain.position = CGPointMake(0, -1 * CGRectGetHeight(cloudSprite.frame) / 2);
         [cloudSprite addChild:rain];
         [self addChild:cloudSprite];
     }
