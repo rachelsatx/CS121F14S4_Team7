@@ -13,5 +13,6 @@
 @interface MidDayView : UIView
 
 - (id)initWithFrame:(CGRect)frame andDataStore:(DataStore *)dataStore;
+- (void) releaseAnimation;
 
 @end

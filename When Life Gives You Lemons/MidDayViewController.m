@@ -58,6 +58,8 @@
         // Pass dataStore to the view controller
         [postDayViewController setDataStore:_dataStore];
     }
+    
+    [_midDayView releaseAnimation];
 }
 
 - (void)didReceiveMemoryWarning
