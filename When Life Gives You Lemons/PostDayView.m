@@ -8,6 +8,7 @@
 
 #import "PostDayView.h"
 #import "DataStore.h"
+#import "FireworksScene.h"
 
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -29,6 +30,7 @@
     CGFloat maxProfitForHue;
     
     UITextView *_badgeView;
+    SKView *_animation;
     
     // Sounds
     SystemSoundID tadaSound;
@@ -162,11 +164,19 @@
                                        borderThickness,
                                        frameWidth - 2*borderThickness,
                                        frameHeight - 2*borderThickness);
+        
         _badgeView = [[UITextView alloc] initWithFrame:badgeFrame];
         [self formatTextView:_badgeView];
         [_badgeView setText:@"Congratulations!\nYou earned a new badge!"];
         _badgeView.editable = NO;
         [self addSubview:_badgeView];
+        
+        _animation = [[SKView alloc] initWithFrame:badgeFrame];
+        _animation.backgroundColor = [UIColor clearColor];
+        SKScene *fireworks = [[FireworksScene alloc]initWithSize:CGSizeMake(frameWidth - 2*borderThickness, frameHeight - 2*borderThickness)];
+        [self addSubview:_animation];
+        [_animation presentScene:fireworks];
+        
         [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(hideBadgeView) userInfo:nil repeats:NO];
     }
 }
@@ -180,6 +190,8 @@
     transition.delegate = self;
     [self.layer addAnimation:transition forKey:nil];
     [_badgeView setHidden:YES];
+    [_animation setHidden:YES];
+    
 }
 
 - (void)formatTextView:(UITextView *)view

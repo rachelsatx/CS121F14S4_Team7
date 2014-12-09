@@ -12,8 +12,9 @@
 
 - (void)didMoveToView: (SKView *) view
 {
-    //self.backgroundColor = [UIColor grayColor];
+    self.backgroundColor = [UIColor clearColor];
     [self createAnimation];
+    
 }
 
 - (void)createAnimation
@@ -23,23 +24,17 @@
     CGFloat frameWidth = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);
     
-    // Set background image
-    //SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"raining-background.png"];
-    //backgroundSprite.position = CGPointMake(frameWidth / 2, frameHeight / 2);
-    //[self addChild:backgroundSprite];
+    SKSpriteNode *node1 = [SKSpriteNode node];
+    SKNode *node2 = [SKNode node];
     
-    SKEmitterNode *fireworks = [self fireworks];
+    SKEmitterNode *fireworks1 = [self fireworks];
+    node1.position = CGPointMake(frameWidth/2, frameHeight/2);
+    [node1 addChild:fireworks1];
+    [self addChild:node1];
     
-    // Create clouds, and add rain emitters.
-    for (int i = 0; i < 4; ++i) {
-        SKSpriteNode *cloudSprite = [SKSpriteNode spriteNodeWithImageNamed:@"raincloud.png"];
-        cloudSprite.position = CGPointMake(frameWidth * (1 + (2 * i)) / 8, 7 * frameHeight / 8);
-        SKEmitterNode *rain = [self rain];
-        // Make rain start beneath the clouds.
-        rain.position = CGPointMake(0, -1 * CGRectGetHeight(cloudSprite.frame) / 2);
-        [cloudSprite addChild:rain];
-        [self addChild:cloudSprite];
-    }
+    SKEmitterNode *fireworks2 = [self fireworks];
+    fireworks2.position = CGPointMake(-frameWidth, -frameHeight);
+    [self addChild:fireworks2];
 }
 
 - (SKEmitterNode *)fireworks
