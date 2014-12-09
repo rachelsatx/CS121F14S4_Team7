@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DataStore.h"
+#import <SpriteKit/SpriteKit.h>
 
 @interface PostDayView : UIView
 

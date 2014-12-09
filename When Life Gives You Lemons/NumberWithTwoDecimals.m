@@ -23,9 +23,8 @@
     if (self) {
         _integerPart = integerPart;
         _fractionalPart = fractionalPart;
+        NSAssert((_fractionalPart >= 0) && (_fractionalPart <= 99), @"Fractional part: %d is invalid", (int) _fractionalPart);
     }
-    
-    NSAssert((_fractionalPart >= 0) && (_fractionalPart <= 99), @"Fractional part: %d is invalid", (int) _fractionalPart);
     
     return self;
 }
@@ -37,10 +36,9 @@
     if (self) {
         _integerPart = (int) number;
         float decimalPart = number - _integerPart;
-        _fractionalPart = (int) decimalPart*100 + 0.5;
+        _fractionalPart = (int) (decimalPart*100 + 0.5);
+        NSAssert((_fractionalPart >= 0) && (_fractionalPart <= 99), @"Fractional part: %d is invalid", (int) _fractionalPart);
     }
-    
-     NSAssert((_fractionalPart >= 0) && (_fractionalPart <= 99), @"Fractional part: %d is invalid", (int) _fractionalPart);
     
     return self;
 }
@@ -53,6 +51,11 @@
 - (int) fractionalPart
 {
     return _fractionalPart;
+}
+
+- (float) floatValue
+{
+    return _integerPart + _fractionalPart / 100.0;
 }
 
 - (BOOL) isEqual:(NumberWithTwoDecimals *)other

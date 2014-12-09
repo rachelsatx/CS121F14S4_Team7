@@ -7,7 +7,6 @@
 //
 
 #import "PostDayViewController.h"
-#import "PreDayViewController.h"
 #import "PostDayView.h"
 
 @interface PostDayViewController () {
@@ -28,6 +27,8 @@
     [self.view addSubview:_postDayView];
     
     [self.view bringSubviewToFront:_goToPreDayButton];
+    [self.view bringSubviewToFront:_quitGameButton];
+    [self save];
 }
 
 - (void)setDataStore:(DataStore *) dataStore
@@ -35,16 +36,25 @@
     _dataStore = dataStore;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (NSURL *)applicationDocumentsDirectory {
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                   inDomains:NSUserDomainMask] lastObject];
+}
+
+- (void)save
 {
-    // Make sure segue name in storyboard is the same as this line
-    if ([[segue identifier] isEqualToString:@"PostDayToPreDay"])
-    {
-        // Get reference to the destination view controller
-        PreDayViewController* preDayViewController = [segue destinationViewController];
+    NSDictionary *dataDictionary = [_dataStore convertToDictionary];
+    
+    NSError *error = nil;
+    if ([NSJSONSerialization isValidJSONObject:dataDictionary]){
+        NSData *json = [NSJSONSerialization dataWithJSONObject:dataDictionary options:NSJSONWritingPrettyPrinted error:&error];
         
-        // Pass dataStore to the view controller
-        [preDayViewController setDataStore:_dataStore];
+        if (json != nil && error == nil) {
+            NSString *savePath = [[self applicationDocumentsDirectory].path
+                              stringByAppendingPathComponent:@"save1.json"];
+            NSError *error;
+            [json writeToFile:savePath options:kNilOptions error:&error];
+        }
     }
 }
 

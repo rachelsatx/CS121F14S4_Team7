@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08BDF2921A358E8C00DA30FC /* MenuCreditsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08BDF2911A358E8C00DA30FC /* MenuCreditsView.m */; };
 		AC521EE31A1572E8007AD8A1 /* MenuInstructionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */; };
 		ACA77C001A1ACB36002D7CF7 /* NumberWithTwoDecimals.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */; };
 		ACBEBFA719F619A300B173C7 /* DataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFA619F619A300B173C7 /* DataStore.m */; };
 		ACBEBFB519F61FAD00B173C7 /* PreDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */; };
+		AF268E3A1A2C4BAD00ED6A53 /* PreDayBadgesView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF268E391A2C4BAD00ED6A53 /* PreDayBadgesView.m */; };
 		AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCB509719F7457900DFADE9 /* MidDayView.m */; };
 		AFE2AC6019F833D2005EC4D0 /* PostDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFE2AC5F19F833D2005EC4D0 /* PostDayView.m */; };
 		DA064B131A19AA3F007438CF /* MenuMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA064B121A19AA3F007438CF /* MenuMainView.m */; };
@@ -20,13 +22,15 @@
 		DA0FB60B19F646030036D500 /* PostDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0FB60A19F646030036D500 /* PostDayViewController.m */; };
 		DA2726AB19F8F26300287791 /* Customer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2726A719F8F26300287791 /* Customer.m */; };
 		DA2726AC19F8F26300287791 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = DA2726A919F8F26300287791 /* Model.m */; };
+		DA2B59211A321C1200EEDC70 /* tada.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA2B591F1A321C1200EEDC70 /* tada.wav */; };
+		DA2B59221A321C1200EEDC70 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA2B59201A321C1200EEDC70 /* click.wav */; };
+		DA2B59231A321CDD00EEDC70 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BC919F19B8D00AE1EB7 /* Main.storyboard */; };
 		DA6C2BB819F19B8D00AE1EB7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BB719F19B8D00AE1EB7 /* Foundation.framework */; };
 		DA6C2BBA19F19B8D00AE1EB7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BB919F19B8D00AE1EB7 /* CoreGraphics.framework */; };
 		DA6C2BBC19F19B8D00AE1EB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BBB19F19B8D00AE1EB7 /* UIKit.framework */; };
 		DA6C2BC219F19B8D00AE1EB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BC019F19B8D00AE1EB7 /* InfoPlist.strings */; };
 		DA6C2BC419F19B8D00AE1EB7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BC319F19B8D00AE1EB7 /* main.m */; };
 		DA6C2BC819F19B8D00AE1EB7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BC719F19B8D00AE1EB7 /* AppDelegate.m */; };
-		DA6C2BCB19F19B8D00AE1EB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BC919F19B8D00AE1EB7 /* Main.storyboard */; };
 		DA6C2BCE19F19B8D00AE1EB7 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BCD19F19B8D00AE1EB7 /* MenuViewController.m */; };
 		DA6C2BD019F19B8D00AE1EB7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */; };
 		DA6C2BD719F19B8D00AE1EB7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BD619F19B8D00AE1EB7 /* XCTest.framework */; };
@@ -34,7 +38,11 @@
 		DA6C2BD919F19B8D00AE1EB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6C2BBB19F19B8D00AE1EB7 /* UIKit.framework */; };
 		DA6C2BE119F19B8D00AE1EB7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA6C2BDF19F19B8D00AE1EB7 /* InfoPlist.strings */; };
 		DA6C2BE319F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */; };
+		DA940C8C1A3083E50049A5A8 /* Badges.m in Sources */ = {isa = PBXBuildFile; fileRef = DA940C8B1A3083E50049A5A8 /* Badges.m */; };
+		DA940C8F1A311DB90049A5A8 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		DA940C911A311E8D0049A5A8 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		DAB2821419F7946000441EAA /* PreDayRecipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB2821319F7946000441EAA /* PreDayRecipeView.m */; };
+		FE05C7C71A2D4C4900BCE136 /* Fireworks.sks in Resources */ = {isa = PBXBuildFile; fileRef = FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */; };
 		FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */; };
 		FE1471F81A1AD37E00BC7DFF /* LemonRainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */; };
 		FEBAF03B1A0B122500951C36 /* SunnyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF03A1A0B122500951C36 /* SunnyScene.m */; };
@@ -42,6 +50,8 @@
 		FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */; };
 		FEBAF0421A0B2FB300951C36 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF0401A0B2FB300951C36 /* spark.png */; };
 		FEBAF0451A0B3F9600951C36 /* RainyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF0441A0B3F9500951C36 /* RainyScene.m */; };
+		FEFC08611A358EC900B46B88 /* save1.json in Resources */ = {isa = PBXBuildFile; fileRef = FEFC08601A358EC900B46B88 /* save1.json */; };
+		FEFC086A1A36D0A300B46B88 /* FireworksScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFC08691A36D0A300B46B88 /* FireworksScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +65,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08BDF2901A358E8C00DA30FC /* MenuCreditsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCreditsView.h; sourceTree = "<group>"; };
+		08BDF2911A358E8C00DA30FC /* MenuCreditsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCreditsView.m; sourceTree = "<group>"; };
 		AC521EE11A1572E8007AD8A1 /* MenuInstructionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuInstructionsView.h; sourceTree = "<group>"; };
 		AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuInstructionsView.m; sourceTree = "<group>"; };
 		ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumberWithTwoDecimals.h; sourceTree = "<group>"; };
@@ -63,6 +75,8 @@
 		ACBEBFA619F619A300B173C7 /* DataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataStore.m; sourceTree = "<group>"; };
 		ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayViewController.h; sourceTree = "<group>"; };
 		ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayViewController.m; sourceTree = "<group>"; };
+		AF268E381A2C4BAD00ED6A53 /* PreDayBadgesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayBadgesView.h; sourceTree = "<group>"; };
+		AF268E391A2C4BAD00ED6A53 /* PreDayBadgesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayBadgesView.m; sourceTree = "<group>"; };
 		AFCB509619F7457900DFADE9 /* MidDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidDayView.h; sourceTree = "<group>"; };
 		AFCB509719F7457900DFADE9 /* MidDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidDayView.m; sourceTree = "<group>"; };
 		AFE2AC5E19F833D2005EC4D0 /* PostDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDayView.h; sourceTree = "<group>"; };
@@ -81,6 +95,8 @@
 		DA2726A819F8F26300287791 /* Customer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customer.h; sourceTree = "<group>"; };
 		DA2726A919F8F26300287791 /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 		DA2726AA19F8F26300287791 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		DA2B591F1A321C1200EEDC70 /* tada.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tada.wav; sourceTree = "<group>"; };
+		DA2B59201A321C1200EEDC70 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		DA6C2BB419F19B8D00AE1EB7 /* When Life Gives You Lemons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "When Life Gives You Lemons.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6C2BB719F19B8D00AE1EB7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA6C2BB919F19B8D00AE1EB7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -100,8 +116,11 @@
 		DA6C2BDE19F19B8D00AE1EB7 /* When Life Gives You LemonsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "When Life Gives You LemonsTests-Info.plist"; sourceTree = "<group>"; };
 		DA6C2BE019F19B8D00AE1EB7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA6C2BE219F19B8D00AE1EB7 /* When_Life_Gives_You_LemonsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = When_Life_Gives_You_LemonsTests.m; sourceTree = "<group>"; };
+		DA940C8B1A3083E50049A5A8 /* Badges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Badges.m; path = ../Badges.m; sourceTree = "<group>"; };
+		DA940C8D1A3088960049A5A8 /* Badges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Badges.h; sourceTree = "<group>"; };
 		DAB2821219F7946000441EAA /* PreDayRecipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreDayRecipeView.h; sourceTree = "<group>"; };
 		DAB2821319F7946000441EAA /* PreDayRecipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreDayRecipeView.m; sourceTree = "<group>"; };
+		FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fireworks.sks; sourceTree = "<group>"; };
 		FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LemonEmitter.sks; sourceTree = "<group>"; };
 		FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LemonRainScene.h; sourceTree = "<group>"; };
 		FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LemonRainScene.m; sourceTree = "<group>"; };
@@ -113,6 +132,9 @@
 		FEBAF0401A0B2FB300951C36 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		FEBAF0431A0B3F9500951C36 /* RainyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RainyScene.h; sourceTree = "<group>"; };
 		FEBAF0441A0B3F9500951C36 /* RainyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RainyScene.m; sourceTree = "<group>"; };
+		FEFC08601A358EC900B46B88 /* save1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = save1.json; path = ../save1.json; sourceTree = "<group>"; };
+		FEFC08681A36D0A300B46B88 /* FireworksScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireworksScene.h; sourceTree = "<group>"; };
+		FEFC08691A36D0A300B46B88 /* FireworksScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireworksScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +161,87 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AFC87A731A294D0500CFB61D /* PreDay */ = {
+			isa = PBXGroup;
+			children = (
+				ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */,
+				ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */,
+				DA064B141A19B0A6007438CF /* PreDayInfoView.h */,
+				DA064B151A19B0A6007438CF /* PreDayInfoView.m */,
+				DAB2821219F7946000441EAA /* PreDayRecipeView.h */,
+				DAB2821319F7946000441EAA /* PreDayRecipeView.m */,
+				DA0FB60319F641B00036D500 /* PreDayInventoryView.h */,
+				DA0FB60419F641B00036D500 /* PreDayInventoryView.m */,
+				AF268E381A2C4BAD00ED6A53 /* PreDayBadgesView.h */,
+				AF268E391A2C4BAD00ED6A53 /* PreDayBadgesView.m */,
+				DA2B59201A321C1200EEDC70 /* click.wav */,
+			);
+			name = PreDay;
+			sourceTree = "<group>";
+		};
+		AFC87A741A294D2500CFB61D /* MidDay */ = {
+			isa = PBXGroup;
+			children = (
+				DA0FB60619F645EF0036D500 /* MidDayViewController.h */,
+				DA0FB60719F645EF0036D500 /* MidDayViewController.m */,
+				AFCB509619F7457900DFADE9 /* MidDayView.h */,
+				AFCB509719F7457900DFADE9 /* MidDayView.m */,
+				FEBAF0391A0B122500951C36 /* SunnyScene.h */,
+				FEBAF03A1A0B122500951C36 /* SunnyScene.m */,
+				FEBAF03C1A0B2E1700951C36 /* CloudyScene.h */,
+				FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */,
+				FEBAF0431A0B3F9500951C36 /* RainyScene.h */,
+				FEBAF0441A0B3F9500951C36 /* RainyScene.m */,
+				FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */,
+				FEBAF0401A0B2FB300951C36 /* spark.png */,
+			);
+			name = MidDay;
+			sourceTree = "<group>";
+		};
+		AFC87A751A294D4400CFB61D /* PostDay */ = {
+			isa = PBXGroup;
+			children = (
+				FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */,
+				FEFC08681A36D0A300B46B88 /* FireworksScene.h */,
+				FEFC08691A36D0A300B46B88 /* FireworksScene.m */,
+				DA0FB60919F646030036D500 /* PostDayViewController.h */,
+				DA0FB60A19F646030036D500 /* PostDayViewController.m */,
+				AFE2AC5E19F833D2005EC4D0 /* PostDayView.h */,
+				AFE2AC5F19F833D2005EC4D0 /* PostDayView.m */,
+				DA2B591F1A321C1200EEDC70 /* tada.wav */,
+			);
+			name = PostDay;
+			sourceTree = "<group>";
+		};
+		AFC87A761A294D5800CFB61D /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				DA6C2BCC19F19B8D00AE1EB7 /* MenuViewController.h */,
+				DA6C2BCD19F19B8D00AE1EB7 /* MenuViewController.m */,
+				08BDF2901A358E8C00DA30FC /* MenuCreditsView.h */,
+				08BDF2911A358E8C00DA30FC /* MenuCreditsView.m */,
+				AC521EE11A1572E8007AD8A1 /* MenuInstructionsView.h */,
+				AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */,
+				DA064B111A19AA3F007438CF /* MenuMainView.h */,
+				DA064B121A19AA3F007438CF /* MenuMainView.m */,
+				FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */,
+				FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */,
+				FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		AFC87A771A294DA600CFB61D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DA2726A819F8F26300287791 /* Customer.h */,
+				DA2726A719F8F26300287791 /* Customer.m */,
+				DA2726AA19F8F26300287791 /* Model.h */,
+				DA2726A919F8F26300287791 /* Model.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		DA6C2BAB19F19B8C00AE1EB7 = {
 			isa = PBXGroup;
 			children = (
@@ -175,49 +278,20 @@
 				DA6C2BC619F19B8D00AE1EB7 /* AppDelegate.h */,
 				DA6C2BC719F19B8D00AE1EB7 /* AppDelegate.m */,
 				DA6C2BC919F19B8D00AE1EB7 /* Main.storyboard */,
-				DA0FB60619F645EF0036D500 /* MidDayViewController.h */,
-				DA0FB60719F645EF0036D500 /* MidDayViewController.m */,
-				AFCB509619F7457900DFADE9 /* MidDayView.h */,
-				AFCB509719F7457900DFADE9 /* MidDayView.m */,
-				FEBAF0391A0B122500951C36 /* SunnyScene.h */,
-				FEBAF03A1A0B122500951C36 /* SunnyScene.m */,
-				FEBAF03C1A0B2E1700951C36 /* CloudyScene.h */,
-				FEBAF03D1A0B2E1800951C36 /* CloudyScene.m */,
-				FEBAF0431A0B3F9500951C36 /* RainyScene.h */,
-				FEBAF0441A0B3F9500951C36 /* RainyScene.m */,
-				FEBAF03F1A0B2FB300951C36 /* RainEmitter.sks */,
-				FE1471F41A1ACA0900BC7DFF /* LemonEmitter.sks */,
-				FEBAF0401A0B2FB300951C36 /* spark.png */,
-				DA0FB60919F646030036D500 /* PostDayViewController.h */,
-				DA0FB60A19F646030036D500 /* PostDayViewController.m */,
-				AFE2AC5E19F833D2005EC4D0 /* PostDayView.h */,
-				AFE2AC5F19F833D2005EC4D0 /* PostDayView.m */,
-				DA6C2BCC19F19B8D00AE1EB7 /* MenuViewController.h */,
-				DA6C2BCD19F19B8D00AE1EB7 /* MenuViewController.m */,
-				AC521EE11A1572E8007AD8A1 /* MenuInstructionsView.h */,
-				AC521EE21A1572E8007AD8A1 /* MenuInstructionsView.m */,
-				DA064B111A19AA3F007438CF /* MenuMainView.h */,
-				DA064B121A19AA3F007438CF /* MenuMainView.m */,
-				FE1471F61A1AD37E00BC7DFF /* LemonRainScene.h */,
-				FE1471F71A1AD37E00BC7DFF /* LemonRainScene.m */,
-				ACBEBFB319F61FAD00B173C7 /* PreDayViewController.h */,
-				ACBEBFB419F61FAD00B173C7 /* PreDayViewController.m */,
-				DA064B141A19B0A6007438CF /* PreDayInfoView.h */,
-				DA064B151A19B0A6007438CF /* PreDayInfoView.m */,
-				DAB2821219F7946000441EAA /* PreDayRecipeView.h */,
-				DAB2821319F7946000441EAA /* PreDayRecipeView.m */,
-				DA0FB60319F641B00036D500 /* PreDayInventoryView.h */,
-				DA0FB60419F641B00036D500 /* PreDayInventoryView.m */,
-				DA2726A819F8F26300287791 /* Customer.h */,
-				DA2726A719F8F26300287791 /* Customer.m */,
-				DA2726AA19F8F26300287791 /* Model.h */,
-				DA2726A919F8F26300287791 /* Model.m */,
+				AFC87A761A294D5800CFB61D /* Menu */,
+				AFC87A731A294D0500CFB61D /* PreDay */,
+				AFC87A741A294D2500CFB61D /* MidDay */,
+				AFC87A751A294D4400CFB61D /* PostDay */,
+				AFC87A771A294DA600CFB61D /* Model */,
+				DA940C8D1A3088960049A5A8 /* Badges.h */,
+				DA940C8B1A3083E50049A5A8 /* Badges.m */,
 				ACBEBFA519F619A300B173C7 /* DataStore.h */,
 				ACBEBFA619F619A300B173C7 /* DataStore.m */,
-				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
-				DA6C2BBE19F19B8D00AE1EB7 /* Supporting Files */,
 				ACA77BFE1A1ACB36002D7CF7 /* NumberWithTwoDecimals.h */,
 				ACA77BFF1A1ACB36002D7CF7 /* NumberWithTwoDecimals.m */,
+				FEFC08601A358EC900B46B88 /* save1.json */,
+				DA6C2BCF19F19B8D00AE1EB7 /* Images.xcassets */,
+				DA6C2BBE19F19B8D00AE1EB7 /* Supporting Files */,
 			);
 			path = "When Life Gives You Lemons";
 			sourceTree = "<group>";
@@ -330,12 +404,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA2B59231A321CDD00EEDC70 /* Main.storyboard in Resources */,
 				FEBAF0421A0B2FB300951C36 /* spark.png in Resources */,
 				DA6C2BD019F19B8D00AE1EB7 /* Images.xcassets in Resources */,
 				DA6C2BC219F19B8D00AE1EB7 /* InfoPlist.strings in Resources */,
+				FE05C7C71A2D4C4900BCE136 /* Fireworks.sks in Resources */,
 				FEBAF0411A0B2FB300951C36 /* RainEmitter.sks in Resources */,
+				DA940C8F1A311DB90049A5A8 /* (null) in Resources */,
 				FE1471F51A1ACA0900BC7DFF /* LemonEmitter.sks in Resources */,
-				DA6C2BCB19F19B8D00AE1EB7 /* Main.storyboard in Resources */,
+				DA2B59211A321C1200EEDC70 /* tada.wav in Resources */,
+				DA2B59221A321C1200EEDC70 /* click.wav in Resources */,
+				FEFC08611A358EC900B46B88 /* save1.json in Resources */,
+				DA940C911A311E8D0049A5A8 /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +436,7 @@
 			files = (
 				DA0FB60519F641B00036D500 /* PreDayInventoryView.m in Sources */,
 				DA6C2BCE19F19B8D00AE1EB7 /* MenuViewController.m in Sources */,
+				08BDF2921A358E8C00DA30FC /* MenuCreditsView.m in Sources */,
 				ACBEBFA719F619A300B173C7 /* DataStore.m in Sources */,
 				ACBEBFB519F61FAD00B173C7 /* PreDayViewController.m in Sources */,
 				DA6C2BC819F19B8D00AE1EB7 /* AppDelegate.m in Sources */,
@@ -367,9 +448,12 @@
 				FE1471F81A1AD37E00BC7DFF /* LemonRainScene.m in Sources */,
 				DA064B131A19AA3F007438CF /* MenuMainView.m in Sources */,
 				ACA77C001A1ACB36002D7CF7 /* NumberWithTwoDecimals.m in Sources */,
+				DA940C8C1A3083E50049A5A8 /* Badges.m in Sources */,
 				DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */,
 				AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */,
 				DA064B161A19B0A6007438CF /* PreDayInfoView.m in Sources */,
+				FEFC086A1A36D0A300B46B88 /* FireworksScene.m in Sources */,
+				AF268E3A1A2C4BAD00ED6A53 /* PreDayBadgesView.m in Sources */,
 				AC521EE31A1572E8007AD8A1 /* MenuInstructionsView.m in Sources */,
 				FEBAF03B1A0B122500951C36 /* SunnyScene.m in Sources */,
 				DA6C2BC419F19B8D00AE1EB7 /* main.m in Sources */,
@@ -506,6 +590,7 @@
 				GCC_PREFIX_HEADER = "When Life Gives You Lemons/When Life Gives You Lemons-Prefix.pch";
 				INFOPLIST_FILE = "When Life Gives You Lemons/When Life Gives You Lemons-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -520,6 +605,7 @@
 				GCC_PREFIX_HEADER = "When Life Gives You Lemons/When Life Gives You Lemons-Prefix.pch";
 				INFOPLIST_FILE = "When Life Gives You Lemons/When Life Gives You Lemons-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

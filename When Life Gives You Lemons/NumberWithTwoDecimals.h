@@ -15,6 +15,7 @@
 
 - (int) integerPart;
 - (int) fractionalPart;
+- (float) floatValue;
 
 - (BOOL) isEqual:(NumberWithTwoDecimals*)other;
 - (BOOL) isNotEqual:(NumberWithTwoDecimals*)other;
