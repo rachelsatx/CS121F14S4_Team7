@@ -57,15 +57,15 @@
         if (size == 0) {
             // file exists, but is empty.
             NSLog(@"Save file exists, but is empty.");
-            return YES;
+            return NO;
             
         }
         // file exists and is non-empty.
-        return NO;
+        return YES;
     }
     // file does not exist.
     NSLog(@"Save file does not exist.");
-    return YES;
+    return NO;
 }
 
 - (void)displayInstructions:(id)sender
