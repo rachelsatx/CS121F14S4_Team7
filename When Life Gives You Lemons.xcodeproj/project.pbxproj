@@ -51,6 +51,7 @@
 		FEBAF0421A0B2FB300951C36 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = FEBAF0401A0B2FB300951C36 /* spark.png */; };
 		FEBAF0451A0B3F9600951C36 /* RainyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBAF0441A0B3F9500951C36 /* RainyScene.m */; };
 		FEFC08611A358EC900B46B88 /* save1.json in Resources */ = {isa = PBXBuildFile; fileRef = FEFC08601A358EC900B46B88 /* save1.json */; };
+		FEFC086A1A36D0A300B46B88 /* FireworksScene.m in Sources */ = {isa = PBXBuildFile; fileRef = FEFC08691A36D0A300B46B88 /* FireworksScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +133,8 @@
 		FEBAF0431A0B3F9500951C36 /* RainyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RainyScene.h; sourceTree = "<group>"; };
 		FEBAF0441A0B3F9500951C36 /* RainyScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RainyScene.m; sourceTree = "<group>"; };
 		FEFC08601A358EC900B46B88 /* save1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = save1.json; path = ../save1.json; sourceTree = "<group>"; };
+		FEFC08681A36D0A300B46B88 /* FireworksScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireworksScene.h; sourceTree = "<group>"; };
+		FEFC08691A36D0A300B46B88 /* FireworksScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireworksScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +175,6 @@
 				AF268E381A2C4BAD00ED6A53 /* PreDayBadgesView.h */,
 				AF268E391A2C4BAD00ED6A53 /* PreDayBadgesView.m */,
 				DA2B59201A321C1200EEDC70 /* click.wav */,
-				FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */,
 			);
 			name = PreDay;
 			sourceTree = "<group>";
@@ -199,6 +201,9 @@
 		AFC87A751A294D4400CFB61D /* PostDay */ = {
 			isa = PBXGroup;
 			children = (
+				FE05C7C61A2D4C4900BCE136 /* Fireworks.sks */,
+				FEFC08681A36D0A300B46B88 /* FireworksScene.h */,
+				FEFC08691A36D0A300B46B88 /* FireworksScene.m */,
 				DA0FB60919F646030036D500 /* PostDayViewController.h */,
 				DA0FB60A19F646030036D500 /* PostDayViewController.m */,
 				AFE2AC5E19F833D2005EC4D0 /* PostDayView.h */,
@@ -447,6 +452,7 @@
 				DA0FB60819F645EF0036D500 /* MidDayViewController.m in Sources */,
 				AFCB509819F7457900DFADE9 /* MidDayView.m in Sources */,
 				DA064B161A19B0A6007438CF /* PreDayInfoView.m in Sources */,
+				FEFC086A1A36D0A300B46B88 /* FireworksScene.m in Sources */,
 				AF268E3A1A2C4BAD00ED6A53 /* PreDayBadgesView.m in Sources */,
 				AC521EE31A1572E8007AD8A1 /* MenuInstructionsView.m in Sources */,
 				FEBAF03B1A0B122500951C36 /* SunnyScene.m in Sources */,
