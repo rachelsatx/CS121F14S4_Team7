@@ -12,7 +12,7 @@
 
 - (void)didMoveToView: (SKView *) view
 {
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor whiteColor];
     [self createAnimation];
     
 }
@@ -25,7 +25,7 @@
     CGFloat frameHeight = CGRectGetHeight(self.frame);
     
     SKSpriteNode *node1 = [SKSpriteNode node];
-    SKNode *node2 = [SKNode node];
+    //SKNode *node2 = [SKNode node];
     
     SKEmitterNode *fireworks1 = [self fireworks];
     node1.position = CGPointMake(frameWidth/2, frameHeight/2);

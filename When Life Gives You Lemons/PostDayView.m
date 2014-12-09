@@ -165,17 +165,17 @@
                                        frameWidth - 2*borderThickness,
                                        frameHeight - 2*borderThickness);
         
-        _badgeView = [[UITextView alloc] initWithFrame:badgeFrame];
-        [self formatTextView:_badgeView];
-        [_badgeView setText:@"\n\nCongratulations!\n\nYou earned a new badge!"];
-        _badgeView.editable = NO;
-        [self addSubview:_badgeView];
-        
         _animation = [[SKView alloc] initWithFrame:badgeFrame];
-        _animation.backgroundColor = [UIColor clearColor];
         SKScene *fireworks = [[FireworksScene alloc]initWithSize:CGSizeMake(frameWidth - 2*borderThickness, frameHeight - 2*borderThickness)];
         [self addSubview:_animation];
         [_animation presentScene:fireworks];
+        
+        _badgeView = [[UITextView alloc] initWithFrame:badgeFrame];
+        [self formatTextView:_badgeView];
+        [_badgeView setBackgroundColor:[UIColor clearColor]];
+        [_badgeView setText:@"\n\nCongratulations!\n\nYou earned a new badge!"];
+        _badgeView.editable = NO;
+        [self addSubview:_badgeView];
         
         [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(hideBadgeView) userInfo:nil repeats:NO];
     }
