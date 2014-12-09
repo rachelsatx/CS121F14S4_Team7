@@ -39,8 +39,9 @@
         [self addTitle];
         
         [self addNewGameButton];
-        [self addInstructionsButton];
         [self addContinueButton];
+        [self addInstructionsButton];
+        [self addCreditsButton];
     }
     
     return self;
@@ -112,10 +113,25 @@
     [self addSubview:newGameButton];
 }
 
+- (void)addContinueButton
+{
+    CGRect continueButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                            3 * frameHeight / 5,
+                                            buttonWidth,
+                                            buttonHeight);
+    UIButton* continueButton = [[UIButton alloc] initWithFrame:continueButtonFrame];
+    [self formatButton:continueButton];
+    [continueButton setTitle:@"Continue Game" forState:UIControlStateNormal];
+    [continueButton addTarget:self
+                       action:@selector(continueGame:)
+             forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:continueButton];
+}
+
 - (void)addInstructionsButton
 {
     CGRect instructionsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
-                                                3 * frameHeight / 5,
+                                                3 * frameHeight / 5 + (3 * buttonHeight / 2),
                                                 buttonWidth,
                                                 buttonHeight);
     UIButton* instructionsButton = [[UIButton alloc] initWithFrame:instructionsButtonFrame];
@@ -127,19 +143,19 @@
     [self addSubview:instructionsButton];
 }
 
-- (void)addContinueButton
+- (void)addCreditsButton
 {
-    CGRect continueButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
-                                            3 * frameHeight / 5 + (3 * buttonHeight / 2),
+    CGRect creditsButtonFrame = CGRectMake((frameWidth - buttonWidth) / 2,
+                                            3 * frameHeight / 5 + (2 * (3 * buttonHeight / 2)),
                                             buttonWidth,
                                             buttonHeight);
-    UIButton* continueButton = [[UIButton alloc] initWithFrame:continueButtonFrame];
-    [self formatButton:continueButton];
-    [continueButton setTitle:@"Continue Game" forState:UIControlStateNormal];
-    [continueButton addTarget:self
-                       action:@selector(continueGame:)
+    UIButton* creditsButton = [[UIButton alloc] initWithFrame:creditsButtonFrame];
+    [self formatButton:creditsButton];
+    [creditsButton setTitle:@"Credits" forState:UIControlStateNormal];
+    [creditsButton addTarget:self
+                       action:@selector(displayCredits:)
              forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:continueButton];
+    [self addSubview:creditsButton];
 }
 
 - (void)formatButton:(UIButton *)button
@@ -154,7 +170,27 @@
 
 - (void)newGame:(id)sender
 {
+    if (YES) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Are you sure?"
+                                  message:@"If you start a new game, your current saved game will be deleted."
+                                  delegate:self
+                                  cancelButtonTitle:@"Cancel"
+                                  otherButtonTitles:@"New Game", nil];
+        [alertView show];
+        return;
+    }
+    
     [self.delegate newGame:sender];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        // Cancel button - nothing to do
+    } else if (buttonIndex == 1) {
+        // New game
+        [self.delegate newGame:self];
+    }
 }
 
 - (void)continueGame:(id)sender
@@ -165,6 +201,11 @@
 - (void)displayInstructions:(id)sender
 {
     [self.delegate displayInstructions:sender];
+}
+
+- (void)displayCredits:(id)sender
+{
+    [self.delegate displayCredits:sender];
 }
 
 @end

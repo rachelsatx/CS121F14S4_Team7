@@ -9,6 +9,7 @@
 #import "MenuViewController.h"
 #import "PreDayViewController.h"
 #import "MenuInstructionsView.h"
+#import "MenuCreditsView.h"
 #import "MenuMainView.h"
 #import "DataStore.h"
 
@@ -16,6 +17,7 @@
     DataStore* _dataStore;
     MenuMainView* _mainView;
     MenuInstructionsView* _instructionsView;
+    MenuCreditsView* _creditsView;
 }
 @end
 
@@ -38,6 +40,10 @@
     _instructionsView = [[MenuInstructionsView alloc] initWithFrame:viewFrame];
     [_instructionsView setHidden:YES];
     [self.view addSubview:_instructionsView];
+    
+    _creditsView = [[MenuCreditsView alloc] initWithFrame:viewFrame];
+    [_creditsView setHidden:YES];
+    [self.view addSubview:_creditsView];
 }
 
 - (void)displayInstructions:(id)sender
@@ -52,21 +58,47 @@
     [self.view bringSubviewToFront:_instructionsView];
 }
 
+- (void)displayCredits:(id)sender
+{
+    [_creditsView setHidden:NO];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    transition.delegate = self;
+    [self.view.layer addAnimation:transition forKey:nil];
+    [self.view bringSubviewToFront:_creditsView];
+}
+
 - (void)newGame:(id)sender
 {
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
 }
 
+- (NSURL *)applicationDocumentsDirectory {
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                   inDomains:NSUserDomainMask] lastObject];
+}
+
 -(void)continueGame:(id)sender
 {
-    NSString *savePath = [[NSBundle mainBundle] pathForResource:@"save1" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:savePath];
+    NSString *savePath = [[self applicationDocumentsDirectory].path
+                          stringByAppendingPathComponent:@"save1.json"];
+    //NSLog(savePath);
+    NSError *readingError;
+    NSData *data = [NSData dataWithContentsOfFile:savePath options:kNilOptions error:&readingError];
+    if (readingError != nil) {
+        NSLog(@"Reading error: %@", readingError);
+    }
+    NSLog(@"Data: %@", data);
     NSError *error = nil;
     
     NSDictionary* dataDictionary = [NSJSONSerialization JSONObjectWithData:data
                                                               options:kNilOptions
                                                               error:&error];
-    
+    if (error != nil) {
+        NSLog(@"%@", error);
+    }
     [_dataStore initWithDictionary:dataDictionary];
     [self performSegueWithIdentifier:@"MenuToPreDay" sender:self];
 }

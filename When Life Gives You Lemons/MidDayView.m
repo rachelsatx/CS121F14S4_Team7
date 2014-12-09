@@ -19,6 +19,9 @@
     
     CGFloat fontSize;
     NSString *fontName;
+
+    SKView *_animation;
+    SKScene *_weatherScene;
 }
 @end
 
@@ -52,22 +55,21 @@
 - (void)setBackgroundFromWeather:(Weather)weather
 {
     // Set animation according to weather
-    SKView *animation = [[SKView alloc] initWithFrame:self.bounds];
-    [self addSubview:animation];
-    SKScene *weatherScene;
+    _animation = [[SKView alloc] initWithFrame:self.bounds];
+    [self addSubview:_animation];
     
     if (weather == Sunny) {
         SunnyScene* sunScene = [[SunnyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
-        weatherScene = sunScene;
+        _weatherScene = sunScene;
     } else if (weather == Cloudy) {
         CloudyScene *cloudScene = [[CloudyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
-        weatherScene = cloudScene;
+        _weatherScene = cloudScene;
     } else if (weather == Raining) {
         RainyScene *rainScene = [[RainyScene alloc]initWithSize:CGSizeMake(frameWidth, frameHeight)];
-        weatherScene = rainScene;
+        _weatherScene = rainScene;
     }
     // Display the appropriate weather scene.
-    [animation presentScene:weatherScene];
+    [_animation presentScene:_weatherScene];
 }
 
 - (void)addImages:(DataStore *)dataStore
@@ -144,6 +146,31 @@
     UIImageView *grass = [[UIImageView alloc] initWithFrame:grassFrame];
     [grass setImage:[UIImage imageNamed:@"grass-foreground"]];
     [self addSubview:grass];
+}
+
+- (void) releaseAnimationForWeather:(Weather)weather
+{
+    // Add the weather background so when the animation disappears, we don't have a white screen
+    UIImageView *backgroundView;
+    if (weather == Sunny) {
+        backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sunny-background"]];
+    } else if (weather == Cloudy) {
+        backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cloudy-background"]];
+    } else if (weather == Raining) {
+        backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"raining-background"]];
+    }
+    [backgroundView sendSubviewToBack:backgroundView];
+    [self addSubview:backgroundView];
+    
+    [_weatherScene removeAllActions];
+    [_weatherScene removeAllChildren];
+    
+    _weatherScene = nil;
+    
+    [((SKView* )_animation) presentScene:nil];
+    
+    [_animation removeFromSuperview];
+    _animation = nil;   
 }
 
 @end

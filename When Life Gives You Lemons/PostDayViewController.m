@@ -45,11 +45,14 @@
     }
 }
 
+- (NSURL *)applicationDocumentsDirectory {
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                   inDomains:NSUserDomainMask] lastObject];
+}
+
 - (void)save
 {
     NSDictionary *dataDictionary = [_dataStore convertToDictionary];
-    
-    NSLog(@"thing: %@", [dataDictionary valueForKey:@"price"]);
     
     NSError *error = nil;
     if ([NSJSONSerialization isValidJSONObject:dataDictionary]){
@@ -60,14 +63,20 @@
         {
             NSLog(@"Valid JSON conversion.");
             //NSFileManager *fileManager = [NSFileManager defaultManager];
-            NSString *savePath = [[NSBundle mainBundle] pathForResource:@"save1" ofType:@"json"];
+            //NSString *savePath = [[NSBundle mainBundle] pathForResource:@"save1" ofType:@"json"];
+            NSString *savePath = [[self applicationDocumentsDirectory].path
+                              stringByAppendingPathComponent:@"save1.json"];
+            NSError *error;
             
-            [json writeToFile:savePath atomically:YES];
+            NSLog(savePath);
+            
+            [json writeToFile:savePath options:kNilOptions error:&error];
+            NSLog(@"%@", error);
             NSString *jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
             
-            NSLog(@"feedbackstring: %@", [dataDictionary valueForKey:@"feedback string"]);
+            //NSLog(@"feedbackstring: %@", [dataDictionary valueForKey:@"feedback string"]);
             
-            NSLog(@"JSON: %@", jsonString);
+            //NSLog(@"JSON: %@", jsonString);
             //[jsonString release];
         }
     }
