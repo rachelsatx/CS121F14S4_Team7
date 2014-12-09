@@ -108,7 +108,7 @@
             _iceMin = 0.1;
             break;
             
-            // Flavor customer
+        // Flavor customer
         case 5:
             _lemonMax = 0.35;
             _lemonMin = 0.15;
@@ -121,7 +121,6 @@
             break;
             
         default:
-            NSLog(@"Invalid Customer type");
             break;
     }
 }
