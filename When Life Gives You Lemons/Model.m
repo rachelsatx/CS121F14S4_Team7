@@ -141,11 +141,8 @@
             [badges setValue:@-1 forKey:runOut];
             NSLog(@"Earned UNDER-ESTIMATE");
             [feedbackSet addObject:@"You also ran out of ingredients!"];
-        } else if ((float) customersWhoBought / (float) totalCustomers < .1) {
-            feedbackString = [NSString stringWithFormat:
-               @"%@\nUnfortunately, your lemonade was really expensive, so nobody bought it!",
-                              feedbackString];
-            [feedbackSet addObject:@"Unfortunately, your lemonade was really expensive, so nobody bought it!"];
+        } else if ((float) customersWhoBought / (float) totalCustomers < .05) {
+            feedbackString = @"Your lemonade was really expensive, so nobody bought it!";            [feedbackSet addObject:@"Unfortunately, your lemonade was really expensive, so nobody bought it!"];
         } else if ((float) customersWhoBought / (float) totalCustomers < .3) {
             feedbackString = [NSString stringWithFormat:
                @"%@\nAlso, your lemonade was a bit expensive, so very few customers bought it!",
