@@ -53,17 +53,19 @@
     if ([manager fileExistsAtPath:savePath]) {
         NSDictionary *attributes = [manager attributesOfItemAtPath:savePath error:nil];
         unsigned long long size = [attributes fileSize];
-        if (attributes && size == 0) {
+        //if (attributes && size == 0) {
+        if (size == 0) {
             // file exists, but is empty.
-            return YES;
             NSLog(@"Save file exists, but is empty.");
+            return YES;
+            
         }
         // file exists and is non-empty.
         return NO;
     }
     // file does not exist.
-    return YES;
     NSLog(@"Save file does not exist.");
+    return YES;
 }
 
 - (void)displayInstructions:(id)sender
@@ -110,7 +112,7 @@
     if (readingError != nil) {
         NSLog(@"Reading error: %@", readingError);
     }
-    NSLog(@"Data: %@", data);
+    //NSLog(@"Data: %@", data);
     NSError *error = nil;
     
     NSDictionary* dataDictionary = [NSJSONSerialization JSONObjectWithData:data
