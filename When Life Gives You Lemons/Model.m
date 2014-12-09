@@ -180,6 +180,8 @@
     
     if (![badges isEqualToDictionary:originalBadges]) {
         [dataStore setNewBadge:YES];
+    } else {
+        [dataStore setNewBadge:NO];
     }
     
     // Check for perfection achievement.
