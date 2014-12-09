@@ -297,8 +297,10 @@
     // This scales quadratically with the portion of customers who liked, so that if very few
     // people like your lemonade, you don't get very much popularity. If 1/2 of people like your
     // lemonade, then your popularity gain from this line will equal the number of customers
-    // who liked the lemonade after buying it.
-    newPopularity += (int) (3 * effectiveCustomers * portionWhoBought * (pow(portionWhoLiked, 2)));
+    // who liked the lemonade after buying it. It's also maxed at 70% popularity to limit
+    // explosive growth early.
+    newPopularity +=
+            (int) (3 * effectiveCustomers * portionWhoBought * (pow(MIN(.7, portionWhoLiked), 2)));
     
     
     // If the resulting popularity is negative, set it to 0.
@@ -520,8 +522,8 @@
 }
 
 - (bool) isPerfectBadges:(NSMutableDictionary*)badges {
-    int threesAllowed = 8;
-    int negativeOnesAllowed = 7;
+    int threesAllowed = 7;
+    int negativeOnesAllowed = 8;
     int zeroesAllowed = 1;
     
     for (NSNumber* value in [badges allValues]) {
