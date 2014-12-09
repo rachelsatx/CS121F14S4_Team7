@@ -91,7 +91,7 @@
 
 - (void)addInstructions
 {
-    NSString* instructionsText = @" We need to thank the NSF for making this game possible. \n \n Team members: \n Jonathan Finnell \n Amit Maor \n Joshua Petrack \n Megan Shao \n Rachel Gale Wilson \n \n Created for CS121 at Harvey Mudd College.";
+    NSString* instructionsText = @" We need to thank the NSF for making this game possible. This game was developed as part of the Games Network, funded by NSF grant #1042472.\n\nTeam members:\nJonathan Finnell\nAmit Maor\nJoshua Petrack\nMegan Shao\nRachel Gale Wilson\n\nCreated for CS121 at Harvey Mudd College.";
     
     // Create Text box with instructions
     CGRect instructionsFrame = CGRectMake(instructionsBorderThickness,

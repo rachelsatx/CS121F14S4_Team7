@@ -29,7 +29,6 @@
     [self.view bringSubviewToFront:_goToPreDayButton];
     [self.view bringSubviewToFront:_quitGameButton];
     [self save];
-
 }
 
 - (void)setDataStore:(DataStore *) dataStore
@@ -64,6 +63,7 @@
             NSError *error;
             [json writeToFile:savePath options:kNilOptions error:&error];
         }
+        
     }
 }
 
